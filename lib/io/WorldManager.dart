@@ -1,0 +1,51 @@
+import 'package:oxygen/oxygen.dart';
+import '../components/EyuunComponent.dart';
+
+typedef FuncEyuunComponentAdder<T1 extends EyuunComponent<T2>, T2> = void Function(Entity entity);
+typedef FuncEyuunComponentChecker<T1 extends EyuunComponent<T2>, T2> = bool Function(Entity entity);
+typedef FuncEyuunComponentGetter<T1 extends EyuunComponent<T2>, T2> = T1? Function(Entity entity);
+
+//The worldManager is keeping track of registered Components in order to allow dynamic access to properties.
+//This is mainly used for IO, where you don't know the specifics of entites and need some abstraction.
+class WorldManager{
+  World world;
+  WorldManager(this.world);
+
+  Map<String, FuncEyuunComponentAdder> entityAdder = {};
+  Map<String, FuncEyuunComponentChecker> entityChecker = {};
+  Map<String, FuncEyuunComponentGetter> entityGetter = {};
+  Map<String, Type> components = {};
+
+  void registerComponent<T1 extends EyuunComponent<T2>, T2>(String propertyName, T1 Function() create){
+    world.registerComponent(create);
+    entityAdder[propertyName] = (Entity entity) => entity.add<T1, T2>();
+    entityChecker[propertyName] = (Entity entity) => entity.has<T1>();
+    entityGetter[propertyName] = (Entity entity) => entity.get<T1>();
+    components[propertyName] = T1;
+  }
+
+  void addComponentToEntity(String componentName, Entity entity) {
+    var func = entityAdder[componentName];
+    if(func != null) {
+      func(entity);
+    }
+  }
+
+  bool entityHasComponent(String propertyName, Entity entity) {
+    var check = entityChecker[propertyName];
+    if(check != null) {
+      return check(entity);
+    }
+    return false;
+  }
+
+  EyuunComponent? getComponentFromEntity(String propertyName, Entity entity) {
+    var getter = entityGetter[propertyName];
+    if(getter != null) {
+      return getter(entity);
+    }
+    return null;
+  }
+
+  Iterable<String> allComponentTypes() => components.keys;
+}
