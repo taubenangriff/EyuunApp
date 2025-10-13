@@ -6,23 +6,15 @@ import 'package:flexbackend/io/TextRepository.dart';
 import 'package:flexbackend/io/WorldManager.dart';
 import 'package:flexbackend/io/assetloader.dart';
 import 'package:flutter/material.dart';
-import 'package:open_file_plus/open_file_plus.dart';
 import 'package:oxygen/oxygen.dart';
-import 'package:path_provider/path_provider.dart';
 
 import 'dart:convert';
-import 'dart:io';
+import 'main.reflectable.dart';
+import 'package:flexbackend/reflection/Reflector.dart';
 
 import 'dart:html' as html;
 
-void downloadConfig(String data) {
-  final blob = html.Blob([data]);
-  final url = html.Url.createObjectUrlFromBlob(blob);
-  final anchor = html.AnchorElement(href: url)
-    ..setAttribute('download', 'config.json')
-    ..click();
-  html.Url.revokeObjectUrl(url);
-}
+const reflector = Reflector();
 
 final TextRepository texts = TextRepository();
 
@@ -32,7 +24,19 @@ late final AssetLoader assetLoader;
 
 late Entity character;
 
+//Some code to just download the character as json
+void downloadConfig(String data) {
+  final blob = html.Blob([data]);
+  final url = html.Url.createObjectUrlFromBlob(blob);
+  final anchor = html.AnchorElement(href: url)
+    ..setAttribute('download', 'config.json')
+    ..click();
+  html.Url.revokeObjectUrl(url);
+}
+
 void main() {
+  initializeReflectable();
+
   runApp(const MyApp());
 
   worldManager = WorldManager(world);
