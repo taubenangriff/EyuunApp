@@ -133,12 +133,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   DataColumn(label: Text('Stat')),
                   DataColumn(label: Text('Value')),
               ],
-              rows: stats.statValues.entries.map((entry) {
-                var stat = assetLoader.createInstance(entry.key);
+              rows: stats.statValues.map((entry) {
                 return DataRow(cells: [
                   //TODO get asset from key -> get text of that asset
-                  DataCell(Text(TextRepository.instance.getText(stat?.get<TextComponent>()?.textKey ?? "notext"))),
-                  DataCell(Text(entry.value.toString())),
+                  DataCell(Text(TextRepository.instance.getText(assetLoader.getTextKey(entry.stat)))),
+                  DataCell(Text(entry.dice.toString())),
                 ]);
               }).toList(),
             )

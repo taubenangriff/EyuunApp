@@ -1,11 +1,19 @@
 import 'package:flexbackend/components/EyuunComponent.dart';
 
-enum BasicStat { courage, intelligence, intuition, charisma, dexterity, agility, constitution, strength }
+import '../enums/dice.dart';
+
+class BasicStatEntry {
+  late String stat;
+  late int dice;
+
+  BasicStatEntry();
+  BasicStatEntry.from(this.stat, this.dice);
+}
 
 class BasicStatsComponent extends EyuunComponent<int> {
   static const String propertyName = "basicStats";
 
-  late Map<String, int> statValues;
+  late List<BasicStatEntry> statValues;
 
   @override
   void applyValues(Map<String, dynamic> valueMap) {
@@ -13,10 +21,10 @@ class BasicStatsComponent extends EyuunComponent<int> {
     Map<String, dynamic> persistedStatValues = valueMap['statValues'];
 
     for(var key in persistedStatValues.keys) {
-      if(!statValues.containsKey(key)) {
+      if(!statValues.any((x) => x.stat == key)) {
         continue;
       }
-      statValues[key] = persistedStatValues[key];
+      statValues.firstWhere((x) => x.stat == key).dice = persistedStatValues[key] as int;
     }
   }
 
@@ -30,7 +38,7 @@ class BasicStatsComponent extends EyuunComponent<int> {
 
   @override
   void reset() {
-    statValues = {};
+    statValues = [];
   }
 
   @override

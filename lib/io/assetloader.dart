@@ -16,9 +16,10 @@ class AssetLoader {
   AssetLoader(this.worldManager);
 
   Map<String, Map<String, dynamic>> assets = {};
+  Map<String, String> textKeys = {};
 
   /*
-    Creates a new Entity instance of typeId with objectId as it's ID.
+    Creates our test character that isn't loaded from anywhere.
    */
   Entity createTestEntity(String objectId, String typeId) {
     var entity = worldManager.world.createEntity();
@@ -39,8 +40,8 @@ class AssetLoader {
     health?.maxShield = 8;
 
     var baseStats = entity.get<BasicStatsComponent>();
-    baseStats?.statValues['baseSkill_Courage'] = 5;
-    baseStats?.statValues['baseSkill_Intelligence'] = 7;
+    baseStats?.statValues.add(BasicStatEntry.from('baseSkill_Courage', 5));
+    baseStats?.statValues.add(BasicStatEntry.from('baseSkill_Intelligence', 9));
 
     return entity;
   }
@@ -76,15 +77,26 @@ class AssetLoader {
     var assetArray = data['assets'];
     for(var asset in assetArray) {
       //we want var typeId = asset['standard']['typeId'] but in safe.
-      var standard = asset['standard'] as Map<String, dynamic>?;
-      if(standard == null) {
-        continue;
-      }
-      var typeId = standard['typeId'] as String?;
+      var typeId = asset['standard']['typeId'] as String?;
       if(typeId == null) {
         continue;
       }
+
+      //grab the text as static data
+      var text = asset['text']['textKey'] as String?;
+      if(text is String){
+        textKeys[typeId] = text;
+      }
+
+      //register asset
       assets[typeId] = asset as Map<String, dynamic>;
     }
+  }
+
+  String getTextKey(String typeId){
+    if(textKeys.containsKey(typeId)){
+      return textKeys[typeId] as String;
+    }
+    return typeId;
   }
 }
