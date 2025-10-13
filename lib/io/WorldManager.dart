@@ -39,6 +39,8 @@ class WorldManager{
     return false;
   }
 
+  bool isValidComponentName(String componentName) => components.containsKey(componentName);
+
   EyuunComponent? getComponentFromEntity(String propertyName, Entity entity) {
     var getter = entityGetter[propertyName];
     if(getter != null) {

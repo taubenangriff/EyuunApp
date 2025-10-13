@@ -1,22 +1,27 @@
+import 'dart:convert';
+
 import 'package:flexbackend/components/EyuunComponent.dart';
 import 'package:flexbackend/components/standard.dart';
+import 'package:flutter/services.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../components/BasicStats.dart';
 import '../components/health.dart';
+import 'WorldManager.dart';
 
+String assetFile = "data/base/asset/assets.json";
 
 class AssetLoader {
-  World world;
-  AssetLoader(this.world);
+  WorldManager worldManager;
+  AssetLoader(this.worldManager);
 
-  Map<String, Entity> assets = {};
+  Map<String, Map<String, dynamic>> assets = {};
 
   /*
     Creates a new Entity instance of typeId with objectId as it's ID.
    */
-  Entity createInstance(String objectId, String typeId) {
-    var entity = world.createEntity();
+  Entity createTestEntity(String objectId, String typeId) {
+    var entity = worldManager.world.createEntity();
     entity
         ..add<StandardComponent, String>(objectId)
         ..add<HealthComponent, int>()
@@ -44,5 +49,47 @@ class AssetLoader {
     baseStats?.statValues[BasicStat.strength] = 13;
 
     return entity;
+  }
+
+  Entity? createInstance(String typeId)
+  {
+    if(!assets.containsKey(typeId)) {
+      return null;
+    }
+    var asset = assets[typeId];
+    if(asset == null) {
+      return null;
+    }
+    var entity = worldManager.world.createEntity();
+
+    for (var key in asset.keys) {
+      if(!worldManager.isValidComponentName(key)){
+        continue;
+      }
+      worldManager.addComponentToEntity(key, entity);
+    }
+
+    return entity;
+  }
+
+  Future<void> reloadAssets()
+  async {
+    assets.clear();
+    final String response = await rootBundle.loadString(assetFile);
+    Map<String, dynamic> data = await json.decode(response);
+
+    var assetArray = data['assets'];
+    for(var asset in assetArray) {
+      //we want var typeId = asset['standard']['typeId'] but in safe.
+      var standard = asset['standard'] as Map<String, dynamic>?;
+      if(standard == null) {
+        continue;
+      }
+      var typeId = standard['typeId'] as String?;
+      if(typeId == null) {
+        continue;
+      }
+      assets[typeId] = asset as Map<String, dynamic>;
+    }
   }
 }

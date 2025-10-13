@@ -46,6 +46,9 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  assets:
+    - data/base/asset/assets.json
+
   # To add Flutter specific assets to your application, add an assets section,
   # like this:
   # assets:

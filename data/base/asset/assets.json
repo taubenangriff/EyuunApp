@@ -1,0 +1,43 @@
+{
+  "assets" : [
+    {
+      "standard": {
+        "typeId": "character",
+        "internalName": "Human Player Character"
+      },
+      "health": {
+        "maxHitpoints": 40,
+        "maxShield": 8,
+        "maxDeathThrows": 3
+      },
+      "basicStats": { }
+    },
+    {
+      "standard": {
+        "typeId": "talent_athletic",
+        "internalName": "Talent: Athletic"
+      },
+      "text": {
+        "textKey": "text_athletic"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "talent_sneaky",
+        "internalName": "Talent: Sneaking"
+      },
+      "text": {
+        "textKey": "text_sneaky"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "baseSkill_Courage",
+        "internalName": "Base Skill: Courage"
+      },
+      "text": {
+        "textKey": "text_courage"
+      }
+    }
+  ]
+}

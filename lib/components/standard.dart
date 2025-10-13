@@ -13,10 +13,7 @@ class StandardComponent extends EyuunComponent<String> {
 
   @override
   void init([String? objectId]) {
-    if(objectId == null) {
-      throw ArgumentError("Cannot initialize a Standard component with Null ID");
-    }
-    this.objectId = objectId!;
+    this.objectId = objectId ?? "Noid";
   }
 
   @override

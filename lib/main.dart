@@ -37,7 +37,6 @@ void downloadConfig(String data) {
 void main() {
   initializeReflectable();
 
-  runApp(const MyApp());
 
   worldManager = WorldManager(world);
   worldManager.registerComponent<StandardComponent, String>(StandardComponent.propertyName, () => StandardComponent());
@@ -45,8 +44,17 @@ void main() {
   worldManager.registerComponent<BasicStatsComponent, int>(BasicStatsComponent.propertyName, () => BasicStatsComponent());
   world.init();
 
-  assetLoader = AssetLoader(world);
-  character = assetLoader.createInstance("testObject", "type");
+  assetLoader = AssetLoader(worldManager);
+  character = assetLoader.createTestEntity("testObject", "type");
+
+  Entity? ente = null;
+
+  Future(() async {
+    await assetLoader.reloadAssets();
+    ente = assetLoader.createInstance('character');
+  });
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
