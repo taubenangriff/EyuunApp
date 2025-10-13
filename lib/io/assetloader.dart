@@ -39,18 +39,13 @@ class AssetLoader {
     health?.maxShield = 8;
 
     var baseStats = entity.get<BasicStatsComponent>();
-    baseStats?.statValues[BasicStat.courage] = 5;
-    baseStats?.statValues[BasicStat.intelligence] = 7;
-    baseStats?.statValues[BasicStat.intuition] = 14;
-    baseStats?.statValues[BasicStat.charisma] = 9;
-    baseStats?.statValues[BasicStat.dexterity] = 10;
-    baseStats?.statValues[BasicStat.agility] = 12;
-    baseStats?.statValues[BasicStat.constitution] = 10;
-    baseStats?.statValues[BasicStat.strength] = 13;
+    baseStats?.statValues['baseSkill_Courage'] = 5;
+    baseStats?.statValues['baseSkill_Intelligence'] = 7;
 
     return entity;
   }
 
+  //TODO add data loading as well. Right now, the only thing this does is create an empty entity with empty instances of the components defined by the asset.
   Entity? createInstance(String typeId)
   {
     if(!assets.containsKey(typeId)) {

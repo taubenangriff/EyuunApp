@@ -1,6 +1,7 @@
 import 'package:flexbackend/components/BasicStats.dart';
 import 'package:flexbackend/components/health.dart';
 import 'package:flexbackend/components/standard.dart';
+import 'package:flexbackend/components/text.dart';
 import 'package:flexbackend/io/AssetSerializer.dart';
 import 'package:flexbackend/io/TextRepository.dart';
 import 'package:flexbackend/io/WorldManager.dart';
@@ -133,8 +134,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   DataColumn(label: Text('Value')),
               ],
               rows: stats.statValues.entries.map((entry) {
+                var stat = assetLoader.createInstance(entry.key);
                 return DataRow(cells: [
-                  DataCell(Text(entry.key.name)),
+                  //TODO get asset from key -> get text of that asset
+                  DataCell(Text(TextRepository.instance.getText(stat?.get<TextComponent>()?.textKey ?? "notext"))),
                   DataCell(Text(entry.value.toString())),
                 ]);
               }).toList(),

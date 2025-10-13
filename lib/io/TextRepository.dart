@@ -1,8 +1,10 @@
 class TextRepository {
   static const Map<String, String> _texts = {
-    "Text_Courage" : "Courage",
-    "Text_Intelligence" : "Intelligence"
+    "text_courage" : "Courage",
+    "text_intelligence" : "Intelligence"
   };
+
+  static late TextRepository instance = TextRepository();
 
   String getText(String key)
   {

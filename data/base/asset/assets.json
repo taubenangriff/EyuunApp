@@ -10,7 +10,16 @@
         "maxShield": 8,
         "maxDeathThrows": 3
       },
-      "basicStats": { }
+      "basicStats": {
+        "stats": [
+          {
+            "stat": "baseSkill_Courage"
+          },
+          {
+            "stat": "baseSkill_Intelligence"
+          }
+        ]
+      }
     },
     {
       "standard": {
@@ -19,6 +28,9 @@
       },
       "text": {
         "textKey": "text_athletic"
+      },
+      "stat": {
+        "constrainedBy": []
       }
     },
     {
@@ -28,6 +40,9 @@
       },
       "text": {
         "textKey": "text_sneaky"
+      },
+      "stat": {
+        "constrainedBy": []
       }
     },
     {
@@ -37,6 +52,21 @@
       },
       "text": {
         "textKey": "text_courage"
+      },
+      "stat": {
+        "constrainedBy": []
+      }
+    },
+    {
+      "standard": {
+        "typeId": "baseSkill_Intelligence",
+        "internalName": "Base Skill: Intelligence"
+      },
+      "text": {
+        "textKey": "text_intelligence"
+      },
+      "stat": {
+        "constrainedBy": []
       }
     }
   ]
