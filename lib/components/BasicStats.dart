@@ -8,6 +8,13 @@ class BasicStatEntry {
 
   BasicStatEntry();
   BasicStatEntry.from(this.stat, this.dice);
+
+  Map<String, dynamic> toJSON() {
+    return {
+      'stat' : stat,
+      'dice' : dice
+    };
+  }
 }
 
 class BasicStatsComponent extends EyuunComponent<int> {
@@ -44,7 +51,7 @@ class BasicStatsComponent extends EyuunComponent<int> {
   @override
   Map<String, dynamic> persist() {
     return {
-      'stats': statValues
+      'stats': statValues.map((e) => e.toJSON()).toList()
     };
   }
 
