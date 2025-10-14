@@ -1,7 +1,5 @@
 import 'package:flexbackend/components/EyuunComponent.dart';
 
-import '../enums/dice.dart';
-
 class BasicStatEntry {
   late String stat;
   late int dice;
@@ -21,6 +19,10 @@ class BasicStatsComponent extends EyuunComponent<int> {
   static const String propertyName = "basicStats";
 
   late List<BasicStatEntry> statValues;
+
+  BasicStatEntry? getStatEntry(String basicStatName){
+    return statValues.firstWhere((e) => e.stat == basicStatName, orElse: null);
+  }
 
   @override
   void applyValues(Map<String, dynamic> valueMap) {

@@ -1,7 +1,7 @@
 import 'package:flexbackend/components/BasicStats.dart';
 import 'package:flexbackend/components/health.dart';
 import 'package:flexbackend/components/standard.dart';
-import 'package:flexbackend/components/text.dart';
+import 'package:flexbackend/controller/BasicStatsController.dart';
 import 'package:flexbackend/io/AssetSerializer.dart';
 import 'package:flexbackend/io/TextRepository.dart';
 import 'package:flexbackend/io/WorldManager.dart';
@@ -102,6 +102,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  BasicStatsController statsController = BasicStatsController(worldManager, assetLoader);
+
   void _downloadChar() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -128,16 +130,24 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            DataTable(
-              columns: const <DataColumn>[
-                  DataColumn(label: Text('Stat')),
-                  DataColumn(label: Text('Value')),
-              ],
-              rows: stats.statValues.map((entry) {
-                return DataRow(cells: [
+            Table(
+              border: TableBorder.all(),
+              columnWidths: const <int, TableColumnWidth>{
+                0: FixedColumnWidth(200),
+                1: FixedColumnWidth(200),
+                2: FixedColumnWidth(200)
+              },
+              children: stats.statValues.map((entry) {
+                return TableRow(children: [
                   //TODO get asset from key -> get text of that asset
-                  DataCell(Text(TextRepository.instance.getText(assetLoader.getTextKey(entry.stat)))),
-                  DataCell(Text(entry.dice.toString())),
+                  Text(TextRepository.instance.getText(assetLoader.getTextKey(entry.stat))),
+                  Text(entry.dice.toString()),
+                  FloatingActionButton(onPressed: () {
+                    setState(() {
+                      statsController.increaseDice(character, entry.stat);
+                    });
+                  },
+                  child: Text("increase (mod15)"),)
                 ]);
               }).toList(),
             )

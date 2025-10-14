@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flexbackend/components/EyuunComponent.dart';
 import 'package:flexbackend/components/standard.dart';
 import 'package:flutter/services.dart';
 import 'package:oxygen/oxygen.dart';
@@ -83,7 +82,7 @@ class AssetLoader {
       }
 
       //grab the text as static data
-      var text = asset['text']['textKey'] as String?;
+      var text = asset?['text']?['textKey'] as String?;
       if(text is String){
         textKeys[typeId] = text;
       }

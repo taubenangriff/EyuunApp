@@ -1,5 +1,3 @@
-import 'package:oxygen/oxygen.dart';
-
 import 'EyuunComponent.dart';
 
 class StandardComponent extends EyuunComponent<String> {
