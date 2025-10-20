@@ -30,6 +30,12 @@
 ### Load 
 - entities are loaded from the asset file, where the static asset data is defined.
 - loading of dynamic data is using with the `loadDynamicData` method of components.
+- although not implemented, loading of dynamic data will be going like this: 
+```
+for key in dynamic_data_map 
+    if entity has component with key 
+        load dynamic_data_map[key] into component
+```
 ### Save 
 - we can save the dynamic data of the character. There is the AssetSerializer for this which works with any component, and on a component level using the `saveDynamicData` method.
 
