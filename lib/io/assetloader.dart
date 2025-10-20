@@ -1,12 +1,8 @@
 import 'dart:convert';
 
-import 'package:flexbackend/components/standard.dart';
 import 'package:flexbackend/components/text.dart';
 import 'package:flutter/services.dart';
 import 'package:oxygen/oxygen.dart';
-
-import '../components/BasicStats.dart';
-import '../components/health.dart';
 import 'WorldManager.dart';
 
 String assetFile = "data/base/asset/assets.json";
@@ -20,34 +16,6 @@ class AssetLoader {
   Map<String, String> textKeys = {};
 
   Map<String, Entity> staticAssets = {};
-
-  /*
-    Creates our test character that isn't loaded from anywhere.
-   */
-  Entity createTestEntity(String objectId, String typeId) {
-    var entity = worldManager.world.createEntity();
-    entity
-        ..add<StandardComponent, String>(objectId)
-        ..add<HealthComponent, int>()
-        ..add<BasicStatsComponent, int>();
-
-    var standard = entity.get<StandardComponent>();
-    standard?.typeId = typeId;
-    standard?.comment = "NoComment";
-    standard?.internalName = "TestAsset";
-
-    var health = entity.get<HealthComponent>();
-    health?.maxHitpoints = 30;
-    health?.hitpoints = health!.maxHitpoints;
-    health?.maxDeathThrows = 3;
-    health?.maxShield = 8;
-
-    var baseStats = entity.get<BasicStatsComponent>();
-    baseStats?.statValues.add(BasicStatEntry('baseSkill_Courage', 5));
-    baseStats?.statValues.add(BasicStatEntry('baseSkill_Intelligence', 9));
-
-    return entity;
-  }
 
   Entity? createInstance(String typeId) {
     if(!isValidDefinition(typeId)) {

@@ -19,7 +19,22 @@
             "stat": "baseSkill_Intelligence"
           },
           {
+            "stat": "baseSkill_Intuition"
+          },
+          {
+            "stat": "baseSkill_Charisma"
+          },
+          {
             "stat": "baseSkill_Dexterity"
+          },
+          {
+            "stat": "baseSkill_Agility"
+          },
+          {
+            "stat": "baseSkill_Constitution"
+          },
+          {
+            "stat": "baseSkill_Strength"
           }
         ]
       }
@@ -53,9 +68,7 @@
         "typeId": "baseSkill_Courage",
         "internalName": "Base Skill: Courage"
       },
-      "text": {
-        "textKey": "text_courage"
-      },
+      "text": { },
       "stat": {
         "constrainedBy": []
       }
@@ -65,9 +78,27 @@
         "typeId": "baseSkill_Intelligence",
         "internalName": "Base Skill: Intelligence"
       },
-      "text": {
-        "textKey": "text_intelligence"
+      "text": { },
+      "stat": {
+        "constrainedBy": []
+      }
+    },
+    {
+      "standard": {
+        "typeId": "baseSkill_Intuition",
+        "internalName": "Base Skill: Intuition"
       },
+      "text": { },
+      "stat": {
+        "constrainedBy": []
+      }
+    },
+    {
+      "standard": {
+        "typeId": "baseSkill_Charisma",
+        "internalName": "Base Skill: Charisma"
+      },
+      "text": { },
       "stat": {
         "constrainedBy": []
       }
@@ -77,12 +108,46 @@
         "typeId": "baseSkill_Dexterity",
         "internalName": "Base Skill: Dexterity"
       },
-      "text": {
-        "textKey": "text_intelligence"
-      },
+      "text": { },
       "stat": {
         "constrainedBy": []
       }
+    },
+    {
+      "standard": {
+        "typeId": "baseSkill_Agility",
+        "internalName": "Base Skill: Agility"
+      },
+      "text": { },
+      "stat": {
+        "constrainedBy": []
+      }
+    },
+    {
+      "standard": {
+        "typeId": "baseSkill_Constitution",
+        "internalName": "Base Skill: Constitution"
+      },
+      "text": { },
+      "stat": {
+        "constrainedBy": []
+      }
+    },
+    {
+      "standard": {
+        "typeId": "baseSkill_Strength",
+        "internalName": "Base Skill: Strength"
+      },
+      "text": { },
+      "stat": {
+        "constrainedBy": []
+      }
+    },
+    {
+      "standard": {
+        "typeId": "text_increase"
+      },
+      "text": { }
     }
   ]
 }

@@ -1,9 +1,10 @@
 # eyuun ecs demo 
 
-## Building 
+## Development 
 
 - clone the repo 
 - run `dart run build_runner build` to rebuild all the mapping classes that are used for data IO.
+- build 
 
 ## Assets 
 ### Asset Structure
@@ -22,18 +23,18 @@
 - dynamic data is persisted "elsewhere"
 
 ## IO 
-### Load 
-- entities are loaded from the asset file, however instead of real data being present, it just loads the right empty components. 
-- loading of dynamic data is using with the applyValues method of components, however this is only implemented at component level with no actual dataloader being present.
-### Save 
-- we can save the dynamic data of the character. There is the AssetSerializer for this which works with any component, and on a component level using the persist method.
+### dart_mappable 
+- I used dart_mappable to easily create some mappable classes for the dynamic and static data parts. 
+- Yes, this means code duplication of nearly all properties and some manual mapping again, but as flutter is lacking proper reflection, this is even one of the more concise ways to do it...
 
-### Next steps
-- I guess instead of all the manual json export code, it'd be advisable to use https://pub.dev/documentation/dart_mappable as a base to map static and dynamic data and then just flat out export the thing.
+### Load 
+- entities are loaded from the asset file, where the static asset data is defined.
+- loading of dynamic data is using with the `loadDynamicData` method of components.
+### Save 
+- we can save the dynamic data of the character. There is the AssetSerializer for this which works with any component, and on a component level using the `saveDynamicData` method.
 
 ## Accessing things 
-- create entities and manipulate their component structure with the worldManager
-- access the static asset library using the assetLoader 
+- every singleton has a static `instance`. tldr, don't use `WorldManager().doShit()`, use `WorldManager.instance.doShit()`
+- create entities and manipulate their component structure with the WorldManager
+- access the static asset library using the AssetLoader 
 - access the text library using the TextRepository
-
-## 

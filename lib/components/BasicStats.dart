@@ -1,6 +1,8 @@
 import 'package:flexbackend/components/EyuunComponent.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
+import '../enums/dice.dart';
+
 part 'BasicStats.mapper.dart';
 
 @MappableClass()
@@ -18,7 +20,7 @@ class BasicStatsStatic with BasicStatsStaticMappable {
 @MappableClass()
 class BasicStatEntry with BasicStatEntryMappable {
   String stat;
-  int dice;
+  Dice dice;
 
   BasicStatEntry(this.stat, this.dice);
 }
@@ -65,7 +67,7 @@ class BasicStatsComponent extends EyuunComponent<int> {
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = BasicStatsStaticMapper.fromMap(staticData);
-    statValues = stat.statValues.map((e) => BasicStatEntry(e.stat, 0)).toList();
+    statValues = stat.statValues.map((e) => BasicStatEntry(e.stat, Dice.d4)).toList();
   }
 
 }

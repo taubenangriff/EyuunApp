@@ -1,5 +1,3 @@
-import 'package:dart_mappable/dart_mappable.dart';
-
 import 'EyuunComponent.dart';
 
 class TextComponent extends EyuunComponent<String> {
@@ -35,6 +33,6 @@ class TextComponent extends EyuunComponent<String> {
 
   @override
   Map<String, dynamic> saveDynamicData() {
-    return Map<String, dynamic>();
+    return <String, dynamic>{};
   }
 }

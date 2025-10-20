@@ -3,7 +3,6 @@ import 'package:flexbackend/components/health.dart';
 import 'package:flexbackend/components/standard.dart';
 import 'package:flexbackend/controller/BasicStatsController.dart';
 import 'package:flexbackend/io/AssetSerializer.dart';
-import 'package:flexbackend/io/TextRepository.dart';
 import 'package:flexbackend/io/WorldManager.dart';
 import 'package:flexbackend/io/assetloader.dart';
 import 'package:flutter/material.dart';
@@ -130,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       statsController.increaseDice(character, entry.stat);
                     });
                   },
-                  child: Text("increase (mod15)"),)
+                  child: Text(TextHelper.getText("text_increase")))
                 ]);
               }).toList(),
             )

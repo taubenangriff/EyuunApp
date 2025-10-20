@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flexbackend/components/BasicStats.dart';
 import 'package:flexbackend/io/WorldManager.dart';
 import 'package:flexbackend/io/assetloader.dart';
 import 'package:oxygen/oxygen.dart';
+import 'package:flexbackend/enums/dice.dart';
 
 class BasicStatsController{
 
@@ -18,7 +21,8 @@ class BasicStatsController{
     }
 
     var basicStats = entity.get<BasicStatsComponent>()!;
-    basicStats.getStatEntry(statId)?.dice += 1;
-    basicStats.getStatEntry(statId)?.dice %= 15;
+    var random = Random.secure().nextInt(Dice.values.length);
+    var newDice = Dice.values[random];
+    basicStats.getStatEntry(statId)?.dice = newDice;
   }
 }

@@ -1,7 +1,8 @@
 class TextRepository {
   static const Map<String, String> _texts = {
     "baseSkill_Courage" : "Mut",
-    "baseSkill_Intelligence" : "Intelligenz"
+    "baseSkill_Intelligence" : "Intelligenz",
+    "text_increase": "Randomize"
   };
 
   static TextRepository instance = TextRepository();

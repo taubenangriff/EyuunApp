@@ -18,7 +18,7 @@ class AssetSerializer{
       if(worldManager.entityHasComponent(componentType, entity)){
         var component = worldManager.getComponentFromEntity(componentType, entity);
         var submap = component!.saveDynamicData();
-        entityMap[component!.getName()] = submap;
+        entityMap[component.getName()] = submap;
       }
     }
 
