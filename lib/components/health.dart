@@ -1,4 +1,25 @@
+import 'package:dart_mappable/dart_mappable.dart';
+
 import 'EyuunComponent.dart';
+part 'health.mapper.dart';
+
+@MappableClass()
+class HealthDynamic with HealthDynamicMappable {
+  int hitpoints;
+  int shield;
+  int deathThrows;
+
+  HealthDynamic(this.hitpoints, this.shield, this.deathThrows);
+}
+
+@MappableClass()
+class HealthStatic with HealthStaticMappable {
+  int maxHitpoints;
+  int maxShield;
+  int maxDeathThrows;
+
+  HealthStatic(this.maxHitpoints, this.maxShield, this.maxDeathThrows);
+}
 
 class HealthComponent extends EyuunComponent<int> {
   static const int DEFAULT_HITPOINTS = 0;
@@ -36,28 +57,28 @@ class HealthComponent extends EyuunComponent<int> {
 
   bool isInDyingState() => hitpoints <= 0;
 
-  /* Serialization code to persist certain values that are unique to an entity rather than the asset type.
-   *
-   * Although honestly, this is just boilerplate that should be done by an external serializer instead.
-   * Unfortunately, flutter + reflection with dart:mirrors doesn't work.
-   *
-   */
-  @override
-  Map<String, dynamic> persist() {
-    return {
-      'hitpoints': hitpoints,
-      'shield': shield,
-      'deathThrows':deathThrows
-    };
-  }
-
-  @override
-  void applyValues(Map<String, dynamic> valueMap){
-    hitpoints = valueMap['hitpoints'];
-    shield = valueMap['shield'];
-    deathThrows = valueMap['deathThrows'];
-  }
-
   @override
   String getName() => propertyName;
+
+  @override
+  void loadDynamicData(Map<String, dynamic> dynamicData) {
+    var dyn = HealthDynamicMapper.fromMap(dynamicData);
+
+    hitpoints = dyn.hitpoints;
+    shield = dyn.shield;
+    deathThrows = dyn.deathThrows;
+  }
+
+  @override
+  void loadStaticData(Map<String, dynamic> staticData) {
+    var stat = HealthStaticMapper.fromMap(staticData);
+    maxHitpoints = stat.maxHitpoints;
+    maxShield = stat.maxShield;
+    maxDeathThrows = stat.maxDeathThrows;
+
+    hitpoints = maxHitpoints;
+  }
+
+  @override
+  Map<String, dynamic> saveDynamicData() => HealthDynamic(hitpoints, shield, deathThrows).toMap();
 }

@@ -1,4 +1,12 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flexbackend/components/EyuunComponent.dart';
+
+part 'inventory.mapper.dart';
+
+@MappableClass()
+class InventoryDynamic with InventoryDynamicMappable {
+
+}
 
 class InventoryComponent extends EyuunComponent<int> {
 
@@ -23,11 +31,6 @@ class InventoryComponent extends EyuunComponent<int> {
   }
 
   @override
-  void applyValues(Map<String, dynamic> valueMap) {
-    // TODO: implement applyValues
-  }
-
-  @override
   String getName() {
     // TODO: implement getName
     throw UnimplementedError();
@@ -37,16 +40,24 @@ class InventoryComponent extends EyuunComponent<int> {
   void init([int? data]) {
     // TODO: implement init
   }
-
-  @override
-  Map<String, dynamic> persist() {
-    // TODO: implement persist
-    throw UnimplementedError();
-  }
-
   @override
   void reset() {
     // TODO: implement reset
   }
 
+  @override
+  void loadDynamicData(Map<String, dynamic> dynamicData) {
+    // TODO: implement loadDynamicData
+  }
+
+  @override
+  void loadStaticData(Map<String, dynamic> staticData) {
+    // TODO: implement loadStaticData
+  }
+
+  @override
+  Map<String, dynamic> saveDynamicData() {
+    // TODO: implement saveDynamicData
+    throw UnimplementedError();
+  }
 }

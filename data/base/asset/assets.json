@@ -11,12 +11,15 @@
         "maxDeathThrows": 3
       },
       "basicStats": {
-        "stats": [
+        "statValues": [
           {
             "stat": "baseSkill_Courage"
           },
           {
             "stat": "baseSkill_Intelligence"
+          },
+          {
+            "stat": "baseSkill_Dexterity"
           }
         ]
       }
@@ -61,6 +64,18 @@
       "standard": {
         "typeId": "baseSkill_Intelligence",
         "internalName": "Base Skill: Intelligence"
+      },
+      "text": {
+        "textKey": "text_intelligence"
+      },
+      "stat": {
+        "constrainedBy": []
+      }
+    },
+    {
+      "standard": {
+        "typeId": "baseSkill_Dexterity",
+        "internalName": "Base Skill: Dexterity"
       },
       "text": {
         "textKey": "text_intelligence"

@@ -10,18 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
 import 'dart:convert';
-import 'main.reflectable.dart';
-import 'package:flexbackend/reflection/Reflector.dart';
 
 import 'dart:html' as html;
 
-const reflector = Reflector();
-
-final TextRepository texts = TextRepository();
-
-final world = World();
-late final WorldManager worldManager;
-late final AssetLoader assetLoader;
+import 'io/TextHelper.dart';
 
 late Entity character;
 
@@ -35,25 +27,17 @@ void downloadConfig(String data) {
   html.Url.revokeObjectUrl(url);
 }
 
-void main() {
-  initializeReflectable();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
+  WorldManager.instance.registerComponent<StandardComponent, String>(StandardComponent.propertyName, () => StandardComponent());
+  WorldManager.instance.registerComponent<HealthComponent, int>(HealthComponent.propertyName, () => HealthComponent());
+  WorldManager.instance.registerComponent<BasicStatsComponent, int>(BasicStatsComponent.propertyName, () => BasicStatsComponent());
+  WorldManager.instance.init();
 
-  worldManager = WorldManager(world);
-  worldManager.registerComponent<StandardComponent, String>(StandardComponent.propertyName, () => StandardComponent());
-  worldManager.registerComponent<HealthComponent, int>(HealthComponent.propertyName, () => HealthComponent());
-  worldManager.registerComponent<BasicStatsComponent, int>(BasicStatsComponent.propertyName, () => BasicStatsComponent());
-  world.init();
+  await AssetLoader.instance.reloadAssets();
 
-  assetLoader = AssetLoader(worldManager);
-  character = assetLoader.createTestEntity("testObject", "type");
-
-  Entity? ente = null;
-
-  Future(() async {
-    await assetLoader.reloadAssets();
-    ente = assetLoader.createInstance('character');
-  });
+  character = AssetLoader.instance.createInstance("character")!;
 
   runApp(const MyApp());
 }
@@ -102,7 +86,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  BasicStatsController statsController = BasicStatsController(worldManager, assetLoader);
+  BasicStatsController statsController = BasicStatsController(WorldManager.instance, AssetLoader.instance);
 
   void _downloadChar() {
     setState(() {
@@ -112,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
 
-      var charJson = json.encode(AssetSerializer(worldManager).serialize(character));
+      var charJson = json.encode(AssetSerializer().serialize(character));
       downloadConfig(charJson);
     });
   }
@@ -139,8 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               children: stats.statValues.map((entry) {
                 return TableRow(children: [
-                  //TODO get asset from key -> get text of that asset
-                  Text(TextRepository.instance.getText(assetLoader.getTextKey(entry.stat))),
+                  Text(TextHelper.getText(entry.stat)),
                   Text(entry.dice.toString()),
                   FloatingActionButton(onPressed: () {
                     setState(() {

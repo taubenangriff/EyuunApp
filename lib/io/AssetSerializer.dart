@@ -4,8 +4,7 @@ import 'WorldManager.dart';
 
 class AssetSerializer{
 
-  WorldManager worldManager;
-  AssetSerializer(this.worldManager);
+  WorldManager worldManager = WorldManager.instance;
 
   Map<String, dynamic> serialize(Entity entity) {
 
@@ -18,7 +17,7 @@ class AssetSerializer{
     for(var componentType in componentTypes) {
       if(worldManager.entityHasComponent(componentType, entity)){
         var component = worldManager.getComponentFromEntity(componentType, entity);
-        var submap = component!.persist();
+        var submap = component!.saveDynamicData();
         entityMap[component!.getName()] = submap;
       }
     }

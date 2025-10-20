@@ -1,5 +1,10 @@
 # eyuun ecs demo 
 
+## Building 
+
+- clone the repo 
+- run `dart run build_runner build` to rebuild all the mapping classes that are used for data IO.
+
 ## Assets 
 ### Asset Structure
 - Assets have two kinds of data, static and dynamic

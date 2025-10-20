@@ -1,33 +1,40 @@
+import 'package:dart_mappable/dart_mappable.dart';
+
 import 'EyuunComponent.dart';
 
 class TextComponent extends EyuunComponent<String> {
   static String propertyName = "text";
 
-  String? textKey;
+  String? textOverride;
   String? fluff;
 
   @override
   void init([String? textKey, String? fluff]) {
-    this.textKey = textKey;
+    this.textOverride = textKey;
     this.fluff = fluff;
   }
 
   @override
   void reset() {
-    textKey = "";
+    textOverride = "";
     fluff = "";
   }
 
   @override
-  void applyValues(Map<String, dynamic> json) {
-    // TODO: implement applyValues
+  String getName() => propertyName;
+
+  @override
+  void loadDynamicData(Map<String, dynamic> dynamicData) {
+    // TODO: implement loadDynamicData
   }
 
   @override
-  Map<String, dynamic> persist() {
-    // TODO: implement persist
-    throw UnimplementedError();
+  void loadStaticData(Map<String, dynamic> staticData) {
+    // TODO: implement loadStaticData
   }
+
   @override
-  String getName() => propertyName;
+  Map<String, dynamic> saveDynamicData() {
+    return Map<String, dynamic>();
+  }
 }

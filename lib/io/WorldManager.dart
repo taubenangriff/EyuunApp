@@ -8,8 +8,10 @@ typedef FuncEyuunComponentGetter<T1 extends EyuunComponent<T2>, T2> = T1? Functi
 //The worldManager is keeping track of registered Components in order to allow dynamic access to properties.
 //This is mainly used for IO, where you don't know the specifics of entites and need some abstraction.
 class WorldManager{
-  World world;
-  WorldManager(this.world);
+  World world = World();
+  World staticWorld = World();
+
+  static WorldManager instance = WorldManager();
 
   Map<String, FuncEyuunComponentAdder> entityAdder = {};
   Map<String, FuncEyuunComponentChecker> entityChecker = {};
@@ -18,6 +20,7 @@ class WorldManager{
 
   void registerComponent<T1 extends EyuunComponent<T2>, T2>(String propertyName, T1 Function() create){
     world.registerComponent(create);
+    staticWorld.registerComponent(create);
     entityAdder[propertyName] = (Entity entity) => entity.add<T1, T2>();
     entityChecker[propertyName] = (Entity entity) => entity.has<T1>();
     entityGetter[propertyName] = (Entity entity) => entity.get<T1>();
@@ -47,6 +50,12 @@ class WorldManager{
       return getter(entity);
     }
     return null;
+  }
+
+  void init()
+  {
+    world.init();
+    staticWorld.init();
   }
 
   Iterable<String> allComponentTypes() => components.keys;

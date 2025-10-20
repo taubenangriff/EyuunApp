@@ -1,18 +1,32 @@
 import 'package:flexbackend/components/EyuunComponent.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-class BasicStatEntry {
-  late String stat;
-  late int dice;
+part 'BasicStats.mapper.dart';
 
-  BasicStatEntry();
-  BasicStatEntry.from(this.stat, this.dice);
+@MappableClass()
+class BasicStatsDynamic with BasicStatsDynamicMappable {
+  List<BasicStatEntry> statValues;
+  BasicStatsDynamic(this.statValues);
+}
 
-  Map<String, dynamic> toJSON() {
-    return {
-      'stat' : stat,
-      'dice' : dice
-    };
-  }
+@MappableClass()
+class BasicStatsStatic with BasicStatsStaticMappable {
+  List<BasicStatEntryStatic> statValues;
+  BasicStatsStatic(this.statValues);
+}
+
+@MappableClass()
+class BasicStatEntry with BasicStatEntryMappable {
+  String stat;
+  int dice;
+
+  BasicStatEntry(this.stat, this.dice);
+}
+
+@MappableClass()
+class BasicStatEntryStatic with BasicStatEntryStaticMappable{
+  String stat;
+  BasicStatEntryStatic(this.stat);
 }
 
 class BasicStatsComponent extends EyuunComponent<int> {
@@ -22,19 +36,6 @@ class BasicStatsComponent extends EyuunComponent<int> {
 
   BasicStatEntry? getStatEntry(String basicStatName){
     return statValues.firstWhere((e) => e.stat == basicStatName, orElse: null);
-  }
-
-  @override
-  void applyValues(Map<String, dynamic> valueMap) {
-    //only apply the values that are loaded into the map from the asset itself.
-    Map<String, dynamic> persistedStatValues = valueMap['statValues'];
-
-    for(var key in persistedStatValues.keys) {
-      if(!statValues.any((x) => x.stat == key)) {
-        continue;
-      }
-      statValues.firstWhere((x) => x.stat == key).dice = persistedStatValues[key] as int;
-    }
   }
 
   @override
@@ -51,10 +52,20 @@ class BasicStatsComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> persist() {
-    return {
-      'stats': statValues.map((e) => e.toJSON()).toList()
-    };
+  Map<String, dynamic> saveDynamicData() {
+    return BasicStatsDynamic(statValues).toMap();
+  }
+
+  @override
+  void loadDynamicData(Map<String, dynamic> dynamicData) {
+    var dyn = BasicStatsDynamicMapper.fromMap(dynamicData);
+    statValues = dyn.statValues;
+  }
+
+  @override
+  void loadStaticData(Map<String, dynamic> staticData) {
+    var stat = BasicStatsStaticMapper.fromMap(staticData);
+    statValues = stat.statValues.map((e) => BasicStatEntry(e.stat, 0)).toList();
   }
 
 }

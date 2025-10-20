@@ -1,5 +1,28 @@
 import 'EyuunComponent.dart';
 
+import 'package:dart_mappable/dart_mappable.dart';
+
+part 'standard.mapper.dart';
+
+@MappableClass()
+class StandardStatic with StandardStaticMappable {
+  final String typeId;
+  final String? internalName;
+  final String? comment;
+
+  StandardStatic(this.typeId, this.internalName, this.comment);
+
+  static const fromMap = StandardStaticMapper.fromMap;
+}
+
+@MappableClass()
+class StandardDynamic with StandardDynamicMappable {
+  final String objectId;
+  final String typeId;
+
+  StandardDynamic(this.objectId, this.typeId);
+}
+
 class StandardComponent extends EyuunComponent<String> {
   late final String objectId;
   late final String typeId;
@@ -20,19 +43,25 @@ class StandardComponent extends EyuunComponent<String> {
   }
 
   @override
-  Map<String, dynamic> persist() {
-    return {
-      'objectId': objectId,
-      'typeId': typeId
-    };
-  }
-
-  @override
-  void applyValues(Map<String, dynamic> valueMap){
-    objectId = valueMap['objectId'];
-    typeId = valueMap['typeId'];
-  }
-
-  @override
   String getName() => propertyName;
+
+  @override
+  void loadDynamicData(Map<String, dynamic> dynamicData) {
+    var dyn = StandardDynamicMapper.fromMap(dynamicData);
+    objectId = dyn.objectId;
+  }
+
+  @override
+  void loadStaticData(Map<String, dynamic> staticData) {
+    var stat = StandardStaticMapper.fromMap(staticData);
+    typeId = stat.typeId;
+    comment = stat.comment;
+    internalName = stat.internalName;
+  }
+
+  @override
+  Map<String, dynamic> saveDynamicData() {
+    var dyn = StandardDynamic(objectId, typeId);
+    return dyn.toMap();
+  }
 }
