@@ -1,5 +1,4 @@
 import 'package:flexbackend/components/upgradable.dart';
-import 'package:flexbackend/io/assetloader.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../io/WorldManager.dart';

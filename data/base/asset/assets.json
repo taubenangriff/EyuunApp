@@ -11,6 +11,7 @@
         "maxDeathThrows": 3
       },
       "basicStats": {
+        "defaultDiceIncreases" : 4,
         "statValues": [
           {
             "stat": "baseSkill_Courage"

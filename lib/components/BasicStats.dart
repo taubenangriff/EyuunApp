@@ -1,6 +1,7 @@
 import 'package:flexbackend/components/EyuunComponent.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
+import '../core/UpgradableInt.dart';
 import '../enums/dice.dart';
 
 part 'BasicStats.mapper.dart';
@@ -14,7 +15,8 @@ class BasicStatsDynamic with BasicStatsDynamicMappable {
 @MappableClass()
 class BasicStatsStatic with BasicStatsStaticMappable {
   List<BasicStatEntryStatic> statValues;
-  BasicStatsStatic(this.statValues);
+  int defaultDiceIncreases;
+  BasicStatsStatic(this.statValues, this.defaultDiceIncreases);
 }
 
 @MappableClass()
@@ -35,6 +37,7 @@ class BasicStatsComponent extends EyuunComponent<int> {
   static const String propertyName = "basicStats";
 
   late List<BasicStatEntry> statValues;
+  late UpgradableInt maxDiceIncreases;
 
   BasicStatEntry? getStatEntry(String basicStatName){
     return statValues.firstWhere((e) => e.stat == basicStatName, orElse: null);
@@ -68,6 +71,7 @@ class BasicStatsComponent extends EyuunComponent<int> {
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = BasicStatsStaticMapper.fromMap(staticData);
     statValues = stat.statValues.map((e) => BasicStatEntry(e.stat, Dice.d4)).toList();
+    maxDiceIncreases = stat.defaultDiceIncreases.upgradable;
   }
 
 }
