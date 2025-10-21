@@ -3,6 +3,9 @@ import 'package:flexbackend/components/health.dart';
 import 'package:flexbackend/components/standard.dart';
 import 'package:flexbackend/controller/BasicStatsController.dart';
 import 'package:flexbackend/io/AssetSerializer.dart';
+import 'package:flexbackend/io/registerComponentsExtension.dart';
+import 'package:flexbackend/io/registerSystemsExtension.dart';
+import 'package:flexbackend/io/registerUpgradesExtension.dart';
 import 'package:flexbackend/io/WorldManager.dart';
 import 'package:flexbackend/io/assetloader.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +15,7 @@ import 'dart:convert';
 
 import 'dart:html' as html;
 
+import 'components/healthUpgrade.dart';
 import 'io/TextHelper.dart';
 
 late Entity character;
@@ -29,14 +33,16 @@ void downloadConfig(String data) {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  WorldManager.instance.registerComponent<StandardComponent, String>(StandardComponent.propertyName, () => StandardComponent());
-  WorldManager.instance.registerComponent<HealthComponent, int>(HealthComponent.propertyName, () => HealthComponent());
-  WorldManager.instance.registerComponent<BasicStatsComponent, int>(BasicStatsComponent.propertyName, () => BasicStatsComponent());
+  WorldManager.instance.registerComponents();
+  WorldManager.instance.registerSystems();
+  WorldManager.instance.registerUpgrades();
   WorldManager.instance.init();
 
   await AssetLoader.instance.reloadAssets();
 
   character = AssetLoader.instance.createInstance("character")!;
+
+  WorldManager.instance.world.execute(1);
 
   runApp(const MyApp());
 }
@@ -132,7 +138,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Text(TextHelper.getText("text_increase")))
                 ]);
               }).toList(),
-            )
+            ),
+            Text("Health:  ${character.get<HealthComponent>()?.hitpoints}/${character.get<HealthComponent>()?.maxHitpoints.current}")
           ],
         ),
       ),

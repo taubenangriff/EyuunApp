@@ -1,3 +1,5 @@
+import 'package:flexbackend/core/upgradableInt.dart';
+import 'package:flexbackend/core/upgradeDescriptor.dart';
 import 'package:oxygen/oxygen.dart';
 import '../components/EyuunComponent.dart';
 
@@ -17,6 +19,17 @@ class WorldManager{
   Map<String, FuncEyuunComponentChecker> entityChecker = {};
   Map<String, FuncEyuunComponentGetter> entityGetter = {};
   Map<String, Type> components = {};
+
+  List<UpgradeDescriptor> _updateRegistry = [];
+  List<UpgradeDescriptor> get upgrades => _updateRegistry;
+
+  void registerUpgrade (
+      UpgradableInt Function(EyuunComponent) getBase,
+      int? Function(EyuunComponent) getUpgrade,
+      String baseTypeId,
+      String upgradeTypeId) {
+    _updateRegistry.add(UpgradeDescriptor(baseTypeId, upgradeTypeId, getBase, getUpgrade));
+  }
 
   void registerComponent<T1 extends EyuunComponent<T2>, T2>(String propertyName, T1 Function() create){
     world.registerComponent(create);

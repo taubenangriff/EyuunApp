@@ -37,6 +37,12 @@
             "stat": "baseSkill_Strength"
           }
         ]
+      },
+      "upgradable": {
+        "defaultUpgrades": [
+          "base_healthUpgrade",
+          "base_AnotherHealthUpgrade"
+        ]
       }
     },
     {
@@ -148,6 +154,24 @@
         "typeId": "text_increase"
       },
       "text": { }
+    },
+    {
+      "standard": {
+        "typeId": "base_healthUpgrade"
+      },
+      "text": { },
+      "healthUpgrade" : {
+        "maxHitpointsUpgrade": 30
+      }
+    },
+    {
+      "standard": {
+        "typeId": "base_AnotherHealthUpgrade"
+      },
+      "text": { },
+      "healthUpgrade" : {
+        "maxHitpointsUpgrade": 14
+      }
     }
   ]
 }

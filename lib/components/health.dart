@@ -1,4 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:flexbackend/core/upgradableInt.dart';
 
 import 'EyuunComponent.dart';
 part 'health.mapper.dart';
@@ -31,14 +32,15 @@ class HealthComponent extends EyuunComponent<int> {
 
   static const String propertyName = "health";
 
+  //hitpoints field where upgrades are applied to
   late int hitpoints;
-  late int maxHitpoints;
+  late UpgradableInt maxHitpoints;
 
   late int shield;
-  late int maxShield;
+  late UpgradableInt maxShield;
 
   late int deathThrows;
-  late int maxDeathThrows;
+  late UpgradableInt maxDeathThrows;
 
   @override
   void init([data]) {
@@ -48,11 +50,11 @@ class HealthComponent extends EyuunComponent<int> {
   @override
   void reset() {
     hitpoints = DEFAULT_MAX_HITPOINTS;
-    maxHitpoints = DEFAULT_MAX_HITPOINTS;
+    maxHitpoints = DEFAULT_MAX_HITPOINTS.upgradable;
     shield = DEFAULT_SHIELD;
-    maxShield = DEFAULT_MAX_SHIELD;
+    maxShield = DEFAULT_MAX_SHIELD.upgradable;
     deathThrows = DEFAULT_DEATH_THROWS;
-    maxDeathThrows = DEFAULT_MAX_DEATH_THROWS;
+    maxDeathThrows = DEFAULT_MAX_DEATH_THROWS.upgradable;
   }
 
   bool isInDyingState() => hitpoints <= 0;
@@ -72,11 +74,11 @@ class HealthComponent extends EyuunComponent<int> {
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = HealthStaticMapper.fromMap(staticData);
-    maxHitpoints = stat.maxHitpoints;
-    maxShield = stat.maxShield;
-    maxDeathThrows = stat.maxDeathThrows;
+    maxHitpoints = stat.maxHitpoints.upgradable;
+    maxShield = stat.maxShield.upgradable;
+    maxDeathThrows = stat.maxDeathThrows.upgradable;
 
-    hitpoints = maxHitpoints;
+    hitpoints = maxHitpoints.current;
   }
 
   @override
