@@ -164,15 +164,6 @@
       "healthUpgrade" : {
         "maxHitpointsUpgrade": 30
       }
-    },
-    {
-      "standard": {
-        "typeId": "base_AnotherHealthUpgrade"
-      },
-      "text": { },
-      "healthUpgrade" : {
-        "maxHitpointsUpgrade": 14
-      }
     }
   ]
 }

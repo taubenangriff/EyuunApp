@@ -435,22 +435,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.0"
-  reflectable:
-    dependency: "direct main"
-    description:
-      name: reflectable
-      sha256: "80ec665d53a8e5f3782e542c65f43546537ad4fa37f228fffd0d7ae5eb382cc6"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.0.1"
-  reflectable_builder:
-    dependency: "direct dev"
-    description:
-      name: reflectable_builder
-      sha256: c78c4ff049a62260b2a9b7e37189ddb7e55849f964c4cac222a509750c0b1adc
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.1"
   shelf:
     dependency: transitive
     description:
@@ -488,6 +472,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.0"
+  sprintf:
+    dependency: transitive
+    description:
+      name: sprintf
+      sha256: "1fc9ffe69d4df602376b52949af107d8f5703b77cda567c4d7d86a0693120f23"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.0.0"
   stack_trace:
     dependency: transitive
     description:
@@ -560,6 +552,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
+  uuid:
+    dependency: "direct main"
+    description:
+      name: uuid
+      sha256: a5be9ef6618a7ac1e964353ef476418026db906c4facdedaa299b7a2e71690ff
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.5.1"
   vector_math:
     dependency: transitive
     description:
@@ -617,5 +617,5 @@ packages:
     source: hosted
     version: "3.1.3"
 sdks:
-  dart: ">=3.9.0 <4.0.0"
+  dart: ">=3.8.0 <4.0.0"
   flutter: ">=3.18.0-18.0.pre.54"

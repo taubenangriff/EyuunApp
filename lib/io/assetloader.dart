@@ -1,8 +1,11 @@
 import 'dart:convert';
 
+import 'package:flexbackend/components/standard.dart';
 import 'package:flexbackend/components/text.dart';
 import 'package:flutter/services.dart';
 import 'package:oxygen/oxygen.dart';
+import 'package:uuid/uuid.dart';
+
 import 'WorldManager.dart';
 
 String assetFile = "data/base/asset/assets.json";
@@ -15,14 +18,21 @@ class AssetLoader {
   Map<String, Map<String, dynamic>> assets = {};
   Map<String, String> textKeys = {};
 
+  var uuid = const Uuid();
+
   Map<String, Entity> staticAssets = {};
 
   Entity? createInstance(String typeId) {
     if(!isValidDefinition(typeId)) {
       return null;
     }
+
+    String id = uuid.v4();
+
     var entity = worldManager.world.createEntity();
     _addComponentsToEntity(entity, typeId);
+    entity.get<StandardComponent>()?.objectId = id;
+
     return entity;
   }
 
