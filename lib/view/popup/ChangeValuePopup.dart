@@ -6,12 +6,12 @@ import '../widgets/ItemWheel.dart';
 
 class ChangeValuePopup extends StatefulWidget {
   const ChangeValuePopup(this.changeVal,
-      {this.setState, this.horizontal = false, this.valueCallback, super.key});
+      {this.setState, this.horizontal = false, this.valueChanged, super.key});
 
   final ChangeValueController changeVal;
   final void Function(void Function())? setState;
   final bool horizontal;
-  final void Function(int)? valueCallback;
+  final void Function(int)? valueChanged;
 
   @override
   State<ChangeValuePopup> createState() => _ChangeValuePopupState();
@@ -56,7 +56,7 @@ class _ChangeValuePopupState extends State<ChangeValuePopup> {
         ),
         FloatingActionButton(
             onPressed: () {
-              widget.valueCallback!(newVal);
+              widget.valueChanged!(newVal);
               Navigator.of(context).pop();
             },
             child: Text('Apply'))

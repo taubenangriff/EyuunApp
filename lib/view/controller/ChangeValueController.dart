@@ -5,8 +5,9 @@ class ChangeValueController {
   int value;
   int maxLimit;
   int minLimit;
+  final void Function(int)? onValUpdated;
 
-  ChangeValueController(this.value, {this.name = "", this.maxLimit = -1, this.minLimit = 0}) {
+  ChangeValueController(this.value, {this.name = "", this.maxLimit = -1, this.minLimit = 0, this.onValUpdated}) {
     if(maxLimit < 0) {
       maxLimit = value;
     }
@@ -21,6 +22,7 @@ class ChangeValueController {
 
   change(int changeBy) {
     value = max(minLimit, min(maxLimit, value+changeBy));
+    onValUpdated!(value);
   }
 
   changeMax(int changeBy) {
@@ -38,9 +40,11 @@ class ChangeValueController {
 
   toMax() {
     value = maxLimit;
+    onValUpdated!(value);
   }
 
   toMin() {
     value = minLimit;
+    onValUpdated!(value);
   }
 }

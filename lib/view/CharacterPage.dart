@@ -26,7 +26,9 @@ class _CharacterPageState extends State<CharacterPage> {
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
 
-    final healthController = ChangeValueController(healthCurrent, maxLimit: healthMax, minLimit: 0);
+    final healthController = ChangeValueController(healthCurrent, maxLimit: healthMax, minLimit: 0, onValUpdated: (val) => healthCurrent = val);
+    final vitalityController = ChangeValueController(vitalityCurrent, maxLimit: vitalityMax, minLimit: 0, onValUpdated: (val) => vitalityCurrent = val);
+    final flowController = ChangeValueController(flowCurrent, maxLimit: flowMax, minLimit: 0, onValUpdated: (val) => flowCurrent = val);
 
     return Scaffold(
       body: DecoratedBox(
@@ -47,10 +49,9 @@ class _CharacterPageState extends State<CharacterPage> {
             onPressed: () {
               PopupUtil.popup(
                 context,
-                ChangeValuePopup(healthController, valueCallback: (val) {
+                ChangeValuePopup(healthController, valueChanged: (change) {
                   setState(() {
-                    healthController.change(val);
-                    healthCurrent = healthController.value;
+                    healthController.change(change);
                   });
                 }),
               );
@@ -64,10 +65,12 @@ class _CharacterPageState extends State<CharacterPage> {
             onPressed: () {
               PopupUtil.popup(
                   context,
-                  ChangeValuePopup(
-                      ChangeValueController(vitalityCurrent,
-                          maxLimit: vitalityMax, minLimit: 0),
-                      valueCallback: (val) => vitalityCurrent = val));
+                  ChangeValuePopup(vitalityController, valueChanged: (change) {
+                    setState(() {
+                      vitalityController.change(change);
+                    });
+                  })
+              );
             },
             text: '${vitalityCurrent}/${vitalityMax}',
             tooltip: 'vitality',
@@ -78,10 +81,12 @@ class _CharacterPageState extends State<CharacterPage> {
             onPressed: () {
               PopupUtil.popup(
                   context,
-                  ChangeValuePopup(
-                      ChangeValueController(flowCurrent,
-                          maxLimit: flowMax, minLimit: 0),
-                      valueCallback: (val) => flowCurrent = val));
+                  ChangeValuePopup(flowController, valueChanged: (change) {
+                    setState(() {
+                      flowController.change(change);
+                    });
+                  })
+              );
             },
             text: '${flowCurrent}/${flowMax}',
             tooltip: 'flow',
