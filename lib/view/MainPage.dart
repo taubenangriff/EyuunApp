@@ -72,7 +72,7 @@ class _MainPageState extends State<MainPage> {
             ),
           const VerticalDivider(width: 1, thickness: 1),
           Expanded(child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 16, horizontal: min((size.width - 400)/5, 300)),
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: min(max((size.width - 400), 0)/4, 500)),
               child:_pages[_selectedIndex]
           )),
         ],
