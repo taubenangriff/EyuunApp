@@ -1,7 +1,7 @@
 import 'package:flexbackend/components/upgradable.dart';
 import 'package:oxygen/oxygen.dart';
 
-import '../io/WorldManager.dart';
+import '../core/WorldManager.dart';
 
 class UpgradeSystem extends System {
   late Query query;

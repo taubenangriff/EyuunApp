@@ -1,6 +1,6 @@
 import 'package:flexbackend/components/EyuunComponent.dart';
+import 'package:flexbackend/core/assetloader.dart';
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:flexbackend/io/assetloader.dart';
 import 'package:oxygen/oxygen.dart';
 
 part 'upgradable.mapper.dart';

@@ -24,7 +24,7 @@ class StandardDynamic with StandardDynamicMappable {
 }
 
 class StandardComponent extends EyuunComponent<String> {
-  late final String objectId;
+  late String objectId;
   late final String typeId;
 
   static String propertyName = "standard";

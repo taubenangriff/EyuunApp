@@ -1,4 +1,4 @@
-import 'package:flexbackend/io/WorldManager.dart';
+import 'package:flexbackend/core/WorldManager.dart';
 import '../components/health.dart';
 import '../components/healthUpgrade.dart';
 

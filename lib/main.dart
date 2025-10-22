@@ -6,8 +6,8 @@ import 'package:flexbackend/io/AssetSerializer.dart';
 import 'package:flexbackend/io/registerComponentsExtension.dart';
 import 'package:flexbackend/io/registerSystemsExtension.dart';
 import 'package:flexbackend/io/registerUpgradesExtension.dart';
-import 'package:flexbackend/io/WorldManager.dart';
-import 'package:flexbackend/io/assetloader.dart';
+import 'package:flexbackend/core/WorldManager.dart';
+import 'package:flexbackend/view/MainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
@@ -16,7 +16,8 @@ import 'dart:convert';
 import 'dart:html' as html;
 
 import 'components/healthUpgrade.dart';
-import 'io/TextHelper.dart';
+import 'core/TextHelper.dart';
+import 'core/assetloader.dart';
 
 late Entity character;
 
@@ -56,17 +57,48 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or press Run > Flutter Hot Reload in a Flutter IDE). Notice that the
-        // counter didn't reset back to zero; the application is not restarted.
-        primarySwatch: Colors.blue,
+        brightness: Brightness.dark,
+        colorScheme: ColorScheme(
+          brightness: Brightness.dark,
+          primary: const Color(0xFF90A4AE), // Blue-grey 300
+          onPrimary: Colors.black,
+          secondary: const Color(0xFFf8a763), // Gold accent
+          onSecondary: Colors.black,
+          surface: const Color(0xFF263238), // Dark blue-grey
+          onSurface: Colors.white,
+          background: const Color(0xFF212121), // Dark background
+          onBackground: Colors.white,
+          error: Colors.red.shade400,
+          onError: Colors.black,
+        ),
+        scaffoldBackgroundColor: const Color(0xFF212121),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF37474F), // Blue-grey 800
+          foregroundColor: Colors.white,
+          elevation: 2,
+        ),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: Color(0xFFf8a763), // Gold
+          foregroundColor: Colors.black,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF90A4AE), // Blue-grey 300
+            foregroundColor: Colors.black,
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+            ),
+          ),
+        ),
+        textTheme: const TextTheme(
+          bodyLarge: TextStyle(color: Colors.white),
+          bodyMedium: TextStyle(color: Colors.white70),
+          titleLarge: TextStyle(color: Colors.white),
+        ),
+        iconTheme: const IconThemeData(color: Color(0xFF90A4AE)),
       ),
-      home: const MyHomePage(title: 'Eyuun App ECS Demo'),
+      home: const MainPage(title: 'Eyuun App ECS Demo'),
     );
   }
 }
@@ -90,8 +122,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-  BasicStatsController statsController = BasicStatsController(WorldManager.instance, AssetLoader.instance);
+  BasicStatsController statsController =
+      BasicStatsController(WorldManager.instance, AssetLoader.instance);
 
   void _downloadChar() {
     setState(() {
@@ -108,7 +140,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     var stats = character.get<BasicStatsComponent>()!;
 
     return Scaffold(
@@ -130,16 +161,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 return TableRow(children: [
                   Text(TextHelper.getText(entry.stat)),
                   Text(entry.dice.toString()),
-                  FloatingActionButton(onPressed: () {
-                    setState(() {
-                      statsController.increaseDice(character, entry.stat);
-                    });
-                  },
-                  child: Text(TextHelper.getText("text_increase")))
+                  FloatingActionButton(
+                      onPressed: () {
+                        setState(() {
+                          statsController.increaseDice(character, entry.stat);
+                        });
+                      },
+                      child: Text(TextHelper.getText("text_increase")))
                 ]);
               }).toList(),
             ),
-            Text("Health:  ${character.get<HealthComponent>()?.hitpoints}/${character.get<HealthComponent>()?.maxHitpoints.current}")
+            Text(
+                "Health:  ${character.get<HealthComponent>()?.hitpoints}/${character.get<HealthComponent>()?.maxHitpoints.current}")
           ],
         ),
       ),

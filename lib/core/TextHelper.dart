@@ -1,5 +1,5 @@
-import 'package:flexbackend/io/assetloader.dart';
-import 'TextRepository.dart';
+import 'package:flexbackend/core/assetloader.dart';
+import 'package:flexbackend/core/TextRepository.dart';
 
 class TextHelper {
   static String getText(String textLookup)

@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:flexbackend/components/BasicStats.dart';
-import 'package:flexbackend/io/WorldManager.dart';
-import 'package:flexbackend/io/assetloader.dart';
+import 'package:flexbackend/core/WorldManager.dart';
+import 'package:flexbackend/core/assetloader.dart';
 import 'package:oxygen/oxygen.dart';
 import 'package:flexbackend/enums/dice.dart';
 
