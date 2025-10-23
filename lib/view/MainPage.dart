@@ -1,9 +1,10 @@
 import 'dart:math';
 
-import 'package:flexbackend/main.dart';
 import 'package:flexbackend/view/CharacterPage.dart';
 import 'package:flexbackend/view/InventoryPage.dart';
 import 'package:flutter/material.dart';
+
+import 'CombatPage.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.title});
@@ -19,7 +20,7 @@ class _MainPageState extends State<MainPage> {
 
   late final _pages = [
     const Center(child: CharacterPage()),
-    const Center(child: Text("Combat")),
+    const Center(child: CombatPage()),
     const Center(child: Text("Talents")),
     const Center(child: InventoryPage()),
     const Center(child: Text("Notes")),

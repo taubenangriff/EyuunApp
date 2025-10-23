@@ -1,12 +1,4 @@
-import 'dart:math';
-
-import 'package:flexbackend/view/controller/ChangeValueController.dart';
-import 'package:flexbackend/view/popup/ChangeValuePopup.dart';
-import 'package:flexbackend/view/widgets/CharacterInfoWidget.dart';
-import 'package:flexbackend/view/widgets/PathsWidget.dart';
-import 'package:flexbackend/view/widgets/BaseValues.dart';
 import 'package:flutter/material.dart';
-import 'package:flexbackend/view/popup/PopupUtil.dart';
 
 class InventoryPage extends StatefulWidget {
   const InventoryPage({super.key});
