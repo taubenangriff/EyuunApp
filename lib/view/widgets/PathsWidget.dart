@@ -1,7 +1,11 @@
 import 'dart:math';
 
 import 'package:flexbackend/view/popup/PathPopup.dart';
+import 'package:flexbackend/view/popup/PopupUtil.dart';
 import 'package:flutter/material.dart';
+
+import '../../enums/PathType.dart';
+import '../enum/PathTypeColorExtension.dart';
 
 class PathsWidget extends StatefulWidget {
   const PathsWidget({super.key});
@@ -14,29 +18,72 @@ class PathValue {
   String name;
   int progress;
   int additional;
+  final PathType type;
 
-  PathValue(this.name, this.progress, this.additional);
+  PathValue(this.name, this.progress, this.additional, this.type);
+}
+
+class AdditionalPathItem {
+  final String name;
+  final String pathName;
+  final String icon;
+  final PathType type;
+
+  AdditionalPathItem({
+    required this.name,
+    required this.pathName,
+    required this.icon,
+    required this.type
+  });
 }
 
 class _PathsWidgetState extends State<PathsWidget> {
   static const int maxValue = 10;
 
   late final List<PathValue> progressValues = [
-    PathValue("Bard", 3, 0),
-    PathValue("Adventurer", 5, 0),
-    PathValue("Retard", 7, 0),
-    PathValue("Kung Fu Panda", 1, 4)
+    PathValue("CrafterPath", 3, 0, PathType.Crafter),
+    PathValue("FighterPath", 5, 0, PathType.Fighter),
+    PathValue("FlowPath", 7, 0, PathType.Flow),
+    PathValue("AcolytePath", 1, 4, PathType.Acolyte)
   ];
 
-  void _showPopup() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Dialog(
-          insetPadding: const EdgeInsets.all(24),
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxHeight: 800, maxWidth: 1000), // max popup height
-            child: PathPopup(),
+  final List<AdditionalPathItem> additionalPaths = [
+    AdditionalPathItem(name: "Flow Add1", pathName: "Flow1", icon: "icon", type: PathType.Flow),
+    AdditionalPathItem(name: "Crafter Add2", pathName: "CrafterSub1", icon: "icon", type: PathType.Crafter),
+    AdditionalPathItem(name: "Acolyte Add2", pathName: "AcolyteSub2", icon: "icon", type: PathType.Acolyte),
+    AdditionalPathItem(name: "Acolyte Add4", pathName: "AcolyteSub", icon: "icon", type: PathType.Acolyte)
+  ];
+
+  Widget _buildAdditionalPathButton(BuildContext context, AdditionalPathItem item) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final hideText = constraints.maxWidth < 100; // hide text if too narrow
+
+        return ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: item.type.color,
+            foregroundColor: item.type.textColor,
+            padding: const EdgeInsets.all(8),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          onPressed: () => setState(() {
+
+          }),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.auto_awesome, size: 32),
+              if (!hideText) ...[
+                const SizedBox(height: 4),
+                Text(
+                  item.name,
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ],
           ),
         );
       },
@@ -45,118 +92,120 @@ class _PathsWidgetState extends State<PathsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Text(
-            'Paths',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 16),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const Text(
+          'Paths',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 16),
 
-          // Progress bars
-          ...progressValues.map((path) {
-            return Padding(
-                padding: const EdgeInsets.all(2),
-                child: InkWell(
-                    onTap: _showPopup,
-                    borderRadius:
-                        BorderRadius.circular(8), // optional for ripple effect
-                    child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 10),
-                        child: Row(
-                          children: [
-                            // Title on the left
-                            SizedBox(
-                              width: 120,
-                              child: Text(
-                                path.name,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              ),
+        // Progress bars
+        ...progressValues.map((path) {
+          return Padding(
+              padding: const EdgeInsets.all(2),
+              child: InkWell(
+                  onTap: () {
+                    PopupUtil.popup(context, PathPopup(), maximumSize: Size(1000, 900));
+                  },
+                  borderRadius:
+                  BorderRadius.circular(8), // optional for ripple effect
+                  child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 10),
+                      child: Row(
+                        children: [
+                          // Title on the left
+                          SizedBox(
+                            width: 120,
+                            child: Text(
+                              path.name,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold),
                             ),
+                          ),
 
-                            // Progress bar with number
-                            Expanded(
-                              child: LayoutBuilder(
-                                builder: (context, constraints) {
-                                  final barWidth = constraints.maxWidth;
-                                  final position =
-                                      (path.progress / maxValue) * barWidth;
+                          // Progress bar with number
+                          Expanded(
+                            child: LayoutBuilder(
+                              builder: (context, constraints) {
+                                final barWidth = constraints.maxWidth;
+                                final position =
+                                    (path.progress / maxValue) * barWidth;
 
-                                  return Stack(
-                                    clipBehavior: Clip.none,
-                                    children: [
-                                      // Base bar
-                                      Container(
-                                        height: 24,
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey.shade800,
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                        ),
+                                return Stack(
+                                  clipBehavior: Clip.none,
+                                  children: [
+                                    // Base bar
+                                    Container(
+                                      height: 24,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey.shade800,
+                                        borderRadius:
+                                        BorderRadius.circular(12),
                                       ),
-                                      // Filled progress
-                                      Container(
-                                        width: position,
-                                        height: 24,
-                                        decoration: BoxDecoration(
-                                          color: Colors.blueAccent,
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                        ),
+                                    ),
+                                    // Filled progress
+                                    Container(
+                                      width: position,
+                                      height: 24,
+                                      decoration: BoxDecoration(
+                                        color: path.type.color,
+                                        borderRadius:
+                                        BorderRadius.circular(12),
                                       ),
-                                      // Number at progress
-                                      Positioned(
-                                        left: position -
-                                            20, // adjust so text is centered
-                                        top: -6,
-                                        bottom: -6,
-                                        child: Center(
-                                          child: Container(
-                                            width: 36,
-                                            height: 36,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(width: 2),
-                                              color: Colors.blueAccent,
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      25), // circular knob
-                                            ),
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              '${path.progress}',
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16,
-                                              ),
+                                    ),
+                                    // Number at progress
+                                    Positioned(
+                                      left: position -
+                                          20, // adjust so text is centered
+                                      top: -6,
+                                      bottom: -6,
+                                      child: Center(
+                                        child: Container(
+                                          width: 36,
+                                          height: 36,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(width: 2),
+                                            color: path.type.color,
+                                            borderRadius:
+                                            BorderRadius.circular(
+                                                25), // circular knob
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            '${path.progress}',
+                                            style: TextStyle(
+                                              color: path.type.textColor,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  );
-                                },
-                              ),
+                                    ),
+                                  ],
+                                );
+                              },
                             ),
-                            const SizedBox(width: 16),
-                            SizedBox(
-                                width: 60,
-                                child: Center(
-                                    child: Row(children: [
-                                      const Icon(Icons.extension_outlined),
-                                  const SizedBox(width: 10),
-                                  Text('${path.additional}'),
-                                ])))
-                          ],
-                        ))
-                    // replace with your widget
-                    ));
-          }),
-        ],
-      ),
+                          )
+                        ],
+                      ))
+                // replace with your widget
+              ));
+        }),
+        const SizedBox(height: 16),
+        GridView.count(
+          shrinkWrap: true, // so it fits inside other scrollables
+          physics: const NeverScrollableScrollPhysics(), // avoid nested scrolling
+          crossAxisCount: 7, // ✅ 7 buttons per row
+          mainAxisSpacing: 16,
+          crossAxisSpacing: 16,
+          childAspectRatio: 1, // square buttons
+          children: additionalPaths.map((item) => _buildAdditionalPathButton(context, item)).toList(),
+        )
+      ],
     );
   }
 }

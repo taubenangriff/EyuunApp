@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flexbackend/main.dart';
 import 'package:flexbackend/view/CharacterPage.dart';
+import 'package:flexbackend/view/InventoryPage.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
@@ -16,19 +17,19 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
-  final _pages = const [
-    Center(child: CharacterPage()),
-    Center(child: Text("Combat")),
-    Center(child: Text("Talents")),
-    Center(child: Text("Inventory")),
-    Center(child: Text("Notes")),
+  late final _pages = [
+    const Center(child: CharacterPage()),
+    const Center(child: Text("Combat")),
+    const Center(child: Text("Talents")),
+    const Center(child: InventoryPage()),
+    const Center(child: Text("Notes")),
   ];
 
   @override
   Widget build(BuildContext context) {
-
     final size = MediaQuery.of(context).size;
-    final isWide = size.width > size.height;
+    final isWide = size.width >= 750;
+
 
     return Scaffold(
       appBar: AppBar(
@@ -72,7 +73,7 @@ class _MainPageState extends State<MainPage> {
             ),
           const VerticalDivider(width: 1, thickness: 1),
           Expanded(child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 16, horizontal: min(max((size.width - 400), 0)/4, 500)),
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
               child:_pages[_selectedIndex]
           )),
         ],
@@ -80,36 +81,35 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: isWide
           ? null
           : NavigationBar(
-        selectedIndex: _selectedIndex,
-        onDestinationSelected: _changeDestination,
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.person_2_outlined),
-            selectedIcon: Icon(Icons.person_2),
-            label: 'Character',
-          ),
-          NavigationDestination(
-              icon: Icon(Icons.abc_outlined),
-              selectedIcon: Icon(Icons.abc),
-              label: 'Combat'
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.star_outline),
-            selectedIcon: Icon(Icons.star),
-            label: 'Talents',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.shopping_bag_outlined),
-            selectedIcon: Icon(Icons.shopping_bag),
-            label: 'Inventory',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.speaker_notes_outlined),
-            selectedIcon: Icon(Icons.speaker_notes),
-            label: 'Notes',
-          )
-        ],
-      ),
+              selectedIndex: _selectedIndex,
+              onDestinationSelected: _changeDestination,
+              destinations: const [
+                NavigationDestination(
+                  icon: Icon(Icons.person_2_outlined),
+                  selectedIcon: Icon(Icons.person_2),
+                  label: 'Character',
+                ),
+                NavigationDestination(
+                    icon: Icon(Icons.abc_outlined),
+                    selectedIcon: Icon(Icons.abc),
+                    label: 'Combat'),
+                NavigationDestination(
+                  icon: Icon(Icons.star_outline),
+                  selectedIcon: Icon(Icons.star),
+                  label: 'Talents',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.shopping_bag_outlined),
+                  selectedIcon: Icon(Icons.shopping_bag),
+                  label: 'Inventory',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.speaker_notes_outlined),
+                  selectedIcon: Icon(Icons.speaker_notes),
+                  label: 'Notes',
+                )
+              ],
+            ),
     );
   }
 

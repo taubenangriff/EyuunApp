@@ -54,12 +54,16 @@ class _ChangeValuePopupState extends State<ChangeValuePopup> {
             )
           ]),
         ),
-        FloatingActionButton(
-            onPressed: () {
-              widget.valueChanged!(newVal);
-              Navigator.of(context).pop();
-            },
-            child: Text('Apply'))
+        SizedBox(
+            width: 128,
+            child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: FloatingActionButton(
+                    onPressed: () {
+                      widget.valueChanged!(newVal);
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Apply'))))
       ],
     );
   }
