@@ -29,16 +29,16 @@ class AdditionalPathItem {
   final String icon;
   final PathType type;
 
-  AdditionalPathItem({
-    required this.name,
-    required this.pathName,
-    required this.icon,
-    required this.type
-  });
+  AdditionalPathItem(
+      {required this.name,
+      required this.pathName,
+      required this.icon,
+      required this.type});
 }
 
 class _PathsWidgetState extends State<PathsWidget> {
   static const int maxValue = 10;
+  bool canAddAdditional = true;
 
   late final List<PathValue> progressValues = [
     PathValue("CrafterPath", 3, 0, PathType.Crafter),
@@ -48,13 +48,65 @@ class _PathsWidgetState extends State<PathsWidget> {
   ];
 
   final List<AdditionalPathItem> additionalPaths = [
-    AdditionalPathItem(name: "Flow Add1", pathName: "Flow1", icon: "icon", type: PathType.Flow),
-    AdditionalPathItem(name: "Crafter Add2", pathName: "CrafterSub1", icon: "icon", type: PathType.Crafter),
-    AdditionalPathItem(name: "Acolyte Add2", pathName: "AcolyteSub2", icon: "icon", type: PathType.Acolyte),
-    AdditionalPathItem(name: "Acolyte Add4", pathName: "AcolyteSub", icon: "icon", type: PathType.Acolyte)
+    AdditionalPathItem(
+        name: "Flow Add1",
+        pathName: "Flow1",
+        icon: "icon",
+        type: PathType.Flow),
+    AdditionalPathItem(
+        name: "Crafter Add2",
+        pathName: "CrafterSub1",
+        icon: "icon",
+        type: PathType.Crafter),
+    AdditionalPathItem(
+        name: "Acolyte Add2",
+        pathName: "AcolyteSub2",
+        icon: "icon",
+        type: PathType.Acolyte),
+    AdditionalPathItem(
+        name: "Acolyte Add4",
+        pathName: "AcolyteSub",
+        icon: "icon",
+        type: PathType.Acolyte)
   ];
 
-  Widget _buildAdditionalPathButton(BuildContext context, AdditionalPathItem item) {
+  Widget _buildAddNewAdditionalPathButton(
+      BuildContext context, VoidCallback onPressed) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final hideText = constraints.maxWidth < 100; // hide text if too narrow
+
+        return ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+            foregroundColor: Theme.of(context).colorScheme.onSurfaceVariant,
+            padding: const EdgeInsets.all(8),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          onPressed: onPressed,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.add, size: 32), // ✅ plus icon
+              if (!hideText) ...[
+                const SizedBox(height: 4),
+                const Text(
+                  'Add New',
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildAdditionalPathButton(
+      BuildContext context, AdditionalPathItem item) {
     return LayoutBuilder(
       builder: (context, constraints) {
         final hideText = constraints.maxWidth < 100; // hide text if too narrow
@@ -68,9 +120,7 @@ class _PathsWidgetState extends State<PathsWidget> {
               borderRadius: BorderRadius.circular(12),
             ),
           ),
-          onPressed: () => setState(() {
-
-          }),
+          onPressed: () => setState(() {}),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -92,6 +142,30 @@ class _PathsWidgetState extends State<PathsWidget> {
 
   @override
   Widget build(BuildContext context) {
+
+    var additionalPathWidgets = additionalPaths
+        .map((item) => _buildAdditionalPathButton(context, item))
+        .toList();
+
+    if (canAddAdditional) {
+      additionalPathWidgets.add(_buildAddNewAdditionalPathButton(
+          context,
+          () => setState(() {
+                PopupUtil.popup(
+                    context,
+                    const Center(child: Text(
+                        "Popup showing all available Additional Paths first, then the rest you cannot yet pick."))
+                    ,
+                    maximumSize: Size(900, 700));
+                additionalPaths.add(AdditionalPathItem(
+                    name: "Fighter Add1",
+                    pathName: "Fighter",
+                    icon: "icon",
+                    type: PathType.Fighter));
+                canAddAdditional = false;
+              })));
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -107,10 +181,11 @@ class _PathsWidgetState extends State<PathsWidget> {
               padding: const EdgeInsets.all(2),
               child: InkWell(
                   onTap: () {
-                    PopupUtil.popup(context, PathPopup(), maximumSize: Size(1000, 900));
+                    PopupUtil.popup(context, PathPopup(),
+                        maximumSize: Size(1000, 900));
                   },
                   borderRadius:
-                  BorderRadius.circular(8), // optional for ripple effect
+                      BorderRadius.circular(8), // optional for ripple effect
                   child: Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 10),
@@ -121,8 +196,8 @@ class _PathsWidgetState extends State<PathsWidget> {
                             width: 120,
                             child: Text(
                               path.name,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ),
 
@@ -142,8 +217,7 @@ class _PathsWidgetState extends State<PathsWidget> {
                                       height: 24,
                                       decoration: BoxDecoration(
                                         color: Colors.grey.shade800,
-                                        borderRadius:
-                                        BorderRadius.circular(12),
+                                        borderRadius: BorderRadius.circular(12),
                                       ),
                                     ),
                                     // Filled progress
@@ -152,8 +226,7 @@ class _PathsWidgetState extends State<PathsWidget> {
                                       height: 24,
                                       decoration: BoxDecoration(
                                         color: path.type.color,
-                                        borderRadius:
-                                        BorderRadius.circular(12),
+                                        borderRadius: BorderRadius.circular(12),
                                       ),
                                     ),
                                     // Number at progress
@@ -169,8 +242,7 @@ class _PathsWidgetState extends State<PathsWidget> {
                                           decoration: BoxDecoration(
                                             border: Border.all(width: 2),
                                             color: path.type.color,
-                                            borderRadius:
-                                            BorderRadius.circular(
+                                            borderRadius: BorderRadius.circular(
                                                 25), // circular knob
                                           ),
                                           alignment: Alignment.center,
@@ -192,19 +264,19 @@ class _PathsWidgetState extends State<PathsWidget> {
                           )
                         ],
                       ))
-                // replace with your widget
-              ));
+                  // replace with your widget
+                  ));
         }),
         const SizedBox(height: 16),
         GridView.count(
-          shrinkWrap: true, // so it fits inside other scrollables
-          physics: const NeverScrollableScrollPhysics(), // avoid nested scrolling
-          crossAxisCount: 7, // ✅ 7 buttons per row
-          mainAxisSpacing: 16,
-          crossAxisSpacing: 16,
-          childAspectRatio: 1, // square buttons
-          children: additionalPaths.map((item) => _buildAdditionalPathButton(context, item)).toList(),
-        )
+            shrinkWrap: true, // so it fits inside other scrollables
+            physics:
+                const NeverScrollableScrollPhysics(), // avoid nested scrolling
+            crossAxisCount: 7, // ✅ 7 buttons per row
+            mainAxisSpacing: 16,
+            crossAxisSpacing: 16,
+            childAspectRatio: 1, // square buttons
+            children: additionalPathWidgets)
       ],
     );
   }

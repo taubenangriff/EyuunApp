@@ -33,6 +33,14 @@ class _InventoryPageState extends State<InventoryPage> {
             text: '1400 €',
             tooltip: 'Yuun',
             icon: Icons.money,
+          ),
+          const SizedBox(width: 16),
+          _buildLargeFab(
+            onPressed: () {
+            },
+            text: 'Add Item',
+            tooltip: 'Add an Item',
+            icon: Icons.add,
           )
         ],
       ),

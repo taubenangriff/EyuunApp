@@ -7,13 +7,12 @@ import 'package:oxygen/oxygen.dart';
 import 'package:uuid/uuid.dart';
 
 import '../core/WorldManager.dart';
+import 'registerServices.dart';
 
 String assetFile = "data/base/asset/assets.json";
 
 class AssetLoader {
-  var worldManager = WorldManager.instance;
-
-  static AssetLoader instance = AssetLoader();
+  var worldManager = locator<WorldManager>();
 
   Map<String, Map<String, dynamic>> assets = {};
   Map<String, String> textKeys = {};

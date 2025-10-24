@@ -3,10 +3,11 @@ import 'package:flexbackend/components/health.dart';
 import 'package:flexbackend/components/standard.dart';
 import 'package:flexbackend/controller/BasicStatsController.dart';
 import 'package:flexbackend/io/AssetSerializer.dart';
-import 'package:flexbackend/io/registerComponentsExtension.dart';
-import 'package:flexbackend/io/registerSystemsExtension.dart';
-import 'package:flexbackend/io/registerUpgradesExtension.dart';
+import 'package:flexbackend/core/registerComponentsExtension.dart';
+import 'package:flexbackend/core/registerSystemsExtension.dart';
+import 'package:flexbackend/core/registerUpgradesExtension.dart';
 import 'package:flexbackend/core/WorldManager.dart';
+import 'package:flexbackend/core/registerServices.dart';
 import 'package:flexbackend/view/MainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
@@ -33,17 +34,21 @@ void downloadConfig(String data) {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  setupGetIt();
 
-  WorldManager.instance.registerComponents();
-  WorldManager.instance.registerSystems();
-  WorldManager.instance.registerUpgrades();
-  WorldManager.instance.init();
+  var worldManager = locator<WorldManager>();
 
-  await AssetLoader.instance.reloadAssets();
+  worldManager.registerComponents();
+  worldManager.registerSystems();
+  worldManager.registerUpgrades();
+  worldManager.init();
 
-  character = AssetLoader.instance.createInstance("character")!;
+  var assetLoader = locator<AssetLoader>();
 
-  WorldManager.instance.world.execute(1);
+  await assetLoader.reloadAssets();
+  character = assetLoader.createInstance("character")!;
+
+  worldManager.world.execute(1);
 
   runApp(const MyApp());
 }
@@ -122,8 +127,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  BasicStatsController statsController =
-      BasicStatsController(WorldManager.instance, AssetLoader.instance);
+  BasicStatsController statsController = BasicStatsController();
 
   void _downloadChar() {
     setState(() {
@@ -133,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
 
-      var charJson = json.encode(AssetSerializer().serialize(character));
+      var charJson = json.encode(locator<AssetSerializer>().serialize(character));
       downloadConfig(charJson);
     });
   }
@@ -141,6 +145,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     var stats = character.get<BasicStatsComponent>()!;
+
+    var textHelper = locator<TextHelper>();
 
     return Scaffold(
       appBar: AppBar(
@@ -159,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               children: stats.statValues.map((entry) {
                 return TableRow(children: [
-                  Text(TextHelper.getText(entry.stat)),
+                  Text(textHelper.getText(entry.stat)),
                   Text(entry.dice.toString()),
                   FloatingActionButton(
                       onPressed: () {
@@ -167,7 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           statsController.increaseDice(character, entry.stat);
                         });
                       },
-                      child: Text(TextHelper.getText("text_increase")))
+                      child: Text(textHelper.getText("text_increase")))
                 ]);
               }).toList(),
             ),

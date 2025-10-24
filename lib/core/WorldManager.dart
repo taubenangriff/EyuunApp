@@ -13,8 +13,6 @@ class WorldManager{
   World world = World();
   World staticWorld = World();
 
-  static WorldManager instance = WorldManager();
-
   Map<String, FuncEyuunComponentAdder> entityAdder = {};
   Map<String, FuncEyuunComponentChecker> entityChecker = {};
   Map<String, FuncEyuunComponentGetter> entityGetter = {};

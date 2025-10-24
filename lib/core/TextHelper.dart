@@ -1,9 +1,11 @@
 import 'package:flexbackend/core/assetloader.dart';
 import 'package:flexbackend/core/TextRepository.dart';
 
+import 'registerServices.dart';
+
 class TextHelper {
-  static String getText(String textLookup)
+  String getText(String textLookup)
   {
-    return TextRepository.instance.getText(AssetLoader.instance.getTextKey(textLookup));
+    return locator<TextRepository>().getText(locator<AssetLoader>().getTextKey(textLookup));
   }
 }

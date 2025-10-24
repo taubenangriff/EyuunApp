@@ -3,6 +3,8 @@ import 'package:flexbackend/core/assetloader.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:oxygen/oxygen.dart';
 
+import '../core/registerServices.dart';
+
 part 'upgradable.mapper.dart';
 
 @MappableClass()
@@ -33,7 +35,7 @@ class UpgradableComponent extends EyuunComponent<int> {
 
   List<Entity> getAllUpgrades() {
     return upgrades
-        .map((e) => AssetLoader.instance.getStatic(e))
+        .map((e) => locator<AssetLoader>().getStatic(e))
         .where((e) => e != null)
         .map((e) => e as Entity)
         .toList();

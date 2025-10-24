@@ -2,8 +2,12 @@ import 'package:flexbackend/components/upgradable.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../core/WorldManager.dart';
+import '../core/registerServices.dart';
 
 class UpgradeSystem extends System {
+
+  WorldManager worldManager = locator<WorldManager>();
+
   late Query query;
 
   @override
@@ -24,8 +28,8 @@ class UpgradeSystem extends System {
   }
 
   void resetUpgrades(Entity entity){
-    for(var upgradeDescriptor in WorldManager.instance.upgrades) {
-      var baseComponent = WorldManager.instance.getComponentFromEntity(upgradeDescriptor.typeIdBase, entity);
+    for(var upgradeDescriptor in worldManager.upgrades) {
+      var baseComponent = worldManager.getComponentFromEntity(upgradeDescriptor.typeIdBase, entity);
 
       if(baseComponent == null){
         continue;
@@ -36,9 +40,9 @@ class UpgradeSystem extends System {
   }
 
   void applyUpgrade(Entity entity, Entity buff) {
-    for(var upgradeDescriptor in WorldManager.instance.upgrades) {
-      var baseComponent = WorldManager.instance.getComponentFromEntity(upgradeDescriptor.typeIdBase, entity);
-      var upgradeComponent = WorldManager.instance.getComponentFromEntity(upgradeDescriptor.typeIdUpgrade, buff);
+    for(var upgradeDescriptor in worldManager.upgrades) {
+      var baseComponent = worldManager.getComponentFromEntity(upgradeDescriptor.typeIdBase, entity);
+      var upgradeComponent = worldManager.getComponentFromEntity(upgradeDescriptor.typeIdUpgrade, buff);
 
       if(upgradeComponent == null || baseComponent == null){
         continue;

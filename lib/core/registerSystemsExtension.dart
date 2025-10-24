@@ -1,5 +1,5 @@
 import '../system/upgradeSystem.dart';
-import '../core/WorldManager.dart';
+import 'WorldManager.dart';
 
 extension RegisterSystemsExtension on WorldManager {
   void registerSystems() {

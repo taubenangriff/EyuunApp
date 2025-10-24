@@ -5,8 +5,6 @@ class TextRepository {
     "text_increase": "Randomize"
   };
 
-  static TextRepository instance = TextRepository();
-
   String getText(String key)
   {
     if(_texts.containsKey(key)){

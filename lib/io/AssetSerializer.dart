@@ -1,10 +1,11 @@
 import 'package:oxygen/oxygen.dart';
 
 import '../core/WorldManager.dart';
+import '../core/registerServices.dart';
 
 class AssetSerializer{
 
-  WorldManager worldManager = WorldManager.instance;
+  WorldManager worldManager = locator<WorldManager>();
 
   Map<String, dynamic> serialize(Entity entity) {
 
