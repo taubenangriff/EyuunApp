@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flexbackend/view/widgets/InventoryItemWidget.dart';
 import 'package:flexbackend/view/widgets/InventoryWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:lorem_ipsum/lorem_ipsum.dart';
@@ -8,9 +9,9 @@ class InventoryItem {
   String name;
   int count;
   String description;
-  bool pinned;
+  String category;
 
-  InventoryItem(this.name, this.count, this.description, this.pinned);
+  InventoryItem(this.name, this.count, this.description, this.category);
 }
 
 class InventoryPage extends StatefulWidget {
@@ -25,10 +26,13 @@ class _InventoryPageState extends State<InventoryPage> {
 
   InventoryItem? selectedItem;
 
+  InventoryItem? armor;
+  InventoryItem? weapon;
+
   late List<InventoryItem> inventoryItems = List.generate(
       15,
       (index) => InventoryItem("ItemName", random.nextInt(10) + 1,
-          loremIpsum(words: random.nextInt(30) + 5), false));
+          loremIpsum(words: random.nextInt(150) + 10), "ItemCategory"));
 
   void _onItemSelected(InventoryItem? item) {
     setState(() {
@@ -62,26 +66,110 @@ class _InventoryPageState extends State<InventoryPage> {
                   // Right side: Details panel
                   Expanded(
                     flex: 1,
-                    child: Container(
-                      margin: const EdgeInsets.all(8),
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: theme.colorScheme.surfaceContainerHighest
-                            .withAlpha(150),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: theme.colorScheme.outline.withAlpha(150),
-                        ),
-                      ),
-                      child: selectedItem == null
-                          ? Center(
-                              child: Text(
-                                'Select an item to view details',
-                                style: theme.textTheme.bodyLarge,
-                                textAlign: TextAlign.center,
-                              ),
-                            )
-                          : _buildItemDetails(selectedItem!, theme),
+                    child: Column(
+                      children: [
+                        Container(
+                            padding: EdgeInsets.all(8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: AspectRatio(
+                                    aspectRatio: 1, // width : height = 1 : 1
+                                    child: Stack(
+                                        children: [
+                                          Center(child: Text("Armor")),
+                                          // The decorated box with your content
+                                          DragTarget<InventoryItem>(
+                                            builder: (context, candidateData, rejectedData) => InventoryItemWidget(
+                                              item: armor,
+                                              onTap: () => setState(() {}),
+                                            ),
+                                            onAcceptWithDetails: (details) {
+                                              final dragged = details.data;
+                                              setState(() {
+                                                armor = dragged;
+                                              });
+                                            },
+                                          ),
+                                          if(armor != null)
+                                            // The info button in the top right corner
+                                            Positioned(
+                                              top: 4,
+                                              right: 4,
+                                              child: IconButton(
+                                                icon: const Icon(Icons.remove_circle),
+                                                tooltip: 'Unequip armor',
+                                                onPressed: () {
+                                                  setState(() {
+                                                    armor = null;
+                                                  });
+                                                },
+                                              ),
+                                            ),
+                                        ],
+                                      )
+                                  ),
+                                ),
+                                const SizedBox(
+                                    width: 8), // spacing between items
+                                Expanded(
+                                  child: AspectRatio(
+                                    aspectRatio: 1, // width : height = 1 : 1
+                                    child: Stack(
+                                      children: [
+                                        Center(child: Text("Weapon")),
+                                        // The decorated box with your content
+                                        DragTarget<InventoryItem>(
+                                          builder: (context, candidateData, rejectedData) => InventoryItemWidget(
+                                            item: weapon,
+                                            onTap: () => setState(() {}),
+                                          ),
+                                          onAcceptWithDetails: (details) {
+                                            final dragged = details.data;
+                                            setState(() {
+                                              weapon = dragged;
+                                            });
+                                          },
+                                        ),
+                                        if(weapon != null)
+                                        // The info button in the top right corner
+                                          Positioned(
+                                            top: 4,
+                                            right: 4,
+                                            child: IconButton(
+                                              icon: const Icon(Icons.remove_circle),
+                                              tooltip: 'Unequip weapon',
+                                              onPressed: () {
+                                                setState(() {
+                                                  weapon = null;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )),
+                        Container(
+                          margin: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: theme.colorScheme.surfaceContainerHighest
+                                .withAlpha(150),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: theme.colorScheme.outline.withAlpha(150),
+                            ),
+                          ),
+                          child: selectedItem == null
+                              ? _buildPlaceholder(theme)
+                              : _buildItemDetails(selectedItem!, theme),
+                        )
+                      ],
                     ),
                   ),
                 ],
@@ -108,6 +196,18 @@ class _InventoryPageState extends State<InventoryPage> {
     );
   }
 
+  Widget _buildPlaceholder(ThemeData theme) {
+    return ConstrainedBox(
+        constraints: const BoxConstraints(minHeight: 200, maxHeight: 500),
+        child: Center(
+          child: Text(
+            'Select an item to view details',
+            style: theme.textTheme.bodyLarge,
+            textAlign: TextAlign.center,
+          ),
+        ));
+  }
+
   Widget _buildLargeFab(
       {required IconData icon,
       required VoidCallback onPressed,
@@ -129,7 +229,7 @@ class _InventoryPageState extends State<InventoryPage> {
 
   Widget _buildItemDetails(InventoryItem item, ThemeData theme) {
     return ConstrainedBox(
-        constraints: BoxConstraints(minHeight: 500),
+        constraints: const BoxConstraints(minHeight: 500),
         child: Stack(children: [
           Column(
             mainAxisSize: MainAxisSize.min,
@@ -148,7 +248,7 @@ class _InventoryPageState extends State<InventoryPage> {
               ),
               const SizedBox(height: 8),
               Text(
-                'Pinned: ${item.pinned ? "Yes" : "No"}',
+                item.category,
                 style: theme.textTheme.bodyMedium,
               ),
               const Divider(height: 24),
@@ -156,7 +256,8 @@ class _InventoryPageState extends State<InventoryPage> {
                 item.description,
                 style: theme.textTheme.bodyMedium,
                 textAlign: TextAlign.justify,
-              )
+              ),
+              SizedBox(height: 100)
             ],
           ),
           Positioned(

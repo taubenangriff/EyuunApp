@@ -22,7 +22,7 @@ class _InventoryWidgetState extends State<InventoryWidget> {
   InventoryItem? selectedItem;
 
   static const int columns = 6;
-  static const int minSlots = 42;
+  static const int minSlots = 100;
 
   @override
   void initState() {
@@ -63,29 +63,19 @@ class _InventoryWidgetState extends State<InventoryWidget> {
             });
           },
           builder: (context, candidateData, rejectedData) {
-            return item == null
-                ? _buildEmptySlot()
-                : InventoryItemWidget(
+            return InventoryItemWidget(
               item: item,
               isSelected: selectedItem == item,
               onTap: () {
                 setState(() => selectedItem = item);
+                if(item == null)
+                  return;
                 widget.onItemSelected?.call(item);
               },
             );
           },
         );
       },
-    );
-  }
-
-  Widget _buildEmptySlot() {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade700),
-        borderRadius: BorderRadius.circular(12),
-        color: Colors.black12,
-      ),
     );
   }
 }

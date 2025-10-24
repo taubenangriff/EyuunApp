@@ -2,23 +2,23 @@ import 'package:flutter/material.dart';
 import '../InventoryPage.dart'; // for InventoryItem
 
 class InventoryItemWidget extends StatelessWidget {
-  final InventoryItem item;
+  final InventoryItem? item;
   final bool isSelected;
   final bool isDragging;
   final VoidCallback? onTap;
 
-  const InventoryItemWidget({
-    super.key,
-    required this.item,
-    this.isSelected = false,
-    this.isDragging = false,
-    this.onTap,
-  });
+  const InventoryItemWidget(
+      {super.key,
+      required this.item,
+      this.isSelected = false,
+      this.isDragging = false,
+      this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return LongPressDraggable<InventoryItem>(
       data: item,
+      delay: const Duration(milliseconds: 150),
       feedback: _buildItemTile(context, isDragging: true),
       childWhenDragging: _buildEmptySlot(),
       child: GestureDetector(
@@ -30,6 +30,10 @@ class InventoryItemWidget extends StatelessWidget {
 
   Widget _buildItemTile(BuildContext context,
       {bool isSelected = false, bool isDragging = false}) {
+    if (item == null) {
+      return _buildEmptySlot();
+    }
+
     return AnimatedContainer(
       duration: const Duration(milliseconds: 150),
       decoration: BoxDecoration(
@@ -53,13 +57,13 @@ class InventoryItemWidget extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Icon(Icons.inventory_2, size: 32),
               ),
-              if (item.count > 1)
+              if (item!.count > 1)
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Padding(
                     padding: const EdgeInsets.all(4),
                     child: Text(
-                      'x${item.count}',
+                      'x${item!.count}',
                       style: const TextStyle(fontSize: 16),
                     ),
                   ),
