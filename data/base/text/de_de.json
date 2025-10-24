@@ -10,6 +10,7 @@
     "baseSkill_Strength" : "Körperkraft",
     "talent_athletic" : "Athletik",
     "talent_sneaky" : "Heimlich",
-    "text_increase" : "Erhöhen"
+    "text_increase" : "Erhöhen",
+    "text_attributes" : "Attribute"
   }
 }

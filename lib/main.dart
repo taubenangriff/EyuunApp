@@ -1,4 +1,4 @@
-import 'package:flexbackend/components/BasicStats.dart';
+import 'package:flexbackend/components/Attributes.dart';
 import 'package:flexbackend/components/health.dart';
 import 'package:flexbackend/components/standard.dart';
 import 'package:flexbackend/controller/BasicStatsController.dart';

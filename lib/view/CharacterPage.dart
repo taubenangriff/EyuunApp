@@ -5,7 +5,7 @@ import 'package:flexbackend/view/controller/ChangeValueController.dart';
 import 'package:flexbackend/view/popup/ChangeValuePopup.dart';
 import 'package:flexbackend/view/widgets/CharacterInfoWidget.dart';
 import 'package:flexbackend/view/widgets/PathsWidget.dart';
-import 'package:flexbackend/view/widgets/BaseValues.dart';
+import 'package:flexbackend/view/widgets/AttributesWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flexbackend/view/popup/PopupUtil.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -94,7 +94,7 @@ class _CharacterPageState extends State<CharacterPage> {
                               borderRadius: BorderRadius.circular(8)),
                           child: const Padding(
                             padding: EdgeInsets.all(15),
-                            child: BaseStatsWidget(),
+                            child: AttributesWidget(),
                           ),
                         ),
                         // The info button in the top right corner

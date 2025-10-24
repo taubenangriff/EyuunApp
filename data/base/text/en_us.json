@@ -10,6 +10,7 @@
     "baseSkill_Strength" : "Strength",
     "talent_athletic" : "Athletic",
     "talent_sneaky" : "Sneaky",
-    "text_increase" : "Increase"
+    "text_increase" : "Increase",
+    "text_attributes" : "Attributes"
   }
 }

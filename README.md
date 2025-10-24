@@ -39,7 +39,7 @@ for key in dynamic_data_map
 ### Save 
 - we can save the dynamic data of the character. There is the AssetSerializer for this which works with any component, and on a component level using the `saveDynamicData` method.
 
-## Accessing things 
+## Accessing things
 - every singleton has a static `instance`. tldr, don't use `WorldManager().doShit()`, use `WorldManager.instance.doShit()`
 - create entities and manipulate their component structure with the WorldManager
 - access the static asset library using the AssetLoader 

@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:flexbackend/components/BasicStats.dart';
+import 'package:flexbackend/components/Attributes.dart';
 import 'package:flexbackend/core/services/WorldManager.dart';
 import 'package:flexbackend/core/services/assetloader.dart';
 import 'package:oxygen/oxygen.dart';
@@ -19,11 +19,11 @@ class BasicStatsController{
   }
 
   void increaseDice(Entity entity, String statId) {
-    if(!entity.has<BasicStatsComponent>()) {
+    if(!entity.has<AttributesComponent>()) {
       return;
     }
 
-    var basicStats = entity.get<BasicStatsComponent>()!;
+    var basicStats = entity.get<AttributesComponent>()!;
     var random = Random.secure().nextInt(Dice.values.length);
     var newDice = Dice.values[random];
     basicStats.getStatEntry(statId)?.dice = newDice;
