@@ -1,6 +1,12 @@
+import 'dart:math';
+
 import 'package:flexbackend/view/widgets/DiceIcon.dart';
 import 'package:flutter/material.dart';
 
+import '../../components/BasicStats.dart';
+import '../../core/registerServices.dart';
+import '../../core/services/CharacterService.dart';
+import '../../core/services/TextService.dart';
 import '../../enums/dice.dart';
 
 class BaseStatsWidget extends StatefulWidget {
@@ -10,37 +16,29 @@ class BaseStatsWidget extends StatefulWidget {
   State<BaseStatsWidget> createState() => _BaseStatsWidgetState();
 }
 
-class BaseValuePlaceholderItem {
-  Dice dice;
-  String name;
-
-  BaseValuePlaceholderItem(this.dice, this.name);
-}
-
 class _BaseStatsWidgetState extends State<BaseStatsWidget> {
-  List<BaseValuePlaceholderItem> baseStats = [
-    BaseValuePlaceholderItem(Dice.d6, "Mut"),
-    BaseValuePlaceholderItem(Dice.d8, "Intelligenz"),
-    BaseValuePlaceholderItem(Dice.d12, "Intelligenz"),
-    BaseValuePlaceholderItem(Dice.d6, "Intelligenz"),
-    BaseValuePlaceholderItem(Dice.d8, "Intelligenz"),
-    BaseValuePlaceholderItem(Dice.d6, "Intelligenz"),
-    BaseValuePlaceholderItem(Dice.d10, "Intelligenz"),
-    BaseValuePlaceholderItem(Dice.d12, "Intelligenz")
-  ];
 
-  Widget _buildBaseStatButton(
-      BuildContext context, BaseValuePlaceholderItem item) {
+  final _textService = locator<TextService>();
+
+  List<BasicStatEntry> baseStats = locator<CharacterService>()
+          .character
+          .get<BasicStatsComponent>()
+          ?.statValues ??
+      [];
+
+  Widget _buildBaseStatButton(BuildContext context, BasicStatEntry item) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(width: 70, child: Text(item.name)),
+        SizedBox(width: 100, child: Text(_textService.getText(item.stat))),
         const SizedBox(width: 12),
         Padding(
             padding: const EdgeInsets.all(3),
             child: ElevatedButton(
               onPressed: () {
-                debugPrint('Button pressed!');
+                setState(() {
+                  item.dice = Dice.values[Random().nextInt(Dice.values.length)];
+                });
               },
               child: Center(child: DiceIcon(type: item.dice)),
             )),
@@ -54,23 +52,28 @@ class _BaseStatsWidgetState extends State<BaseStatsWidget> {
     final double crossAxisSpacing = 8;
     final int crossAxisCount = 2;
 
-    var height = (baseStats.length / crossAxisCount) * buttonHeight + 3*crossAxisSpacing ;
+    var height = (baseStats.length / crossAxisCount) * buttonHeight +
+        3 * crossAxisSpacing;
 
-    return Column(
-        children: [
-          SizedBox(
-            height: height, // or any height you want
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: crossAxisCount,
-                mainAxisSpacing: 8,
-                crossAxisSpacing: crossAxisSpacing,
-                mainAxisExtent: buttonHeight,
-              ),
-              itemCount: baseStats.length,
-              itemBuilder: (context, index) => _buildBaseStatButton(context, baseStats[index]),
-            ),
-          )
+    return Column(children: [
+      const Text(
+        'Attributes',
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      ),
+      SizedBox(
+        height: height, // or any height you want
+        child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: crossAxisCount,
+            mainAxisSpacing: 8,
+            crossAxisSpacing: crossAxisSpacing,
+            mainAxisExtent: buttonHeight,
+          ),
+          itemCount: baseStats.length,
+          itemBuilder: (context, index) =>
+              _buildBaseStatButton(context, baseStats[index]),
+        ),
+      )
     ]);
   }
 }

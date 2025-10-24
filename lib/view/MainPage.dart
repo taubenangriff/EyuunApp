@@ -1,9 +1,15 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flexbackend/view/CharacterPage.dart';
 import 'package:flexbackend/view/InventoryPage.dart';
 import 'package:flutter/material.dart';
 
+import 'dart:html' as html;
+
+import '../core/registerServices.dart';
+import '../core/services/CharacterService.dart';
+import '../io/AssetSerializer.dart';
 import 'CombatPage.dart';
 
 class MainPage extends StatefulWidget {
@@ -112,6 +118,16 @@ class _MainPageState extends State<MainPage> {
                 )
               ],
             ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            var charJson = json.encode(locator<AssetSerializer>().serialize(locator<CharacterService>().character));
+            downloadConfig(charJson);
+          });
+        },
+        tooltip: 'Download',
+        child: const Icon(Icons.download),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
@@ -120,4 +136,15 @@ class _MainPageState extends State<MainPage> {
       _selectedIndex = index;
     });
   }
+}
+
+@Deprecated("This code is only ever placeholder to download the character!!")
+//Some code to just download the character as json
+void downloadConfig(String data) {
+  final blob = html.Blob([data]);
+  final url = html.Url.createObjectUrlFromBlob(blob);
+  final anchor = html.AnchorElement(href: url)
+    ..setAttribute('download', 'config.json')
+    ..click();
+  html.Url.revokeObjectUrl(url);
 }

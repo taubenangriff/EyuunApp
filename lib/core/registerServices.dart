@@ -1,3 +1,5 @@
+import 'package:flexbackend/core/services/CharacterService.dart';
+import 'package:flexbackend/core/services/TextService.dart';
 import 'package:flexbackend/core/services/assetloader.dart';
 import 'package:flexbackend/io/AssetSerializer.dart';
 import 'package:get_it/get_it.dart';
@@ -11,5 +13,7 @@ void setupGetIt() {
   locator.registerSingleton<WorldManager>(WorldManager());
   locator.registerSingleton<AssetLoader>(AssetLoader());
   locator.registerSingleton<TextRepository>(TextRepository());
+  locator.registerSingleton<TextService>(TextService());
+  locator.registerSingleton<CharacterService>(CharacterService());
   locator.registerLazySingleton<AssetSerializer>(() => AssetSerializer());
 }

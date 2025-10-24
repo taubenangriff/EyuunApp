@@ -1,0 +1,15 @@
+{
+  "texts": {
+    "baseSkill_Courage" : "Mut",
+    "baseSkill_Intelligence": "Intelligenz",
+    "baseSkill_Intuition" : "Intuition",
+    "baseSkill_Charisma" : "Charisma",
+    "baseSkill_Dexterity" : "Fingerfertigkeit",
+    "baseSkill_Agility" : "Gewandtheit",
+    "baseSkill_Constitution" : "Konstitution",
+    "baseSkill_Strength" : "Körperkraft",
+    "talent_athletic" : "Athletik",
+    "talent_sneaky" : "Heimlich",
+    "text_increase" : "Erhöhen"
+  }
+}

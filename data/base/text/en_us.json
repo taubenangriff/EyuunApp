@@ -1,0 +1,15 @@
+{
+  "texts": {
+    "baseSkill_Courage" : "Courage",
+    "baseSkill_Intelligence": "Intelligence",
+    "baseSkill_Intuition" : "Intuition",
+    "baseSkill_Charisma" : "Charisma",
+    "baseSkill_Dexterity" : "Dexterity",
+    "baseSkill_Agility" : "Agility",
+    "baseSkill_Constitution" : "Constitution",
+    "baseSkill_Strength" : "Strength",
+    "talent_athletic" : "Athletic",
+    "talent_sneaky" : "Sneaky",
+    "text_increase" : "Increase"
+  }
+}

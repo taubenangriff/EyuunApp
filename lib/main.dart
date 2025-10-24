@@ -14,23 +14,15 @@ import 'package:oxygen/oxygen.dart';
 
 import 'dart:convert';
 
-import 'dart:html' as html;
-
-import 'components/healthUpgrade.dart';
+import 'core/repository/TextRepository.dart';
+import 'core/services/CharacterService.dart';
 import 'core/services/TextService.dart';
 import 'core/services/assetloader.dart';
 
 late Entity character;
 
-//Some code to just download the character as json
-void downloadConfig(String data) {
-  final blob = html.Blob([data]);
-  final url = html.Url.createObjectUrlFromBlob(blob);
-  final anchor = html.AnchorElement(href: url)
-    ..setAttribute('download', 'config.json')
-    ..click();
-  html.Url.revokeObjectUrl(url);
-}
+String textFile = "data/base/text/de_de.json";
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,7 +38,9 @@ void main() async {
   var assetLoader = locator<AssetLoader>();
 
   await assetLoader.reloadAssets();
+  await locator<TextRepository>().reloadTexts(textFile);
   character = assetLoader.createInstance("character")!;
+  locator<CharacterService>().changeCharacter(character);
 
   worldManager.world.execute(1);
 
@@ -104,89 +98,6 @@ class MyApp extends StatelessWidget {
         iconTheme: const IconThemeData(color: Color(0xFF90A4AE)),
       ),
       home: const MainPage(title: 'Eyuun App ECS Demo'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  BasicStatsController statsController = BasicStatsController();
-
-  void _downloadChar() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-
-      var charJson = json.encode(locator<AssetSerializer>().serialize(character));
-      downloadConfig(charJson);
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var stats = character.get<BasicStatsComponent>()!;
-
-    var textHelper = locator<TextService>();
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Table(
-              border: TableBorder.all(),
-              columnWidths: const <int, TableColumnWidth>{
-                0: FixedColumnWidth(200),
-                1: FixedColumnWidth(200),
-                2: FixedColumnWidth(200)
-              },
-              children: stats.statValues.map((entry) {
-                return TableRow(children: [
-                  Text(textHelper.getText(entry.stat)),
-                  Text(entry.dice.toString()),
-                  FloatingActionButton(
-                      onPressed: () {
-                        setState(() {
-                          statsController.increaseDice(character, entry.stat);
-                        });
-                      },
-                      child: Text(textHelper.getText("text_increase")))
-                ]);
-              }).toList(),
-            ),
-            Text(
-                "Health:  ${character.get<HealthComponent>()?.hitpoints}/${character.get<HealthComponent>()?.maxHitpoints.current}")
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _downloadChar,
-        tooltip: 'Download',
-        child: const Icon(Icons.download),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

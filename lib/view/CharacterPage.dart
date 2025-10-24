@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flexbackend/components/health.dart';
 import 'package:flexbackend/view/controller/ChangeValueController.dart';
 import 'package:flexbackend/view/popup/ChangeValuePopup.dart';
 import 'package:flexbackend/view/widgets/CharacterInfoWidget.dart';
@@ -7,6 +8,10 @@ import 'package:flexbackend/view/widgets/PathsWidget.dart';
 import 'package:flexbackend/view/widgets/BaseValues.dart';
 import 'package:flutter/material.dart';
 import 'package:flexbackend/view/popup/PopupUtil.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../core/registerServices.dart';
+import '../core/services/CharacterService.dart';
 
 class CharacterPage extends StatefulWidget {
   const CharacterPage({super.key});
@@ -31,10 +36,13 @@ class _CharacterPageState extends State<CharacterPage> {
     final size = MediaQuery.of(context).size;
     late double desiredSize = 900;
 
-    final healthController = ChangeValueController(healthCurrent,
-        maxLimit: healthMax,
+    var character = locator<CharacterService>().character;
+    var health = character.get<HealthComponent>()!;
+
+    final healthController = ChangeValueController(health.hitpoints,
+        maxLimit: health.maxHitpoints.current,
         minLimit: 0,
-        onValUpdated: (val) => healthCurrent = val);
+        onValUpdated: (val) => health.hitpoints = val);
     final vitalityController = ChangeValueController(vitalityCurrent,
         maxLimit: vitalityMax,
         minLimit: 0,
@@ -57,43 +65,88 @@ class _CharacterPageState extends State<CharacterPage> {
                   children: [
                     DecoratedBox(
                       decoration: BoxDecoration(
-                          border: Border.all(
-                              color: theme.colorScheme.secondaryContainer,
-                              width: 1),
-                          borderRadius: BorderRadius.circular(8)),
+                        border: Border.all(
+                          color: theme.colorScheme.secondaryContainer,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.all(15),
                         child: CharacterInfoWidget(
-                            profileImage: placeholderImage,
-                            name: "Glup Shitto",
-                            upbringing: "Trodatome",
-                            level: 5,
-                            ability: 3
-                      ),
-                    )),
-                    SizedBox(height: 16),
-                    DecoratedBox(
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: theme.colorScheme.secondaryContainer,
-                              width: 1),
-                          borderRadius: BorderRadius.circular(8)),
-                      child: const Padding(
-                        padding: EdgeInsets.all(15),
-                        child: BaseStatsWidget(),
+                          profileImage: placeholderImage,
+                          name: "Glup Shitto",
+                          upbringing: "Trodatome",
+                          level: 5,
+                          ability: 3,
+                        ),
                       ),
                     ),
                     SizedBox(height: 16),
-                    DecoratedBox(
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: theme.colorScheme.secondaryContainer,
-                              width: 1),
-                          borderRadius: BorderRadius.circular(8)),
-                      child: const Padding(
-                        padding: EdgeInsets.all(15),
-                        child: PathsWidget(),
-                      ),
+                    Stack(
+                      children: [
+                        // The decorated box with your content
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: theme.colorScheme.secondaryContainer,
+                                  width: 1),
+                              borderRadius: BorderRadius.circular(8)),
+                          child: const Padding(
+                            padding: EdgeInsets.all(15),
+                            child: BaseStatsWidget(),
+                          ),
+                        ),
+                        // The info button in the top right corner
+                        Positioned(
+                          top: 4,
+                          right: 4,
+                          child: IconButton(
+                            icon: const Icon(Icons.info_outline),
+                            tooltip: 'More info on Attributes',
+                            onPressed: () async {
+                              const url =
+                                  'https://eyuun.de/proben-projekte#eigenschaftenwuerfe--proben';
+                              if (await canLaunchUrl(Uri.parse(url))) {
+                                await launchUrl(Uri.parse(url));
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16),
+                    Stack(
+                      children: [
+                        // The decorated box with your content
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: theme.colorScheme.secondaryContainer,
+                                  width: 1),
+                              borderRadius: BorderRadius.circular(8)),
+                          child: const Padding(
+                            padding: EdgeInsets.all(15),
+                            child: PathsWidget(),
+                          ),
+                        ),
+                        // The info button in the top right corner
+                        Positioned(
+                          top: 4,
+                          right: 4,
+                          child: IconButton(
+                            icon: const Icon(Icons.info_outline),
+                            tooltip: 'More info on Paths',
+                            onPressed: () async {
+                              const url =
+                                  'https://eyuun.de/charaktere-level#pfade';
+                              if (await canLaunchUrl(Uri.parse(url))) {
+                                await launchUrl(Uri.parse(url));
+                              }
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(height: 200)
                   ],
@@ -114,7 +167,7 @@ class _CharacterPageState extends State<CharacterPage> {
                 }),
               );
             },
-            text: '${healthCurrent}/${healthMax}',
+            text: '${health.hitpoints}/${health.maxHitpoints.current}',
             tooltip: 'Health',
             icon: Icons.heart_broken,
           ),
