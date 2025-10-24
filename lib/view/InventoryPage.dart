@@ -1,5 +1,9 @@
 import 'dart:math';
 
+import 'package:flexbackend/view/controller/ChangeValueController.dart';
+import 'package:flexbackend/view/popup/ChangeItemCountPopup.dart';
+import 'package:flexbackend/view/popup/ChangeValuePopup.dart';
+import 'package:flexbackend/view/popup/PopupUtil.dart';
 import 'package:flexbackend/view/widgets/InventoryItemWidget.dart';
 import 'package:flexbackend/view/widgets/InventoryWidget.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +32,7 @@ class _InventoryPageState extends State<InventoryPage> {
 
   InventoryItem? armor;
   InventoryItem? weapon;
+  InventoryItem? secondWeapon;
 
   late List<InventoryItem> inventoryItems = List.generate(
       15,
@@ -74,61 +79,24 @@ class _InventoryPageState extends State<InventoryPage> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Expanded(
-                                  flex: 1,
-                                  child: buildEquipmentSlot(
-                                    label: "Armor",
-                                    getItem: ()=> armor,
-                                    setItem: (x) {armor = x; },
-                                    onTap: () => setState(() {
-                                      selectedItem = armor;
-                                    }),
-                                    onItemChanged: (newItem) => setState(() {
-                                      if (newItem == null && selectedItem == armor) {
-                                        selectedItem = null;
-                                      }
-                                      armor = newItem;
-                                    }),
-                                  ),
+                                  child: _buildArmorSlot(),
                                 ),
                                 const SizedBox(
                                     width: 8), // spacing between items
                                 Expanded(
-                                  child: buildEquipmentSlot(
-                                    label: "Weapon",
-                                    getItem: ()=> weapon,
-                                    setItem: (x) {weapon = x; },
-                                    onTap: () => setState(() {
-                                      selectedItem = weapon;
-                                    }),
-                                    onItemChanged: (newItem) => setState(() {
-                                      if (newItem == null && selectedItem == weapon) {
-                                        selectedItem = null;
-                                      }
-                                      weapon = newItem;
-                                    }),
-                                  ),
+                                  child: _buildWeaponSlot(),
+                                ),
+                                const SizedBox(
+                                    width: 8), // spacing between items
+                                Expanded(
+                                  child: _buildSecondWeaponSlot(),
                                 ),
                               ],
                             )),
-                        Container(
-                          margin: const EdgeInsets.all(8),
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: theme.colorScheme.surfaceContainerHighest
-                                .withAlpha(150),
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: theme.colorScheme.outline.withAlpha(150),
-                            ),
-                          ),
-                          child: selectedItem == null
-                              ? _buildPlaceholder(theme)
-                              : _buildItemDetails(
-                                  context, selectedItem!, theme),
-                        )
+                        Expanded(child: _buildItemDetailWidget(theme))
                       ],
                     ),
-                  ),
+                  )
                 ],
               ))),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -154,15 +122,13 @@ class _InventoryPageState extends State<InventoryPage> {
   }
 
   Widget _buildPlaceholder(ThemeData theme) {
-    return ConstrainedBox(
-        constraints: const BoxConstraints(minHeight: 200, maxHeight: 500),
-        child: Center(
-          child: Text(
-            'Select an item to view details',
-            style: theme.textTheme.bodyLarge,
-            textAlign: TextAlign.center,
-          ),
-        ));
+    return Center(
+      child: Text(
+        'Select an item to view details',
+        style: theme.textTheme.bodyLarge,
+        textAlign: TextAlign.center,
+      ),
+    );
   }
 
   Widget _buildLargeFab(
@@ -184,56 +150,146 @@ class _InventoryPageState extends State<InventoryPage> {
                 children: [Icon(icon, size: 36), Text(text)])));
   }
 
+  Widget _buildItemDetailWidget(ThemeData theme) => Container(
+        margin: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: theme.colorScheme.surfaceContainerHighest.withAlpha(150),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: theme.colorScheme.outline.withAlpha(150),
+          ),
+        ),
+        child: selectedItem == null
+            ? _buildPlaceholder(theme)
+            : _buildItemDetails(context, selectedItem!, theme),
+      );
+
   Widget _buildItemDetails(
       BuildContext context, InventoryItem item, ThemeData theme) {
     final size = MediaQuery.of(context).size;
 
-    return ConstrainedBox(
-        constraints:
-            BoxConstraints(minHeight: 400, maxHeight: size.height - 310),
-        child: Stack(children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                item.name,
-                style: theme.textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Stack(children: [
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              item.name,
+              style: theme.textTheme.headlineSmall?.copyWith(
+                fontWeight: FontWeight.bold,
               ),
-              const SizedBox(height: 8),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              item.category,
+              style: theme.textTheme.bodyMedium,
+            ),
+            const Divider(height: 24),
+            Expanded(
+                child: SingleChildScrollView(
+                    child: Column(children: [
               Text(
-                'Count: ${item.count}',
+                item.description,
                 style: theme.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                item.category,
-                style: theme.textTheme.bodyMedium,
-              ),
-              const Divider(height: 24),
-              Expanded(
-                  child: SingleChildScrollView(
-                      child: Column(children: [
-                    Text(
-                      item.description,
-                      style: theme.textTheme.bodyMedium,
-                      textAlign: TextAlign.justify,
-                    )
-                  ]))),
-              SizedBox(height: 100)
-            ],
-          ),
-          Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: FloatingActionButton(
-                  child: const Text('use item'),
-                  onPressed: () => setState(() {})))
-        ]));
+                textAlign: TextAlign.justify,
+              )
+            ]))),
+            SizedBox(height: 100)
+          ],
+        ),
+        Positioned(
+            top: 0,
+            right: 0,
+            child: ElevatedButton(
+                child: Text('x${item.count}',
+                    style: theme.textTheme.bodyLarge
+                        ?.copyWith(fontWeight: FontWeight.bold, fontSize: 22)),
+                onPressed: () {
+                  var amountController = ChangeValueController(item.count,
+                      name: "Item Count",
+                      maxLimit: 64,
+                      minLimit: 0,
+                      onValUpdated: (val) => item.count = val);
+                  setState(() {
+                    PopupUtil.popup(
+                        context,
+                        ChangeItemCountPopup(amountController,
+                            valueChanged: (change, useMoney) {
+                          setState(() {
+                            amountController.change(change);
+                          });
+                        }));
+                  });
+                }))
+      ]),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: 60, minWidth: 110),
+          child: FloatingActionButton(
+              child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.hardware_outlined),
+                    SizedBox(width: 4),
+                    Text('Use')
+                  ]),
+              onPressed: () => setState(() {}))),
+    );
   }
+
+  Widget _buildArmorSlot() => buildEquipmentSlot(
+        label: "Armor",
+        getItem: () => armor,
+        setItem: (x) {
+          armor = x;
+        },
+        onTap: () => setState(() {
+          selectedItem = armor;
+        }),
+        onItemChanged: (newItem) => setState(() {
+          if (newItem == null && selectedItem == armor) {
+            selectedItem = null;
+          }
+          armor = newItem;
+        }),
+      );
+
+  Widget _buildWeaponSlot() => buildEquipmentSlot(
+        label: "Weapon",
+        getItem: () => weapon,
+        setItem: (x) {
+          weapon = x;
+        },
+        onTap: () => setState(() {
+          selectedItem = weapon;
+        }),
+        onItemChanged: (newItem) => setState(() {
+          if (newItem == null && selectedItem == weapon) {
+            selectedItem = null;
+          }
+          weapon = newItem;
+        }),
+      );
+
+  Widget _buildSecondWeaponSlot() => buildEquipmentSlot(
+        label: "Weapon 2",
+        getItem: () => secondWeapon,
+        setItem: (x) {
+          secondWeapon = x;
+        },
+        onTap: () => setState(() {
+          selectedItem = secondWeapon;
+        }),
+        onItemChanged: (newItem) => setState(() {
+          if (newItem == null && selectedItem == secondWeapon) {
+            selectedItem = null;
+          }
+          secondWeapon = newItem;
+        }),
+      );
 
   Widget buildEquipmentSlot({
     required String label,
@@ -242,22 +298,20 @@ class _InventoryPageState extends State<InventoryPage> {
     required ValueChanged<InventoryItem?> onItemChanged,
     required VoidCallback onTap,
   }) {
-    return
-      AspectRatio(
+    return AspectRatio(
         aspectRatio: 1,
         child: Stack(
           children: [
             Center(child: Text(label)),
             // The decorated box with your content
             DragTarget<InventoryItem>(
-              builder: (context, candidateData,
-                  rejectedData) =>
+              builder: (context, candidateData, rejectedData) =>
                   InventoryItemWidget(
-                    item: getItem(),
-                    onTap: () => setState(() {
-                      selectedItem = getItem();
-                    }),
-                  ),
+                item: getItem(),
+                onTap: () => setState(() {
+                  selectedItem = getItem();
+                }),
+              ),
               onAcceptWithDetails: (details) {
                 final dragged = details.data;
                 setState(() {
@@ -266,25 +320,22 @@ class _InventoryPageState extends State<InventoryPage> {
               },
             ),
             if (getItem() != null)
-            // The info button in the top right corner
+              // The info button in the top right corner
               Positioned(
                 top: 4,
                 right: 4,
                 child: IconButton(
-                  icon: const Icon(
-                      Icons.remove_circle),
+                  icon: const Icon(Icons.remove_circle),
                   tooltip: 'Unequip $label',
                   onPressed: () {
                     setState(() {
-                      if(selectedItem == armor)
-                        selectedItem = null;
+                      if (selectedItem == armor) selectedItem = null;
                       setItem(null);
                     });
                   },
                 ),
               ),
           ],
-        )
-      );
+        ));
   }
 }
