@@ -5,7 +5,7 @@ import 'package:flexbackend/components/upgradable.dart';
 import '../components/BasicStats.dart';
 import '../components/health.dart';
 import '../components/standard.dart';
-import 'WorldManager.dart';
+import 'services/WorldManager.dart';
 
 extension RegisterUpgradesExtension on WorldManager {
   void registerComponents() {

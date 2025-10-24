@@ -6,7 +6,7 @@ import 'package:flexbackend/io/AssetSerializer.dart';
 import 'package:flexbackend/core/registerComponentsExtension.dart';
 import 'package:flexbackend/core/registerSystemsExtension.dart';
 import 'package:flexbackend/core/registerUpgradesExtension.dart';
-import 'package:flexbackend/core/WorldManager.dart';
+import 'package:flexbackend/core/services/WorldManager.dart';
 import 'package:flexbackend/core/registerServices.dart';
 import 'package:flexbackend/view/MainPage.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +17,8 @@ import 'dart:convert';
 import 'dart:html' as html;
 
 import 'components/healthUpgrade.dart';
-import 'core/TextHelper.dart';
-import 'core/assetloader.dart';
+import 'core/services/TextService.dart';
+import 'core/services/assetloader.dart';
 
 late Entity character;
 
@@ -146,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     var stats = character.get<BasicStatsComponent>()!;
 
-    var textHelper = locator<TextHelper>();
+    var textHelper = locator<TextService>();
 
     return Scaffold(
       appBar: AppBar(

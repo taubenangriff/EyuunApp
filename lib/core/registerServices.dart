@@ -1,9 +1,9 @@
-import 'package:flexbackend/core/assetloader.dart';
+import 'package:flexbackend/core/services/assetloader.dart';
 import 'package:flexbackend/io/AssetSerializer.dart';
 import 'package:get_it/get_it.dart';
 
-import 'TextRepository.dart';
-import 'WorldManager.dart';
+import 'repository/TextRepository.dart';
+import 'services/WorldManager.dart';
 
 final locator = GetIt.instance;
 

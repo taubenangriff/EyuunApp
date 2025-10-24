@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:oxygen/oxygen.dart';
 import 'package:uuid/uuid.dart';
 
-import '../core/WorldManager.dart';
-import 'registerServices.dart';
+import 'WorldManager.dart';
+import '../registerServices.dart';
 
 String assetFile = "data/base/asset/assets.json";
 

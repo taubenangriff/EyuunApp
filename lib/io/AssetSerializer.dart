@@ -1,6 +1,6 @@
 import 'package:oxygen/oxygen.dart';
 
-import '../core/WorldManager.dart';
+import '../core/services/WorldManager.dart';
 import '../core/registerServices.dart';
 
 class AssetSerializer{
