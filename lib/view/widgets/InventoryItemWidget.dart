@@ -16,9 +16,8 @@ class InventoryItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LongPressDraggable<InventoryItem>(
+    return Draggable<InventoryItem>(
       data: item,
-      delay: const Duration(milliseconds: 150),
       feedback: _buildItemTile(context, isDragging: true),
       childWhenDragging: _buildEmptySlot(),
       child: GestureDetector(

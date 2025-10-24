@@ -75,81 +75,37 @@ class _InventoryPageState extends State<InventoryPage> {
                               children: [
                                 Expanded(
                                   flex: 1,
-                                  child: AspectRatio(
-                                    aspectRatio: 1, // width : height = 1 : 1
-                                    child: Stack(
-                                        children: [
-                                          Center(child: Text("Armor")),
-                                          // The decorated box with your content
-                                          DragTarget<InventoryItem>(
-                                            builder: (context, candidateData, rejectedData) => InventoryItemWidget(
-                                              item: armor,
-                                              onTap: () => setState(() {}),
-                                            ),
-                                            onAcceptWithDetails: (details) {
-                                              final dragged = details.data;
-                                              setState(() {
-                                                armor = dragged;
-                                              });
-                                            },
-                                          ),
-                                          if(armor != null)
-                                            // The info button in the top right corner
-                                            Positioned(
-                                              top: 4,
-                                              right: 4,
-                                              child: IconButton(
-                                                icon: const Icon(Icons.remove_circle),
-                                                tooltip: 'Unequip armor',
-                                                onPressed: () {
-                                                  setState(() {
-                                                    armor = null;
-                                                  });
-                                                },
-                                              ),
-                                            ),
-                                        ],
-                                      )
+                                  child: buildEquipmentSlot(
+                                    label: "Armor",
+                                    getItem: ()=> armor,
+                                    setItem: (x) {armor = x; },
+                                    onTap: () => setState(() {
+                                      selectedItem = armor;
+                                    }),
+                                    onItemChanged: (newItem) => setState(() {
+                                      if (newItem == null && selectedItem == armor) {
+                                        selectedItem = null;
+                                      }
+                                      armor = newItem;
+                                    }),
                                   ),
                                 ),
                                 const SizedBox(
                                     width: 8), // spacing between items
                                 Expanded(
-                                  child: AspectRatio(
-                                    aspectRatio: 1, // width : height = 1 : 1
-                                    child: Stack(
-                                      children: [
-                                        Center(child: Text("Weapon")),
-                                        // The decorated box with your content
-                                        DragTarget<InventoryItem>(
-                                          builder: (context, candidateData, rejectedData) => InventoryItemWidget(
-                                            item: weapon,
-                                            onTap: () => setState(() {}),
-                                          ),
-                                          onAcceptWithDetails: (details) {
-                                            final dragged = details.data;
-                                            setState(() {
-                                              weapon = dragged;
-                                            });
-                                          },
-                                        ),
-                                        if(weapon != null)
-                                        // The info button in the top right corner
-                                          Positioned(
-                                            top: 4,
-                                            right: 4,
-                                            child: IconButton(
-                                              icon: const Icon(Icons.remove_circle),
-                                              tooltip: 'Unequip weapon',
-                                              onPressed: () {
-                                                setState(() {
-                                                  weapon = null;
-                                                });
-                                              },
-                                            ),
-                                          ),
-                                      ],
-                                    ),
+                                  child: buildEquipmentSlot(
+                                    label: "Weapon",
+                                    getItem: ()=> weapon,
+                                    setItem: (x) {weapon = x; },
+                                    onTap: () => setState(() {
+                                      selectedItem = weapon;
+                                    }),
+                                    onItemChanged: (newItem) => setState(() {
+                                      if (newItem == null && selectedItem == weapon) {
+                                        selectedItem = null;
+                                      }
+                                      weapon = newItem;
+                                    }),
                                   ),
                                 ),
                               ],
@@ -167,7 +123,8 @@ class _InventoryPageState extends State<InventoryPage> {
                           ),
                           child: selectedItem == null
                               ? _buildPlaceholder(theme)
-                              : _buildItemDetails(selectedItem!, theme),
+                              : _buildItemDetails(
+                                  context, selectedItem!, theme),
                         )
                       ],
                     ),
@@ -227,9 +184,13 @@ class _InventoryPageState extends State<InventoryPage> {
                 children: [Icon(icon, size: 36), Text(text)])));
   }
 
-  Widget _buildItemDetails(InventoryItem item, ThemeData theme) {
+  Widget _buildItemDetails(
+      BuildContext context, InventoryItem item, ThemeData theme) {
+    final size = MediaQuery.of(context).size;
+
     return ConstrainedBox(
-        constraints: const BoxConstraints(minHeight: 500),
+        constraints:
+            BoxConstraints(minHeight: 400, maxHeight: size.height - 310),
         child: Stack(children: [
           Column(
             mainAxisSize: MainAxisSize.min,
@@ -252,11 +213,15 @@ class _InventoryPageState extends State<InventoryPage> {
                 style: theme.textTheme.bodyMedium,
               ),
               const Divider(height: 24),
-              Text(
-                item.description,
-                style: theme.textTheme.bodyMedium,
-                textAlign: TextAlign.justify,
-              ),
+              Expanded(
+                  child: SingleChildScrollView(
+                      child: Column(children: [
+                    Text(
+                      item.description,
+                      style: theme.textTheme.bodyMedium,
+                      textAlign: TextAlign.justify,
+                    )
+                  ]))),
               SizedBox(height: 100)
             ],
           ),
@@ -268,5 +233,58 @@ class _InventoryPageState extends State<InventoryPage> {
                   child: const Text('use item'),
                   onPressed: () => setState(() {})))
         ]));
+  }
+
+  Widget buildEquipmentSlot({
+    required String label,
+    required InventoryItem? Function() getItem,
+    required void Function(InventoryItem?) setItem,
+    required ValueChanged<InventoryItem?> onItemChanged,
+    required VoidCallback onTap,
+  }) {
+    return
+      AspectRatio(
+        aspectRatio: 1,
+        child: Stack(
+          children: [
+            Center(child: Text(label)),
+            // The decorated box with your content
+            DragTarget<InventoryItem>(
+              builder: (context, candidateData,
+                  rejectedData) =>
+                  InventoryItemWidget(
+                    item: getItem(),
+                    onTap: () => setState(() {
+                      selectedItem = getItem();
+                    }),
+                  ),
+              onAcceptWithDetails: (details) {
+                final dragged = details.data;
+                setState(() {
+                  setItem(dragged);
+                });
+              },
+            ),
+            if (getItem() != null)
+            // The info button in the top right corner
+              Positioned(
+                top: 4,
+                right: 4,
+                child: IconButton(
+                  icon: const Icon(
+                      Icons.remove_circle),
+                  tooltip: 'Unequip $label',
+                  onPressed: () {
+                    setState(() {
+                      if(selectedItem == armor)
+                        selectedItem = null;
+                      setItem(null);
+                    });
+                  },
+                ),
+              ),
+          ],
+        )
+      );
   }
 }
