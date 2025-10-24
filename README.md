@@ -6,6 +6,14 @@
 - run `dart run build_runner build` to rebuild all the mapping classes that are used for data IO.
 - build 
 
+## Demo App 
+
+- The app is a UX demo with a character page. 
+- Paths are a demonstrator widget
+- Attributes are fully wired to the backend. The button right now randomizes the characters dice for demo purposes. 
+- The Health Button is also connected to the backend.
+- Press the Download button to get a json export of all the dynamic data of the character.
+
 ## Assets 
 ### Asset Structure
 - Assets have two kinds of data, static and dynamic
@@ -40,7 +48,18 @@ for key in dynamic_data_map
 - we can save the dynamic data of the character. There is the AssetSerializer for this which works with any component, and on a component level using the `saveDynamicData` method.
 
 ## Accessing things
-- every singleton has a static `instance`. tldr, don't use `WorldManager().doShit()`, use `WorldManager.instance.doShit()`
-- create entities and manipulate their component structure with the WorldManager
-- access the static asset library using the AssetLoader 
-- access the text library using the TextRepository
+
+### get_it 
+- I used get_it for service registry and location. 
+- register Services in `lib/core/registerServices.dart` 
+- access a service wherever you need it with `locator<YourService>()`
+
+### Services
+- WorldManager: create entities and manipulate their component structure
+- AssetLoader: access the static asset library and create entity instances
+- TextService: access the text library
+- CharacterService: access and change the current character 
+
+## Localization 
+- Even though not a primary requirement, the backbone of the app already supports loading different text files.
+- A static key <> text dictionary is loaded from the text file  
