@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:lorem_ipsum/lorem_ipsum.dart';
 
 class PathPopup extends StatefulWidget {
   final void Function(String)? onSubmitted;
@@ -11,8 +14,6 @@ class PathPopup extends StatefulWidget {
 }
 
 class _PathPopupState extends State<PathPopup> {
-  static const description =
-      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et';
 
   static const List<String> descriptions = [
     'I',
@@ -24,6 +25,8 @@ class _PathPopupState extends State<PathPopup> {
     'VII',
     'VIII'
   ];
+
+  List<String> descriptionTexts = List.generate(8, (index) => loremIpsum(words: Random().nextInt(60) + 20));
 
   var maxSkilled = 1;
   bool canSelectNew = true;
@@ -51,7 +54,7 @@ class _PathPopupState extends State<PathPopup> {
         SizedBox(width: 10),
         Flexible(
             child: Text(
-              description,
+              descriptionTexts[i],
               textAlign: TextAlign.justify,
               style: TextStyle(
                   fontSize: 15,
