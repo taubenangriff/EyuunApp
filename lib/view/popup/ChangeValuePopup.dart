@@ -60,7 +60,7 @@ class _ChangeValuePopupState extends State<ChangeValuePopup> {
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: FloatingActionButton(
                     onPressed: () {
-                      widget.valueChanged!(newVal);
+                      widget.valueChanged?.call(newVal);
                       Navigator.of(context).pop();
                     },
                     child: Text('Apply'))))

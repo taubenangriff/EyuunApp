@@ -4,6 +4,7 @@ import 'package:flexbackend/view/controller/ChangeValueController.dart';
 import 'package:flexbackend/view/popup/ChangeItemCountPopup.dart';
 import 'package:flexbackend/view/popup/ChangeValuePopup.dart';
 import 'package:flexbackend/view/popup/PopupUtil.dart';
+import 'package:flexbackend/view/popup/SelectItemPopup.dart';
 import 'package:flexbackend/view/widgets/InventoryItemWidget.dart';
 import 'package:flexbackend/view/widgets/InventoryWidget.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,99 @@ class _InventoryPageState extends State<InventoryPage> {
       15,
       (index) => InventoryItem("ItemName", random.nextInt(10) + 1,
           loremIpsum(words: random.nextInt(150) + 10), "ItemCategory"));
+
+  final List<Item> dummyItems = [
+    Item("Weapons", Icons.security, [
+      Item("Melee", Icons.abc_sharp, [
+        Item("Longsword", Icons.gavel),
+        Item("Dagger", Icons.cut),
+        Item("Warhammer", Icons.construction),
+        Item("Great Axe", Icons.fitness_center),
+        Item("Spear", Icons.trending_up),
+      ]),
+      Item("Ranged", Icons.architecture, [
+        Item("Shortbow", Icons.arrow_right_alt),
+        Item("Crossbow", Icons.precision_manufacturing),
+        Item("Throwing Knife", Icons.cut),
+      ]),
+      Item("Magical", Icons.auto_fix_high, [
+        Item("Fire Wand", Icons.local_fire_department),
+        Item("Ice Staff", Icons.ac_unit),
+        Item("Lightning Rod", Icons.bolt),
+      ]),
+    ]),
+    Item("Armor", Icons.shield, [
+      Item("Light", Icons.checkroom, [
+        Item("Leather Armor", Icons.hiking),
+        Item("Padded Vest", Icons.backpack),
+      ]),
+      Item("Heavy", Icons.shield_moon, [
+        Item("Plate Armor", Icons.shield),
+        Item("Chainmail", Icons.grid_on),
+        Item("Scale Armor", Icons.texture),
+      ]),
+      Item("Magical", Icons.auto_awesome, [
+        Item("Robe of Protection", Icons.stars),
+        Item("Cloak of Shadows", Icons.nightlight_round),
+      ]),
+    ]),
+    Item("Potions", Icons.science, [
+      Item("Healing", Icons.favorite, [
+        Item("Minor Healing Potion", Icons.water_drop),
+        Item("Major Healing Potion", Icons.water_drop),
+      ]),
+      Item("Buffs", Icons.flash_on, [
+        Item("Potion of Strength", Icons.fitness_center),
+        Item("Potion of Speed", Icons.directions_run),
+        Item("Potion of Focus", Icons.psychology),
+      ]),
+      Item("Debuffs", Icons.warning, [
+        Item("Poison Vial", Icons.sick),
+        Item("Weakness Draught", Icons.local_drink),
+      ]),
+    ]),
+    Item("Tools", Icons.build, [
+      Item("Crafting", Icons.handyman, [
+        Item("Hammer", Icons.handyman),
+        Item("Tongs", Icons.tune),
+        Item("Anvil", Icons.precision_manufacturing),
+      ]),
+      Item("Exploration", Icons.explore, [
+        Item("Rope", Icons.settings_ethernet),
+        Item("Torch", Icons.light_mode),
+        Item("Pickaxe", Icons.landscape),
+      ]),
+    ]),
+    Item("Magic", Icons.auto_fix_high, [
+      Item("Offensive Spells", Icons.whatshot, [
+        Item("Fireball", Icons.local_fire_department),
+        Item("Frostbolt", Icons.ac_unit),
+        Item("Arcane Missiles", Icons.blur_on),
+      ]),
+      Item("Defensive Spells", Icons.security, [
+        Item("Barrier", Icons.shield),
+        Item("Magic Ward", Icons.bubble_chart),
+      ]),
+      Item("Utility Spells", Icons.extension, [
+        Item("Teleport", Icons.travel_explore),
+        Item("Invisibility", Icons.visibility_off),
+        Item("Levitate", Icons.flight),
+      ]),
+    ]),
+    Item("Miscellaneous", Icons.category, [
+      Item("Currency", Icons.monetization_on, [
+        Item("Gold Coins", Icons.circle),
+        Item("Silver Coins", Icons.circle_outlined),
+      ]),
+      Item("Quest Items", Icons.map, [
+        Item("Ancient Relic", Icons.account_balance),
+        Item("Sealed Letter", Icons.mail),
+        Item("Royal Seal", Icons.verified),
+      ]),
+    ]),
+  ];
+
+
 
   void _onItemSelected(InventoryItem? item) {
     setState(() {
@@ -111,7 +205,9 @@ class _InventoryPageState extends State<InventoryPage> {
           ),
           const SizedBox(width: 16),
           _buildLargeFab(
-            onPressed: () {},
+            onPressed: () {
+              PopupUtil.popup(context, ItemGridNavigator(rootItems: dummyItems), maximumSize: const Size(900, 700));
+            },
             text: 'Add Item',
             tooltip: 'Add an Item',
             icon: Icons.add,
