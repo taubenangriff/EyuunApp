@@ -1,4 +1,5 @@
 
+import 'package:flexbackend/components/Boon.dart';
 import 'package:flexbackend/components/healthUpgrade.dart';
 import 'package:flexbackend/components/upgradable.dart';
 
@@ -14,5 +15,6 @@ extension RegisterUpgradesExtension on WorldManager {
     registerComponent<AttributesComponent, int>(AttributesComponent.propertyName, () => AttributesComponent());
     registerComponent<UpgradableComponent, int>(UpgradableComponent.propertyName, () => UpgradableComponent());
     registerComponent<HealthUpgradeComponent, int>(HealthUpgradeComponent.propertyName, () => HealthUpgradeComponent());
+    registerComponent<BoonComponent, int>(BoonComponent.propertyName, () => BoonComponent());
   }
 }
