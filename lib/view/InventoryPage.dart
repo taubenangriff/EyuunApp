@@ -35,6 +35,8 @@ class _InventoryPageState extends State<InventoryPage> {
   InventoryItem? weapon;
   InventoryItem? secondWeapon;
 
+  bool hasDragTarget = false;
+
   late List<InventoryItem> inventoryItems = List.generate(
       15,
       (index) => InventoryItem("ItemName", random.nextInt(10) + 1,
@@ -205,9 +207,6 @@ class _InventoryPageState extends State<InventoryPage> {
     ]),
   ];
 
-
-
-
   void _onItemSelected(InventoryItem? item) {
     setState(() {
       selectedItem = item;
@@ -220,9 +219,12 @@ class _InventoryPageState extends State<InventoryPage> {
     final size = MediaQuery.of(context).size;
     late double desiredSize = 1100;
 
+
     return Scaffold(
-      body: Center(
-          child: ConstrainedBox(
+      body: Stack(
+        children: [
+          Center(
+            child: ConstrainedBox(
               constraints: BoxConstraints(maxWidth: desiredSize),
               child: Row(
                 children: [
@@ -233,7 +235,7 @@ class _InventoryPageState extends State<InventoryPage> {
                       padding: const EdgeInsets.all(8),
                       child: InventoryWidget(
                         items: inventoryItems,
-                        onItemSelected: _onItemSelected, // callback
+                        onItemSelected: _onItemSelected,
                       ),
                     ),
                   ),
@@ -243,31 +245,40 @@ class _InventoryPageState extends State<InventoryPage> {
                     child: Column(
                       children: [
                         Container(
-                            padding: EdgeInsets.all(8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: _buildArmorSlot(),
-                                ),
-                                const SizedBox(
-                                    width: 8), // spacing between items
-                                Expanded(
-                                  child: _buildWeaponSlot(),
-                                ),
-                                const SizedBox(
-                                    width: 8), // spacing between items
-                                Expanded(
-                                  child: _buildSecondWeaponSlot(),
-                                ),
-                              ],
-                            )),
-                        Expanded(child: _buildItemDetailWidget(theme))
+                          padding: const EdgeInsets.all(8),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Expanded(child: _buildArmorSlot()),
+                              const SizedBox(width: 8),
+                              Expanded(child: _buildWeaponSlot()),
+                              const SizedBox(width: 8),
+                              Expanded(child: _buildSecondWeaponSlot()),
+                            ],
+                          ),
+                        ),
+                        Expanded(child: _buildItemDetailWidget(theme)),
                       ],
                     ),
-                  )
+                  ),
                 ],
-              ))),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 0,
+            bottom: 0,
+            left: 0,
+            child: _buildRemoveDragTarget(),
+          ),
+          Positioned(
+            top: 0,
+            bottom: 0,
+            right: 0,
+            child: _buildGroupDragTarget(),
+          ),
+        ],
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -281,14 +292,142 @@ class _InventoryPageState extends State<InventoryPage> {
           const SizedBox(width: 16),
           _buildLargeFab(
             onPressed: () {
-              PopupUtil.popup(context, ItemGridNavigator(rootItems: dummyItems), maximumSize: const Size(900, 700));
+              PopupUtil.popup(
+                context,
+                ItemGridNavigator(rootItems: dummyItems),
+                maximumSize: const Size(900, 700),
+              );
             },
             text: 'Add Item',
             tooltip: 'Add an Item',
             icon: Icons.add,
-          )
+          ),
         ],
       ),
+    );
+  }
+
+  DragTarget<InventoryItem> _buildRemoveDragTarget() {
+    return DragTarget<InventoryItem>(
+            onWillAcceptWithDetails: (data) => true,
+            onAcceptWithDetails: (details) {
+              final draggedItem = details.data;
+              setState(() {
+                inventoryItems.remove(draggedItem);
+              });
+            },
+            builder: (context, candidateData, rejectedData) {
+              final hovering = candidateData.isNotEmpty;
+
+              return AnimatedContainer(
+                duration: const Duration(milliseconds: 250),
+                width: 200,
+                decoration: BoxDecoration(
+                  gradient: hovering
+                      ? LinearGradient(
+                          colors: [
+                            Colors.red.withAlpha(100), // deep red
+                            Colors.transparent, // light pink-red tint
+                          ],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                        )
+                      : const LinearGradient(
+                          colors: [
+                            Colors.transparent,
+                            Colors.transparent,
+                          ],
+                        ),
+                ),
+                child: Center(
+                  child: AnimatedOpacity(
+                    duration: const Duration(milliseconds: 200),
+                    opacity: hovering ? 1.0 : 0.0,
+                    child: const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.delete_forever,
+                            size: 48, color: Colors.white),
+                        SizedBox(height: 8),
+                        Text(
+                          'Delete',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
+  }
+
+  DragTarget<InventoryItem> _buildGroupDragTarget() {
+    return DragTarget<InventoryItem>(
+      onWillAcceptWithDetails: (data) => true,
+      onAcceptWithDetails: (details) {
+        final draggedItem = details.data;
+        setState(() {
+          PopupUtil.popup(context,
+            Padding(padding: EdgeInsets.all(32), child: Row(children: [
+              Expanded(child: InventoryWidget(items: inventoryItems)),
+              const Icon(Icons.swap_horiz, size: 52),
+              Expanded(child: InventoryWidget(items: inventoryItems))
+            ]),
+            ),
+            maximumSize: Size(900, 700)
+          );
+        });
+      },
+      builder: (context, candidateData, rejectedData) {
+        final hovering = candidateData.isNotEmpty;
+
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 250),
+          width: 200,
+          decoration: BoxDecoration(
+            gradient: hovering
+                ? LinearGradient(
+              colors: [
+                Colors.transparent, // light pink-red tint
+                Colors.blue.withAlpha(100), // deep red
+              ],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            )
+                : const LinearGradient(
+              colors: [
+                Colors.transparent,
+                Colors.transparent,
+              ],
+            ),
+          ),
+          child: Center(
+            child: AnimatedOpacity(
+              duration: const Duration(milliseconds: 200),
+              opacity: hovering ? 1.0 : 0.0,
+              child: const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.transfer_within_a_station,
+                      size: 48, color: Colors.white),
+                  SizedBox(height: 8),
+                  Text(
+                    'Access Group Items',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 
