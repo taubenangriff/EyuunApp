@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flexbackend/components/Item.dart';
 import 'package:flexbackend/view/controller/ChangeValueController.dart';
 import 'package:flexbackend/view/popup/ChangeItemCountPopup.dart';
 import 'package:flexbackend/view/popup/ChangeValuePopup.dart';
@@ -483,6 +484,8 @@ class _InventoryPageState extends State<InventoryPage> {
       BuildContext context, InventoryItem item, ThemeData theme) {
     final size = MediaQuery.of(context).size;
 
+    final itemText = _assetLoader.getStatic(item.typeId)?.get<ItemComponent>()?.categoryText;
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Stack(children: [
@@ -498,7 +501,7 @@ class _InventoryPageState extends State<InventoryPage> {
             ),
             const SizedBox(height: 8),
             Text(
-              "Item Category",
+              _textService.getText(itemText ?? ""),
               style: theme.textTheme.bodyMedium,
             ),
             const Divider(height: 24),

@@ -11,6 +11,9 @@
     "talent_athletic" : "Athletic",
     "talent_sneaky" : "Sneaky",
     "text_increase" : "Increase",
-    "text_attributes" : "Attributes"
+    "text_attributes" : "Attributes",
+    "fluff_item_dummy1" : "Lorem Ipsum description",
+    "item_dummy1" : "Item I",
+    "item_category1" : "Category I"
   }
 }

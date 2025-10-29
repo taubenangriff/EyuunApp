@@ -5,6 +5,7 @@ import 'package:flexbackend/components/inventory.dart';
 import 'package:flexbackend/components/upgradable.dart';
 
 import '../components/Attributes.dart';
+import '../components/Item.dart';
 import '../components/health.dart';
 import '../components/standard.dart';
 import '../components/text.dart';
@@ -20,5 +21,6 @@ extension RegisterUpgradesExtension on WorldManager {
     registerComponent<BoonComponent, int>(BoonComponent.propertyName, () => BoonComponent());
     registerComponent<InventoryComponent, int>(InventoryComponent.propertyName, () => InventoryComponent());
     registerComponent<TextComponent, String>(TextComponent.propertyName, () => TextComponent());
+    registerComponent<ItemComponent, int>(ItemComponent.propertyName, () => ItemComponent());
   }
 }

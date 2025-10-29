@@ -12,6 +12,8 @@
     "talent_sneaky" : "Heimlich",
     "text_increase" : "Erhöhen",
     "text_attributes" : "Attribute",
-    "fluff_item_dummy1" : "Lorem Ipsum fuckfuckfuck"
+    "fluff_item_dummy1" : "Lorem Ipsum Description",
+    "item_dummy1" : "Gegenstand I",
+    "item_category1" : "Kategorie I"
   }
 }

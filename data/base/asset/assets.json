@@ -181,6 +181,9 @@
       },
       "text": {
         "fluff" : "fluff_item_dummy1"
+      },
+      "item": {
+        "categoryText": "item_category1"
       }
     },
     {
@@ -189,6 +192,9 @@
       },
       "text": {
         "fluff" : "fluff_item_dummy2"
+      },
+      "item": {
+        "categoryText": "item_category1"
       }
     },
     {
@@ -197,6 +203,9 @@
       },
       "text": {
         "fluff" : "fluff_item_dummy3"
+      },
+      "item": {
+        "categoryText": "item_category1"
       }
     }
   ]
