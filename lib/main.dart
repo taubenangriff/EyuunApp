@@ -5,6 +5,7 @@ import 'package:flexbackend/components/Attributes.dart';
 import 'package:flexbackend/components/health.dart';
 import 'package:flexbackend/core/components/standard.dart';
 import 'package:flexbackend/controller/BasicStatsController.dart';
+import 'package:flexbackend/core/repository/AssetRepository.dart';
 import 'package:flexbackend/io/AssetSerializer.dart';
 import 'package:flexbackend/core/registerComponentsExtension.dart';
 import 'package:flexbackend/core/registerSystemsExtension.dart';
@@ -42,9 +43,11 @@ void main() async {
   worldManager.registerUpgrades();
   worldManager.init();
 
-  var assetLoader = locator<AssetLoader>();
+  await locator<AssetRepository>().reloadAssetFile();
 
+  var assetLoader = locator<AssetLoader>();
   await assetLoader.reloadAssets();
+
   await locator<TextRepository>().reloadTexts(textFile);
   character = assetLoader.createInstance("character")!;
   locator<CharacterService>().changeCharacter(character);

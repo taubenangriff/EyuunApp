@@ -1,3 +1,4 @@
+import 'package:flexbackend/core/repository/AssetRepository.dart';
 import 'package:flexbackend/core/services/CharacterService.dart';
 import 'package:flexbackend/core/services/TextService.dart';
 import 'package:flexbackend/core/services/assetloader.dart';
@@ -11,6 +12,7 @@ final locator = GetIt.instance;
 
 void setupGetIt() {
   locator.registerSingleton<WorldManager>(WorldManager());
+  locator.registerSingleton<AssetRepository>(AssetRepository());
   locator.registerSingleton<AssetLoader>(AssetLoader());
   locator.registerSingleton<TextRepository>(TextRepository());
   locator.registerSingleton<TextService>(TextService());

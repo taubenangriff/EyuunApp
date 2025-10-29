@@ -1,0 +1,37 @@
+{
+  "assets": [
+    {
+      "standard": {
+        "typeId": "item_dummy1"
+      },
+      "text": {
+        "fluff" : "fluff_item_dummy1"
+      },
+      "item": {
+        "categoryText": "item_category1"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "item_dummy2"
+      },
+      "text": {
+        "fluff" : "fluff_item_dummy2"
+      },
+      "item": {
+        "categoryText": "item_category1"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "item_dummy3"
+      },
+      "text": {
+        "fluff" : "fluff_item_dummy3"
+      },
+      "item": {
+        "categoryText": "item_category1"
+      }
+    }
+  ]
+}

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flexbackend/core/components/EntityExtensions.dart';
 import 'package:flexbackend/core/components/standard.dart';
 import 'package:flexbackend/components/text.dart';
+import 'package:flexbackend/core/repository/AssetRepository.dart';
 import 'package:flutter/services.dart';
 import 'package:oxygen/oxygen.dart';
 import 'package:uuid/uuid.dart';
@@ -10,12 +11,10 @@ import 'package:uuid/uuid.dart';
 import 'WorldManager.dart';
 import '../registerServices.dart';
 
-String assetFile = "data/base/asset/assets.json";
-
 class AssetLoader {
   var worldManager = locator<WorldManager>();
+  var assetRepository = locator<AssetRepository>();
 
-  Map<String, Map<String, dynamic>> assets = {};
   Map<String, String> textKeys = {};
 
   var uuid = const Uuid();
@@ -23,7 +22,7 @@ class AssetLoader {
   Map<String, Entity> staticAssets = {};
 
   Entity? createInstance(String typeId) {
-    if(!isValidDefinition(typeId)) {
+    if (!assetRepository.isValidDefinition(typeId)) {
       return null;
     }
 
@@ -38,33 +37,26 @@ class AssetLoader {
 
   //Get a static instance of an asset as an entity. Never change anything on that static instance though.
   Entity? getStatic(String typeId) {
-    if(!isValidDefinition(typeId)) {
+    if (!assetRepository.isValidDefinition(typeId)) {
       return null;
     }
     //return cached entity if it exists
-    if(!staticAssets.containsKey(typeId)){
+    if (!staticAssets.containsKey(typeId)) {
       return null;
     }
     return staticAssets[typeId];
   }
 
-  bool isValidDefinition(String typeId) {
-    if(!assets.containsKey(typeId)) {
-      return false;
-    }
-    return true;
-  }
-
-
   //TODO add data loading as well. Right now, the only thing this does is create an empty entity with empty instances of the components defined by the asset.
   void _addComponentsToEntity(Entity entity, String typeId) {
-    var asset = assets[typeId];
-    if(asset == null) {
-      throw ArgumentError("typeId is not valid and doesn't point to an asset definition. This should be checked beforehand!");
+    var asset = assetRepository.getAssetMap(typeId);
+    if (asset == null) {
+      throw ArgumentError(
+          "typeId is not valid and doesn't point to an asset definition. This should be checked beforehand!");
     }
 
     for (var key in asset.keys) {
-      if(!worldManager.isValidComponentName(key)){
+      if (!worldManager.isValidComponentName(key)) {
         continue;
       }
       worldManager.addComponentToEntity(key, entity);
@@ -72,36 +64,27 @@ class AssetLoader {
     }
   }
 
-  void _addComponentDataToEntity(Entity entity, String componentId, Map<String, dynamic> assetMap)
-  {
+  void _addComponentDataToEntity(
+      Entity entity, String componentId, Map<String, dynamic> assetMap) {
     var component = worldManager.getComponentFromEntity(componentId, entity);
     var componentMap = assetMap[componentId];
     component?.loadStaticData(componentMap);
   }
 
   Future<void> reloadAssets() async {
-    assets.clear();
-
     //clear entities from the static world
-    for (var entity in worldManager.staticWorld.entities){
+    for (var entity in worldManager.staticWorld.entities) {
       entity.dispose();
     }
     worldManager.staticWorld.execute(1);
 
-    final String response = await rootBundle.loadString(assetFile);
-    Map<String, dynamic> data = await json.decode(response);
-
-    var assetArray = data['assets'];
-    for(var asset in assetArray) {
-      //we want var typeId = asset['standard']['typeId'] but in safe.
+    for (var asset in assetRepository.getAssetMaps()) {
       var typeId = asset['standard']['typeId'] as String?;
-      if(typeId == null) {
+      if (typeId == null) {
         continue;
       }
-      //register asset
-      assets[typeId] = asset as Map<String, dynamic>;
 
-      //load static entity and register that as well.
+      //load static entity
       var entity = worldManager.staticWorld.createEntity();
       _addComponentsToEntity(entity, typeId);
       staticAssets[typeId] = entity;
