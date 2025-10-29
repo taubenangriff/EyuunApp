@@ -1,5 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'EyuunComponent.dart';
+import '../core/components/EyuunComponent.dart';
 
 part 'Item.mapper.dart';
 

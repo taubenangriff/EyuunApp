@@ -7,7 +7,7 @@ import 'package:flexbackend/components/upgradable.dart';
 import '../components/Attributes.dart';
 import '../components/Item.dart';
 import '../components/health.dart';
-import '../components/standard.dart';
+import 'components/standard.dart';
 import '../components/text.dart';
 import 'services/WorldManager.dart';
 

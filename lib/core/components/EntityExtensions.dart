@@ -1,4 +1,4 @@
-import 'package:flexbackend/components/standard.dart';
+import 'package:flexbackend/core/components/standard.dart';
 import 'package:flexbackend/components/text.dart';
 import 'package:oxygen/oxygen.dart';
 

@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:flexbackend/components/Attributes.dart';
 import 'package:flexbackend/components/health.dart';
-import 'package:flexbackend/components/standard.dart';
+import 'package:flexbackend/core/components/standard.dart';
 import 'package:flexbackend/controller/BasicStatsController.dart';
 import 'package:flexbackend/io/AssetSerializer.dart';
 import 'package:flexbackend/core/registerComponentsExtension.dart';

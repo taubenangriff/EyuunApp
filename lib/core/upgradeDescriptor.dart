@@ -1,4 +1,4 @@
-import 'package:flexbackend/components/EyuunComponent.dart';
+import 'package:flexbackend/core/components/EyuunComponent.dart';
 
 import 'upgradableInt.dart';
 

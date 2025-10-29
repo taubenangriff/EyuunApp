@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:flexbackend/components/EntityExtensions.dart';
-import 'package:flexbackend/components/standard.dart';
+import 'package:flexbackend/core/components/EntityExtensions.dart';
+import 'package:flexbackend/core/components/standard.dart';
 import 'package:flexbackend/components/text.dart';
 import 'package:flutter/services.dart';
 import 'package:oxygen/oxygen.dart';

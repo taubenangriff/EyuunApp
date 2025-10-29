@@ -1,8 +1,8 @@
 import 'dart:collection';
 
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:flexbackend/components/EntityExtensions.dart';
-import 'package:flexbackend/components/EyuunComponent.dart';
+import 'package:flexbackend/core/components/EntityExtensions.dart';
+import 'package:flexbackend/core/components/EyuunComponent.dart';
 import 'package:oxygen/oxygen.dart';
 
 part 'inventory.mapper.dart';

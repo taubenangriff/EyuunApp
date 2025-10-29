@@ -1,7 +1,7 @@
 import 'package:flexbackend/core/upgradableInt.dart';
 import 'package:flexbackend/core/upgradeDescriptor.dart';
 import 'package:oxygen/oxygen.dart';
-import '../../components/EyuunComponent.dart';
+import '../components/EyuunComponent.dart';
 
 typedef FuncEyuunComponentAdder<T1 extends EyuunComponent<T2>, T2> = void Function(Entity entity);
 typedef FuncEyuunComponentChecker<T1 extends EyuunComponent<T2>, T2> = bool Function(Entity entity);
