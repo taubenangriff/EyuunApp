@@ -1,3 +1,6 @@
+import 'dart:collection';
+import 'dart:math';
+
 import 'package:flexbackend/components/Attributes.dart';
 import 'package:flexbackend/components/health.dart';
 import 'package:flexbackend/components/standard.dart';
@@ -14,10 +17,13 @@ import 'package:oxygen/oxygen.dart';
 
 import 'dart:convert';
 
+import 'components/inventory.dart';
 import 'core/repository/TextRepository.dart';
 import 'core/services/CharacterService.dart';
 import 'core/services/TextService.dart';
 import 'core/services/assetloader.dart';
+
+import 'package:dart_mappable/dart_mappable.dart';
 
 late Entity character;
 
@@ -26,6 +32,7 @@ String textFile = "data/base/text/de_de.json";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   setupGetIt();
 
   var worldManager = locator<WorldManager>();
@@ -43,6 +50,15 @@ void main() async {
   locator<CharacterService>().changeCharacter(character);
 
   worldManager.world.execute(1);
+
+  //Fill Characters inventory with bullshit
+  var random = Random();
+  List<InventoryItem> inventoryItems = List.generate(
+      15,
+          (index) => InventoryItem("item_dummy1", count: random.nextInt(10) + 1));
+
+  locator<CharacterService>().character.get<InventoryComponent>()?.addAll(inventoryItems);
+
 
   runApp(const MyApp());
 }

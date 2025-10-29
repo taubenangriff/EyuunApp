@@ -1,15 +1,16 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import '../../components/inventory.dart';
 import '../InventoryPage.dart';
 import 'InventoryItemWidget.dart';
 
 class InventoryWidget extends StatefulWidget {
-  final List<InventoryItem> items;
+  final InventoryComponent inventory;
   final ValueChanged<InventoryItem?>? onItemSelected;
 
   const InventoryWidget({
     super.key,
-    required this.items,
+    required this.inventory,
     this.onItemSelected,
   });
 
@@ -29,12 +30,12 @@ class _InventoryWidgetState extends State<InventoryWidget> {
     super.initState();
 
     final total =
-    max(((widget.items.length / columns).ceil() * columns), minSlots)
+    max(((widget.inventory.maxCapacity / columns).ceil() * columns), minSlots)
         .toInt();
 
     inventorySlots = List<InventoryItem?>.filled(total, null);
-    for (int i = 0; i < widget.items.length; i++) {
-      inventorySlots[i] = widget.items[i];
+    for (int i = 0; i < widget.inventory.maxCapacity; i++) {
+      inventorySlots[i] = widget.inventory.getSlotItem(i);
     }
   }
 
@@ -57,9 +58,12 @@ class _InventoryWidgetState extends State<InventoryWidget> {
             final dragged = details.data;
             final oldIndex = inventorySlots.indexOf(dragged);
             setState(() {
-              // Swap positions
+              // Swap positions visually
               inventorySlots[oldIndex] = item;
               inventorySlots[index] = dragged;
+
+              widget.inventory.clearSlot(oldIndex);
+              widget.inventory.addItemToSlot(dragged, index);
             });
           },
           builder: (context, candidateData, rejectedData) {

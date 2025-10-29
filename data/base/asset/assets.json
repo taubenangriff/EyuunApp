@@ -44,7 +44,11 @@
           "base_healthUpgrade",
           "base_AnotherHealthUpgrade"
         ]
-      }
+      },
+      "boon": {
+        "maxBoon" : 2
+      },
+      "inventory": {}
     },
     {
       "standard": {
@@ -169,6 +173,30 @@
       "text": { },
       "healthUpgrade" : {
         "maxHitpointsUpgrade": 30
+      }
+    },
+    {
+      "standard": {
+        "typeId": "item_dummy1"
+      },
+      "text": {
+        "fluff" : "fluff_item_dummy1"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "item_dummy2"
+      },
+      "text": {
+        "fluff" : "fluff_item_dummy2"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "item_dummy3"
+      },
+      "text": {
+        "fluff" : "fluff_item_dummy3"
       }
     }
   ]

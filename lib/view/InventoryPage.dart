@@ -10,14 +10,12 @@ import 'package:flexbackend/view/widgets/InventoryWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:lorem_ipsum/lorem_ipsum.dart';
 
-class InventoryItem {
-  String name;
-  int count;
-  String description;
-  String category;
-
-  InventoryItem(this.name, this.count, this.description, this.category);
-}
+import '../components/inventory.dart';
+import '../components/text.dart';
+import '../core/registerServices.dart';
+import '../core/services/CharacterService.dart';
+import '../core/services/TextService.dart';
+import '../core/services/assetloader.dart';
 
 class InventoryPage extends StatefulWidget {
   const InventoryPage({super.key});
@@ -37,10 +35,10 @@ class _InventoryPageState extends State<InventoryPage> {
 
   bool hasDragTarget = false;
 
-  late List<InventoryItem> inventoryItems = List.generate(
-      15,
-      (index) => InventoryItem("ItemName", random.nextInt(10) + 1,
-          loremIpsum(words: random.nextInt(150) + 10), "ItemCategory"));
+  final _textService = locator<TextService>();
+  final _assetLoader = locator<AssetLoader>();
+
+  late InventoryComponent? _inventory;
 
   final List<Item> dummyItems = [
     Item("Weapons", Icons.security, [
@@ -207,6 +205,7 @@ class _InventoryPageState extends State<InventoryPage> {
     ]),
   ];
 
+
   void _onItemSelected(InventoryItem? item) {
     setState(() {
       selectedItem = item;
@@ -219,6 +218,11 @@ class _InventoryPageState extends State<InventoryPage> {
     final size = MediaQuery.of(context).size;
     late double desiredSize = 1100;
 
+    _inventory = locator<CharacterService>().character.get<InventoryComponent>();
+
+    if(_inventory == null){
+      return Container();
+    }
 
     return Scaffold(
       body: Stack(
@@ -234,7 +238,7 @@ class _InventoryPageState extends State<InventoryPage> {
                     child: Padding(
                       padding: const EdgeInsets.all(8),
                       child: InventoryWidget(
-                        items: inventoryItems,
+                        inventory: _inventory!,
                         onItemSelected: _onItemSelected,
                       ),
                     ),
@@ -313,7 +317,7 @@ class _InventoryPageState extends State<InventoryPage> {
             onAcceptWithDetails: (details) {
               final draggedItem = details.data;
               setState(() {
-                inventoryItems.remove(draggedItem);
+                //remove the dragged item
               });
             },
             builder: (context, candidateData, rejectedData) {
@@ -373,9 +377,9 @@ class _InventoryPageState extends State<InventoryPage> {
         setState(() {
           PopupUtil.popup(context,
             Padding(padding: EdgeInsets.all(32), child: Row(children: [
-              Expanded(child: InventoryWidget(items: inventoryItems)),
+              Expanded(child: InventoryWidget(inventory: InventoryComponent())),
               const Icon(Icons.swap_horiz, size: 52),
-              Expanded(child: InventoryWidget(items: inventoryItems))
+              Expanded(child: InventoryWidget(inventory: InventoryComponent()))
             ]),
             ),
             maximumSize: Size(900, 700)
@@ -487,14 +491,14 @@ class _InventoryPageState extends State<InventoryPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              item.name,
+              _textService.getText(item.typeId),
               style: theme.textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 8),
             Text(
-              item.category,
+              "Item Category",
               style: theme.textTheme.bodyMedium,
             ),
             const Divider(height: 24),
@@ -502,7 +506,7 @@ class _InventoryPageState extends State<InventoryPage> {
                 child: SingleChildScrollView(
                     child: Column(children: [
               Text(
-                item.description,
+                _textService.getFluff(item.typeId),
                 style: theme.textTheme.bodyMedium,
                 textAlign: TextAlign.justify,
               )

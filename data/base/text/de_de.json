@@ -11,6 +11,7 @@
     "talent_athletic" : "Athletik",
     "talent_sneaky" : "Heimlich",
     "text_increase" : "Erhöhen",
-    "text_attributes" : "Attribute"
+    "text_attributes" : "Attribute",
+    "fluff_item_dummy1" : "Lorem Ipsum fuckfuckfuck"
   }
 }

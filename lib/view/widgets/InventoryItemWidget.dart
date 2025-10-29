@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../components/inventory.dart';
 import '../InventoryPage.dart'; // for InventoryItem
 
 class InventoryItemWidget extends StatelessWidget {

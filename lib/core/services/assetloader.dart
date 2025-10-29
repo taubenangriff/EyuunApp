@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flexbackend/components/EntityExtensions.dart';
 import 'package:flexbackend/components/standard.dart';
 import 'package:flexbackend/components/text.dart';
 import 'package:flutter/services.dart';
@@ -109,15 +110,11 @@ class AssetLoader {
 
   String getTextKey(String typeId) {
     var entity = getStatic(typeId);
+    return entity?.getTextKey() ?? typeId;
+  }
 
-    if(entity?.has<TextComponent>() ?? false)
-    {
-      var textOverride = entity?.get<TextComponent>()?.textOverride;
-      if(textOverride != null){
-        return textOverride;
-      }
-    }
-
-    return typeId;
+  String getFluffKey(String typeId) {
+    var entity = getStatic(typeId);
+    return entity?.getFluff() ?? typeId;
   }
 }
