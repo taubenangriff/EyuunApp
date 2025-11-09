@@ -63,6 +63,26 @@
       },
       "stat": {
         "constrainedBy": []
+      },
+      "skillcheck": {
+        "checkedAttributes": [
+          {
+            "options": [
+              "baseSkill_Courage"
+            ]
+          },
+          {
+            "options": [
+              "baseSkill_Agility"
+            ]
+          },
+          {
+            "options": [
+              "baseSkill_Agility",
+              "baseSkill_baseSkill_Strength"
+            ]
+          }
+        ]
       }
     },
     {

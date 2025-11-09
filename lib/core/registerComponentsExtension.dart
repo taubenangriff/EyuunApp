@@ -6,6 +6,7 @@ import 'package:flexbackend/components/upgradable.dart';
 
 import '../components/Attributes.dart';
 import '../components/Item.dart';
+import '../components/Skillcheck.dart';
 import '../components/health.dart';
 import 'components/standard.dart';
 import '../components/text.dart';
@@ -22,5 +23,6 @@ extension RegisterUpgradesExtension on WorldManager {
     registerComponent<InventoryComponent, int>(InventoryComponent.propertyName, () => InventoryComponent());
     registerComponent<TextComponent, String>(TextComponent.propertyName, () => TextComponent());
     registerComponent<ItemComponent, int>(ItemComponent.propertyName, () => ItemComponent());
+    registerComponent<SkillcheckComponent, int>(SkillcheckComponent.propertyName, () => SkillcheckComponent());
   }
 }
