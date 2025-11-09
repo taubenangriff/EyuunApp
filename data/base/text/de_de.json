@@ -10,6 +10,8 @@
     "baseSkill_Strength" : "Körperkraft",
     "talent_athletic" : "Athletik",
     "talent_sneaky" : "Heimlich",
+    "talent_manipulation" : "Manipulieren",
+    "talent_investigate" : "Nachforschen",
     "text_increase" : "Erhöhen",
     "text_attributes" : "Attribute",
     "fluff_item_dummy1" : "Lorem Ipsum Description",

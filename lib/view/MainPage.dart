@@ -11,6 +11,7 @@ import '../core/registerServices.dart';
 import '../core/services/CharacterService.dart';
 import '../io/AssetSerializer.dart';
 import 'CombatPage.dart';
+import 'TalentPage.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.title});
@@ -27,7 +28,7 @@ class _MainPageState extends State<MainPage> {
   late final _pages = [
     const Center(child: CharacterPage()),
     const Center(child: CombatPage()),
-    const Center(child: Text("Talents")),
+    const Center(child: TalentPage()),
     const Center(child: InventoryPage()),
     const Center(child: Text("Notes")),
   ];

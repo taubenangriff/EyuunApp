@@ -79,8 +79,8 @@
           },
           {
             "options": [
-              "baseSkill_Agility",
-              "baseSkill_baseSkill_Strength"
+              "baseSkill_Constitution",
+              "baseSkill_Strength"
             ]
           }
         ]
@@ -96,6 +96,84 @@
       },
       "stat": {
         "constrainedBy": []
+      },
+      "skillcheck": {
+        "checkedAttributes": [
+          {
+            "options": [
+              "baseSkill_Courage"
+            ]
+          },
+          {
+            "options": [
+              "baseSkill_Intuition"
+            ]
+          },
+          {
+            "options": [
+              "baseSkill_Agility"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "standard": {
+        "typeId": "talent_manipulation",
+        "internalName": "Talent: Manipulation"
+      },
+      "text": {},
+      "stat": {
+        "constrainedBy": []
+      },
+      "skillcheck": {
+        "checkedAttributes": [
+          {
+            "options": [
+              "baseSkill_Intelligence"
+            ]
+          },
+          {
+            "options": [
+              "baseSkill_Intuition"
+            ]
+          },
+          {
+            "options": [
+              "baseSkill_Charisma",
+              "baseSkill_Strength"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "standard": {
+        "typeId": "talent_investigate",
+        "internalName": "Talent: Investigate"
+      },
+      "text": { },
+      "stat": {
+        "constrainedBy": []
+      },
+      "skillcheck": {
+        "checkedAttributes": [
+          {
+            "options": [
+              "baseSkill_Intelligence"
+            ]
+          },
+          {
+            "options": [
+              "baseSkill_Intuition"
+            ]
+          },
+          {
+            "options": [
+              "baseSkill_Intuition"
+            ]
+          }
+        ]
       }
     },
     {
