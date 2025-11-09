@@ -1,5 +1,6 @@
 
 import 'package:flexbackend/components/Boon.dart';
+import 'package:flexbackend/components/Flux.dart';
 import 'package:flexbackend/components/healthUpgrade.dart';
 import 'package:flexbackend/components/inventory.dart';
 import 'package:flexbackend/components/upgradable.dart';
@@ -24,5 +25,6 @@ extension RegisterUpgradesExtension on WorldManager {
     registerComponent<TextComponent, String>(TextComponent.propertyName, () => TextComponent());
     registerComponent<ItemComponent, int>(ItemComponent.propertyName, () => ItemComponent());
     registerComponent<SkillcheckComponent, int>(SkillcheckComponent.propertyName, () => SkillcheckComponent());
+    registerComponent<FluxComponent, int>(FluxComponent.propertyName, () => FluxComponent());
   }
 }

@@ -18,6 +18,7 @@ import 'package:oxygen/oxygen.dart';
 
 import 'dart:convert';
 
+import 'components/Flux.dart';
 import 'components/inventory.dart';
 import 'core/repository/TextRepository.dart';
 import 'core/services/CharacterService.dart';
@@ -54,16 +55,25 @@ void main() async {
 
   worldManager.world.execute(1);
 
+  fillTestData();
+
+  runApp(const MyApp());
+}
+
+void fillTestData()
+{
   //Fill Characters inventory with bullshit
   var random = Random();
   List<InventoryItem> inventoryItems = List.generate(
       15,
           (index) => InventoryItem("item_dummy1", count: random.nextInt(10) + 1));
 
-  locator<CharacterService>().character.get<InventoryComponent>()?.addAll(inventoryItems);
+  var char = locator<CharacterService>().character;
 
-
-  runApp(const MyApp());
+  char.get<InventoryComponent>()?.addAll(inventoryItems);
+  char.get<FluxComponent>()?.fluxMaximum = 15;
+  char.get<FluxComponent>()?.fluxSpent = 2;
+  char.get<FluxComponent>()?.fluxCapacity = 12;
 }
 
 class MyApp extends StatelessWidget {

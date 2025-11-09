@@ -51,6 +51,7 @@
       "boon": {
         "maxBoon" : 2
       },
+      "flux": {},
       "inventory": {}
     },
     {

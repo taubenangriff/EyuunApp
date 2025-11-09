@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flexbackend/components/Flux.dart';
 import 'package:flexbackend/components/health.dart';
 import 'package:flexbackend/view/controller/ChangeValueController.dart';
 import 'package:flexbackend/view/popup/ChangeValuePopup.dart';
@@ -27,9 +28,6 @@ class _CharacterPageState extends State<CharacterPage> {
   var vitalityCurrent = 12;
   var vitalityMax = 20;
 
-  var flowCurrent = 120;
-  var flowMax = 150;
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -38,6 +36,7 @@ class _CharacterPageState extends State<CharacterPage> {
 
     var character = locator<CharacterService>().character;
     var health = character.get<HealthComponent>()!;
+    var flux = character.get<FluxComponent>()!;
 
     final healthController = ChangeValueController(health.hitpoints,
         maxLimit: health.maxHitpoints.current,
@@ -47,10 +46,10 @@ class _CharacterPageState extends State<CharacterPage> {
         maxLimit: vitalityMax,
         minLimit: 0,
         onValUpdated: (val) => vitalityCurrent = val);
-    final flowController = ChangeValueController(flowCurrent,
-        maxLimit: flowMax,
+    final fluxController = ChangeValueController(flux.fluxSpent,
+        maxLimit: flux.fluxCapacity,
         minLimit: 0,
-        onValUpdated: (val) => flowCurrent = val);
+        onValUpdated: (val) => flux.fluxSpent = val);
 
     final ImageProvider placeholderImage = const NetworkImage(
         'https://tse3.mm.bing.net/th/id/OIP.cPOpHmPNSfuOjLHJxKOFzAHaGe?rs=1&pid=ImgDetMain&o=7&rm=3');
@@ -191,13 +190,13 @@ class _CharacterPageState extends State<CharacterPage> {
             onPressed: () {
               PopupUtil.popup(
                   context,
-                  ChangeValuePopup(flowController, valueChanged: (change) {
+                  ChangeValuePopup(fluxController, valueChanged: (change) {
                     setState(() {
-                      flowController.change(change);
+                      fluxController.change(change);
                     });
                   }));
             },
-            text: '${flowCurrent}/${flowMax}',
+            text: '${flux.fluxSpent}/${flux.fluxCapacity} (${flux.fluxMaximum})',
             tooltip: 'flow',
             icon: Icons.water,
           ),
