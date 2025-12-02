@@ -100,4 +100,9 @@ class AssetLoader {
     var entity = getStatic(typeId);
     return entity?.getFluff() ?? typeId;
   }
+
+  String getShortKey(String typeId) {
+    var entity = getStatic(typeId);
+    return entity?.getShort() ?? typeId;
+  }
 }

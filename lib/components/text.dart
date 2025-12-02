@@ -4,12 +4,15 @@ import '../core/components/EyuunComponent.dart';
 
 part 'text.mapper.dart';
 
-@MappableClass()
+@MappableClass(
+  ignoreNull: false
+)
 class TextStatic with TextStaticMappable {
   String? textOverride;
   String? fluff;
+  String? short;
 
-  TextStatic(this.textOverride, this.fluff);
+  TextStatic(this.textOverride, this.fluff, this.short);
 }
 
 class TextComponent extends EyuunComponent<String> {
@@ -17,11 +20,10 @@ class TextComponent extends EyuunComponent<String> {
 
   String? textOverride;
   String? fluff;
+  String? short;
 
   @override
-  void init([String? textKey, String? fluff]) {
-    this.textOverride = textKey;
-    this.fluff = fluff;
+  void init([String? data]) {
   }
 
   @override
@@ -41,6 +43,7 @@ class TextComponent extends EyuunComponent<String> {
     var stat = TextStaticMapper.fromMap(staticData);
     textOverride = stat.textOverride;
     fluff = stat.fluff;
+    short = stat.short;
   }
 
   @override

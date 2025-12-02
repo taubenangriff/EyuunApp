@@ -21,6 +21,13 @@ extension EntityIdExtension on Entity {
     return null;
   }
 
+  String? getShort() {
+    if(has<TextComponent>()){
+      return get<TextComponent>()?.short;
+    }
+    return null;
+  }
+
   String getObjectId() {
     if(!this.has<StandardComponent>()){
       throw Error();

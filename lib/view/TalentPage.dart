@@ -93,7 +93,7 @@ class _TalentPageState extends State<TalentPage> {
                           segments: attributeOption.options
                               .map((opt) => ButtonSegment(
                                     value: opt,
-                                    label: Text(_textService.getText(opt)),
+                                    label: Text(_textService.getShort(opt)),
                                   ))
                               .toList(),
                           selected: {},
@@ -102,7 +102,7 @@ class _TalentPageState extends State<TalentPage> {
                           },
                         )
                       : Text(
-                          _textService.getText(attributeOption.options.first),
+                          _textService.getShort(attributeOption.options.first),
                           textAlign: TextAlign.center,)
               ],
             ),

@@ -181,7 +181,9 @@
         "typeId": "baseSkill_Courage",
         "internalName": "Attribute: Courage"
       },
-      "text": { },
+      "text": {
+        "short": "text_Courage_short"
+      },
       "stat": {
         "constrainedBy": []
       }
@@ -191,7 +193,9 @@
         "typeId": "baseSkill_Intelligence",
         "internalName": "Attribute: Intelligence"
       },
-      "text": { },
+      "text": {
+        "short": "text_Intelligence_short"
+      },
       "stat": {
         "constrainedBy": []
       }
@@ -201,7 +205,9 @@
         "typeId": "baseSkill_Intuition",
         "internalName": "Attribute: Intuition"
       },
-      "text": { },
+      "text": {
+        "short": "text_Intuition_short"
+      },
       "stat": {
         "constrainedBy": []
       }
@@ -211,7 +217,9 @@
         "typeId": "baseSkill_Charisma",
         "internalName": "Attribute: Charisma"
       },
-      "text": { },
+      "text": {
+        "short": "text_Charisma_short"
+      },
       "stat": {
         "constrainedBy": []
       }
@@ -221,7 +229,9 @@
         "typeId": "baseSkill_Dexterity",
         "internalName": "Attribute: Dexterity"
       },
-      "text": { },
+      "text": {
+        "short": "text_Dexterity_short"
+      },
       "stat": {
         "constrainedBy": []
       }
@@ -231,7 +241,9 @@
         "typeId": "baseSkill_Agility",
         "internalName": "Attribute: Agility"
       },
-      "text": { },
+      "text": {
+        "short": "text_Agility_short"
+      },
       "stat": {
         "constrainedBy": []
       }
@@ -241,7 +253,9 @@
         "typeId": "baseSkill_Constitution",
         "internalName": "Attribute: Constitution"
       },
-      "text": { },
+      "text": {
+        "short": "text_Constitution_short"
+      },
       "stat": {
         "constrainedBy": []
       }
@@ -251,7 +265,9 @@
         "typeId": "baseSkill_Strength",
         "internalName": "Attribute: Strength"
       },
-      "text": { },
+      "text": {
+        "short": "text_Strength_short"
+      },
       "stat": {
         "constrainedBy": []
       }

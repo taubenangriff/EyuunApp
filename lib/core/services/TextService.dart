@@ -21,4 +21,9 @@ class TextService {
   {
     return _textRepository.getText(_assetLoader.getFluffKey(typeId));
   }
+
+  String getShort(String typeId)
+  {
+    return _textRepository.getText(_assetLoader.getShortKey(typeId));
+  }
 }
