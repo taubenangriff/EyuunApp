@@ -1,16 +1,12 @@
+import 'package:flexbackend/components/Attributes.dart';
+import 'package:flexbackend/components/Talents.dart';
+import 'package:flexbackend/core/services/CharacterService.dart';
 import 'package:flutter/material.dart';
 
 import '../components/Skillcheck.dart';
 import '../core/registerServices.dart';
 import '../core/services/TextService.dart';
 import '../core/services/assetloader.dart';
-
-class Talent {
-  final String name;
-  final int value;
-
-  Talent(this.name, this.value);
-}
 
 class TalentPage extends StatefulWidget {
   final double desiredSize;
@@ -22,12 +18,8 @@ class TalentPage extends StatefulWidget {
 }
 
 class _TalentPageState extends State<TalentPage> {
-  final List<Talent> talents = [
-    Talent("talent_athletic", 5),
-    Talent("talent_sneaky", 5),
-    Talent("talent_manipulation", 5),
-    Talent("talent_investigate", 5),
-  ];
+  final talents = locator<CharacterService>().character.get<TalentsComponent>()?.talents ?? [];
+
   final Map<int, Map<int, String>> selectedValues = {};
 
   final _textService = locator<TextService>();
@@ -59,11 +51,19 @@ class _TalentPageState extends State<TalentPage> {
     );
   }
 
-  Row _buildTalentDisplay(Talent talent, BuildContext context) {
+  Widget _displayAttribute(String attribute, AttributesComponent attributes){
+    return Text(
+        "${_textService.getShort(attribute)} (${attributes.getStatEntry(attribute)?.dice.toString()})",
+        textAlign: TextAlign.center);
+  }
+
+  Row _buildTalentDisplay(TalentEntry talent, BuildContext context) {
     final theme = Theme.of(context);
 
-    var talentAsset = locator<AssetLoader>().getStatic(talent.name);
+    var talentAsset = locator<AssetLoader>().getStatic(talent.talent.id);
     final skillcheck = talentAsset?.get<SkillcheckComponent>();
+
+    final attributes = locator<CharacterService>().character.get<AttributesComponent>()!;
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -72,7 +72,7 @@ class _TalentPageState extends State<TalentPage> {
         Expanded(
           flex: 2,
           child: Text(
-            _textService.getText(talent.name),
+            _textService.getText(talent.talent.id),
             style: theme.textTheme.titleMedium,
           ),
         ),
@@ -92,18 +92,18 @@ class _TalentPageState extends State<TalentPage> {
                           emptySelectionAllowed: true,
                           segments: attributeOption.options
                               .map((opt) => ButtonSegment(
-                                    value: opt,
-                                    label: Text(_textService.getShort(opt)),
+                                    value: opt.id,
+                                    label: _displayAttribute(opt.id, attributes),
                                   ))
                               .toList(),
-                          selected: {},
+                          selected: { attributeOption.selectedOption.id },
                           onSelectionChanged: (newSelection) {
-                            setState(() {});
+                            setState(() {
+                              attributeOption.selectedOption = attributeOption.options.where((e) => e.id == newSelection.first).first;
+                            });
                           },
                         )
-                      : Text(
-                          _textService.getShort(attributeOption.options.first),
-                          textAlign: TextAlign.center,)
+                      : _displayAttribute(attributeOption.options.first.id, attributes)
               ],
             ),
           )
