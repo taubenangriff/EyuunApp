@@ -17,28 +17,28 @@
         "defaultDiceIncreases" : 4,
         "statValues": [
           {
-            "stat": "baseSkill_Courage"
+            "id": "baseSkill_Courage"
           },
           {
-            "stat": "baseSkill_Intelligence"
+            "id": "baseSkill_Intelligence"
           },
           {
-            "stat": "baseSkill_Intuition"
+            "id": "baseSkill_Intuition"
           },
           {
-            "stat": "baseSkill_Charisma"
+            "id": "baseSkill_Charisma"
           },
           {
-            "stat": "baseSkill_Dexterity"
+            "id": "baseSkill_Dexterity"
           },
           {
-            "stat": "baseSkill_Agility"
+            "id": "baseSkill_Agility"
           },
           {
-            "stat": "baseSkill_Constitution"
+            "id": "baseSkill_Constitution"
           },
           {
-            "stat": "baseSkill_Strength"
+            "id": "baseSkill_Strength"
           }
         ]
       },
@@ -52,7 +52,23 @@
         "maxBoon" : 2
       },
       "flux": {},
-      "inventory": {}
+      "inventory": {},
+      "talents": {
+        "talents": [
+          {
+            "id": "talent_athletic"
+          },
+          {
+            "id": "talent_sneaky"
+          },
+          {
+            "id": "talent_manipulation"
+          },
+          {
+            "id": "talent_investigate"
+          }
+        ]
+      }
     },
     {
       "standard": {
@@ -69,18 +85,26 @@
         "checkedAttributes": [
           {
             "options": [
-              "baseSkill_Courage"
+              {
+                "id": "baseSkill_Courage"
+              }
             ]
           },
           {
             "options": [
-              "baseSkill_Agility"
+              {
+                "id": "baseSkill_Agility"
+              }
             ]
           },
           {
             "options": [
-              "baseSkill_Constitution",
-              "baseSkill_Strength"
+              {
+                "id": "baseSkill_Constitution"
+              },
+              {
+                "id": "baseSkill_Strength"
+              }
             ]
           }
         ]
@@ -101,17 +125,23 @@
         "checkedAttributes": [
           {
             "options": [
-              "baseSkill_Courage"
+              {
+                "id": "baseSkill_Courage"
+              }
             ]
           },
           {
             "options": [
-              "baseSkill_Intuition"
+              {
+                "id": "baseSkill_Intuition"
+              }
             ]
           },
           {
             "options": [
-              "baseSkill_Agility"
+              {
+                "id": "baseSkill_Agility"
+              }
             ]
           }
         ]
@@ -130,18 +160,26 @@
         "checkedAttributes": [
           {
             "options": [
-              "baseSkill_Intelligence"
+              {
+                "id": "baseSkill_Intelligence"
+              }
             ]
           },
           {
             "options": [
-              "baseSkill_Intuition"
+              {
+                "id": "baseSkill_Intuition"
+              }
             ]
           },
           {
             "options": [
-              "baseSkill_Charisma",
-              "baseSkill_Strength"
+              {
+                "id": "baseSkill_Charisma"
+              },
+              {
+                "id": "baseSkill_Strength"
+              }
             ]
           }
         ]
@@ -160,17 +198,23 @@
         "checkedAttributes": [
           {
             "options": [
-              "baseSkill_Intelligence"
+              {
+                "id": "baseSkill_Intelligence"
+              }
             ]
           },
           {
             "options": [
-              "baseSkill_Intuition"
+              {
+                "id": "baseSkill_Intuition"
+              }
             ]
           },
           {
             "options": [
-              "baseSkill_Intuition"
+              {
+                "id": "baseSkill_Intuition"
+              }
             ]
           }
         ]

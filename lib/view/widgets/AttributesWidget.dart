@@ -30,7 +30,7 @@ class _AttributesWidgetState extends State<AttributesWidget> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(width: 100, child: Text(_textService.getText(item.stat))),
+        SizedBox(width: 100, child: Text(_textService.getText(item.stat.id))),
         const SizedBox(width: 12),
         Padding(
             padding: const EdgeInsets.all(3),

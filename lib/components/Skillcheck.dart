@@ -1,3 +1,4 @@
+import '../core/assetLink.dart';
 import '../core/components/EyuunComponent.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
@@ -5,14 +6,14 @@ part 'Skillcheck.mapper.dart';
 
 @MappableClass()
 class SkillcheckOption with SkillcheckOptionMappable {
-  List<String> options;
-  int selectedOption;
+  List<AssetLink> options;
+  AssetLink selectedOption;
   SkillcheckOption(this.options, this.selectedOption);
 }
 
 @MappableClass()
 class SkillcheckStaticOption with SkillcheckStaticOptionMappable {
-  List<String> options;
+  List<AssetLink> options;
   SkillcheckStaticOption(this.options);
 }
 
@@ -49,7 +50,7 @@ class SkillcheckComponent extends EyuunComponent<int> {
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = SkillcheckStaticMapper.fromMap(staticData);
-    checkedAttributes = stat.checkedAttributes.map((e) => SkillcheckOption(e.options, 0)).toList();
+    checkedAttributes = stat.checkedAttributes.map((e) => SkillcheckOption(e.options, e.options.first)).toList();
   }
 
   @override

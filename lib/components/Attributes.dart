@@ -2,6 +2,7 @@ import 'package:flexbackend/core/components/EyuunComponent.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
 import '../core/UpgradableInt.dart';
+import '../core/assetLink.dart';
 import '../enums/dice.dart';
 
 part 'Attributes.mapper.dart';
@@ -14,23 +15,17 @@ class AttributesDynamic with AttributesDynamicMappable {
 
 @MappableClass()
 class AttributesStatic with AttributesStaticMappable {
-  List<AttributeEntryStatic> statValues;
+  List<AssetLink> statValues;
   int defaultDiceIncreases;
   AttributesStatic(this.statValues, this.defaultDiceIncreases);
 }
 
 @MappableClass()
 class AttributeEntry with AttributeEntryMappable {
-  String stat;
+  AssetLink stat;
   Dice dice;
 
   AttributeEntry(this.stat, this.dice);
-}
-
-@MappableClass()
-class AttributeEntryStatic with AttributeEntryStaticMappable{
-  String stat;
-  AttributeEntryStatic(this.stat);
 }
 
 class AttributesComponent extends EyuunComponent<int> {
@@ -39,8 +34,8 @@ class AttributesComponent extends EyuunComponent<int> {
   late List<AttributeEntry> statValues;
   late UpgradableInt maxDiceIncreases;
 
-  AttributeEntry? getStatEntry(String basicStatName){
-    return statValues.firstWhere((e) => e.stat == basicStatName, orElse: null);
+  AttributeEntry? getStatEntry(String attributeName){
+    return statValues.firstWhere((e) => e.stat.id == attributeName, orElse: null);
   }
 
   @override
@@ -70,7 +65,7 @@ class AttributesComponent extends EyuunComponent<int> {
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = AttributesStaticMapper.fromMap(staticData);
-    statValues = stat.statValues.map((e) => AttributeEntry(e.stat, Dice.d4)).toList();
+    statValues = stat.statValues.map((e) => AttributeEntry(e, Dice.d4)).toList();
     maxDiceIncreases = stat.defaultDiceIncreases.upgradable;
   }
 
