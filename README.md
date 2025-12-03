@@ -5,6 +5,15 @@
 - clone the repo 
 - run `dart run build_runner build` to rebuild all the mapping classes that are used for data IO.
 - build 
+- to view documentation, use:
+
+```Shell
+dart pub global activate dhttpd
+dart pub global run dhttpd --path doc/api
+```
+
+- then go to http://localhost:8080 
+
 
 ## Demo App 
 
