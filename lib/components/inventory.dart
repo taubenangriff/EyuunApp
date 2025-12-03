@@ -11,7 +11,9 @@ part 'inventory.mapper.dart';
 class InventoryDynamic with InventoryDynamicMappable {
   List<InventoryItemDynamic> items;
 
-  InventoryDynamic(this.items);
+  int money;
+
+  InventoryDynamic(this.items, this.money);
 }
 
 @MappableClass()
@@ -50,6 +52,9 @@ class InventoryItem {
 
 class InventoryComponent extends EyuunComponent<int> {
   static const propertyName = "inventory";
+
+  int money = 0;
+
   int maxCapacity = 100;
 
   Map<int, InventoryItem> items = {};
@@ -117,6 +122,7 @@ class InventoryComponent extends EyuunComponent<int> {
       var addItem = InventoryItem.fromDynamic(item);
       items[item.slot] = addItem;
     }
+    money = dyn.money;
   }
 
   @override
@@ -131,6 +137,7 @@ class InventoryComponent extends EyuunComponent<int> {
               InventoryItemDynamic(
                   item.objectId, item.typeId, item.count, index)))
           .values
-          .toList())
+          .toList(),
+          money)
       .toMap();
 }
