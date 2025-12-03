@@ -32,9 +32,13 @@ class TalentsStatic with TalentsStaticMappable {
 class TalentsComponent extends EyuunComponent<int> {
   static const String propertyName = "talents";
 
+  /// The amount of skillpoints a character can distribute on talents.
   late UpgradableInt skillpoints;
+
+  /// The cap on a single talent.
   late UpgradableInt skillCeiling;
 
+  /// The list of talents this character uses.
   List<TalentEntry> talents = [];
 
   /// returns the talentEntry for the Talent listed in key. returns null, if the talent does not exist.

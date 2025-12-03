@@ -6,20 +6,20 @@ part 'health.mapper.dart';
 
 @MappableClass()
 class HealthDynamic with HealthDynamicMappable {
+  int maxHitpoints;
   int hitpoints;
   int shield;
   int deathThrows;
 
-  HealthDynamic(this.hitpoints, this.shield, this.deathThrows);
+  HealthDynamic(this.maxHitpoints, this.hitpoints, this.shield, this.deathThrows);
 }
 
 @MappableClass()
 class HealthStatic with HealthStaticMappable {
-  int maxHitpoints;
   int maxShield;
   int maxDeathThrows;
 
-  HealthStatic(this.maxHitpoints, this.maxShield, this.maxDeathThrows);
+  HealthStatic(this.maxShield, this.maxDeathThrows);
 }
 
 class HealthComponent extends EyuunComponent<int> {
@@ -32,14 +32,21 @@ class HealthComponent extends EyuunComponent<int> {
 
   static const String propertyName = "health";
 
-  //hitpoints field where upgrades are applied to
+  /// The current hitpoints of the character
   late int hitpoints;
+
+  /// The maximum hitpoints of the character
   late UpgradableInt maxHitpoints;
 
+  /// The current shield points applied
   late int shield;
+  /// The maximum shield
   late UpgradableInt maxShield;
 
+  /// the current amount of death throws a character has already thrown.
   late int deathThrows;
+
+  /// The maximum amount of death fails this character can roll before dying.
   late UpgradableInt maxDeathThrows;
 
   @override
@@ -69,12 +76,12 @@ class HealthComponent extends EyuunComponent<int> {
     hitpoints = dyn.hitpoints;
     shield = dyn.shield;
     deathThrows = dyn.deathThrows;
+    maxHitpoints = dyn.maxHitpoints.upgradable;
   }
 
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = HealthStaticMapper.fromMap(staticData);
-    maxHitpoints = stat.maxHitpoints.upgradable;
     maxShield = stat.maxShield.upgradable;
     maxDeathThrows = stat.maxDeathThrows.upgradable;
 
@@ -82,5 +89,5 @@ class HealthComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => HealthDynamic(hitpoints, shield, deathThrows).toMap();
+  Map<String, dynamic> saveDynamicData() => HealthDynamic(maxHitpoints.base, hitpoints, shield, deathThrows).toMap();
 }

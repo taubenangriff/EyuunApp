@@ -15,8 +15,13 @@ class FluxDynamic with FluxDynamicMappable {
 class FluxComponent extends EyuunComponent<int> {
   static const String propertyName = "flux";
 
+  /// Spent flux
   late int fluxSpent;
+
+  /// The current flux capacity
   late int fluxCapacity;
+
+  /// The maximum flux capacity that the character can reach
   late int fluxMaximum;
 
   @override

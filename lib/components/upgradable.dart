@@ -24,7 +24,9 @@ class UpgradableDynamic with UpgradableDynamicMappable {
 class UpgradableComponent extends EyuunComponent<int> {
   static const String propertyName = "upgradable";
 
+  /// The list of upgrades which are always applied to the entity.
   List<String> defaultUpgrades = [];
+  /// The list of upgrades which are dynamically applied to the entity.
   List<String> appliedUpgrades = [];
 
   List<String> get upgrades => defaultUpgrades + appliedUpgrades;

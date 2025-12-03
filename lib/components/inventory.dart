@@ -30,13 +30,16 @@ class InventoryItemDynamic with InventoryItemDynamicMappable {
 }
 
 class InventoryItem {
+  /// If the inventory item links to a specific object, it is linked here
   ObjectLink? object;
+  /// The asset key of the asset in inventory. Always stored regardless of specific object (weapon) or just a reusable asset (i.e. drugs etc.)
   AssetLink type;
 
+  /// Amount of this object stored in this inventory Slot.
   int count;
   InventoryItem(this.type, {this.count = 1});
 
-  //Some items are dynamically put together, so we need to handle them specifically to get their nameables and such.
+  /// Some items, i.e. weapons, are a specific entity, not just an asset, because they are dynamically put together. This function returns whether a slot stores such a specific object.
   bool isCustomItem() => object != null;
 
   static InventoryItem fromEntity(Entity entity) {
@@ -56,16 +59,20 @@ class InventoryItem {
 class InventoryComponent extends EyuunComponent<int> {
   static const propertyName = "inventory";
 
+  /// Amount of money a player has
   int money = 0;
 
+  /// Maximum inventory slots
   int maxCapacity = 100;
 
+  /// A map of index to inventory slot. Only indices which actually hold an item are in the map.
   Map<int, InventoryItem> items = {};
 
   void clearSlot(int index) {
     items.remove(index);
   }
 
+  /// Adds an Item to the first free inventory Slot.
   void addItemToFirstFreeSlot(InventoryItem item) {
     var index = getNextFreeSlotIndex();
 
@@ -82,6 +89,7 @@ class InventoryComponent extends EyuunComponent<int> {
     items[index] = item;
   }
 
+  /// Gets the item at the inventory position, or null if the slot with given index doesn't store an item.
   InventoryItem? getSlotItem(int index) {
     if (!items.containsKey(index)) {
       return null;
@@ -90,6 +98,7 @@ class InventoryComponent extends EyuunComponent<int> {
     return items[index];
   }
 
+  /// Gets the next free slot position in inventory.
   int getNextFreeSlotIndex() {
     for (int i = 0; i < maxCapacity; i++) {
       if (!items.containsKey(i)) {
@@ -100,6 +109,7 @@ class InventoryComponent extends EyuunComponent<int> {
     return -1;
   }
 
+  /// Adds all items in the items iterable to inventory.
   void addAll(Iterable<InventoryItem> items) {
     for (var item in items) {
       addItemToFirstFreeSlot(item);

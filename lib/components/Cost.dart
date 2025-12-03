@@ -7,7 +7,9 @@ part 'Cost.mapper.dart';
 
 @MappableClass()
 class CostEntry with CostEntryMappable {
+  /// AssetLink to the resource needed to buy
   AssetLink resource;
+  /// The amount of this resource needed
   int amount;
 
   CostEntry(this.resource, this.amount);
@@ -24,7 +26,9 @@ class CostStatic with CostStaticMappable {
 class CostComponent extends EyuunComponent<int>{
   static const String propertyName = "cost";
 
+  /// The money cost
   int money = 0;
+  /// A list of other resources that are needed to buy this item.
   List<CostEntry> resourceCosts = [];
 
   @override

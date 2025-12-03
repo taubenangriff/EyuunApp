@@ -16,10 +16,16 @@ class LanguageLearnerDynamic with LanguageLearnerDynamicMappable {
 class LanguageLearnerComponent extends EyuunComponent<int> {
   static const String propertyName = "languageLearner";
 
+  /// The language potential of the character
   late UpgradableInt languageMaxPotential;
+
+  /// The list of languages learned.
   late List<AssetLink> languagesLearned;
 
+  /// Returns whether a character can learn a new language
   bool canLearnNew() => languagesLearned.length < languageMaxPotential.current;
+
+  /// Returns the amount of languages already learned.
   int languagesLearnedCount() => languagesLearned.length;
 
   @override

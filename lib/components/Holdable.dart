@@ -13,7 +13,11 @@ class HoldableStatic with HoldableStaticMappable {
 
 class HoldableComponent extends EyuunComponent<int> {
   static const String propertyName = "holdable";
+
+  /// The amount of equipment Slots needed to hold this item
   late int equipmentSlotsNeeded;
+
+  /// Whether this equippable takes up the armor Slot.
   late bool takesArmorSlot;
 
   @override
