@@ -1,6 +1,7 @@
 import 'package:flexbackend/core/services/assetloader.dart';
 import 'package:flexbackend/core/repository/TextRepository.dart';
 
+import '../assetLink.dart';
 import '../registerServices.dart';
 
 class TextService {
@@ -17,13 +18,19 @@ class TextService {
     return _textRepository.getText(_assetLoader.getTextKey(textLookup));
   }
 
+  String getTextFromLink(AssetLink textLink) => getText(textLink.id);
+
   String getFluff(String typeId)
   {
     return _textRepository.getText(_assetLoader.getFluffKey(typeId));
   }
 
+  String getFluffFromLink(AssetLink textLink) => getFluff(textLink.id);
+
   String getShort(String typeId)
   {
     return _textRepository.getText(_assetLoader.getShortKey(typeId));
   }
+
+  String getShortFromLink(AssetLink textLink) => getFluff(textLink.id);
 }

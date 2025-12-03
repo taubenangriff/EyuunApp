@@ -36,7 +36,8 @@
         "resourceCosts" : [
           {
             "resource" : {
-              "id": "resource_01"
+              "id": "resource_01",
+              "amount": 1
             }
           }
         ]

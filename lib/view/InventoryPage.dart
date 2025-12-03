@@ -484,7 +484,7 @@ class _InventoryPageState extends State<InventoryPage> {
       BuildContext context, InventoryItem item, ThemeData theme) {
     final size = MediaQuery.of(context).size;
 
-    final itemText = _assetLoader.getStatic(item.typeId)?.get<ItemComponent>()?.categoryText;
+    final itemText = _assetLoader.getStatic(item.type.id)?.get<ItemComponent>()?.categoryText;
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -494,7 +494,7 @@ class _InventoryPageState extends State<InventoryPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              _textService.getText(item.typeId),
+              _textService.getTextFromLink(item.type),
               style: theme.textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -509,7 +509,7 @@ class _InventoryPageState extends State<InventoryPage> {
                 child: SingleChildScrollView(
                     child: Column(children: [
               Text(
-                _textService.getFluff(item.typeId),
+                _textService.getFluffFromLink(item.type),
                 style: theme.textTheme.bodyMedium,
                 textAlign: TextAlign.justify,
               )

@@ -5,6 +5,9 @@ import 'package:flexbackend/core/components/EntityExtensions.dart';
 import 'package:flexbackend/core/components/EyuunComponent.dart';
 import 'package:oxygen/oxygen.dart';
 
+import '../core/assetLink.dart';
+import '../core/objectLink.dart';
+
 part 'inventory.mapper.dart';
 
 @MappableClass()
@@ -18,8 +21,8 @@ class InventoryDynamic with InventoryDynamicMappable {
 
 @MappableClass()
 class InventoryItemDynamic with InventoryItemDynamicMappable {
-  String? objectId;
-  String typeId;
+  ObjectLink? objectId;
+  AssetLink typeId;
   int count;
   int slot;
 
@@ -27,25 +30,25 @@ class InventoryItemDynamic with InventoryItemDynamicMappable {
 }
 
 class InventoryItem {
-  String? objectId;
-  String typeId;
+  ObjectLink? object;
+  AssetLink type;
 
   int count;
-  InventoryItem(this.typeId, {this.count = 1});
+  InventoryItem(this.type, {this.count = 1});
 
   //Some items are dynamically put together, so we need to handle them specifically to get their nameables and such.
-  bool isCustomItem() => objectId != null;
+  bool isCustomItem() => object != null;
 
   static InventoryItem fromEntity(Entity entity) {
-    var item = InventoryItem(entity.getObjectId());
-    item.objectId = entity.getTypeId();
+    var item = InventoryItem(AssetLink.fromEntity(entity));
+    item.object = ObjectLink.fromEntity(entity);
     item.count = 1;
     return item;
   }
 
   static InventoryItem fromDynamic(InventoryItemDynamic dyn) {
     var item = InventoryItem(dyn.typeId, count: dyn.count);
-    item.objectId = dyn.objectId;
+    item.object = dyn.objectId;
     return item;
   }
 }
@@ -135,7 +138,7 @@ class InventoryComponent extends EyuunComponent<int> {
           .map((index, item) => MapEntry(
               index,
               InventoryItemDynamic(
-                  item.objectId, item.typeId, item.count, index)))
+                  item.object, item.type, item.count, index)))
           .values
           .toList(),
           money)

@@ -11,6 +11,7 @@ import 'package:flexbackend/components/upgradable.dart';
 import '../components/Attributes.dart';
 import '../components/Combat.dart';
 import '../components/Item.dart';
+import '../components/LanguageLearner.dart';
 import '../components/Skillcheck.dart';
 import '../components/health.dart';
 import 'components/standard.dart';

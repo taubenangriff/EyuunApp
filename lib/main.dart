@@ -20,6 +20,7 @@ import 'dart:convert';
 
 import 'components/Flux.dart';
 import 'components/inventory.dart';
+import 'core/assetLink.dart';
 import 'core/repository/TextRepository.dart';
 import 'core/services/CharacterService.dart';
 import 'core/services/TextService.dart';
@@ -66,7 +67,7 @@ void fillTestData()
   var random = Random();
   List<InventoryItem> inventoryItems = List.generate(
       15,
-          (index) => InventoryItem("item_dummy1", count: random.nextInt(10) + 1));
+          (index) => InventoryItem(AssetLink("item_dummy1"), count: random.nextInt(10) + 1));
 
   var char = locator<CharacterService>().character;
 

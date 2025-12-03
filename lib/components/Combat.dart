@@ -1,8 +1,10 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flexbackend/core/UpgradableInt.dart';
 import 'package:flexbackend/core/components/EyuunComponent.dart';
+import 'package:oxygen/oxygen.dart';
 
 import '../core/objectLink.dart';
+import 'Holdable.dart';
 
 part 'Combat.mapper.dart';
 
@@ -36,19 +38,44 @@ class CombatDynamic with CombatDynamicMappable {
 class CombatComponent extends EyuunComponent<int> {
   static const String propertyName = "combat";
 
+  /// walking speed
   late UpgradableInt speed;
+  /// bonus on evasion rolls
   late UpgradableInt evasion;
+  /// the current initiative roll. Outside combat, this value does not matter.
   late UpgradableInt initiative;
+  /// the amount of actions a character can perform per round.
   late UpgradableInt actionsPerRound;
+  /// the amount of reactions a character can perform per round.
   late UpgradableInt reactionsPerRound;
+
+  /// the amount of equipmentSlots a character has - this is equivalent to his number of hands to hold items in.
   late int equipmentSlotCount;
 
+  /// is the character currently surprised?
   late bool isSurprised;
+  /// how many actions remain in this round
   late int remainingActions;
+  /// how many reactions remain in this round
   late int remainingReactions;
 
-  /// A list of items held in your hands.
+  /// The list of items held in your hands.
   List<ObjectLink> equippedItems = [];
+  
+  /// gets the amount of equipment Slots that are used by items in equippedItems. 
+  int getOccupiedEquipmentSlotCount(){
+    var total = 0;
+    for(var item in equippedItems){
+      total += item.getEntity().get<HoldableComponent>()?.equipmentSlotsNeeded ?? 0;
+    }
+    return total;
+  }
+
+  /// gets whether an item can be equipped in your hand.
+  bool canEquipItem(Entity entity){
+    var slotsNeeded = entity.get<HoldableComponent>()?.equipmentSlotsNeeded ?? 0;
+    return getOccupiedEquipmentSlotCount() <= equipmentSlotCount + slotsNeeded;
+  }
 
   @override
   String getName() => propertyName;

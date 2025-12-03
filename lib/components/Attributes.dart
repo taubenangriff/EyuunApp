@@ -22,7 +22,10 @@ class AttributesStatic with AttributesStaticMappable {
 
 @MappableClass()
 class AttributeEntry with AttributeEntryMappable {
+  /// Link to the attribute Asset
   AssetLink stat;
+
+  /// the Dice used to roll on this attribute
   Dice dice;
 
   AttributeEntry(this.stat, this.dice);
@@ -31,11 +34,15 @@ class AttributeEntry with AttributeEntryMappable {
 class AttributesComponent extends EyuunComponent<int> {
   static const String propertyName = "attributes";
 
+  /// the list of attributes a character has learned.
   late List<AttributeEntry> statValues;
+
+  /// (Upgradable) the total number of Dice increases this character can spend on upgrading stats.
   late UpgradableInt maxDiceIncreases;
 
-  AttributeEntry? getStatEntry(String attributeName){
-    return statValues.firstWhere((e) => e.stat.id == attributeName, orElse: null);
+  /// Gets the AttributeEntry for the attribute which's typeId matches attributeKey.
+  AttributeEntry? getStatEntry(String attributeKey){
+    return statValues.firstWhere((e) => e.stat.id == attributeKey, orElse: null);
   }
 
   @override
