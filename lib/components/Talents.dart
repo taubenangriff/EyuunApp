@@ -37,6 +37,15 @@ class TalentsComponent extends EyuunComponent<int> {
 
   List<TalentEntry> talents = [];
 
+  /// returns the talentEntry for the Talent listed in key. returns null, if the talent does not exist.
+  TalentEntry? getTalent(String key) => talents.firstWhere((e) => e.talent.id == key, orElse: null);
+
+  /// If the talent is present in talents, this function sets it's value to newVal.
+  void setTalentSkill(String key, int newVal) => getTalent(key)?.value = newVal;
+
+  /// get's a talents skill value or 0 if the talent does not exist in the talents list.
+  int getTalentSkill(String key) => getTalent(key)?.value ?? 0;
+
   @override
   String getName() => propertyName;
 

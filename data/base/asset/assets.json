@@ -13,6 +13,7 @@
         "maxShield": 8,
         "maxDeathThrows": 3
       },
+      "combat": {},
       "attributes": {
         "defaultDiceIncreases" : 4,
         "statValues": [
