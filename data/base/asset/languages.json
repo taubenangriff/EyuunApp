@@ -1,0 +1,17 @@
+{
+  "assets": [
+    {
+      "standard": {
+        "typeId": "language_eyuun"
+      },
+      "text": {
+        "fluff" : "fluff_eyuunlang"
+      }
+      "language": {
+        "written": true,
+        "spoken": true,
+        "alternativeCommunicationStyle": false
+      }
+    }
+  ]
+}

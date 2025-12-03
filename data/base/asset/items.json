@@ -9,6 +9,16 @@
       },
       "item": {
         "categoryText": "item_category1"
+      },
+      "cost": {
+        "money": 150,
+        "resourceCosts" : [
+          {
+            "resource" : {
+              "id": "resource_01"
+            }
+          }
+        ]
       }
     },
     {
@@ -20,6 +30,16 @@
       },
       "item": {
         "categoryText": "item_category1"
+      },
+      "cost": {
+        "money": 150,
+        "resourceCosts" : [
+          {
+            "resource" : {
+              "id": "resource_01"
+            }
+          }
+        ]
       }
     },
     {
@@ -31,6 +51,16 @@
       },
       "item": {
         "categoryText": "item_category1"
+      },
+      "cost": {
+        "money": 150,
+        "resourceCosts" : [
+          {
+            "resource" : {
+              "id": "resource_01"
+            }
+          }
+        ]
       }
     }
   ]

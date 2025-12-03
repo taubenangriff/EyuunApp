@@ -1,6 +1,7 @@
 {
   "include": [
-    "data/base/asset/items.json"
+    "data/base/asset/items.json",
+    "data/base/asset/languages.json"
   ],
   "assets" : [
     {

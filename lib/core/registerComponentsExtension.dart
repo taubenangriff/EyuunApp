@@ -1,6 +1,8 @@
 
 import 'package:flexbackend/components/Boon.dart';
+import 'package:flexbackend/components/Cost.dart';
 import 'package:flexbackend/components/Flux.dart';
+import 'package:flexbackend/components/Language.dart';
 import 'package:flexbackend/components/Talents.dart';
 import 'package:flexbackend/components/healthUpgrade.dart';
 import 'package:flexbackend/components/inventory.dart';
@@ -30,5 +32,8 @@ extension RegisterUpgradesExtension on WorldManager {
     registerComponent<FluxComponent, int>(FluxComponent.propertyName, () => FluxComponent());
     registerComponent<TalentsComponent, int>(TalentsComponent.propertyName, () => TalentsComponent());
     registerComponent<CombatComponent, int>(CombatComponent.propertyName, () => CombatComponent());
+    registerComponent<CostComponent, int>(CostComponent.propertyName, () => CostComponent());
+    registerComponent<LanguageComponent, int>(LanguageComponent.propertyName, () => LanguageComponent());
+    registerComponent<LanguageLearnerComponent, int>(LanguageLearnerComponent.propertyName, () => LanguageLearnerComponent());
   }
 }
