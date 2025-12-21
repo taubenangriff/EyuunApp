@@ -16,11 +16,14 @@ class CraftMethodStatic with CraftMethodStaticMappable {
 class CraftMethodComponent extends EyuunComponent<int> {
   static const String propertyName = "craftMethod";
 
-  late AssetLink? appliedEffect;
+  /// [AssetLink] to the effect that is applied to a weapon when it is crafted using this craft method.
+  late AssetLink appliedEffect;
+
+  /// How much the skillcheck threshold is increased by this craft method
   int increaseSuccessThreshold = 0;
 
   /// Whether this craftMethod applies an effect on construction.
-  bool appliesEffect() => appliedEffect?.isValidLink() ?? false;
+  bool appliesEffect() => appliedEffect.isValidLink() ?? false;
 
   @override
   String getName() => propertyName;
@@ -45,7 +48,7 @@ class CraftMethodComponent extends EyuunComponent<int> {
   @override
   void reset() {
     increaseSuccessThreshold = 0;
-    appliedEffect = null;
+    appliedEffect = AssetLink.invalid();
   }
 
   @override

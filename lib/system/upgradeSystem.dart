@@ -16,6 +16,7 @@ class UpgradeSystem extends System {
   }
 
   @override
+  /// reapplies the effects of all entities with an UpgradableComponent.
   void execute(double delta) {
     for (var entity in query.entities) {
       resetUpgrades(entity);
@@ -27,6 +28,7 @@ class UpgradeSystem extends System {
     }
   }
 
+  /// removes all Upgrades from an entity
   void resetUpgrades(Entity entity){
     for(var upgradeDescriptor in worldManager.upgrades) {
       var baseComponent = worldManager.getComponentFromEntity(upgradeDescriptor.typeIdBase, entity);
@@ -39,6 +41,7 @@ class UpgradeSystem extends System {
     }
   }
 
+  /// Applies an upgrade to an entity.
   void applyUpgrade(Entity entity, Entity buff) {
     for(var upgradeDescriptor in worldManager.upgrades) {
       var baseComponent = worldManager.getComponentFromEntity(upgradeDescriptor.typeIdBase, entity);

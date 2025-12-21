@@ -21,7 +21,10 @@ class CharacterPathDynamic with CharacterPathDynamicMappable {
 class CharacterPathComponent extends EyuunComponent<int> {
   static const String propertyName = "characterPath";
 
+  /// list of [AssetLink] to all paths that this character has already chosen.
   List<AssetLink> chosenPaths = [];
+
+  /// the maximum amount of paths a character can pick.
   UpgradableInt pathCapacity = 0.upgradable;
 
   @override
