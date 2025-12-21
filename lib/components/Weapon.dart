@@ -56,7 +56,9 @@ class WeaponComponent extends EyuunComponent<int> {
 
   @override
   void reset() {
-    // TODO: implement reset
+    weaponType = AssetLink.invalid();
+    material = AssetLink.invalid();
+    craftMethod = AssetLink.invalid();
   }
 
   @override

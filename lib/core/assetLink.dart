@@ -8,6 +8,7 @@ part 'assetLink.mapper.dart';
 
 @MappableClass()
 class AssetLink with AssetLinkMappable {
+  static const String noType = "noType";
   String id;
 
   AssetLink(this.id);
@@ -15,6 +16,7 @@ class AssetLink with AssetLinkMappable {
   Entity getEntity() => throw UnimplementedError();
 
   static AssetLink fromEntity(Entity e) => AssetLink(e.getTypeId());
+  static AssetLink invalid() => AssetLink(noType);
 
-  bool isValidLink() => locator<AssetLoader>().getStatic(id) != null;
+  bool isValidLink() => id != noType ? locator<AssetLoader>().getStatic(id) != null : false;
 }

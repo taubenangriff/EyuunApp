@@ -1,10 +1,13 @@
 
 import 'package:flexbackend/components/Armor.dart';
 import 'package:flexbackend/components/Boon.dart';
+import 'package:flexbackend/components/CombatShield.dart';
 import 'package:flexbackend/components/Cost.dart';
 import 'package:flexbackend/components/CraftMethod.dart';
+import 'package:flexbackend/components/Equippable.dart';
 import 'package:flexbackend/components/Flux.dart';
 import 'package:flexbackend/components/Language.dart';
+import 'package:flexbackend/components/Projectile.dart';
 import 'package:flexbackend/components/Talents.dart';
 import 'package:flexbackend/components/Weapon.dart';
 import 'package:flexbackend/components/healthUpgrade.dart';
@@ -42,5 +45,8 @@ extension RegisterUpgradesExtension on WorldManager {
     registerComponent<CraftMethodComponent, int>(CraftMethodComponent.propertyName, () => CraftMethodComponent());
     registerComponent<ArmorComponent, int>(ArmorComponent.propertyName, () => ArmorComponent());
     registerComponent<WeaponComponent, int>(WeaponComponent.propertyName, () => WeaponComponent());
+    registerComponent<EquippableComponent, int>(EquippableComponent.propertyName, () => EquippableComponent());
+    registerComponent<CombatShieldComponent, int>(CombatShieldComponent.propertyName, () => CombatShieldComponent());
+    registerComponent<ProjectileComponent, int>(ProjectileComponent.propertyName, () => ProjectileComponent());
   }
 }
