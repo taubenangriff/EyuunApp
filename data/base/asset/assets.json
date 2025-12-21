@@ -70,7 +70,8 @@
             "id": "talent_investigate"
           }
         ]
-      }
+      },
+      "characterPaths": {}
     },
     {
       "standard": {

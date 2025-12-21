@@ -1,6 +1,7 @@
 
 import 'package:flexbackend/components/Armor.dart';
 import 'package:flexbackend/components/Boon.dart';
+import 'package:flexbackend/components/CharacterPath.dart';
 import 'package:flexbackend/components/CombatShield.dart';
 import 'package:flexbackend/components/Cost.dart';
 import 'package:flexbackend/components/CraftMethod.dart';
@@ -48,5 +49,6 @@ extension RegisterUpgradesExtension on WorldManager {
     registerComponent<EquippableComponent, int>(EquippableComponent.propertyName, () => EquippableComponent());
     registerComponent<CombatShieldComponent, int>(CombatShieldComponent.propertyName, () => CombatShieldComponent());
     registerComponent<ProjectileComponent, int>(ProjectileComponent.propertyName, () => ProjectileComponent());
+    registerComponent<CharacterPathComponent, int>(CharacterPathComponent.propertyName, () => CharacterPathComponent());
   }
 }
