@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:flexbackend/enums/dice.dart';
+import 'package:EyuunApp/enums/dice.dart';
 import 'package:flutter/material.dart';
 
 class DiceIcon extends StatelessWidget {

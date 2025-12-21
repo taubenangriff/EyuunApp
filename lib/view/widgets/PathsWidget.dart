@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:flexbackend/view/popup/PathPopup.dart';
-import 'package:flexbackend/view/popup/PopupUtil.dart';
+import 'package:EyuunApp/view/popup/PathPopup.dart';
+import 'package:EyuunApp/view/popup/PopupUtil.dart';
 import 'package:flutter/material.dart';
 
 import '../../enums/PathType.dart';

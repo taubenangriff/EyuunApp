@@ -1,5 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:flexbackend/core/assetLink.dart';
+import 'package:EyuunApp/core/assetLink.dart';
 
 import '../core/components/EyuunComponent.dart';
 

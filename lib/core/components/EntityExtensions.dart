@@ -1,5 +1,5 @@
-import 'package:flexbackend/core/components/standard.dart';
-import 'package:flexbackend/components/text.dart';
+import 'package:EyuunApp/core/components/standard.dart';
+import 'package:EyuunApp/components/text.dart';
 import 'package:oxygen/oxygen.dart';
 
 extension EntityIdExtension on Entity {

@@ -1,6 +1,6 @@
-import 'package:flexbackend/components/Attributes.dart';
-import 'package:flexbackend/components/Talents.dart';
-import 'package:flexbackend/core/services/CharacterService.dart';
+import 'package:EyuunApp/components/Attributes.dart';
+import 'package:EyuunApp/components/Talents.dart';
+import 'package:EyuunApp/core/services/CharacterService.dart';
 import 'package:flutter/material.dart';
 
 import '../components/Skillcheck.dart';

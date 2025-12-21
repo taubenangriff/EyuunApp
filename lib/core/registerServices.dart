@@ -1,8 +1,8 @@
-import 'package:flexbackend/core/repository/AssetRepository.dart';
-import 'package:flexbackend/core/services/CharacterService.dart';
-import 'package:flexbackend/core/services/TextService.dart';
-import 'package:flexbackend/core/services/assetloader.dart';
-import 'package:flexbackend/io/AssetSerializer.dart';
+import 'package:EyuunApp/core/repository/AssetRepository.dart';
+import 'package:EyuunApp/core/services/CharacterService.dart';
+import 'package:EyuunApp/core/services/TextService.dart';
+import 'package:EyuunApp/core/services/assetloader.dart';
+import 'package:EyuunApp/io/AssetSerializer.dart';
 import 'package:get_it/get_it.dart';
 
 import 'repository/TextRepository.dart';

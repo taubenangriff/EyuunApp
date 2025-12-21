@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import 'package:flexbackend/components/Attributes.dart';
-import 'package:flexbackend/core/services/WorldManager.dart';
-import 'package:flexbackend/core/services/assetloader.dart';
+import 'package:EyuunApp/components/Attributes.dart';
+import 'package:EyuunApp/core/services/WorldManager.dart';
+import 'package:EyuunApp/core/services/assetloader.dart';
 import 'package:oxygen/oxygen.dart';
-import 'package:flexbackend/enums/dice.dart';
+import 'package:EyuunApp/enums/dice.dart';
 
 import '../core/registerServices.dart';
 

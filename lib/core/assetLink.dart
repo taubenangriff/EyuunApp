@@ -1,7 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:flexbackend/core/components/EntityExtensions.dart';
-import 'package:flexbackend/core/registerServices.dart';
-import 'package:flexbackend/core/services/assetloader.dart';
+import 'package:EyuunApp/core/components/EntityExtensions.dart';
+import 'package:EyuunApp/core/registerServices.dart';
+import 'package:EyuunApp/core/services/assetloader.dart';
 import 'package:oxygen/oxygen.dart';
 
 part 'assetLink.mapper.dart';

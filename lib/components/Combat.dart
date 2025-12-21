@@ -1,6 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:flexbackend/core/UpgradableInt.dart';
-import 'package:flexbackend/core/components/EyuunComponent.dart';
+import 'package:EyuunApp/core/UpgradableInt.dart';
+import 'package:EyuunApp/core/components/EyuunComponent.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../core/objectLink.dart';

@@ -1,5 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:flexbackend/core/UpgradableInt.dart';
+import 'package:EyuunApp/core/UpgradableInt.dart';
 
 import '../core/components/EyuunComponent.dart';
 

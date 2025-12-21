@@ -1,14 +1,14 @@
 import 'dart:math';
 
-import 'package:flexbackend/components/Flux.dart';
-import 'package:flexbackend/components/health.dart';
-import 'package:flexbackend/view/controller/ChangeValueController.dart';
-import 'package:flexbackend/view/popup/ChangeValuePopup.dart';
-import 'package:flexbackend/view/widgets/CharacterInfoWidget.dart';
-import 'package:flexbackend/view/widgets/PathsWidget.dart';
-import 'package:flexbackend/view/widgets/AttributesWidget.dart';
+import 'package:EyuunApp/components/Flux.dart';
+import 'package:EyuunApp/components/health.dart';
+import 'package:EyuunApp/view/controller/ChangeValueController.dart';
+import 'package:EyuunApp/view/popup/ChangeValuePopup.dart';
+import 'package:EyuunApp/view/widgets/CharacterInfoWidget.dart';
+import 'package:EyuunApp/view/widgets/PathsWidget.dart';
+import 'package:EyuunApp/view/widgets/AttributesWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:flexbackend/view/popup/PopupUtil.dart';
+import 'package:EyuunApp/view/popup/PopupUtil.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../core/registerServices.dart';

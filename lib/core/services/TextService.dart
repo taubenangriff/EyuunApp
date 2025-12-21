@@ -1,5 +1,5 @@
-import 'package:flexbackend/core/services/assetloader.dart';
-import 'package:flexbackend/core/repository/TextRepository.dart';
+import 'package:EyuunApp/core/services/assetloader.dart';
+import 'package:EyuunApp/core/repository/TextRepository.dart';
 
 import '../assetLink.dart';
 import '../registerServices.dart';

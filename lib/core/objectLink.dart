@@ -1,5 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:flexbackend/core/components/EntityExtensions.dart';
+import 'package:EyuunApp/core/components/EntityExtensions.dart';
 import 'package:oxygen/oxygen.dart';
 
 part 'objectLink.mapper.dart';

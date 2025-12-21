@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import 'package:flexbackend/view/controller/ChangeValueController.dart';
-import 'package:flexbackend/view/popup/ChangeValuePopup.dart';
-import 'package:flexbackend/view/popup/PopupUtil.dart';
+import 'package:EyuunApp/view/controller/ChangeValueController.dart';
+import 'package:EyuunApp/view/popup/ChangeValuePopup.dart';
+import 'package:EyuunApp/view/popup/PopupUtil.dart';
 import 'package:flutter/material.dart';
 import 'package:lorem_ipsum/lorem_ipsum.dart';
 

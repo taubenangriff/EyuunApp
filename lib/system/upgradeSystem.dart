@@ -1,4 +1,4 @@
-import 'package:flexbackend/components/upgradable.dart';
+import 'package:EyuunApp/components/upgradable.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../core/services/WorldManager.dart';

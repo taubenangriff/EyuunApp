@@ -1,6 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:flexbackend/components/CraftMethod.dart';
-import 'package:flexbackend/components/Skillcheck.dart';
+import 'package:EyuunApp/components/CraftMethod.dart';
+import 'package:EyuunApp/components/Skillcheck.dart';
 
 import '../core/assetLink.dart';
 import '../core/components/EyuunComponent.dart';

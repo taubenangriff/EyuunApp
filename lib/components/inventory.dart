@@ -1,8 +1,8 @@
 import 'dart:collection';
 
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:flexbackend/core/components/EntityExtensions.dart';
-import 'package:flexbackend/core/components/EyuunComponent.dart';
+import 'package:EyuunApp/core/components/EntityExtensions.dart';
+import 'package:EyuunApp/core/components/EyuunComponent.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../core/assetLink.dart';

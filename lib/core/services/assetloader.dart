@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:flexbackend/core/components/EntityExtensions.dart';
-import 'package:flexbackend/core/components/standard.dart';
-import 'package:flexbackend/components/text.dart';
-import 'package:flexbackend/core/repository/AssetRepository.dart';
+import 'package:EyuunApp/core/components/EntityExtensions.dart';
+import 'package:EyuunApp/core/components/standard.dart';
+import 'package:EyuunApp/components/text.dart';
+import 'package:EyuunApp/core/repository/AssetRepository.dart';
 import 'package:flutter/services.dart';
 import 'package:oxygen/oxygen.dart';
 import 'package:uuid/uuid.dart';

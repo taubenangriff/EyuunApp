@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:flexbackend/view/CharacterPage.dart';
-import 'package:flexbackend/view/InventoryPage.dart';
+import 'package:EyuunApp/view/CharacterPage.dart';
+import 'package:EyuunApp/view/InventoryPage.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:html' as html;

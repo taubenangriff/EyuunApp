@@ -1,5 +1,5 @@
-import 'package:flexbackend/core/upgradableInt.dart';
-import 'package:flexbackend/core/upgradeDescriptor.dart';
+import 'package:EyuunApp/core/upgradableInt.dart';
+import 'package:EyuunApp/core/upgradeDescriptor.dart';
 import 'package:oxygen/oxygen.dart';
 import '../components/EyuunComponent.dart';
 

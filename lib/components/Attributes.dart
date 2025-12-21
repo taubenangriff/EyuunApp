@@ -1,4 +1,4 @@
-import 'package:flexbackend/core/components/EyuunComponent.dart';
+import 'package:EyuunApp/core/components/EyuunComponent.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
 import '../core/UpgradableInt.dart';

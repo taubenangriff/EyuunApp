@@ -1,5 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:flexbackend/core/upgradableInt.dart';
+import 'package:EyuunApp/core/upgradableInt.dart';
 
 import '../core/components/EyuunComponent.dart';
 part 'health.mapper.dart';

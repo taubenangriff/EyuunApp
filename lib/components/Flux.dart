@@ -1,5 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:flexbackend/core/components/EyuunComponent.dart';
+import 'package:EyuunApp/core/components/EyuunComponent.dart';
 
 part 'Flux.mapper.dart';
 

@@ -1,19 +1,19 @@
 
-import 'package:flexbackend/components/Armor.dart';
-import 'package:flexbackend/components/Boon.dart';
-import 'package:flexbackend/components/CharacterPath.dart';
-import 'package:flexbackend/components/CombatShield.dart';
-import 'package:flexbackend/components/Cost.dart';
-import 'package:flexbackend/components/CraftMethod.dart';
-import 'package:flexbackend/components/Equippable.dart';
-import 'package:flexbackend/components/Flux.dart';
-import 'package:flexbackend/components/Language.dart';
-import 'package:flexbackend/components/Projectile.dart';
-import 'package:flexbackend/components/Talents.dart';
-import 'package:flexbackend/components/Weapon.dart';
-import 'package:flexbackend/components/healthUpgrade.dart';
-import 'package:flexbackend/components/inventory.dart';
-import 'package:flexbackend/components/upgradable.dart';
+import 'package:EyuunApp/components/Armor.dart';
+import 'package:EyuunApp/components/Boon.dart';
+import 'package:EyuunApp/components/CharacterPath.dart';
+import 'package:EyuunApp/components/CombatShield.dart';
+import 'package:EyuunApp/components/Cost.dart';
+import 'package:EyuunApp/components/CraftMethod.dart';
+import 'package:EyuunApp/components/Equippable.dart';
+import 'package:EyuunApp/components/Flux.dart';
+import 'package:EyuunApp/components/Language.dart';
+import 'package:EyuunApp/components/Projectile.dart';
+import 'package:EyuunApp/components/Talents.dart';
+import 'package:EyuunApp/components/Weapon.dart';
+import 'package:EyuunApp/components/healthUpgrade.dart';
+import 'package:EyuunApp/components/inventory.dart';
+import 'package:EyuunApp/components/upgradable.dart';
 
 import '../components/Attributes.dart';
 import '../components/Combat.dart';

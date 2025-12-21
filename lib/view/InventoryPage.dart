@@ -1,13 +1,13 @@
 import 'dart:math';
 
-import 'package:flexbackend/components/Item.dart';
-import 'package:flexbackend/view/controller/ChangeValueController.dart';
-import 'package:flexbackend/view/popup/ChangeItemCountPopup.dart';
-import 'package:flexbackend/view/popup/ChangeValuePopup.dart';
-import 'package:flexbackend/view/popup/PopupUtil.dart';
-import 'package:flexbackend/view/popup/SelectItemPopup.dart';
-import 'package:flexbackend/view/widgets/InventoryItemWidget.dart';
-import 'package:flexbackend/view/widgets/InventoryWidget.dart';
+import 'package:EyuunApp/components/Item.dart';
+import 'package:EyuunApp/view/controller/ChangeValueController.dart';
+import 'package:EyuunApp/view/popup/ChangeItemCountPopup.dart';
+import 'package:EyuunApp/view/popup/ChangeValuePopup.dart';
+import 'package:EyuunApp/view/popup/PopupUtil.dart';
+import 'package:EyuunApp/view/popup/SelectItemPopup.dart';
+import 'package:EyuunApp/view/widgets/InventoryItemWidget.dart';
+import 'package:EyuunApp/view/widgets/InventoryWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:lorem_ipsum/lorem_ipsum.dart';
 

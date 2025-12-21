@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:flexbackend/view/widgets/DiceIcon.dart';
+import 'package:EyuunApp/view/widgets/DiceIcon.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/Attributes.dart';

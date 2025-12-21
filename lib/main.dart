@@ -1,18 +1,18 @@
 import 'dart:collection';
 import 'dart:math';
 
-import 'package:flexbackend/components/Attributes.dart';
-import 'package:flexbackend/components/health.dart';
-import 'package:flexbackend/core/components/standard.dart';
-import 'package:flexbackend/controller/BasicStatsController.dart';
-import 'package:flexbackend/core/repository/AssetRepository.dart';
-import 'package:flexbackend/io/AssetSerializer.dart';
-import 'package:flexbackend/core/registerComponentsExtension.dart';
-import 'package:flexbackend/core/registerSystemsExtension.dart';
-import 'package:flexbackend/core/registerUpgradesExtension.dart';
-import 'package:flexbackend/core/services/WorldManager.dart';
-import 'package:flexbackend/core/registerServices.dart';
-import 'package:flexbackend/view/MainPage.dart';
+import 'package:EyuunApp/components/Attributes.dart';
+import 'package:EyuunApp/components/health.dart';
+import 'package:EyuunApp/core/components/standard.dart';
+import 'package:EyuunApp/controller/BasicStatsController.dart';
+import 'package:EyuunApp/core/repository/AssetRepository.dart';
+import 'package:EyuunApp/io/AssetSerializer.dart';
+import 'package:EyuunApp/core/registerComponentsExtension.dart';
+import 'package:EyuunApp/core/registerSystemsExtension.dart';
+import 'package:EyuunApp/core/registerUpgradesExtension.dart';
+import 'package:EyuunApp/core/services/WorldManager.dart';
+import 'package:EyuunApp/core/registerServices.dart';
+import 'package:EyuunApp/view/MainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 

@@ -1,4 +1,4 @@
-import 'package:flexbackend/core/services/WorldManager.dart';
+import 'package:EyuunApp/core/services/WorldManager.dart';
 import '../components/health.dart';
 import '../components/healthUpgrade.dart';
 
