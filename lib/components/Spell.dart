@@ -27,7 +27,7 @@ class SpellComponent extends EyuunComponent<int> {
   /// Sight: Cast in range of your sight
   /// SightRadius: Cast in range of your sight, limited to a maximum of [castScopeX].
   /// Touch: You need to physically touch the target
-  /// Aura: Cast a 2D Aura circle with a radius of [castScopeX].
+  /// Circle: Cast a 2D Aura circle with a radius of [castScopeX].
   /// Rectangle: Cast a 2D aura rectangle with dimensions [castScopeX] * [castScopeY].
   /// Cone: Cast a cone shape with radius [castScopeX] which starts at your position.
   /// Cuboid: Cast a cube with dimensions [castScopeX] * [castScopeY] * [castScopeZ].

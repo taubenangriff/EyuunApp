@@ -9,7 +9,7 @@ enum CastScope {
   Sight,
   SightRadius,
   Touch,
-  Aura,
+  Circle,
   Rectangle,
   Cone,
   Cuboid,

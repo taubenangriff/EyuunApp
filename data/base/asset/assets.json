@@ -378,6 +378,32 @@
         "addSkillpoints": 1,
         "skillCeilingUpgrade": 1
       }
+    },
+    {
+      "standard": {
+        "typeId": "spellSchool_elements"
+      },
+      "text": { }
+    },
+    {
+      "standard": {
+        "typeId": "spellSchool_elements_aura_of_water",
+        "internalName" : "Aura of Water"
+      },
+      "text": { },
+      "casted": {
+        "castTime": "Action",
+        "billingCycle": "perRound",
+        "fluxCost": 1
+      },
+      "spell": {
+        "castScope": "Circle",
+        "castScopeX": 3,
+        "tier": 2,
+        "spellSchool": {
+          "id": "spellSchool_elements"
+        }
+      }
     }
   ]
 }
