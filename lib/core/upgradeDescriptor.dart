@@ -1,6 +1,6 @@
 import 'package:EyuunApp/core/components/EyuunComponent.dart';
 
-import 'upgradableInt.dart';
+import 'UpgradableInt.dart';
 
 //Used for registering Upgrades in the WorldManager.
 

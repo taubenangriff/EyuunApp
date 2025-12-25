@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:EyuunApp/components/Attributes.dart';
 import 'package:EyuunApp/components/health.dart';
+import 'package:EyuunApp/core/UpgradableInt.dart';
 import 'package:EyuunApp/core/components/standard.dart';
 import 'package:EyuunApp/controller/BasicStatsController.dart';
 import 'package:EyuunApp/core/repository/AssetRepository.dart';
@@ -72,9 +73,9 @@ void fillTestData()
   var char = locator<CharacterService>().character;
 
   char.get<InventoryComponent>()?.addAll(inventoryItems);
-  char.get<FluxComponent>()?.fluxMaximum = 15;
+  char.get<FluxComponent>()?.fluxMaximum = 15.upgradable;
   char.get<FluxComponent>()?.fluxSpent = 2;
-  char.get<FluxComponent>()?.fluxCapacity = 12;
+  char.get<FluxComponent>()?.fluxCapacity = 12.upgradable;
 }
 
 class MyApp extends StatelessWidget {

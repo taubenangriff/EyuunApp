@@ -47,7 +47,7 @@ class _CharacterPageState extends State<CharacterPage> {
         minLimit: 0,
         onValUpdated: (val) => vitalityCurrent = val);
     final fluxController = ChangeValueController(flux.fluxSpent,
-        maxLimit: flux.fluxCapacity,
+        maxLimit: flux.fluxCapacity.current,
         minLimit: 0,
         onValUpdated: (val) => flux.fluxSpent = val);
 
@@ -196,7 +196,7 @@ class _CharacterPageState extends State<CharacterPage> {
                     });
                   }));
             },
-            text: '${flux.fluxSpent}/${flux.fluxCapacity} (${flux.fluxMaximum})',
+            text: '${flux.fluxSpent}/${flux.fluxCapacity.current} (${flux.fluxMaximum.current})',
             tooltip: 'flow',
             icon: Icons.water,
           ),

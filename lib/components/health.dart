@@ -1,5 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:EyuunApp/core/upgradableInt.dart';
+import 'package:EyuunApp/core/UpgradableInt.dart';
 
 import '../core/components/EyuunComponent.dart';
 part 'health.mapper.dart';
@@ -11,7 +11,8 @@ class HealthDynamic with HealthDynamicMappable {
   int shield;
   int deathThrows;
 
-  HealthDynamic(this.maxHitpoints, this.hitpoints, this.shield, this.deathThrows);
+  HealthDynamic(
+      this.maxHitpoints, this.hitpoints, this.shield, this.deathThrows);
 }
 
 @MappableClass()
@@ -23,31 +24,25 @@ class HealthStatic with HealthStaticMappable {
 }
 
 class HealthComponent extends EyuunComponent<int> {
-  static const int DEFAULT_HITPOINTS = 0;
-  static const int DEFAULT_MAX_HITPOINTS = 1;
-  static const int DEFAULT_SHIELD = 0;
-  static const int DEFAULT_MAX_SHIELD = 1;
-  static const int DEFAULT_DEATH_THROWS = 0;
-  static const int DEFAULT_MAX_DEATH_THROWS = 1;
-
   static const String propertyName = "health";
 
   /// The current hitpoints of the character
-  late int hitpoints;
+  int hitpoints = 0;
 
   /// The maximum hitpoints of the character
-  late UpgradableInt maxHitpoints;
+  UpgradableInt maxHitpoints = 0.upgradable;
 
   /// The current shield points applied
-  late int shield;
+  int shield = 0;
+
   /// The maximum shield
-  late UpgradableInt maxShield;
+  UpgradableInt maxShield = 0.upgradable;
 
   /// the current amount of death throws a character has already thrown.
-  late int deathThrows;
+  int deathThrows = 0;
 
   /// The maximum amount of death fails this character can roll before dying.
-  late UpgradableInt maxDeathThrows;
+  UpgradableInt maxDeathThrows = 0.upgradable;
 
   @override
   void init([data]) {
@@ -56,12 +51,12 @@ class HealthComponent extends EyuunComponent<int> {
 
   @override
   void reset() {
-    hitpoints = DEFAULT_MAX_HITPOINTS;
-    maxHitpoints = DEFAULT_MAX_HITPOINTS.upgradable;
-    shield = DEFAULT_SHIELD;
-    maxShield = DEFAULT_MAX_SHIELD.upgradable;
-    deathThrows = DEFAULT_DEATH_THROWS;
-    maxDeathThrows = DEFAULT_MAX_DEATH_THROWS.upgradable;
+    hitpoints = 0;
+    maxHitpoints = 0.upgradable;
+    shield = 0;
+    maxShield = 0.upgradable;
+    deathThrows = 0;
+    maxDeathThrows = 0.upgradable;
   }
 
   bool isInDyingState() => hitpoints <= 0;
@@ -84,10 +79,10 @@ class HealthComponent extends EyuunComponent<int> {
     var stat = HealthStaticMapper.fromMap(staticData);
     maxShield = stat.maxShield.upgradable;
     maxDeathThrows = stat.maxDeathThrows.upgradable;
-
     hitpoints = maxHitpoints.current;
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => HealthDynamic(maxHitpoints.base, hitpoints, shield, deathThrows).toMap();
+  Map<String, dynamic> saveDynamicData() =>
+      HealthDynamic(maxHitpoints.base, hitpoints, shield, deathThrows).toMap();
 }

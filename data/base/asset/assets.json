@@ -339,6 +339,37 @@
       "healthUpgrade" : {
         "maxHitpointsUpgrade": 30
       }
+    },
+    {
+      "standard": {
+        "typeId": "master_upgrade"
+      },
+      "text": { },
+      "armorUpgrade" : {
+        "armorToughnessBonus": 1
+      },
+      "attributesUpgrade" : {
+        "maxDiceIncreasesUpgrade": 1
+      },
+      "characterPathUpgrade" : {
+        "pathCapacityUpgrade": 1
+      },
+      "combatUpgrade" : {
+        "speedUpgrade": 1,
+        "evasionUpgrade": 1,
+        "initiativeUpgrade": 1,
+        "actionsPerRoundUpgrade": 1,
+        "reactionsPerRoundUpgrade": 1
+      },
+      "fluxUpgrade" : {
+        "fluxCapacityUpgrade": 1,
+        "fluxMaximumUpgrade": 1
+      },
+      "healthUpgrade" : {
+        "maxHitpointsUpgrade": 1,
+        "maxShieldUpgrade": 1,
+        "maxDeathThrowsUpgrade": 1
+      }
     }
   ]
 }

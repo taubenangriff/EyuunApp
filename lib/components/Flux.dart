@@ -1,6 +1,8 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:EyuunApp/core/components/EyuunComponent.dart';
 
+import '../core/UpgradableInt.dart';
+
 part 'Flux.mapper.dart';
 
 @MappableClass()
@@ -19,10 +21,10 @@ class FluxComponent extends EyuunComponent<int> {
   late int fluxSpent;
 
   /// The current flux capacity
-  late int fluxCapacity;
+  late UpgradableInt fluxCapacity;
 
   /// The maximum flux capacity that the character can reach
-  late int fluxMaximum;
+  late UpgradableInt fluxMaximum;
 
   @override
   String getName() => propertyName;
@@ -35,19 +37,19 @@ class FluxComponent extends EyuunComponent<int> {
   @override
   void reset() {
     fluxSpent = 0;
-    fluxCapacity = 0;
-    fluxMaximum = 0;
+    fluxCapacity = 0.upgradable;
+    fluxMaximum = 0.upgradable;
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => FluxDynamic(fluxSpent, fluxCapacity, fluxMaximum).toMap();
+  Map<String, dynamic> saveDynamicData() => FluxDynamic(fluxSpent, fluxCapacity.base, fluxMaximum.base).toMap();
 
   @override
   void loadDynamicData(Map<String, dynamic> dynamicData) {
     var dyn = FluxDynamicMapper.fromMap(dynamicData);
     fluxSpent = dyn.fluxSpent;
-    fluxMaximum = dyn.fluxMaximum;
-    fluxCapacity = dyn.fluxCapacity;
+    fluxMaximum = dyn.fluxMaximum.upgradable;
+    fluxCapacity = dyn.fluxCapacity.upgradable;
    }
 
   @override

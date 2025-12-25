@@ -11,9 +11,16 @@ import 'package:EyuunApp/components/Language.dart';
 import 'package:EyuunApp/components/Projectile.dart';
 import 'package:EyuunApp/components/Talents.dart';
 import 'package:EyuunApp/components/Weapon.dart';
-import 'package:EyuunApp/components/healthUpgrade.dart';
 import 'package:EyuunApp/components/inventory.dart';
 import 'package:EyuunApp/components/upgradable.dart';
+import 'package:EyuunApp/components/upgrade/ArmorUpgrade.dart';
+import 'package:EyuunApp/components/upgrade/AttributesUpgrade.dart';
+import 'package:EyuunApp/components/upgrade/CharacterPathUpgrade.dart';
+import 'package:EyuunApp/components/upgrade/CombatUpgrade.dart';
+import 'package:EyuunApp/components/upgrade/FluxUpgrade.dart';
+import 'package:EyuunApp/components/upgrade/HealthUpgrade.dart';
+import 'package:EyuunApp/components/upgrade/LanguageLearnerUpgrade.dart';
+import 'package:EyuunApp/components/upgrade/TalentsUpgrade.dart';
 
 import '../components/Attributes.dart';
 import '../components/Combat.dart';
@@ -31,7 +38,6 @@ extension RegisterUpgradesExtension on WorldManager {
     registerComponent<HealthComponent, int>(HealthComponent.propertyName, () => HealthComponent());
     registerComponent<AttributesComponent, int>(AttributesComponent.propertyName, () => AttributesComponent());
     registerComponent<UpgradableComponent, int>(UpgradableComponent.propertyName, () => UpgradableComponent());
-    registerComponent<HealthUpgradeComponent, int>(HealthUpgradeComponent.propertyName, () => HealthUpgradeComponent());
     registerComponent<BoonComponent, int>(BoonComponent.propertyName, () => BoonComponent());
     registerComponent<InventoryComponent, int>(InventoryComponent.propertyName, () => InventoryComponent());
     registerComponent<TextComponent, String>(TextComponent.propertyName, () => TextComponent());
@@ -50,5 +56,15 @@ extension RegisterUpgradesExtension on WorldManager {
     registerComponent<CombatShieldComponent, int>(CombatShieldComponent.propertyName, () => CombatShieldComponent());
     registerComponent<ProjectileComponent, int>(ProjectileComponent.propertyName, () => ProjectileComponent());
     registerComponent<CharacterPathComponent, int>(CharacterPathComponent.propertyName, () => CharacterPathComponent());
+
+    // register Upgrades
+    registerComponent<ArmorUpgradeComponent, int>(ArmorUpgradeComponent.propertyName, () => ArmorUpgradeComponent());
+    registerComponent<AttributesUpgradeComponent, int>(AttributesUpgradeComponent.propertyName, () => AttributesUpgradeComponent());
+    registerComponent<CharacterPathUpgradeComponent, int>(CharacterPathUpgradeComponent.propertyName, () => CharacterPathUpgradeComponent());
+    registerComponent<CombatUpgradeComponent, int>(CombatUpgradeComponent.propertyName, () => CombatUpgradeComponent());
+    registerComponent<FluxUpgradeComponent, int>(FluxUpgradeComponent.propertyName, () => FluxUpgradeComponent());
+    registerComponent<HealthUpgradeComponent, int>(HealthUpgradeComponent.propertyName, () => HealthUpgradeComponent());
+    registerComponent<LanguageLearnerUpgradeComponent, int>(LanguageLearnerUpgradeComponent.propertyName, () => LanguageLearnerUpgradeComponent());
+    registerComponent<TalentsUpgradeComponent, int>(TalentsUpgradeComponent.propertyName, () => TalentsUpgradeComponent());
   }
 }

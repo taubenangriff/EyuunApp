@@ -16,16 +16,17 @@ class BoonStatic with BoonStaticMappable {
 class BoonDynamic with BoonDynamicMappable {
   int currentBoon;
   int boonRegeneration;
+  int boonSpentSinceLastRest;
 
-  BoonDynamic(this.currentBoon, this.boonRegeneration);
+  BoonDynamic(this.currentBoon, this.boonRegeneration, this.boonSpentSinceLastRest);
 }
 
 class BoonComponent extends EyuunComponent<int> {
   static const String propertyName = "boon";
 
-  late UpgradableInt maxBoon;
   late int currentBoon;
-  late int boonRegeneration;
+  late int boonSpentSinceLastRest;
+  late UpgradableInt boonRegeneration;
 
   @override
   String getName() => propertyName;
@@ -37,26 +38,26 @@ class BoonComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => BoonDynamic(currentBoon, boonRegeneration).toMap();
+  Map<String, dynamic> saveDynamicData() => BoonDynamic(currentBoon, boonRegeneration.base, boonSpentSinceLastRest).toMap();
 
   @override
   void loadDynamicData(Map<String, dynamic> dynamicData) {
     var dyn = BoonDynamicMapper.fromMap(dynamicData);
     currentBoon = dyn.currentBoon;
-    boonRegeneration = dyn.boonRegeneration;
+    boonRegeneration = dyn.boonRegeneration.upgradable;
+    boonSpentSinceLastRest = dyn.boonSpentSinceLastRest;
   }
 
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
-    var stat = BoonStaticMapper.fromMap(staticData);
-    maxBoon = stat.maxBoon.upgradable;
+    // nothing to load here
   }
 
   @override
   void reset() {
-    maxBoon = 0.upgradable;
+    boonSpentSinceLastRest = 0;
     currentBoon = 0;
-    boonRegeneration = 0;
+    boonRegeneration = 0.upgradable;
   }
 
 
