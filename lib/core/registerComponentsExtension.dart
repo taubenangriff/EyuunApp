@@ -8,6 +8,7 @@ import 'package:EyuunApp/components/CraftMethod.dart';
 import 'package:EyuunApp/components/Equippable.dart';
 import 'package:EyuunApp/components/Flux.dart';
 import 'package:EyuunApp/components/Language.dart';
+import 'package:EyuunApp/components/PathStep.dart';
 import 'package:EyuunApp/components/Projectile.dart';
 import 'package:EyuunApp/components/Talents.dart';
 import 'package:EyuunApp/components/Weapon.dart';
@@ -26,6 +27,7 @@ import '../components/Attributes.dart';
 import '../components/Combat.dart';
 import '../components/Item.dart';
 import '../components/LanguageLearner.dart';
+import '../components/Path.dart';
 import '../components/Skillcheck.dart';
 import '../components/health.dart';
 import 'components/standard.dart';
@@ -56,6 +58,8 @@ extension RegisterUpgradesExtension on WorldManager {
     registerComponent<CombatShieldComponent, int>(CombatShieldComponent.propertyName, () => CombatShieldComponent());
     registerComponent<ProjectileComponent, int>(ProjectileComponent.propertyName, () => ProjectileComponent());
     registerComponent<CharacterPathComponent, int>(CharacterPathComponent.propertyName, () => CharacterPathComponent());
+    registerComponent<PathStepComponent, int>(PathStepComponent.propertyName, () => PathStepComponent());
+    registerComponent<PathComponent, int>(PathComponent.propertyName, () => PathComponent());
 
     // register Upgrades
     registerComponent<ArmorUpgradeComponent, int>(ArmorUpgradeComponent.propertyName, () => ArmorUpgradeComponent());
