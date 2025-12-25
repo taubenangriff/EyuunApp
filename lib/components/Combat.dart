@@ -61,6 +61,8 @@ class CombatComponent extends EyuunComponent<int> {
 
   /// The list of items held in your hands.
   List<ObjectLink> equippedItems = [];
+
+  bool wearsArmor() => equippedItems.any((e) => e.getEntity().get<HoldableComponent>()?.takesArmorSlot ?? false);
   
   /// gets the amount of equipment Slots that are used by items in equippedItems. 
   int getOccupiedEquipmentSlotCount(){
