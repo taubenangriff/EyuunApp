@@ -14,14 +14,16 @@ class CharacterPathStatic with CharacterPathStaticMappable {
 
 @MappableClass()
 class CharacterPathDynamic with CharacterPathDynamicMappable {
+  List<AssetLink> chosenPathSteps;
   List<AssetLink> chosenPaths;
-  CharacterPathDynamic(this.chosenPaths);
+  CharacterPathDynamic(this.chosenPathSteps, this.chosenPaths);
 }
 
 class CharacterPathComponent extends EyuunComponent<int> {
   static const String propertyName = "characterPath";
 
   /// list of [AssetLink] to all paths that this character has already chosen.
+  List<AssetLink> chosenPathSteps = [];
   List<AssetLink> chosenPaths = [];
 
   /// the maximum amount of paths a character can pick.
@@ -38,6 +40,7 @@ class CharacterPathComponent extends EyuunComponent<int> {
   @override
   void loadDynamicData(Map<String, dynamic> dynamicData) {
     var dyn = CharacterPathDynamicMapper.fromMap(dynamicData);
+    chosenPathSteps = dyn.chosenPathSteps;
     chosenPaths = dyn.chosenPaths;
   }
 
@@ -50,9 +53,10 @@ class CharacterPathComponent extends EyuunComponent<int> {
   @override
   void reset() {
     pathCapacity = 0.upgradable;
+    chosenPathSteps.clear();
     chosenPaths.clear();
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => CharacterPathDynamic(chosenPaths).toMap();
+  Map<String, dynamic> saveDynamicData() => CharacterPathDynamic(chosenPathSteps).toMap();
 }
