@@ -10,6 +10,7 @@ import 'package:EyuunApp/components/Flux.dart';
 import 'package:EyuunApp/components/Language.dart';
 import 'package:EyuunApp/components/PathStep.dart';
 import 'package:EyuunApp/components/Projectile.dart';
+import 'package:EyuunApp/components/Spell.dart';
 import 'package:EyuunApp/components/Talents.dart';
 import 'package:EyuunApp/components/Weapon.dart';
 import 'package:EyuunApp/components/inventory.dart';
@@ -24,6 +25,7 @@ import 'package:EyuunApp/components/upgrade/LanguageLearnerUpgrade.dart';
 import 'package:EyuunApp/components/upgrade/TalentsUpgrade.dart';
 
 import '../components/Attributes.dart';
+import '../components/Casted.dart';
 import '../components/Combat.dart';
 import '../components/Item.dart';
 import '../components/LanguageLearner.dart';
@@ -60,6 +62,8 @@ extension RegisterUpgradesExtension on WorldManager {
     registerComponent<CharacterPathComponent, int>(CharacterPathComponent.propertyName, () => CharacterPathComponent());
     registerComponent<PathStepComponent, int>(PathStepComponent.propertyName, () => PathStepComponent());
     registerComponent<PathComponent, int>(PathComponent.propertyName, () => PathComponent());
+    registerComponent<SpellComponent, int>(SpellComponent.propertyName, () => SpellComponent());
+    registerComponent<CastedComponent, int>(CastedComponent.propertyName, () => CastedComponent());
 
     // register Upgrades
     registerComponent<ArmorUpgradeComponent, int>(ArmorUpgradeComponent.propertyName, () => ArmorUpgradeComponent());
