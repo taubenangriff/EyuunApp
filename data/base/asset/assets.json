@@ -369,6 +369,13 @@
         "maxHitpointsUpgrade": 1,
         "maxShieldUpgrade": 1,
         "maxDeathThrowsUpgrade": 1
+      },
+      "languageLearnerUpgrade" : {
+        "languageMaxPotentialUpgrade": 1
+      },
+      "talentsUpgrade" : {
+        "addSkillpoints": 1,
+        "skillCeilingUpgrade": 1
       }
     }
   ]
