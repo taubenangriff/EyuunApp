@@ -393,7 +393,7 @@
       "text": { },
       "casted": {
         "castTime": "Action",
-        "billingCycle": "perRound",
+        "billingCycle": "PerRound",
         "fluxCost": 1
       },
       "spell": {
