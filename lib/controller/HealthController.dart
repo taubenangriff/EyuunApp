@@ -1,23 +1,24 @@
 import 'dart:math';
 
 import 'package:EyuunApp/components/Armor.dart';
-import 'package:EyuunApp/components/Attributes.dart';
 import 'package:EyuunApp/components/Combat.dart';
 import 'package:EyuunApp/components/DamageType.dart';
 import 'package:EyuunApp/components/feature/CombatFeature.dart';
 import 'package:EyuunApp/components/health.dart';
-import 'package:EyuunApp/core/services/WorldManager.dart';
-import 'package:EyuunApp/core/services/assetloader.dart';
+import 'package:EyuunApp/components/upgradable.dart';
 import 'package:EyuunApp/enums/DamageCalculation.dart';
 import 'package:oxygen/oxygen.dart';
-import 'package:EyuunApp/enums/dice.dart';
 
 import '../core/registerServices.dart';
 
 abstract class DamageCalculator {
+  /// The positive amount of damage eaten by the shield
   int getAbsorbedByTempHealth(int damage, int tempHealth);
 
+  /// The positive amount of damage that goes into the armor.
   int getAbsorbedByArmor(int damage, int armorWorn, int armorNatural);
+
+  /// The total damage after applying the proneFactor.
   int getDamageAfterProneFactor(int damage, double proneFactor);
 }
 
@@ -32,9 +33,26 @@ class NormalDamageCalculator extends DamageCalculator {
   int getDamageAfterProneFactor(int damage, double proneFactor) => (damage * proneFactor).floor();
 }
 
+class HealDamageCalculator extends DamageCalculator {
+  @override
+  int getAbsorbedByTempHealth(int damage, int tempHealth) => 0;
+
+  @override
+  int getAbsorbedByArmor(int damage, int armorWorn, int armorNatural) => 0;
+
+  @override
+  int getDamageAfterProneFactor(int damage, double proneFactor) => damage;
+
+}
+
+class ShieldDamageCalculator extends HealDamageCalculator {
+  @override
+  int getAbsorbedByTempHealth(int damage, int tempHealth) => damage;
+}
+
 class ArmorPenDamageCalculator extends NormalDamageCalculator {
   @override
-  int getAbsorbedByArmor(int damage, int armorWorn, int armorNatural) => min(damage, (armorWorn + armorNatural / 2).floor());
+  int getAbsorbedByArmor(int damage, int armorWorn, int armorNatural) => min(damage, ((armorWorn + armorNatural) / 2).floor());
 }
 
 class IgnoreArmorDamageCalculator extends NormalDamageCalculator {
@@ -55,59 +73,120 @@ class UnoReverseCardArmorDamageCalculator extends NormalDamageCalculator {
 class HealthController {
   late CombatFeatureComponent combatFeature;
 
-  late Entity damageType;
+  Entity? damageTypeEntity;
   late Entity damageTarget;
 
-  late DamageTypeComponent _damageTypeComponent;
+  late DamageTypeComponent damageTypeComponent;
   late HealthComponent _targetHealthComponent;
   late CombatComponent? _targetCombatComponent;
 
-  int absorbedByTempHealth = 0;
+  int tempHealthChange = 0;
   int absorbedByArmor = 0;
-  int healthChange = 0;
+  int hitpointChange = 0;
+  int newHitpoints = 0;
+  int oldHitpoints = 0;
+  int newShield = 0;
+  int totalArmor = 0;
+
+  final DamageCalculator _fallbackCalculator = NormalDamageCalculator();
 
   final Map<DamageCalculation, DamageCalculator> _calculators = {
     DamageCalculation.Normal: NormalDamageCalculator(),
-    DamageCalculation.IgnoreArmor: ArmorPenDamageCalculator(),
+    DamageCalculation.IgnoreArmor: IgnoreArmorDamageCalculator(),
     DamageCalculation.IgnoreHalfArmor: ArmorPenDamageCalculator(),
     DamageCalculation.IgnoreWornArmor: IgnoreWornArmorDamageCalculator(),
-    DamageCalculation.UnoReverseCardArmor: UnoReverseCardArmorDamageCalculator()
+    DamageCalculation.UnoReverseCardArmor: UnoReverseCardArmorDamageCalculator(),
+    DamageCalculation.AddShield: ShieldDamageCalculator(),
+    DamageCalculation.Heal : HealDamageCalculator()
   };
 
   HealthController() {
     combatFeature = locator<CombatFeatureComponent>();
+    setDamageType(combatFeature.healTypes[0].getEntity()!);
+  }
+
+  void _reset() {
+    oldHitpoints = _targetHealthComponent.hitpoints;
+    newHitpoints = _targetHealthComponent.hitpoints;
+    newShield = _targetHealthComponent.shield;
+    tempHealthChange = 0;
+    absorbedByArmor = 0;
+    hitpointChange = 0;
+    totalArmor = _getWornArmor() + _getNaturalArmor();
   }
 
   void setDamageTarget(Entity entity) {
     assert(entity.has<HealthComponent>());
     _targetHealthComponent = entity.get<HealthComponent>()!;
     _targetCombatComponent = entity.get<CombatComponent>();
+    damageTarget = entity;
+
+    _reset();
   }
+
+  bool isLosingHealth() => hitpointChange < 0;
+
+  bool armorUsedAgainstTarget() => absorbedByArmor < 0;
+
+  int maxGainable() => 100;
+
+  int maxLosable() => 100;
 
   void setDamageType(Entity entity) {
     assert(entity.has<DamageTypeComponent>());
-    _damageTypeComponent = entity.get<DamageTypeComponent>()!;
+    damageTypeComponent = entity.get<DamageTypeComponent>()!;
+    damageTypeEntity = entity;
   }
 
-  void recalculate(int damage) {
-    var calculator = _calculators[_damageTypeComponent.damageCalculation] ?? NormalDamageCalculator();
-
-    var armorNatural = 0;
-    var tempHealth = 0;
-
-    var armorWorn = _targetCombatComponent
-            ?.armor
-            ?.getEntity()
-            .get<ArmorComponent>()
-            ?.armorToughness
-            .current ??
+  int _getWornArmor() {
+    return 7;
+    return _targetCombatComponent
+        ?.armor
+        ?.getEntity()
+        .get<ArmorComponent>()
+        ?.armorToughness
+        .current ??
         0;
+  }
 
-    double proneFactor = 1.0;
+  double _getProneFactor() => 1.0;
+  int _getNaturalArmor() => 0;
+  int _getTempHealth() => _targetHealthComponent.shield;
 
-    absorbedByArmor = calculator.getAbsorbedByArmor(damage, armorWorn, armorNatural);
+  void computeDamageSplit(int hpChange) {
+    var damage = -hpChange;
+    var calculator = _calculators[damageTypeComponent.damageCalculation] ?? _fallbackCalculator;
+
+    var armorNatural = _getNaturalArmor();
+    var tempHealth = _getTempHealth();
+    var armorWorn = _getWornArmor();
+    double proneFactor = _getProneFactor();
+
+    totalArmor = armorNatural + armorWorn;
+
+    absorbedByArmor = calculator.getAbsorbedByArmor(damage, armorWorn, armorNatural).toInt();
     var damageAfterProne = calculator.getDamageAfterProneFactor(damage - absorbedByArmor, proneFactor);
-    absorbedByTempHealth = calculator.getAbsorbedByTempHealth(damageAfterProne, tempHealth);
-    healthChange = damageAfterProne - absorbedByTempHealth;
+    tempHealthChange = calculator.getAbsorbedByTempHealth(damageAfterProne, tempHealth) * -1;
+    hitpointChange = (damageAfterProne + tempHealthChange) * -1;
+    hitpointChange = max(-_targetHealthComponent.hitpoints, hitpointChange);
+    newHitpoints = min(_targetHealthComponent.hitpoints + hitpointChange, _targetHealthComponent.maxHitpoints.current);
+    newShield = _targetHealthComponent.shield + tempHealthChange;
+  }
+
+  void apply() {
+    _targetHealthComponent.hitpoints = newHitpoints;
+    _targetHealthComponent.shield = newShield;
+
+    if(damageTypeComponent.degradeArmor && hitpointChange < 0){
+      //degrade armor
+    }
+
+    if(damageTypeComponent.applyStatusEffect != null) {
+      damageTarget.get<UpgradableComponent>()?.applyUpgrade(damageTypeComponent.applyStatusEffect!.id);
+    }
+
+    if(hitpointChange < 0 && damageTypeComponent.applyStatusEffectOnHit != null) {
+      damageTarget.get<UpgradableComponent>()?.applyUpgrade(damageTypeComponent.applyStatusEffectOnHit!.id);
+    }
   }
 }

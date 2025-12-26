@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:EyuunApp/components/Flux.dart';
 import 'package:EyuunApp/components/health.dart';
+import 'package:EyuunApp/controller/HealthController.dart';
 import 'package:EyuunApp/view/controller/ChangeValueController.dart';
+import 'package:EyuunApp/view/popup/ChangeHealthPopup.dart';
 import 'package:EyuunApp/view/popup/ChangeValuePopup.dart';
 import 'package:EyuunApp/view/widgets/CharacterInfoWidget.dart';
 import 'package:EyuunApp/view/widgets/PathsWidget.dart';
@@ -38,10 +40,6 @@ class _CharacterPageState extends State<CharacterPage> {
     var health = character.get<HealthComponent>()!;
     var flux = character.get<FluxComponent>()!;
 
-    final healthController = ChangeValueController(health.hitpoints,
-        maxLimit: health.maxHitpoints.current,
-        minLimit: 0,
-        onValUpdated: (val) => health.hitpoints = val);
     final vitalityController = ChangeValueController(vitalityCurrent,
         maxLimit: vitalityMax,
         minLimit: 0,
@@ -157,14 +155,15 @@ class _CharacterPageState extends State<CharacterPage> {
         children: [
           _buildLargeFab(
             onPressed: () {
+              final healthController = HealthController();
+              healthController.setDamageTarget(character);
+
               PopupUtil.popup(
-                context,
-                ChangeValuePopup(healthController, valueChanged: (change) {
-                  setState(() {
-                    healthController.change(change);
-                  });
-                }),
-              );
+                  context,
+                  ChangeHealthPopup(healthController, onAccept: () {
+                    setState(() {});
+                  }),
+                  maximumSize: Size(300, 700));
             },
             text: '${health.hitpoints}/${health.maxHitpoints.current}',
             tooltip: 'Health',
@@ -196,7 +195,8 @@ class _CharacterPageState extends State<CharacterPage> {
                     });
                   }));
             },
-            text: '${flux.fluxSpent}/${flux.fluxCapacity.current} (${flux.fluxMaximum.current})',
+            text:
+                '${flux.fluxSpent}/${flux.fluxCapacity.current} (${flux.fluxMaximum.current})',
             tooltip: 'flow',
             icon: Icons.water,
           ),

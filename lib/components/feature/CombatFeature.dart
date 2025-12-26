@@ -7,13 +7,15 @@ part 'CombatFeature.mapper.dart';
 @MappableClass()
 class CombatFeatureStatic with CombatFeatureStaticMappable {
   List<AssetLink> damageTypes;
-  CombatFeatureStatic(this.damageTypes);
+  List<AssetLink> healTypes;
+  CombatFeatureStatic(this.damageTypes, this.healTypes);
 }
 
 class CombatFeatureComponent extends EyuunComponent<int> {
   static const String propertyName = "combatFeature";
 
   List<AssetLink> damageTypes = [];
+  List<AssetLink> healTypes = [];
 
   @override
   String getName() => propertyName;
@@ -32,11 +34,13 @@ class CombatFeatureComponent extends EyuunComponent<int> {
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = CombatFeatureStaticMapper.fromMap(staticData);
     damageTypes = stat.damageTypes;
+    healTypes = stat.healTypes;
   }
 
   @override
   void reset() {
     damageTypes.clear();
+    healTypes.clear();
   }
 
   @override

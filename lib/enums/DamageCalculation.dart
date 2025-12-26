@@ -4,4 +4,4 @@ part 'DamageCalculation.mapper.dart';
 
 @MappableEnum(mode: ValuesMode.named)
 
-enum DamageCalculation { Normal, IgnoreHalfArmor, IgnoreArmor, IgnoreWornArmor, UnoReverseCardArmor }
+enum DamageCalculation { Normal, IgnoreHalfArmor, IgnoreArmor, IgnoreWornArmor, UnoReverseCardArmor, Heal, AddShield }

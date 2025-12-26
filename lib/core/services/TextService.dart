@@ -1,3 +1,4 @@
+import 'package:EyuunApp/components/text.dart';
 import 'package:EyuunApp/core/services/assetloader.dart';
 import 'package:EyuunApp/core/repository/TextRepository.dart';
 
@@ -19,6 +20,11 @@ class TextService {
   }
 
   String getTextFromLink(AssetLink textLink) => getText(textLink.id);
+
+  bool hasFluff(String typeId)
+  {
+    return _assetLoader.getStatic(typeId)?.get<TextComponent>()?.fluff != null;
+  }
 
   String getFluff(String typeId)
   {

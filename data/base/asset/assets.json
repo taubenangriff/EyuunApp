@@ -411,27 +411,224 @@
       "standard": {
         "typeId": "damage_normal"
       },
-      "text": { },
+      "text": {
+        "fluff": "fluff_damage_normal"
+      },
       "damageType": {
         "damageCalculation": "Normal"
+      },
+      "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_normaldamage.png"
       }
     },
     {
       "standard": {
         "typeId": "damage_armorpen"
       },
-      "text": { },
+      "text": {
+        "fluff": "fluff_damage_armorpen"
+      },
       "damageType": {
         "damageCalculation": "IgnoreHalfArmor"
+      },
+      "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_ap.png"
       }
     },
     {
       "standard": {
         "typeId": "damage_direct"
       },
-      "text": { },
+      "text": {
+        "fluff": "fluff_damage_direct"
+      },
       "damageType": {
         "damageCalculation": "IgnoreArmor"
+      },
+      "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_direct.png"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "damage_poison"
+      },
+      "text": {
+        "fluff": "fluff_damage_poison"
+      },
+      "damageType": {
+        "damageCalculation": "Normal",
+        "applyStatusEffectOnHit": {
+          "id": "status_poisoned"
+        }
+      },
+      "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_dirt.png"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "damage_fire"
+      },
+      "text": { },
+      "damageType": {
+        "damageCalculation": "Normal",
+        "applyStatusEffect": {
+          "id": "status_burning"
+        }
+      },
+      "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_fire.png"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "damage_water"
+      },
+      "text": { },
+      "damageType": {
+        "damageCalculation": "Normal",
+        "applyStatusEffect": {
+          "id": "status_wet"
+        }
+      },
+      "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_water.png"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "damage_rock"
+      },
+      "text": { },
+      "damageType": {
+        "damageCalculation": "Normal",
+        "pushback": 3
+      },
+      "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_rock.png"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "damage_air"
+      },
+      "text": {
+        "fluff": "fluff_damage_air"
+      },
+      "damageType": {
+        "damageCalculation": "IgnoreWornArmor"
+      },
+      "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_air.png"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "damage_lava"
+      },
+      "text": {
+        "fluff": "fluff_damage_lava"
+      },
+      "damageType": {
+        "damageCalculation": "Normal",
+        "degradeArmor": true
+      },
+      "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_lava.png"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "damage_ice"
+      },
+      "text": { },
+      "damageType": {
+        "damageCalculation": "Normal",
+        "useFreezingLogic": true
+      },
+      "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_air.png"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "damage_metal"
+      },
+      "text": { },
+      "damageType": {
+        "damageCalculation": "Normal",
+        "applyStatusEffectOnHit": {
+          "id": "status_fucked"
+        }
+      },
+      "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_stamina.png"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "damage_lightning"
+      },
+      "text": {
+        "fluff": "fluff_damage_lightning"
+      },
+      "damageType": {
+        "damageCalculation": "UnoReverseCardArmor"
+      },
+      "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_lightning.png"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "damage_heal"
+      },
+      "text": {
+        "fluff": "fluff_damage_heal"
+      },
+      "damageType": {
+        "damageCalculation": "Heal"
+      },
+      "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_heal.png"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "damage_add_shield"
+      },
+      "text": {
+        "fluff": "fluff_damage_shield"
+      },
+      "damageType": {
+        "damageCalculation": "AddShield"
+      },
+      "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_shield.png"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "damage_test"
+      },
+      "text": {
+        "fluff": "fluff_damage_shield"
+      },
+      "damageType": {
+        "damageCalculation": "AddShield",
+        "degradeArmor": true,
+        "applyStatusEffectOnHit": {
+          "id": "nostatus"
+        },
+        "applyStatusEffect": {
+          "id": "nostatus"
+        },
+        "useFreezingLogic": true,
+        "pushback": 2
+      },
+      "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_shield.png"
       }
     }
   ]

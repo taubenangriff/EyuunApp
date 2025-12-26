@@ -13,12 +13,14 @@ class DamageTypeStatic with DamageTypeStaticMappable {
   AssetLink? applyStatusEffectOnHit;
   AssetLink? applyStatusEffect;
   bool useFreezingLogic;
+  int pushback;
 
   DamageTypeStatic(this.damageCalculation,
       [this.degradeArmor = false,
       this.applyStatusEffectOnHit,
       this.applyStatusEffect,
-      this.useFreezingLogic = false]);
+      this.useFreezingLogic = false,
+      this.pushback = 0]);
 }
 
 class DamageTypeComponent extends EyuunComponent<int> {
@@ -29,6 +31,7 @@ class DamageTypeComponent extends EyuunComponent<int> {
   late AssetLink? applyStatusEffectOnHit;
   late AssetLink? applyStatusEffect;
   late bool useFreezingLogic;
+  late int pushback;
 
   @override
   String getName() => propertyName;
@@ -51,6 +54,7 @@ class DamageTypeComponent extends EyuunComponent<int> {
     applyStatusEffectOnHit = stat.applyStatusEffectOnHit;
     applyStatusEffect = stat.applyStatusEffect;
     useFreezingLogic = stat.useFreezingLogic;
+    pushback = stat.pushback;
   }
 
   @override

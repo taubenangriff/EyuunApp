@@ -8,6 +8,7 @@ import 'package:EyuunApp/components/CraftMethod.dart';
 import 'package:EyuunApp/components/DamageType.dart';
 import 'package:EyuunApp/components/Equippable.dart';
 import 'package:EyuunApp/components/Flux.dart';
+import 'package:EyuunApp/components/Icon.dart';
 import 'package:EyuunApp/components/Language.dart';
 import 'package:EyuunApp/components/PathStep.dart';
 import 'package:EyuunApp/components/Project.dart';
@@ -69,6 +70,7 @@ extension RegisterUpgradesExtension on WorldManager {
     registerComponent<CastedComponent, int>(CastedComponent.propertyName, () => CastedComponent());
     registerComponent<ProjectComponent, int>(ProjectComponent.propertyName, () => ProjectComponent());
     registerComponent<DamageTypeComponent, int>(DamageTypeComponent.propertyName, () => DamageTypeComponent());
+    registerComponent<IconComponent, int>(IconComponent.propertyName, () => IconComponent());
 
     // register Upgrades
     registerComponent<ArmorUpgradeComponent, int>(ArmorUpgradeComponent.propertyName, () => ArmorUpgradeComponent());

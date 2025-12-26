@@ -56,6 +56,8 @@ flutter:
     - data/base/asset/
     - data/base/text/
     - data/base/icons/dice/
+    - data/base/icons/damage_type/
+    - data/base/icons/
 
   # To add Flutter specific assets to your application, add an assets section,
   # like this:

@@ -4,7 +4,7 @@
       "standard": {
         "typeId": "combat_feature"
       },
-      "combatFeatures": {
+      "combatFeature": {
         "damageTypes": [
           {
             "id": "damage_normal"
@@ -14,6 +14,41 @@
           },
           {
             "id": "damage_direct"
+          },
+          {
+            "id": "damage_poison"
+          },
+          {
+            "id": "damage_fire"
+          },
+          {
+            "id": "damage_water"
+          },
+          {
+            "id": "damage_rock"
+          },
+          {
+            "id": "damage_air"
+          },
+          {
+            "id": "damage_lava"
+          },
+          {
+            "id": "damage_ice"
+          },
+          {
+            "id": "damage_metal"
+          },
+          {
+            "id": "damage_lightning"
+          }
+        ],
+        "healTypes": [
+          {
+            "id": "damage_heal"
+          },
+          {
+            "id": "damage_add_shield"
           }
         ]
       }

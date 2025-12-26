@@ -4,7 +4,7 @@ import 'package:EyuunApp/core/services/assetloader.dart';
 import '../components/feature/CombatFeature.dart';
 
 class FeatureIds {
-  static const String combatFeature = "combatFeature";
+  static const String combatFeature = "combat_feature";
 }
 
 void registerFeatures() {
