@@ -15,6 +15,7 @@ import 'package:EyuunApp/components/Projectile.dart';
 import 'package:EyuunApp/components/Spell.dart';
 import 'package:EyuunApp/components/Talents.dart';
 import 'package:EyuunApp/components/Weapon.dart';
+import 'package:EyuunApp/components/feature/CombatFeature.dart';
 import 'package:EyuunApp/components/inventory.dart';
 import 'package:EyuunApp/components/upgradable.dart';
 import 'package:EyuunApp/components/upgrade/ArmorUpgrade.dart';
@@ -78,5 +79,8 @@ extension RegisterUpgradesExtension on WorldManager {
     registerComponent<HealthUpgradeComponent, int>(HealthUpgradeComponent.propertyName, () => HealthUpgradeComponent());
     registerComponent<LanguageLearnerUpgradeComponent, int>(LanguageLearnerUpgradeComponent.propertyName, () => LanguageLearnerUpgradeComponent());
     registerComponent<TalentsUpgradeComponent, int>(TalentsUpgradeComponent.propertyName, () => TalentsUpgradeComponent());
+
+    // register Features
+    registerComponent<CombatFeatureComponent, int>(CombatFeatureComponent.propertyName, () => CombatFeatureComponent());
   }
 }
