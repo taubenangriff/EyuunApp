@@ -14,90 +14,42 @@ import 'package:EyuunApp/enums/dice.dart';
 
 import '../core/registerServices.dart';
 
-class DamageSplit {
-  int absorbedByTempHealth;
-  int absorbedByArmor;
-  int absorbedByNaturalArmor;
-  int healthChange;
-
-  DamageSplit(this.absorbedByTempHealth, this.absorbedByArmor,
-      this.absorbedByNaturalArmor, this.healthChange);
-}
-
 abstract class DamageCalculator {
-  DamageSplit getDamage(
-      int damage, int armorWorn, int armorNatural, int tempHealth,
-      [double proneFactor = 1.0]);
+  int getAbsorbedByTempHealth(int damage, int tempHealth);
+
+  int getAbsorbedByArmor(int damage, int armorWorn, int armorNatural);
+  int getDamageAfterProneFactor(int damage, double proneFactor);
 }
 
 class NormalDamageCalculator extends DamageCalculator {
   @override
-  DamageSplit getDamage(
-      int damage, int armorWorn, int armorNatural, int tempHealth,
-      [double proneFactor = 1.0]) {
-    int damageAfterWornArmor =
-        damage - min(damage, armorWorn);
-    int damageAfterNaturalArmor =
-        damageAfterWornArmor - min(damageAfterWornArmor, armorNatural);
-    int damageAfterProneFactor = (damageAfterNaturalArmor * proneFactor).round();
-    int damageAfterTempHealth = damageAfterProneFactor - min(damageAfterProneFactor, tempHealth);
+  int getAbsorbedByTempHealth(int damage, int tempHealth) => min(damage, tempHealth);
 
-    return DamageSplit(
-        min(damage, tempHealth),
-        min(damageAfterTempHealth, armorWorn),
-        min(damageAfterWornArmor, armorNatural),
-        damageAfterTempHealth);
-  }
+  @override
+  int getAbsorbedByArmor(int damage, int armorWorn, int armorNatural) => min(damage, armorWorn + armorNatural);
+
+  @override
+  int getDamageAfterProneFactor(int damage, double proneFactor) => (damage * proneFactor).floor();
 }
 
-class ArmorPenDamageCalculator extends DamageCalculator {
-  final NormalDamageCalculator _normalDamageCalculator =
-      NormalDamageCalculator();
+class ArmorPenDamageCalculator extends NormalDamageCalculator {
   @override
-  DamageSplit getDamage(
-      int damage, int armorWorn, int armorNatural, int tempHealth,
-      [double proneFactor = 1.0]) {
-    armorWorn = (armorWorn / 2).floor();
-    armorNatural = (armorNatural / 2).floor();
-    return _normalDamageCalculator.getDamage(
-        damage, armorWorn, armorNatural, tempHealth);
-  }
+  int getAbsorbedByArmor(int damage, int armorWorn, int armorNatural) => min(damage, (armorWorn + armorNatural / 2).floor());
 }
 
-class IgnoreArmorDamageCalculator extends DamageCalculator {
-  final NormalDamageCalculator _normalDamageCalculator =
-      NormalDamageCalculator();
+class IgnoreArmorDamageCalculator extends NormalDamageCalculator {
   @override
-  DamageSplit getDamage(
-      int damage, int armorWorn, int armorNatural, int tempHealth,
-      [double proneFactor = 1.0]) {
-    return _normalDamageCalculator.getDamage(damage, 0, 0, tempHealth);
-  }
+  int getAbsorbedByArmor(int damage, int armorWorn, int armorNatural) => 0;
 }
 
-class IgnoreWornArmorDamageCalculator extends DamageCalculator {
-  final NormalDamageCalculator _normalDamageCalculator =
-      NormalDamageCalculator();
+class IgnoreWornArmorDamageCalculator extends NormalDamageCalculator {
   @override
-  DamageSplit getDamage(
-      int damage, int armorWorn, int armorNatural, int tempHealth,
-      [double proneFactor = 1.0]) {
-    return _normalDamageCalculator.getDamage(
-        damage, 0, armorNatural, tempHealth);
-  }
+  int getAbsorbedByArmor(int damage, int armorWorn, int armorNatural) => min(damage, armorNatural);
 }
 
-class UnoReverseCardArmorDamageCalculator extends DamageCalculator {
-  final IgnoreArmorDamageCalculator _ignoreArmorDamageCalculator =
-      IgnoreArmorDamageCalculator();
+class UnoReverseCardArmorDamageCalculator extends NormalDamageCalculator {
   @override
-  DamageSplit getDamage(
-      int damage, int armorWorn, int armorNatural, int tempHealth,
-      [double proneFactor = 1.0]) {
-    damage = damage + armorWorn;
-    return _ignoreArmorDamageCalculator.getDamage(
-        damage, armorWorn, armorNatural, tempHealth);
-  }
+  int getAbsorbedByArmor(int damage, int armorWorn, int armorNatural) => -armorWorn;
 }
 
 class HealthController {
@@ -105,6 +57,10 @@ class HealthController {
 
   late Entity damageType;
   late Entity damageTarget;
+
+  int absorbedByTempHealth = 0;
+  int absorbedByArmor = 0;
+  int healthChange = 0;
 
   final Map<DamageCalculation, DamageCalculator> _calculators = {
     DamageCalculation.Normal: NormalDamageCalculator(),
@@ -126,7 +82,8 @@ class HealthController {
     assert(entity.has<DamageTypeComponent>());
   }
 
-  DamageSplit getDamage(int damage) {
+
+  void recalculate(int damage) {
     assert(damageType.has<DamageTypeComponent>());
     assert(damageTarget.has<HealthComponent>());
 
@@ -146,6 +103,11 @@ class HealthController {
             .current ??
         0;
 
-    return calculator.getDamage(damage, armorWorn, armorNatural, tempHealth);
+    double proneFactor = 1.0;
+
+    absorbedByArmor = calculator.getAbsorbedByArmor(damage, armorWorn, armorNatural);
+    var damageAfterProne = calculator.getDamageAfterProneFactor(damage - absorbedByArmor, proneFactor);
+    absorbedByTempHealth = calculator.getAbsorbedByTempHealth(damageAfterProne, tempHealth);
+    healthChange = damageAfterProne - absorbedByTempHealth;
   }
 }
