@@ -197,7 +197,7 @@ class _CharacterPageState extends State<CharacterPage> {
             },
             text:
                 '${flux.fluxSpent}/${flux.fluxCapacity.current} (${flux.fluxMaximum.current})',
-            tooltip: 'flow',
+            tooltip: 'flux',
             icon: Icons.water,
           ),
         ],

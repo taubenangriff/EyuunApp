@@ -3,6 +3,7 @@ import 'package:EyuunApp/view/popup/ChangeValuePopup.dart';
 import 'package:EyuunApp/view/popup/PopupUtil.dart';
 import 'package:flutter/material.dart';
 
+import '../components/Flux.dart';
 import '../components/health.dart';
 import '../controller/HealthController.dart';
 import '../core/registerServices.dart';
@@ -24,11 +25,10 @@ class _CombatPageState extends State<CombatPage> {
     var character = locator<CharacterService>().character;
     var health = character.get<HealthComponent>()!;
 
+    var flux = character.get<FluxComponent>()!;
+
     var vitalityCurrent = 12;
     var vitalityMax = 20;
-
-    var flowCurrent = 120;
-    var flowMax = 150;
 
     final vitalityController = ChangeValueController(vitalityCurrent,
         maxLimit: vitalityMax,
@@ -36,12 +36,10 @@ class _CombatPageState extends State<CombatPage> {
         onValUpdated: (val) => setState(() {
           vitalityCurrent = val;
         }));
-    final flowController = ChangeValueController(flowCurrent,
-        maxLimit: flowMax,
+    final fluxController = ChangeValueController(flux.fluxSpent,
+        maxLimit: flux.fluxCapacity.current,
         minLimit: 0,
-        onValUpdated: (val) => setState(() {
-          flowCurrent = val;
-        }));
+        onValUpdated: (val) => flux.fluxSpent = val);
 
     late double desiredSize = 900;
 
@@ -94,14 +92,14 @@ class _CombatPageState extends State<CombatPage> {
             onPressed: () {
               PopupUtil.popup(
                   context,
-                  ChangeValuePopup(flowController, valueChanged: (change) {
+                  ChangeValuePopup(fluxController, valueChanged: (change) {
                     setState(() {
-                      flowController.change(change);
+                      fluxController.change(change);
                     });
                   }));
             },
-            text: '$flowCurrent/$flowMax',
-            tooltip: 'flow',
+            text: '${flux.fluxSpent}/${flux.fluxCapacity.current} (${flux.fluxMaximum.current})',
+            tooltip: 'flux',
             icon: Icons.water,
           ),
         ],
