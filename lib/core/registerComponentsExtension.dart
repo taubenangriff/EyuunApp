@@ -9,6 +9,7 @@ import 'package:EyuunApp/components/Equippable.dart';
 import 'package:EyuunApp/components/Flux.dart';
 import 'package:EyuunApp/components/Language.dart';
 import 'package:EyuunApp/components/PathStep.dart';
+import 'package:EyuunApp/components/Project.dart';
 import 'package:EyuunApp/components/Projectile.dart';
 import 'package:EyuunApp/components/Spell.dart';
 import 'package:EyuunApp/components/Talents.dart';
@@ -64,6 +65,7 @@ extension RegisterUpgradesExtension on WorldManager {
     registerComponent<PathComponent, int>(PathComponent.propertyName, () => PathComponent());
     registerComponent<SpellComponent, int>(SpellComponent.propertyName, () => SpellComponent());
     registerComponent<CastedComponent, int>(CastedComponent.propertyName, () => CastedComponent());
+    registerComponent<ProjectComponent, int>(ProjectComponent.propertyName, () => ProjectComponent());
 
     // register Upgrades
     registerComponent<ArmorUpgradeComponent, int>(ArmorUpgradeComponent.propertyName, () => ArmorUpgradeComponent());
