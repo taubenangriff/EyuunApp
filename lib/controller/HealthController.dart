@@ -139,7 +139,6 @@ class HealthController {
   }
 
   int _getWornArmor() {
-    return 7;
     return _targetCombatComponent
         ?.armor
         ?.getEntity()
