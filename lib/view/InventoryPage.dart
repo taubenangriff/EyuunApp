@@ -288,12 +288,26 @@ class _InventoryPageState extends State<InventoryPage> {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _buildLargeFab(
-            onPressed: () {},
-            text: '1400 €',
-            tooltip: 'Yuun',
-            icon: Icons.money,
-          ),
+          if(_inventory != null)
+            _buildLargeFab(
+              onPressed: () {
+
+                final moneyController = ChangeValueController(_inventory!.money,
+                    maxLimit: 99999,
+                    minLimit: 0,
+                    onValUpdated: (val) => _inventory!.money = val);
+                PopupUtil.popup(
+                    context,
+                    ChangeValuePopup(moneyController, valueChanged: (change) {
+                      setState(() {
+                        moneyController.change(change);
+                      });
+                    }));
+              },
+              text: '${_inventory!.money} €',
+              tooltip: 'Yuun',
+              icon: Icons.money,
+            ),
           const SizedBox(width: 16),
           _buildLargeFab(
             onPressed: () {
