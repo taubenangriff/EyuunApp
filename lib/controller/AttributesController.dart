@@ -8,12 +8,12 @@ import 'package:EyuunApp/enums/dice.dart';
 
 import '../core/registerServices.dart';
 
-class BasicStatsController{
+class AttributesController{
 
   late WorldManager worldManager;
   late AssetLoader assetLoader;
 
-  BasicStatsController(){
+  AttributesController(){
     worldManager = locator<WorldManager>();
     assetLoader = locator<AssetLoader>();
   }

@@ -5,7 +5,7 @@ import 'package:EyuunApp/components/Attributes.dart';
 import 'package:EyuunApp/components/health.dart';
 import 'package:EyuunApp/core/UpgradableInt.dart';
 import 'package:EyuunApp/core/components/standard.dart';
-import 'package:EyuunApp/controller/BasicStatsController.dart';
+import 'package:EyuunApp/controller/AttributesController.dart';
 import 'package:EyuunApp/core/repository/AssetRepository.dart';
 import 'package:EyuunApp/io/AssetSerializer.dart';
 import 'package:EyuunApp/core/registerComponentsExtension.dart';
