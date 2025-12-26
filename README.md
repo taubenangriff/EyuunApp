@@ -72,3 +72,7 @@ for key in dynamic_data_map
 ## Localization 
 - Even though not a primary requirement, the backbone of the app already supports loading different text files.
 - A static key <> text dictionary is loaded from the text file  
+
+# Licensing
+
+dice icons from https://game-icons.net/tags/dice.html, Delapouite and Skoll under CC 3.0

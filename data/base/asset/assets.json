@@ -70,7 +70,9 @@
           }
         ]
       },
-      "characterPath": {},
+      "characterPath": {
+        "pathCapacity": 1
+      },
       "languageLearner": {}
     },
     {

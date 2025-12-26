@@ -8,6 +8,15 @@ class DiceIcon extends StatelessWidget {
   final double size;
   final Color color;
 
+  static Map<Dice, String> diceIcons = {
+    Dice.d4 : "data/base/icons/dice/d4.png",
+    Dice.d6 : "data/base/icons/dice/d6.png",
+    Dice.d8 : "data/base/icons/dice/d8.png",
+    Dice.d10 : "data/base/icons/dice/d10.png",
+    Dice.d12 : "data/base/icons/dice/d12.png",
+    Dice.d20 : "data/base/icons/dice/d20.png",
+  };
+
   const DiceIcon({
     super.key,
     required this.type,
@@ -17,6 +26,10 @@ class DiceIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if(diceIcons.containsKey(type)) {
+      return Image(image: AssetImage(diceIcons[type]!), width: size, height: size);
+    }
+
     return CustomPaint(
       size: Size(size, size),
       painter: _DicePainter(type, color),

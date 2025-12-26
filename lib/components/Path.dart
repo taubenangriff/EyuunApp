@@ -7,6 +7,8 @@ import 'package:oxygen/oxygen.dart';
 
 part 'Path.mapper.dart';
 
+// TLDR: Do not use. We will transform this into a reusable AssetList component later which is then used by a PathFeature.
+
 @MappableClass()
 class PathStatic with PathStaticMappable {
   PathType pathType;

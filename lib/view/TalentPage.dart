@@ -1,6 +1,7 @@
 import 'package:EyuunApp/components/Attributes.dart';
 import 'package:EyuunApp/components/Talents.dart';
 import 'package:EyuunApp/core/services/CharacterService.dart';
+import 'package:EyuunApp/view/widgets/DiceIcon.dart';
 import 'package:flutter/material.dart';
 
 import '../components/Skillcheck.dart';
@@ -52,9 +53,13 @@ class _TalentPageState extends State<TalentPage> {
   }
 
   Widget _displayAttribute(String attribute, AttributesComponent attributes){
-    return Text(
-        "${_textService.getShort(attribute)} (${attributes.getStatEntry(attribute)?.dice.toString()})",
-        textAlign: TextAlign.center);
+    return Row(
+      children: [
+        Text(_textService.getShort(attribute)),
+        SizedBox(width: 12),
+        DiceIcon(type: attributes.getStatEntry(attribute)!.dice)
+      ],
+    );
   }
 
   Row _buildTalentDisplay(TalentEntry talent, BuildContext context) {
@@ -80,10 +85,8 @@ class _TalentPageState extends State<TalentPage> {
         if (skillcheck != null)
           Expanded(
             flex: 6,
-            child: Wrap(
-              spacing: 32,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              runSpacing: 8,
+            child: Row(
+              spacing: 46,
               children: [
                 for (var attributeOption in skillcheck.checkedAttributes)
                   attributeOption.options.length > 1
