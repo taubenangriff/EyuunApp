@@ -31,7 +31,7 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
   List<Entity> healTypes =
       locator<CombatFeatureComponent>().healTypes.getAssets();
 
-  late int selectedDamageIndex = 0;
+  late int selectedDamageIndex = locator<CombatFeatureComponent>().damageTypesDefaultIndex;
   late int selectedHealIndex = 0;
 
   late int hpChange = 0;
@@ -101,6 +101,7 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
                 width: 200,
                 height: 80,
                 child: ItemWheel(
+                    startValue: selectedDamageIndex,
                     maxValue: damageTypes.length - 1,
                     valueIsIndex: true,
                     valueCallback: (index) {
@@ -128,6 +129,7 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
                 width: 200,
                 height: 80,
                 child: ItemWheel(
+                    startValue: selectedHealIndex,
                     maxValue: healTypes.length - 1,
                     valueIsIndex: true,
                     valueCallback: (index) {
