@@ -12,8 +12,9 @@ class PathStatic with PathStaticMappable {
   PathType pathType;
   List<AssetLink> pickablePaths;
   AssetLink? additionalPaths;
+  int complexity;
 
-  PathStatic(this.pathType, this.pickablePaths, [ this.additionalPaths ]);
+  PathStatic(this.pathType, this.pickablePaths, [ this.additionalPaths, this.complexity = 1 ]);
 }
 
 class PathComponent extends EyuunComponent<int> {
@@ -24,6 +25,8 @@ class PathComponent extends EyuunComponent<int> {
 
   /// Links to an Asset with the [PathComponent] of which the [PathComponent.pickablePaths] are used as a list of additional Paths unlocked by speccing into this path.
   AssetLink? additionalPaths;
+
+  int complexity = 0;
 
   @override
   String getName() => propertyName;
@@ -44,6 +47,7 @@ class PathComponent extends EyuunComponent<int> {
     pathType = stat.pathType;
     pickablePaths = stat.pickablePaths;
     additionalPaths = stat.additionalPaths;
+    complexity = stat.complexity;
   }
 
   @override
@@ -53,4 +57,6 @@ class PathComponent extends EyuunComponent<int> {
 
   @override
   Map<String, dynamic> saveDynamicData() => <String, dynamic>{};
+
+  int getPathLength() => pickablePaths.length;
 }

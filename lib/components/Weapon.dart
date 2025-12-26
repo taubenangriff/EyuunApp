@@ -14,8 +14,9 @@ class WeaponDynamic with WeaponDynamicMappable {
   String weaponType;
   String material;
   String craftMethod;
+  int upgradeSlots;
 
-  WeaponDynamic(this.fightingType, this.weaponType, this.material, this.craftMethod);
+  WeaponDynamic(this.fightingType, this.weaponType, this.material, this.craftMethod, this.upgradeSlots);
 }
 
 class WeaponComponent extends EyuunComponent<int> {
@@ -32,6 +33,8 @@ class WeaponComponent extends EyuunComponent<int> {
   /// AssetLink to the [CraftMethodComponent] that describes this weapons craft method.
   late AssetLink craftMethod;
 
+  int upgradeSlots = 0;
+
   @override
   String getName() => propertyName;
 
@@ -47,6 +50,7 @@ class WeaponComponent extends EyuunComponent<int> {
     weaponType = AssetLink(dyn.weaponType);
     material = AssetLink(dyn.material);
     craftMethod = AssetLink(dyn.craftMethod);
+    upgradeSlots = dyn.upgradeSlots;
   }
 
   @override
@@ -59,8 +63,9 @@ class WeaponComponent extends EyuunComponent<int> {
     weaponType = AssetLink.invalid();
     material = AssetLink.invalid();
     craftMethod = AssetLink.invalid();
+    upgradeSlots = 0;
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => WeaponDynamic(fightingType, weaponType.id, material.id, craftMethod.id).toMap();
+  Map<String, dynamic> saveDynamicData() => WeaponDynamic(fightingType, weaponType.id, material.id, craftMethod.id, upgradeSlots).toMap();
 }
