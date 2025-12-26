@@ -1,3 +1,4 @@
+import 'package:EyuunApp/components/Armor.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:EyuunApp/core/UpgradableInt.dart';
 import 'package:EyuunApp/core/components/EyuunComponent.dart';
@@ -21,6 +22,7 @@ class CombatDynamic with CombatDynamicMappable {
   int remainingReactions;
 
   List<ObjectLink> equippedItems;
+  ObjectLink? armor;
 
   CombatDynamic(
       this.speed,
@@ -32,7 +34,8 @@ class CombatDynamic with CombatDynamicMappable {
       this.remainingActions,
       this.remainingReactions,
       this.equipmentSlotCount,
-      this.equippedItems);
+      this.equippedItems,
+      this.armor);
 }
 
 class CombatComponent extends EyuunComponent<int> {
@@ -62,7 +65,18 @@ class CombatComponent extends EyuunComponent<int> {
   /// The list of items held in your hands.
   List<ObjectLink> equippedItems = [];
 
-  bool wearsArmor() => equippedItems.any((e) => e.getEntity().get<HoldableComponent>()?.takesArmorSlot ?? false);
+  ObjectLink? armor;
+
+  void equipArmor(Entity entity) {
+    assert(entity.has<ArmorComponent>());
+    armor = ObjectLink.fromEntity(entity);
+  }
+
+  void unequipArmor() {
+    armor = null;
+  }
+
+  bool wearsArmor() => armor != null;
   
   /// gets the amount of equipment Slots that are used by items in equippedItems. 
   int getOccupiedEquipmentSlotCount(){
@@ -100,6 +114,7 @@ class CombatComponent extends EyuunComponent<int> {
     remainingReactions = dyn.remainingReactions;
     equipmentSlotCount = dyn.equipmentSlotCount;
     equippedItems = dyn.equippedItems;
+    armor = dyn.armor;
   }
 
   @override

@@ -22,6 +22,7 @@ import 'dart:convert';
 import 'components/Flux.dart';
 import 'components/inventory.dart';
 import 'core/assetLink.dart';
+import 'core/registerFeatures.dart';
 import 'core/repository/TextRepository.dart';
 import 'core/services/CharacterService.dart';
 import 'core/services/TextService.dart';
@@ -50,8 +51,10 @@ void main() async {
 
   var assetLoader = locator<AssetLoader>();
   await assetLoader.reloadAssets();
-
   await locator<TextRepository>().reloadTexts(textFile);
+
+  registerFeatures();
+
   character = assetLoader.createInstance("character")!;
   locator<CharacterService>().changeCharacter(character);
 
