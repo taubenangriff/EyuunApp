@@ -51,9 +51,7 @@
           "master_upgrade"
         ]
       },
-      "boon": {
-        "maxBoon" : 2
-      },
+      "boon": { },
       "flux": {},
       "inventory": {},
       "talents": {
@@ -72,7 +70,8 @@
           }
         ]
       },
-      "characterPaths": {}
+      "characterPath": {},
+      "languageLearner": {}
     },
     {
       "standard": {
