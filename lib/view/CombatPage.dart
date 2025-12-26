@@ -1,7 +1,13 @@
+import 'package:EyuunApp/view/popup/ChangeHealthPopup.dart';
 import 'package:EyuunApp/view/popup/ChangeValuePopup.dart';
 import 'package:EyuunApp/view/popup/PopupUtil.dart';
 import 'package:flutter/material.dart';
 
+import '../components/health.dart';
+import '../controller/HealthController.dart';
+import '../core/registerServices.dart';
+import '../core/services/CharacterService.dart';
+import '../main.dart';
 import 'controller/ChangeValueController.dart';
 
 class CombatPage extends StatefulWidget {
@@ -15,8 +21,8 @@ class _CombatPageState extends State<CombatPage> {
 
   @override
   Widget build(BuildContext context) {
-    var healthCurrent = 5;
-    var healthMax = 50;
+    var character = locator<CharacterService>().character;
+    var health = character.get<HealthComponent>()!;
 
     var vitalityCurrent = 12;
     var vitalityMax = 20;
@@ -24,12 +30,6 @@ class _CombatPageState extends State<CombatPage> {
     var flowCurrent = 120;
     var flowMax = 150;
 
-    final healthController = ChangeValueController(healthCurrent,
-        maxLimit: healthMax,
-        minLimit: 0,
-        onValUpdated: (val) => setState(() {
-          healthCurrent = val;
-        }));
     final vitalityController = ChangeValueController(vitalityCurrent,
         maxLimit: vitalityMax,
         minLimit: 0,
@@ -59,16 +59,18 @@ class _CombatPageState extends State<CombatPage> {
         children: [
           _buildLargeFab(
             onPressed: () {
+
+              final healthController = HealthController();
+              healthController.setDamageTarget(character);
+
               PopupUtil.popup(
-                context,
-                ChangeValuePopup(healthController, valueChanged: (change) {
-                  setState(() {
-                    healthController.change(change);
-                  });
-                }),
-              );
+                  context,
+                  ChangeHealthPopup(healthController, onAccept: () {
+                    setState(() {});
+                  }),
+                  maximumSize: Size(300, 700));
             },
-            text: '${healthCurrent}/${healthMax}',
+            text: '${health.hitpoints}/${health.maxHitpoints.current}',
             tooltip: 'Health',
             icon: Icons.heart_broken,
           ),
