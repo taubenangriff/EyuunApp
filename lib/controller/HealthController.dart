@@ -35,18 +35,18 @@ class NormalDamageCalculator extends DamageCalculator {
   DamageSplit getDamage(
       int damage, int armorWorn, int armorNatural, int tempHealth,
       [double proneFactor = 1.0]) {
-    int damageAfterTempHealth = damage - min(damage, tempHealth);
     int damageAfterWornArmor =
-        damageAfterTempHealth - min(damageAfterTempHealth, armorWorn);
+        damage - min(damage, armorWorn);
     int damageAfterNaturalArmor =
         damageAfterWornArmor - min(damageAfterWornArmor, armorNatural);
-    var healthChange = (damageAfterNaturalArmor * proneFactor).round();
+    int damageAfterProneFactor = (damageAfterNaturalArmor * proneFactor).round();
+    int damageAfterTempHealth = damageAfterProneFactor - min(damageAfterProneFactor, tempHealth);
 
     return DamageSplit(
         min(damage, tempHealth),
         min(damageAfterTempHealth, armorWorn),
         min(damageAfterWornArmor, armorNatural),
-        healthChange);
+        damageAfterTempHealth);
   }
 }
 

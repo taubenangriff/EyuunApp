@@ -148,6 +148,7 @@ class CombatComponent extends EyuunComponent<int> {
           remainingActions,
           remainingReactions,
           equipmentSlotCount,
-          equippedItems)
+          equippedItems,
+          armor)
       .toMap();
 }
