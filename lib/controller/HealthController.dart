@@ -58,6 +58,10 @@ class HealthController {
   late Entity damageType;
   late Entity damageTarget;
 
+  late DamageTypeComponent _damageTypeComponent;
+  late HealthComponent _targetHealthComponent;
+  late CombatComponent? _targetCombatComponent;
+
   int absorbedByTempHealth = 0;
   int absorbedByArmor = 0;
   int healthChange = 0;
@@ -76,26 +80,22 @@ class HealthController {
 
   void setDamageTarget(Entity entity) {
     assert(entity.has<HealthComponent>());
+    _targetHealthComponent = entity.get<HealthComponent>()!;
+    _targetCombatComponent = entity.get<CombatComponent>();
   }
 
   void setDamageType(Entity entity) {
     assert(entity.has<DamageTypeComponent>());
+    _damageTypeComponent = entity.get<DamageTypeComponent>()!;
   }
 
-
   void recalculate(int damage) {
-    assert(damageType.has<DamageTypeComponent>());
-    assert(damageTarget.has<HealthComponent>());
-
-    var damageCalculation =
-        damageType.get<DamageTypeComponent>()!.damageCalculation;
-    var calculator = _calculators[damageCalculation] ?? NormalDamageCalculator();
+    var calculator = _calculators[_damageTypeComponent.damageCalculation] ?? NormalDamageCalculator();
 
     var armorNatural = 0;
     var tempHealth = 0;
 
-    var armorWorn = damageTarget
-            .get<CombatComponent>()
+    var armorWorn = _targetCombatComponent
             ?.armor
             ?.getEntity()
             .get<ArmorComponent>()
