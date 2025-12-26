@@ -1,3 +1,4 @@
+import 'package:EyuunApp/core/UpgradableInt.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:EyuunApp/components/CraftMethod.dart';
 import 'package:EyuunApp/components/Skillcheck.dart';
@@ -33,7 +34,7 @@ class WeaponComponent extends EyuunComponent<int> {
   /// AssetLink to the [CraftMethodComponent] that describes this weapons craft method.
   late AssetLink craftMethod;
 
-  int upgradeSlots = 0;
+  UpgradableInt upgradeSlots = 0.upgradable;
 
   @override
   String getName() => propertyName;
@@ -50,7 +51,7 @@ class WeaponComponent extends EyuunComponent<int> {
     weaponType = AssetLink(dyn.weaponType);
     material = AssetLink(dyn.material);
     craftMethod = AssetLink(dyn.craftMethod);
-    upgradeSlots = dyn.upgradeSlots;
+    upgradeSlots = dyn.upgradeSlots.upgradable;
   }
 
   @override
@@ -63,9 +64,9 @@ class WeaponComponent extends EyuunComponent<int> {
     weaponType = AssetLink.invalid();
     material = AssetLink.invalid();
     craftMethod = AssetLink.invalid();
-    upgradeSlots = 0;
+    upgradeSlots = 0.upgradable;
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => WeaponDynamic(fightingType, weaponType.id, material.id, craftMethod.id, upgradeSlots).toMap();
+  Map<String, dynamic> saveDynamicData() => WeaponDynamic(fightingType, weaponType.id, material.id, craftMethod.id, upgradeSlots.base).toMap();
 }

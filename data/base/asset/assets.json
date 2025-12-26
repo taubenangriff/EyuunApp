@@ -1,7 +1,8 @@
 {
   "include": [
     "data/base/asset/items.json",
-    "data/base/asset/languages.json"
+    "data/base/asset/languages.json",
+    "data/base/asset/features.json"
   ],
   "assets" : [
     {
@@ -404,6 +405,33 @@
         "spellSchool": {
           "id": "spellSchool_elements"
         }
+      }
+    },
+    {
+      "standard": {
+        "typeId": "damage_normal"
+      },
+      "text": { },
+      "damageType": {
+        "damageCalculation": "Normal"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "damage_armorpen"
+      },
+      "text": { },
+      "damageType": {
+        "damageCalculation": "IgnoreHalfArmor"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "damage_direct"
+      },
+      "text": { },
+      "damageType": {
+        "damageCalculation": "IgnoreArmor"
       }
     }
   ]

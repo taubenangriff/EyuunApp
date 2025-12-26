@@ -1,0 +1,22 @@
+{
+  "assets": [
+    {
+      "standard": {
+        "typeId": "combat_feature"
+      },
+      "combatFeatures": {
+        "damageTypes": [
+          {
+            "id": "damage_normal"
+          },
+          {
+            "id": "damage_armorpen"
+          },
+          {
+            "id": "damage_direct"
+          }
+        ]
+      }
+    }
+  ]
+}
