@@ -26,22 +26,15 @@ class _AttributesWidgetState extends State<AttributesWidget> {
           ?.statValues ??
       [];
 
+  bool canUpgrade = true;
+
   Widget _buildBaseStatButton(BuildContext context, AttributeEntry item) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(width: 100, child: Text(_textService.getText(item.stat.id))),
+        Center(child: DiceIcon(type: item.dice)),
         const SizedBox(width: 12),
-        Padding(
-            padding: const EdgeInsets.all(3),
-            child: ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  item.dice = Dice.values[Random().nextInt(Dice.values.length)];
-                });
-              },
-              child: Center(child: DiceIcon(type: item.dice)),
-            )),
+        SizedBox(width: 100, child: Text(_textService.getText(item.stat.id))),
       ],
     );
   }
