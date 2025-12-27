@@ -158,8 +158,7 @@ class HealthController {
         0;
   }
 
-  double _getProneFactor() => 1.0;
-  int _getNaturalArmor() => 0;
+  int _getNaturalArmor() => _targetHealthComponent.naturalArmor.current;
   int _getTempHealth() => _targetHealthComponent.shield;
 
   void computeDamageSplit(int hpChange) {

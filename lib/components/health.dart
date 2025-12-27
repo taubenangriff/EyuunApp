@@ -11,8 +11,10 @@ class HealthDynamic with HealthDynamicMappable {
   int shield;
   int deathThrows;
 
+  int naturalArmor;
+
   HealthDynamic(
-      this.maxHitpoints, this.hitpoints, this.shield, this.deathThrows);
+      this.maxHitpoints, this.hitpoints, this.shield, this.deathThrows, this.naturalArmor);
 }
 
 @MappableClass()
@@ -44,6 +46,9 @@ class HealthComponent extends EyuunComponent<int> {
   /// The maximum amount of death fails this character can roll before dying.
   UpgradableInt maxDeathThrows = 0.upgradable;
 
+  /// the natural armor of a character
+  UpgradableInt naturalArmor = 0.upgradable;
+
   @override
   void init([data]) {
     reset();
@@ -57,6 +62,7 @@ class HealthComponent extends EyuunComponent<int> {
     maxShield = 0.upgradable;
     deathThrows = 0;
     maxDeathThrows = 0.upgradable;
+    naturalArmor = 0.upgradable;
   }
 
   bool isInDyingState() => hitpoints <= 0;
@@ -72,6 +78,7 @@ class HealthComponent extends EyuunComponent<int> {
     shield = dyn.shield;
     deathThrows = dyn.deathThrows;
     maxHitpoints = dyn.maxHitpoints.upgradable;
+    naturalArmor = dyn.naturalArmor.upgradable;
   }
 
   @override
@@ -84,5 +91,5 @@ class HealthComponent extends EyuunComponent<int> {
 
   @override
   Map<String, dynamic> saveDynamicData() =>
-      HealthDynamic(maxHitpoints.base, hitpoints, shield, deathThrows).toMap();
+      HealthDynamic(maxHitpoints.base, hitpoints, shield, deathThrows, naturalArmor.base).toMap();
 }
