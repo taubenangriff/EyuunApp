@@ -6,16 +6,18 @@ class CharacterInfoWidget extends StatefulWidget {
   final ImageProvider profileImage;
   final String name;
   final String upbringing;
+  final String childhood;
+  final String origin;
   final int level;
-  final int ability;
 
   const CharacterInfoWidget(
       {super.key,
       required this.profileImage,
       required this.name,
       required this.upbringing,
-      required this.level,
-      required this.ability});
+      required this.childhood,
+      required this.origin,
+      required this.level});
 
   @override
   State<CharacterInfoWidget> createState() => _CharacterInfoWidgetState();
@@ -72,87 +74,130 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // 1️⃣ Name (editable)
+                  // 1️⃣ Name (unchanged)
                   SizedBox(
                     height: textHeight,
                     child: Center(
-                        child: TextField(
-                      controller: _nameController,
-                      readOnly: true,
-                      textAlign: TextAlign.center,
-
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        isDense: true,
-                      ),
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )),
-                  ),
-
-                  const SizedBox(height: 4),
-
-                  // 2️⃣ Upbringing (clickable)
-                  SizedBox(
-                    height: textHeight,
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(6),
-                      onTap: () => setState(() {
-                        PopupUtil.popup(
-                            context,
-                            const Center(
-                                child: Text(
-                                    'Popup listing the buffs of the upbringing, as well as a description text.')),
-                            maximumSize: Size(300, 200));
-                      }),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6),
-                        alignment: Alignment.centerLeft,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.surfaceVariant,
-                          borderRadius: BorderRadius.circular(6),
+                      child: TextField(
+                        controller: _nameController,
+                        readOnly: true,
+                        textAlign: TextAlign.center,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          isDense: true,
                         ),
-                        child: Center(
-                            child: Text(
-                          'Upbringing: ${widget.upbringing}',
-                          style: TextStyle(
-                            fontSize: fontSize - 2,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        )),
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
 
                   const SizedBox(height: 4),
 
-                  // 3️⃣ Level & Ability
+                  // 2️⃣ Upbringing & Childhood (NEW split row)
                   SizedBox(
                     height: textHeight,
                     child: Row(
                       children: [
                         Expanded(
                           child: InkWell(
-                            borderRadius: BorderRadius.circular(
-                                6), // 👈 matches container shape
-                            onTap: () => setState(() {
+                            borderRadius: BorderRadius.circular(6),
+                            onTap: () {
                               PopupUtil.popup(
-                                  context,
-                                  const Center(
-                                      child: Text(
-                                          'Popup listing what the next levelup will give you, as well as a button to confirm the levelup')),
-                                  maximumSize: Size(300, 200));
-                            }),
+                                context,
+                                const Center(
+                                  child: Text(
+                                    'Popup describing upbringing buffs and effects.',
+                                  ),
+                                ),
+                                maximumSize: const Size(300, 200),
+                              );
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.surfaceVariant,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Text(
+                                'Upbringing: ${widget.upbringing}',
+                                style: TextStyle(
+                                  fontSize: fontSize - 2,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(6),
+                            onTap: () {
+                              PopupUtil.popup(
+                                context,
+                                const Center(
+                                  child: Text(
+                                    'Popup describing childhood buffs and effects.',
+                                  ),
+                                ),
+                                maximumSize: const Size(300, 200),
+                              );
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.surfaceVariant,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Text(
+                                'Childhood: ${widget.childhood}',
+                                style: TextStyle(
+                                  fontSize: fontSize - 2,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 4),
+
+                  // 3️⃣ Level & Origin (Ability → Origin)
+                  SizedBox(
+                    height: textHeight,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(6),
+                            onTap: () {
+                              PopupUtil.popup(
+                                context,
+                                const Center(
+                                  child: Text(
+                                    'Popup explaining the next level-up.',
+                                  ),
+                                ),
+                                maximumSize: const Size(300, 200),
+                              );
+                            },
                             child: Container(
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                 color: Theme.of(context)
                                     .colorScheme
-                                    .surfaceVariant
-                                    .withOpacity(0.7),
+                                    .surfaceContainerHighest
+                                    .withAlpha(150),
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: Text(
@@ -172,16 +217,17 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                             decoration: BoxDecoration(
                               color: Theme.of(context)
                                   .colorScheme
-                                  .surfaceVariant
-                                  .withOpacity(0.7),
+                                  .surfaceContainerHighest
+                                  .withAlpha(150),
                               borderRadius: BorderRadius.circular(6),
                             ),
                             child: Text(
-                              'Ability: ${widget.ability}',
+                              'Origin: ${widget.origin}',
                               style: TextStyle(
                                 fontSize: fontSize - 2,
                                 fontWeight: FontWeight.bold,
                               ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ),
@@ -195,5 +241,6 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
         );
       },
     );
+
   }
 }
