@@ -68,7 +68,7 @@ class _CombatPageState extends State<CombatPage> {
                   }),
                   maximumSize: Size(300, 700));
             },
-            text: '${health.hitpoints}/${health.maxHitpoints.current}',
+            text: "${health.shield > 0 ? "${health.hitpoints}+${health.shield}" : "${health.hitpoints}"} / ${health.maxHitpoints.current}",
             tooltip: 'Health',
             icon: Icons.heart_broken,
           ),

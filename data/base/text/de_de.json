@@ -55,6 +55,7 @@
     "uitext_freezing_logic" : "Wenn das Ziel nass ist, verliert es seine Reaktion. Hat es diese bereits ausgegeben, verliert es in seinem nächsten Zug seine Aktion",
     "uitext_applyStatusEffect": "Fügt dem Ziel folgenden Statuseffekt hinzu:",
     "uitext_applyStatusEffectOnHit": "Fügt dem Ziel folgenden Statuseffekt hinzu:",
-    "uitext_pushback": "Stößt das Ziel um 3 Schritt zurück"
+    "uitext_pushback": "Stößt das Ziel um 3 Schritt zurück",
+    "uitext_resistence": "Resistenz"
   }
 }

@@ -163,9 +163,9 @@ class _CharacterPageState extends State<CharacterPage> {
                   ChangeHealthPopup(healthController, onAccept: () {
                     setState(() {});
                   }),
-                  maximumSize: Size(300, 700));
+                  maximumSize: Size(350, 800));
             },
-            text: '${health.hitpoints}/${health.maxHitpoints.current}',
+            text: "${health.shield > 0 ? "${health.hitpoints}+${health.shield}" : "${health.hitpoints}"} / ${health.maxHitpoints.current}",
             tooltip: 'Health',
             icon: Icons.heart_broken,
           ),

@@ -86,7 +86,10 @@ class HealthController {
   int newHitpoints = 0;
   int oldHitpoints = 0;
   int newShield = 0;
+  int oldShield = 0;
   int totalArmor = 0;
+
+  double proneFactor = 1;
 
   final DamageCalculator _fallbackCalculator = NormalDamageCalculator();
 
@@ -107,12 +110,15 @@ class HealthController {
 
   void _reset() {
     oldHitpoints = _targetHealthComponent.hitpoints;
+    oldShield = _targetHealthComponent.shield;
     newHitpoints = _targetHealthComponent.hitpoints;
     newShield = _targetHealthComponent.shield;
     tempHealthChange = 0;
     absorbedByArmor = 0;
     hitpointChange = 0;
     totalArmor = _getWornArmor() + _getNaturalArmor();
+
+    proneFactor = 1;
   }
 
   void setDamageTarget(Entity entity) {
@@ -122,6 +128,10 @@ class HealthController {
     damageTarget = entity;
 
     _reset();
+  }
+
+  void setProneFactor(double val){
+    proneFactor = val;
   }
 
   bool isLosingHealth() => hitpointChange < 0;
@@ -159,7 +169,6 @@ class HealthController {
     var armorNatural = _getNaturalArmor();
     var tempHealth = _getTempHealth();
     var armorWorn = _getWornArmor();
-    double proneFactor = _getProneFactor();
 
     totalArmor = armorNatural + armorWorn;
 
