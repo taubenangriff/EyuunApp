@@ -5,22 +5,26 @@ import 'package:flutter/material.dart';
 import 'Brushes.dart';
 
 class EyuunDecoration extends Decoration {
-  EyuunDecoration({required this.paint, this.cornerSize = 0});
+  EyuunDecoration({required this.paint, this.cornerSize = 0, this.paintInnerLine = true, this.fillCorners = true});
 
   final double cornerSize;
   final Paint paint;
+  final bool paintInnerLine;
+  final bool fillCorners;
 
   @override
   BoxPainter createBoxPainter([void Function()? onChanged]) {
-    return _EyuunDecorationPainter(cornerSize, paint);
+    return _EyuunDecorationPainter(cornerSize, paint, paintInnerLine, fillCorners);
   }
 }
 
 class _EyuunDecorationPainter extends BoxPainter {
-  _EyuunDecorationPainter(this.cornerSize, this.paintBrush);
+  _EyuunDecorationPainter(this.cornerSize, this.paintBrush, this.paintInnerLine, this.fillCorners);
 
   final double cornerSize;
   final Paint paintBrush;
+  final bool paintInnerLine;
+  final bool fillCorners;
 
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
@@ -105,118 +109,123 @@ class _EyuunDecorationPainter extends BoxPainter {
         false,
         outerPaint);
 
-    var cornerDecoInnerSize = cornerDecoSize + innerLineOffset;
-    var cornerDecoInnerSizeWithOffset = cornerDecoInnerSize - 1;
-    //inner Line
-    var topLeftStartInner =
-        bounds.topLeft + Offset(cornerDecoInnerSizeWithOffset, innerLineOffset);
-    var topLeftEndInner =
-        bounds.topLeft + Offset(innerLineOffset, cornerDecoInnerSizeWithOffset);
-    var topRightStartInner = bounds.topRight +
-        Offset(-cornerDecoInnerSizeWithOffset, innerLineOffset);
-    var topRightEndInner = bounds.topRight +
-        Offset(-innerLineOffset, cornerDecoInnerSizeWithOffset);
-    var botLeftStartInner = bounds.bottomLeft +
-        Offset(cornerDecoInnerSizeWithOffset, -innerLineOffset);
-    var botLeftEndInner = bounds.bottomLeft +
-        Offset(innerLineOffset, -cornerDecoInnerSizeWithOffset);
-    var botRightStartInner = bounds.bottomRight +
-        Offset(-innerLineOffset, -cornerDecoInnerSizeWithOffset);
-    var botRightEndInner = bounds.bottomRight +
-        Offset(-cornerDecoInnerSizeWithOffset, -innerLineOffset);
+    if(paintInnerLine){
+      var cornerDecoInnerSize = cornerDecoSize + innerLineOffset;
+      var cornerDecoInnerSizeWithOffset = cornerDecoInnerSize - 1;
+      //inner Line
+      var topLeftStartInner =
+          bounds.topLeft + Offset(cornerDecoInnerSizeWithOffset, innerLineOffset);
+      var topLeftEndInner =
+          bounds.topLeft + Offset(innerLineOffset, cornerDecoInnerSizeWithOffset);
+      var topRightStartInner = bounds.topRight +
+          Offset(-cornerDecoInnerSizeWithOffset, innerLineOffset);
+      var topRightEndInner = bounds.topRight +
+          Offset(-innerLineOffset, cornerDecoInnerSizeWithOffset);
+      var botLeftStartInner = bounds.bottomLeft +
+          Offset(cornerDecoInnerSizeWithOffset, -innerLineOffset);
+      var botLeftEndInner = bounds.bottomLeft +
+          Offset(innerLineOffset, -cornerDecoInnerSizeWithOffset);
+      var botRightStartInner = bounds.bottomRight +
+          Offset(-innerLineOffset, -cornerDecoInnerSizeWithOffset);
+      var botRightEndInner = bounds.bottomRight +
+          Offset(-cornerDecoInnerSizeWithOffset, -innerLineOffset);
 
-    canvas.drawLine(topLeftStartInner, topRightStartInner, innerPaint);
-    canvas.drawLine(topRightEndInner, botRightStartInner, innerPaint);
-    canvas.drawLine(botRightEndInner, botLeftStartInner, innerPaint);
-    canvas.drawLine(botLeftEndInner, topLeftEndInner, innerPaint);
+      canvas.drawLine(topLeftStartInner, topRightStartInner, innerPaint);
+      canvas.drawLine(topRightEndInner, botRightStartInner, innerPaint);
+      canvas.drawLine(botRightEndInner, botLeftStartInner, innerPaint);
+      canvas.drawLine(botLeftEndInner, topLeftEndInner, innerPaint);
 
-    var thetaInner = innerLineOffset / cornerDecoInnerSize;
-    var circleLengthInner = math.pi / 2 - 2 * thetaInner;
-    var cornerDecoInnerSizeDoubled = cornerDecoInnerSize * 2;
+      var thetaInner = innerLineOffset / cornerDecoInnerSize;
+      var circleLengthInner = math.pi / 2 - 2 * thetaInner;
+      var cornerDecoInnerSizeDoubled = cornerDecoInnerSize * 2;
 
-    canvas.drawArc(
-        Rect.fromLTWH(
-            bounds.left - cornerDecoInnerSize,
-            bounds.top - cornerDecoInnerSize,
-            cornerDecoInnerSizeDoubled,
-            cornerDecoInnerSizeDoubled),
-        thetaInner,
-        circleLengthInner,
-        false,
-        innerPaint);
-    canvas.drawArc(
-        Rect.fromLTWH(
-            bounds.left - cornerDecoInnerSize,
-            bounds.bottom - cornerDecoInnerSize,
-            cornerDecoInnerSizeDoubled,
-            cornerDecoInnerSizeDoubled),
-        math.pi * 1.5 + thetaInner,
-        circleLengthInner,
-        false,
-        innerPaint);
-    canvas.drawArc(
-        Rect.fromLTWH(
-            bounds.right - cornerDecoInnerSize,
-            bounds.bottom - cornerDecoInnerSize,
-            cornerDecoInnerSizeDoubled,
-            cornerDecoInnerSizeDoubled),
-        math.pi + thetaInner,
-        circleLengthInner,
-        false,
-        innerPaint);
-    canvas.drawArc(
-        Rect.fromLTWH(
-            bounds.right - cornerDecoInnerSize,
-            bounds.top - cornerDecoInnerSize,
-            cornerDecoInnerSizeDoubled,
-            cornerDecoInnerSizeDoubled),
-        math.pi / 2 + thetaInner,
-        circleLengthInner,
-        false,
-        innerPaint);
+      canvas.drawArc(
+          Rect.fromLTWH(
+              bounds.left - cornerDecoInnerSize,
+              bounds.top - cornerDecoInnerSize,
+              cornerDecoInnerSizeDoubled,
+              cornerDecoInnerSizeDoubled),
+          thetaInner,
+          circleLengthInner,
+          false,
+          innerPaint);
+      canvas.drawArc(
+          Rect.fromLTWH(
+              bounds.left - cornerDecoInnerSize,
+              bounds.bottom - cornerDecoInnerSize,
+              cornerDecoInnerSizeDoubled,
+              cornerDecoInnerSizeDoubled),
+          math.pi * 1.5 + thetaInner,
+          circleLengthInner,
+          false,
+          innerPaint);
+      canvas.drawArc(
+          Rect.fromLTWH(
+              bounds.right - cornerDecoInnerSize,
+              bounds.bottom - cornerDecoInnerSize,
+              cornerDecoInnerSizeDoubled,
+              cornerDecoInnerSizeDoubled),
+          math.pi + thetaInner,
+          circleLengthInner,
+          false,
+          innerPaint);
+      canvas.drawArc(
+          Rect.fromLTWH(
+              bounds.right - cornerDecoInnerSize,
+              bounds.top - cornerDecoInnerSize,
+              cornerDecoInnerSizeDoubled,
+              cornerDecoInnerSizeDoubled),
+          math.pi / 2 + thetaInner,
+          circleLengthInner,
+          false,
+          innerPaint);
+    }
 
-    var cornerDecoSizeHalf = cornerDecoSize - linesOffset;
-    var cornerDecoSizeHalfDoubled = cornerDecoSizeHalf * 2;
-    //corners filled
-    canvas.drawArc(
-        Rect.fromLTWH(
-            bounds.left - cornerDecoSizeHalf,
-            bounds.top - cornerDecoSizeHalf,
-            cornerDecoSizeHalfDoubled,
-            cornerDecoSizeHalfDoubled),
-        0,
-        math.pi / 2,
-        true,
-        cornerPaint);
-    canvas.drawArc(
-        Rect.fromLTWH(
-            bounds.left - cornerDecoSizeHalf,
-            bounds.bottom - cornerDecoSizeHalf,
-            cornerDecoSizeHalfDoubled,
-            cornerDecoSizeHalfDoubled),
-        math.pi * 1.5,
-        math.pi / 2,
-        true,
-        cornerPaint);
-    canvas.drawArc(
-        Rect.fromLTWH(
-            bounds.right - cornerDecoSizeHalf,
-            bounds.bottom - cornerDecoSizeHalf,
-            cornerDecoSizeHalfDoubled,
-            cornerDecoSizeHalfDoubled),
-        math.pi,
-        math.pi / 2,
-        true,
-        cornerPaint);
-    canvas.drawArc(
-        Rect.fromLTWH(
-            bounds.right - cornerDecoSizeHalf,
-            bounds.top - cornerDecoSizeHalf,
-            cornerDecoSizeHalfDoubled,
-            cornerDecoSizeHalfDoubled),
-        math.pi / 2,
-        math.pi / 2,
-        true,
-        cornerPaint);
+    if(fillCorners){
+
+      var cornerDecoSizeHalf = cornerDecoSize - linesOffset;
+      var cornerDecoSizeHalfDoubled = cornerDecoSizeHalf * 2;
+      //corners filled
+      canvas.drawArc(
+          Rect.fromLTWH(
+              bounds.left - cornerDecoSizeHalf,
+              bounds.top - cornerDecoSizeHalf,
+              cornerDecoSizeHalfDoubled,
+              cornerDecoSizeHalfDoubled),
+          0,
+          math.pi / 2,
+          true,
+          cornerPaint);
+      canvas.drawArc(
+          Rect.fromLTWH(
+              bounds.left - cornerDecoSizeHalf,
+              bounds.bottom - cornerDecoSizeHalf,
+              cornerDecoSizeHalfDoubled,
+              cornerDecoSizeHalfDoubled),
+          math.pi * 1.5,
+          math.pi / 2,
+          true,
+          cornerPaint);
+      canvas.drawArc(
+          Rect.fromLTWH(
+              bounds.right - cornerDecoSizeHalf,
+              bounds.bottom - cornerDecoSizeHalf,
+              cornerDecoSizeHalfDoubled,
+              cornerDecoSizeHalfDoubled),
+          math.pi,
+          math.pi / 2,
+          true,
+          cornerPaint);
+      canvas.drawArc(
+          Rect.fromLTWH(
+              bounds.right - cornerDecoSizeHalf,
+              bounds.top - cornerDecoSizeHalf,
+              cornerDecoSizeHalfDoubled,
+              cornerDecoSizeHalfDoubled),
+          math.pi / 2,
+          math.pi / 2,
+          true,
+          cornerPaint);
+    }
   }
 }

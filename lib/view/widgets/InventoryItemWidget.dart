@@ -38,7 +38,11 @@ class InventoryItemWidget extends StatelessWidget {
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 150),
-      decoration: EyuunDecoration(cornerSize: isSelected ? 14 : 8, paint: isSelected ? Brushes.goldSparkling() : Brushes.silverSparkling()),
+      decoration: EyuunDecoration(
+          cornerSize: isSelected ? 14 : 8,
+          fillCorners: isSelected,
+          paint:
+              isSelected ? Brushes.goldSparkling() : Brushes.silverSparkling()),
       child: ConstrainedBox(
         constraints: const BoxConstraints(minWidth: 100, minHeight: 100),
         child: Center(
@@ -68,7 +72,13 @@ class InventoryItemWidget extends StatelessWidget {
 
   Widget _buildEmptySlot() {
     return Container(
-      decoration: EyuunDecoration(paint: Paint()..color = Colors.blueGrey, cornerSize: 8),
+      decoration: EyuunDecoration(
+          paint: Paint()
+            ..color = Colors.blueGrey
+            ..style = PaintingStyle.stroke,
+          cornerSize: 8,
+          paintInnerLine: false,
+          fillCorners: false),
     );
   }
 }
