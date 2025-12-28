@@ -5,6 +5,7 @@ import 'package:EyuunApp/controller/HealthController.dart';
 import 'package:EyuunApp/core/assetLink.dart';
 import 'package:EyuunApp/core/components/EntityExtensions.dart';
 import 'package:EyuunApp/view/controller/ChangeValueController.dart';
+import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
@@ -12,6 +13,7 @@ import 'package:oxygen/oxygen.dart';
 import '../../core/registerServices.dart';
 import '../../core/services/TextService.dart';
 import '../widgets/ItemWheel.dart';
+import '../widgets/eyuun/Brushes.dart';
 
 class ChangeHealthPopup extends StatefulWidget {
   const ChangeHealthPopup(this.healthController,
@@ -188,38 +190,46 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
                   widget.healthController.damageTypeEntity?.getTypeId() ?? ""))
                 Text(
                     locator<TextService>().getFluff(
-                        widget.healthController.damageTypeEntity?.getTypeId() ?? ""),
+                        widget.healthController.damageTypeEntity?.getTypeId() ??
+                            ""),
                     style: const TextStyle(fontSize: 12)),
               if (widget.healthController.damageTypeComponent.degradeArmor)
                 Text(locator<TextService>().getText("uitext_degradeArmor")),
               if (widget.healthController.damageTypeComponent.useFreezingLogic)
                 Text(locator<TextService>().getText("uitext_freezing_logic")),
-              if (widget.healthController.damageTypeComponent.applyStatusEffect !=
+              if (widget
+                      .healthController.damageTypeComponent.applyStatusEffect !=
                   null)
-                Text(locator<TextService>().getText("uitext_applyStatusEffect")),
+                Text(
+                    locator<TextService>().getText("uitext_applyStatusEffect")),
               if (widget.healthController.damageTypeComponent
-                  .applyStatusEffectOnHit !=
-                  null &&
+                          .applyStatusEffectOnHit !=
+                      null &&
                   widget.healthController.hitpointChange != 0)
-                Text(locator<TextService>().getText("uitext_applyStatusEffectOnHit")),
+                Text(locator<TextService>()
+                    .getText("uitext_applyStatusEffectOnHit")),
               if (widget.healthController.damageTypeComponent.pushback > 0)
                 Text(locator<TextService>().getText("uitext_pushback")),
             ],
           ),
         ),
         SizedBox(
-            width: 128,
+            width: 178,
             child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),
-                child: FloatingActionButton(
-                    onPressed: () {
-                      widget.healthController.apply();
-                      Navigator.of(context).pop();
-                      setState(() {
-                        widget.onAccept?.call();
-                      });
-                    },
-                    child: Text('Apply'))))
+                child: DecoratedBox(
+                    position: DecorationPosition.foreground,
+                    decoration: EyuunDecoration(
+                        paint: Brushes.goldSparkling(), cornerSize: 12),
+                    child: FloatingActionButton(
+                        onPressed: () {
+                          widget.healthController.apply();
+                          Navigator.of(context).pop();
+                          setState(() {
+                            widget.onAccept?.call();
+                          });
+                        },
+                        child: Text('Apply', style: TextStyle(color: Color(0xccfdcc3a)))))))
       ],
     );
   }

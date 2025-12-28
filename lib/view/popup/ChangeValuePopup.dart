@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/ItemWheel.dart';
+import '../widgets/eyuun/Brushes.dart';
+import '../widgets/eyuun/EyuunDecoration.dart';
 
 class ChangeValuePopup extends StatefulWidget {
   const ChangeValuePopup(this.changeVal,
@@ -55,15 +57,19 @@ class _ChangeValuePopupState extends State<ChangeValuePopup> {
           ]),
         ),
         SizedBox(
-            width: 128,
+            width: 178,
             child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),
-                child: FloatingActionButton(
-                    onPressed: () {
-                      widget.valueChanged?.call(newVal);
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('Apply'))))
+                child: DecoratedBox(
+                    position: DecorationPosition.foreground,
+                    decoration: EyuunDecoration(
+                        paint: Brushes.goldSparkling(), cornerSize: 12),
+                    child: FloatingActionButton(
+                        onPressed: () {
+                          widget.valueChanged?.call(newVal);
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('Apply', style: TextStyle(color: Color(0xccfdcc3a)))))))
       ],
     );
   }
