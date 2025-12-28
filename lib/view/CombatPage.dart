@@ -111,7 +111,6 @@ class _CombatPageState extends State<CombatPage> {
             child: FloatingActionButton(
                 heroTag: text,
                 tooltip: tooltip,
-                backgroundColor: Color(0xee1e1f22),
                 onPressed: onPressed,
                 child: Row(
                     mainAxisSize: MainAxisSize.min,
