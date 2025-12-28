@@ -79,21 +79,6 @@ class _CombatPageState extends State<CombatPage> {
             onPressed: () {
               PopupUtil.popup(
                   context,
-                  ChangeValuePopup(vitalityController, valueChanged: (change) {
-                    setState(() {
-                      vitalityController.change(change);
-                    });
-                  }));
-            },
-            text: '${vitalityCurrent}/${vitalityMax}',
-            tooltip: 'vitality',
-            icon: Icons.air,
-          ),
-          const SizedBox(width: 16),
-          _buildLargeFab(
-            onPressed: () {
-              PopupUtil.popup(
-                  context,
                   ChangeValuePopup(fluxController, valueChanged: (change) {
                     setState(() {
                       fluxController.change(change);
