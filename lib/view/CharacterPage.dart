@@ -9,6 +9,8 @@ import 'package:EyuunApp/view/popup/ChangeValuePopup.dart';
 import 'package:EyuunApp/view/widgets/CharacterInfoWidget.dart';
 import 'package:EyuunApp/view/widgets/PathsWidget.dart';
 import 'package:EyuunApp/view/widgets/AttributesWidget.dart';
+import 'package:EyuunApp/view/widgets/eyuun/Brushes.dart';
+import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
 import 'package:flutter/material.dart';
 import 'package:EyuunApp/view/popup/PopupUtil.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -61,15 +63,10 @@ class _CharacterPageState extends State<CharacterPage> {
                 child: Column(
                   children: [
                     DecoratedBox(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: theme.colorScheme.secondaryContainer,
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+                      decoration: EyuunDecoration(
+                          cornerSize: 20, paint: Brushes.goldSparkling()),
                       child: Padding(
-                        padding: const EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(20),
                         child: CharacterInfoWidget(
                           profileImage: placeholderImage,
                           name: "Glup Shitto",
@@ -85,20 +82,17 @@ class _CharacterPageState extends State<CharacterPage> {
                       children: [
                         // The decorated box with your content
                         DecoratedBox(
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: theme.colorScheme.secondaryContainer,
-                                  width: 1),
-                              borderRadius: BorderRadius.circular(8)),
+                          decoration: EyuunDecoration(
+                              cornerSize: 20, paint: Brushes.goldSparkling()),
                           child: const Padding(
-                            padding: EdgeInsets.all(15),
+                            padding: EdgeInsets.all(20),
                             child: AttributesWidget(),
                           ),
                         ),
                         // The info button in the top right corner
                         Positioned(
-                          top: 4,
-                          right: 4,
+                          top: 12,
+                          right: 12,
                           child: IconButton(
                             icon: const Icon(Icons.info_outline),
                             tooltip: 'More info on Attributes',
@@ -118,20 +112,17 @@ class _CharacterPageState extends State<CharacterPage> {
                       children: [
                         // The decorated box with your content
                         DecoratedBox(
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: theme.colorScheme.secondaryContainer,
-                                  width: 1),
-                              borderRadius: BorderRadius.circular(8)),
+                          decoration: EyuunDecoration(
+                              cornerSize: 20, paint: Brushes.goldSparkling()),
                           child: const Padding(
-                            padding: EdgeInsets.all(15),
+                            padding: EdgeInsets.all(20),
                             child: PathsWidget(),
                           ),
                         ),
                         // The info button in the top right corner
                         Positioned(
-                          top: 4,
-                          right: 4,
+                          top: 12,
+                          right: 12,
                           child: IconButton(
                             icon: const Icon(Icons.info_outline),
                             tooltip: 'More info on Paths',
@@ -166,7 +157,8 @@ class _CharacterPageState extends State<CharacterPage> {
                   }),
                   maximumSize: Size(350, 800));
             },
-            text: "${health.shield > 0 ? "${health.hitpoints}+${health.shield}" : "${health.hitpoints}"} / ${health.maxHitpoints.current}",
+            text:
+                "${health.shield > 0 ? "${health.hitpoints}+${health.shield}" : "${health.hitpoints}"} / ${health.maxHitpoints.current}",
             tooltip: 'Health',
             icon: Icons.heart_broken,
           ),
@@ -211,17 +203,23 @@ class _CharacterPageState extends State<CharacterPage> {
       required VoidCallback onPressed,
       required String text,
       String tooltip = ""}) {
+    var color = Color(0xccfdcc3a);
     return SizedBox(
-        width: 120,
-        height: 80,
-        child: FloatingActionButton(
-            heroTag: text,
-            tooltip: tooltip,
-            onPressed: onPressed,
-            child: Row(
-                mainAxisSize:
-                    MainAxisSize.min, // 👈 prevents Row from stretching
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [Icon(icon, size: 36), Text(text)])));
+        width: 130,
+        height: 90,
+        child:
+        DecoratedBox(
+            decoration:
+            EyuunDecoration(cornerSize: 12, paint: Brushes.goldSparkling()),
+            position: DecorationPosition.foreground,
+            child: FloatingActionButton(
+                heroTag: text,
+                tooltip: tooltip,
+                backgroundColor: Color(0xee1e1f22),
+                onPressed: onPressed,
+                child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [Icon(icon, size: 36, color: color), Text(text, style: TextStyle(color: color))]))));
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../components/inventory.dart';
-import '../InventoryPage.dart'; // for InventoryItem
+import '../InventoryPage.dart';
+import 'eyuun/Brushes.dart';
+import 'eyuun/EyuunDecoration.dart'; // for InventoryItem
 
 class InventoryItemWidget extends StatelessWidget {
   final InventoryItem? item;
@@ -36,18 +38,7 @@ class InventoryItemWidget extends StatelessWidget {
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 150),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: isSelected
-              ? Theme.of(context).colorScheme.primary
-              : Colors.grey.shade600,
-          width: isSelected ? 2 : 1,
-        ),
-        borderRadius: BorderRadius.circular(16),
-        color: isDragging
-            ? Colors.grey.shade300
-            : Theme.of(context).colorScheme.surfaceContainerHighest,
-      ),
+      decoration: EyuunDecoration(cornerSize: isSelected ? 14 : 8, paint: isSelected ? Brushes.goldSparkling() : Brushes.silverSparkling()),
       child: ConstrainedBox(
         constraints: const BoxConstraints(minWidth: 100, minHeight: 100),
         child: Center(
@@ -61,7 +52,7 @@ class InventoryItemWidget extends StatelessWidget {
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Padding(
-                    padding: const EdgeInsets.all(4),
+                    padding: const EdgeInsets.all(12),
                     child: Text(
                       'x${item!.count}',
                       style: const TextStyle(fontSize: 16),
@@ -77,11 +68,7 @@ class InventoryItemWidget extends StatelessWidget {
 
   Widget _buildEmptySlot() {
     return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade700),
-        borderRadius: BorderRadius.circular(12),
-        color: Colors.black12,
-      ),
+      decoration: EyuunDecoration(paint: Paint()..color = Colors.blueGrey, cornerSize: 8),
     );
   }
 }

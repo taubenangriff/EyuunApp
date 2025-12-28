@@ -8,6 +8,8 @@ import 'package:EyuunApp/view/popup/PopupUtil.dart';
 import 'package:EyuunApp/view/popup/SelectItemPopup.dart';
 import 'package:EyuunApp/view/widgets/InventoryItemWidget.dart';
 import 'package:EyuunApp/view/widgets/InventoryWidget.dart';
+import 'package:EyuunApp/view/widgets/eyuun/Brushes.dart';
+import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
 import 'package:flutter/material.dart';
 import 'package:lorem_ipsum/lorem_ipsum.dart';
 
@@ -460,35 +462,36 @@ class _InventoryPageState extends State<InventoryPage> {
     );
   }
 
+
   Widget _buildLargeFab(
       {required IconData icon,
-      required VoidCallback onPressed,
-      required String text,
-      String tooltip = ""}) {
+        required VoidCallback onPressed,
+        required String text,
+        String tooltip = ""}) {
+    var color = Color(0xccfdcc3a);
     return SizedBox(
-        width: 120,
-        height: 80,
-        child: FloatingActionButton(
-            heroTag: text,
-            tooltip: tooltip,
-            onPressed: onPressed,
-            child: Row(
-                mainAxisSize:
-                    MainAxisSize.min, // 👈 prevents Row from stretching
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [Icon(icon, size: 36), Text(text)])));
+        width: 130,
+        height: 90,
+        child:
+        DecoratedBox(
+            decoration:
+            EyuunDecoration(cornerSize: 12, paint: Brushes.goldSparkling()),
+            position: DecorationPosition.foreground,
+            child: FloatingActionButton(
+                heroTag: text,
+                tooltip: tooltip,
+                backgroundColor: Color(0xee1e1f22),
+                onPressed: onPressed,
+                child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [Icon(icon, size: 36, color: color), Text(text, style: TextStyle(color: color))]))));
   }
 
   Widget _buildItemDetailWidget(ThemeData theme) => Container(
         margin: const EdgeInsets.all(8),
         padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: theme.colorScheme.surfaceContainerHighest.withAlpha(150),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: theme.colorScheme.outline.withAlpha(150),
-          ),
-        ),
+        decoration: EyuunDecoration(cornerSize: 20, paint: Brushes.goldSparkling()),
         child: selectedItem == null
             ? _buildPlaceholder(theme)
             : _buildItemDetails(context, selectedItem!, theme),

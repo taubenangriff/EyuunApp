@@ -1,6 +1,8 @@
 import 'package:EyuunApp/view/popup/ChangeHealthPopup.dart';
 import 'package:EyuunApp/view/popup/ChangeValuePopup.dart';
 import 'package:EyuunApp/view/popup/PopupUtil.dart';
+import 'package:EyuunApp/view/widgets/eyuun/Brushes.dart';
+import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
 import 'package:flutter/material.dart';
 
 import '../components/Flux.dart';
@@ -112,17 +114,23 @@ class _CombatPageState extends State<CombatPage> {
         required VoidCallback onPressed,
         required String text,
         String tooltip = ""}) {
+    var color = Color(0xccfdcc3a);
     return SizedBox(
-        width: 120,
-        height: 80,
-        child: FloatingActionButton(
-            heroTag: text,
-            tooltip: tooltip,
-            onPressed: onPressed,
-            child: Row(
-                mainAxisSize:
-                MainAxisSize.min, // 👈 prevents Row from stretching
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [Icon(icon, size: 36), Text(text)])));
+        width: 130,
+        height: 90,
+        child:
+        DecoratedBox(
+            decoration:
+            EyuunDecoration(cornerSize: 12, paint: Brushes.goldSparkling()),
+            position: DecorationPosition.foreground,
+            child: FloatingActionButton(
+                heroTag: text,
+                tooltip: tooltip,
+                backgroundColor: Color(0xee1e1f22),
+                onPressed: onPressed,
+                child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [Icon(icon, size: 36, color: color), Text(text, style: TextStyle(color: color))]))));
   }
 }
