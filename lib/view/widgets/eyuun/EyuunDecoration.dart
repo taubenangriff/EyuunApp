@@ -34,8 +34,6 @@ class _EyuunDecorationPainter extends BoxPainter {
   }
 
   void _drawDecoration(Canvas canvas, Rect bounds) {
-    Paint innerPaint = Paint.from(paintBrush)..strokeWidth = 0.8;
-    Paint cornerPaint =  Paint.from(paintBrush)..style = PaintingStyle.fill;
     Paint outerPaint = Paint.from(paintBrush)..strokeWidth = 1.5;
 
     double cornerDecoSize = cornerSize;
@@ -110,6 +108,8 @@ class _EyuunDecorationPainter extends BoxPainter {
         outerPaint);
 
     if(paintInnerLine){
+      Paint innerPaint = Paint.from(paintBrush)..strokeWidth = 0.8;
+
       var cornerDecoInnerSize = cornerDecoSize + innerLineOffset;
       var cornerDecoInnerSizeWithOffset = cornerDecoInnerSize - 1;
       //inner Line
@@ -182,6 +182,7 @@ class _EyuunDecorationPainter extends BoxPainter {
     }
 
     if(fillCorners){
+      Paint cornerPaint =  Paint.from(paintBrush)..style = PaintingStyle.fill;
 
       var cornerDecoSizeHalf = cornerDecoSize - linesOffset;
       var cornerDecoSizeHalfDoubled = cornerDecoSizeHalf * 2;
