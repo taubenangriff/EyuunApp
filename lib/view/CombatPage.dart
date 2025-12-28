@@ -68,7 +68,7 @@ class _CombatPageState extends State<CombatPage> {
                   ChangeHealthPopup(healthController, onAccept: () {
                     setState(() {});
                   }),
-                  maximumSize: Size(300, 700));
+                  maximumSize: Size(350, 800));
             },
             text: "${health.shield > 0 ? "${health.hitpoints}+${health.shield}" : "${health.hitpoints}"} / ${health.maxHitpoints.current}",
             tooltip: 'Health',
