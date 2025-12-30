@@ -9,7 +9,8 @@ part 'CharacterPath.mapper.dart';
 @MappableClass()
 class CharacterPathStatic with CharacterPathStaticMappable {
   int pathCapacity;
-  CharacterPathStatic(this.pathCapacity);
+  int additionalPathCapacity;
+  CharacterPathStatic(this.pathCapacity, this.additionalPathCapacity);
 }
 
 @MappableClass()
@@ -31,6 +32,8 @@ class CharacterPathComponent extends EyuunComponent<int> {
   /// the maximum amount of paths a character can pick.
   UpgradableInt pathCapacity = 0.upgradable;
 
+  UpgradableInt additionalPathCapacity = 0.upgradable;
+
   @override
   String getName() => propertyName;
 
@@ -48,13 +51,15 @@ class CharacterPathComponent extends EyuunComponent<int> {
 
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
-    var dyn = CharacterPathStaticMapper.fromMap(staticData);
-    pathCapacity = dyn.pathCapacity.upgradable;
+    var stat = CharacterPathStaticMapper.fromMap(staticData);
+    pathCapacity = stat.pathCapacity.upgradable;
+    additionalPathCapacity = stat.additionalPathCapacity.upgradable;
   }
 
   @override
   void reset() {
     pathCapacity = 0.upgradable;
+    additionalPathCapacity = 0.upgradable;
     chosenPaths.clear();
     chosenPathSteps.clear();
   }
