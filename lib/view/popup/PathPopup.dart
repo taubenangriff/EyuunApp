@@ -50,35 +50,61 @@ class _PathPopupState extends State<PathPopup> {
     var typeId = pathStep.getTypeId();
 
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-        child: Row(children: [
+      padding: const EdgeInsets.all(12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // 🟦 Roman numeral (left, vertically centered)
           SizedBox(
             width: 30,
-            child: Text(
-              ((pathStep.get<PathStepComponent>()?.tier ?? 0) + 1).toRoman(),
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            child: Center(
+              child: Text(
+                ((pathStep.get<PathStepComponent>()?.tier ?? 0) + 1).toRoman(),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
-          SizedBox(width: 10),
-          Flexible(
-              child: Text(
-            locator<TextService>().getText(typeId),
-            textAlign: TextAlign.justify,
-            style: TextStyle(
-                fontSize: 15,
-                color: widget.pathController.isStepPicked(typeId)
-                    ? Colors.grey.shade400
-                    : (widget.pathController.canPickStep(typeId)
+
+          const SizedBox(width: 32),
+
+          // 🟩 Right side content
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // 🔹 Name (top, centered)
+                Text(
+                  locator<TextService>().getText(typeId),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: widget.pathController.isStepPicked(typeId)
+                        ? Colors.grey.shade400
+                        : (widget.pathController.canPickStep(typeId)
                         ? Colors.orangeAccent
-                        : Colors.grey.shade700)),
-          )),
-          SizedBox(width: 10),
-          Flexible(
-            child: BuffDisplay(buff: typeId)
-          )
-        ]));
+                        : Colors.grey.shade700),
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                // 🔹 Display (center-centered)
+                Center(
+                  child: BuffDisplay(buff: typeId),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+
   }
 
   @override
