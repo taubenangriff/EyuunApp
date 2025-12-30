@@ -464,7 +464,7 @@
         }
       },
       "icon": {
-        "iconFilepath": "data/base/icons/damage_type/icon_dirt.png"
+        "iconFilepath": "data/base/icons/damage_type/icon_poison.png"
       }
     },
     {
@@ -549,7 +549,7 @@
         "useFreezingLogic": true
       },
       "icon": {
-        "iconFilepath": "data/base/icons/damage_type/icon_air.png"
+        "iconFilepath": "data/base/icons/damage_type/icon_ice.png"
       }
     },
     {
@@ -564,7 +564,7 @@
         }
       },
       "icon": {
-        "iconFilepath": "data/base/icons/damage_type/icon_stamina.png"
+        "iconFilepath": "data/base/icons/damage_type/icon_metal.png"
       }
     },
     {

@@ -138,6 +138,7 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
                     startValue: selectedDamageIndex,
                     maxValue: damageTypes.length - 1,
                     valueIsIndex: true,
+                    customSize: 46,
                     valueCallback: (index) {
                       setState(() {
                         selectedDamageIndex = index;
@@ -166,6 +167,7 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
                     startValue: selectedHealIndex,
                     maxValue: healTypes.length - 1,
                     valueIsIndex: true,
+                    customSize: 46,
                     valueCallback: (index) {
                       setState(() {
                         selectedHealIndex = index;
