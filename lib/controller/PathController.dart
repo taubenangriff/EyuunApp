@@ -12,13 +12,15 @@ class PathController {
     _pathFeature = locator<PathFeatureComponent>();
   }
 
-  bool canPick(String id) => true;
+  bool isStepPicked(String id) => true;
 
-  bool isPicked(String id) => true;
+  bool canPickStep(String id) => true;
 
   void pickStep(String id) => UnimplementedError();
 
+  bool canPickNewPath(String id) => true;
+
   void pickNewPath(String id) => UnimplementedError();
 
-  bool canPickNewPath(String id) => true;
+  List<Entity> getPickableAdditionalPaths() => [];
 }

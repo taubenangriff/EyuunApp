@@ -72,7 +72,8 @@
         ]
       },
       "characterPath": {
-        "pathCapacity": 1
+        "pathCapacity": 1,
+        "additionalPathCapacity": 0
       },
       "languageLearner": {}
     },
