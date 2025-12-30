@@ -161,7 +161,7 @@ class _PathsWidgetState extends State<PathsWidget> {
               padding: const EdgeInsets.all(2),
               child: InkWell(
                   onTap: () {
-                    PopupUtil.popup(context, PathPopup(),
+                    PopupUtil.popup(context, PathPopup(pathController: pathController, pathId: path.getTypeId()),
                         maximumSize: Size(1000, 900));
                   },
                   borderRadius:
