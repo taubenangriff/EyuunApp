@@ -36,38 +36,43 @@ class InventoryItemWidget extends StatelessWidget {
       return _buildEmptySlot();
     }
 
+    final theme = Theme.of(context);
+
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 150),
-      decoration: EyuunDecoration(
-          cornerSize: isSelected ? 14 : 8,
-          fillCorners: isSelected,
-          paint:
-              isSelected ? Brushes.goldSparkling() : Brushes.silverSparkling()),
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(minWidth: 100, minHeight: 100),
-        child: Center(
-          child: Stack(
-            children: [
-              const Align(
-                alignment: Alignment.center,
-                child: Icon(Icons.inventory_2, size: 32),
-              ),
-              if (item!.count > 1)
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Text(
-                      'x${item!.count}',
-                      style: const TextStyle(fontSize: 16),
-                    ),
+        duration: const Duration(milliseconds: 150),
+        decoration: EyuunDecoration(
+            cornerSize: isSelected ? 14 : 8,
+            fillCorners: isSelected,
+            paint: isSelected
+                ? Brushes.goldSparkling()
+                : Brushes.silverSparkling()),
+        child: Container(
+          color: theme.canvasColor.withAlpha(120),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minWidth: 100, minHeight: 100),
+            child: Center(
+              child: Stack(
+                children: [
+                  const Align(
+                    alignment: Alignment.center,
+                    child: Icon(Icons.inventory_2, size: 32),
                   ),
-                ),
-            ],
+                  if (item!.count > 1)
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Text(
+                          'x${item!.count}',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 
   Widget _buildEmptySlot() {

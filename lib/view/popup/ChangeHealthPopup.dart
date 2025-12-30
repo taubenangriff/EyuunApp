@@ -42,14 +42,14 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
   late int hpChange = 0;
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return DecoratedBox(decoration: EyuunDecoration(paint: Brushes.silverSparkling(), cornerSize: 12), child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(
           height: 275,
           width: 400,
           child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             SizedBox(
               height: 50,
               width: 100,
@@ -63,12 +63,12 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
                 width: 100,
                 child: ItemWheel(
                     valueCallback: (i) => setState(() {
-                          hpChange = i;
-                          widget.healthController.setDamageType(hpChange > 0
-                              ? healTypes[selectedHealIndex]
-                              : damageTypes[selectedDamageIndex]);
-                          widget.healthController.computeDamageSplit(hpChange);
-                        }),
+                      hpChange = i;
+                      widget.healthController.setDamageType(hpChange > 0
+                          ? healTypes[selectedHealIndex]
+                          : damageTypes[selectedDamageIndex]);
+                      widget.healthController.computeDamageSplit(hpChange);
+                    }),
                     maxValue: widget.healthController.maxGainable(),
                     minValue: -widget.healthController.maxLosable(),
                     horizontal: widget.horizontal)),
@@ -84,9 +84,9 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
                       style: TextStyle(
                           fontSize: 30,
                           color:
-                              widget.healthController.armorUsedAgainstTarget()
-                                  ? Colors.red
-                                  : Colors.blueAccent)),
+                          widget.healthController.armorUsedAgainstTarget()
+                              ? Colors.red
+                              : Colors.blueAccent)),
                   const Text("new hitpoints:", style: TextStyle(fontSize: 12)),
                   Text(
                       "${widget.healthController.newHitpoints}+${widget.healthController.newShield}",
@@ -147,14 +147,14 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
                       });
                     },
                     childWidget: (index) =>
-                        damageTypes[index].has<IconComponent>()
-                            ? Image(
-                                height: 64,
-                                width: 64,
-                                image: AssetImage(damageTypes[index]
-                                    .get<IconComponent>()!
-                                    .iconFilepath))
-                            : const Text("fuck"),
+                    damageTypes[index].has<IconComponent>()
+                        ? Image(
+                        height: 64,
+                        width: 64,
+                        image: AssetImage(damageTypes[index]
+                            .get<IconComponent>()!
+                            .iconFilepath))
+                        : const Text("fuck"),
                     horizontal: true))),
         Visibility(
             maintainState: true,
@@ -175,12 +175,12 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
                       });
                     },
                     childWidget: (index) =>
-                        damageTypes[index].has<IconComponent>()
-                            ? Image(
-                                image: AssetImage(healTypes[index]
-                                    .get<IconComponent>()!
-                                    .iconFilepath))
-                            : const Text("fuck"),
+                    damageTypes[index].has<IconComponent>()
+                        ? Image(
+                        image: AssetImage(healTypes[index]
+                            .get<IconComponent>()!
+                            .iconFilepath))
+                        : const Text("fuck"),
                     horizontal: true))),
         SizedBox(
           height: 150,
@@ -198,13 +198,13 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
               if (widget.healthController.damageTypeComponent.useFreezingLogic)
                 Text(locator<TextService>().getText("uitext_freezing_logic")),
               if (widget
-                      .healthController.damageTypeComponent.applyStatusEffect !=
+                  .healthController.damageTypeComponent.applyStatusEffect !=
                   null)
                 Text(
                     locator<TextService>().getText("uitext_applyStatusEffect")),
               if (widget.healthController.damageTypeComponent
-                          .applyStatusEffectOnHit !=
-                      null &&
+                  .applyStatusEffectOnHit !=
+                  null &&
                   widget.healthController.hitpointChange != 0)
                 Text(locator<TextService>()
                     .getText("uitext_applyStatusEffectOnHit")),
@@ -230,7 +230,8 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
                           });
                         },
                         child: Text('Apply', style: TextStyle(color: Color(0xccfdcc3a)))))))
+      , const SizedBox(height: 12)
       ],
-    );
+    ));
   }
 }

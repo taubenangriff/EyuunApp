@@ -3,7 +3,7 @@ part 'PathType.mapper.dart';
 
 @MappableEnum(mode: ValuesMode.named)
 enum PathType {
-  Flow,
+  Flux,
   Fighter,
   Acolyte,
   Crafter,

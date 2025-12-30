@@ -2,7 +2,8 @@
   "include": [
     "data/base/asset/items.json",
     "data/base/asset/languages.json",
-    "data/base/asset/features.json"
+    "data/base/asset/features.json",
+    "data/base/asset/paths.json"
   ],
   "assets" : [
     {
@@ -11,7 +12,6 @@
         "internalName": "Human Player Character"
       },
       "health": {
-        "maxHitpoints": 40,
         "maxShield": 8,
         "maxDeathThrows": 3
       },

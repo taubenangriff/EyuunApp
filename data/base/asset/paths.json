@@ -1,0 +1,63 @@
+{
+  "assets": [
+    {
+      "standard": {
+        "typeId": "path_flux_01",
+        "internalName": "Arcanist Path"
+      },
+      "text": { },
+      "path": {
+        "pathType": "Flux",
+        "pickableSteps": [
+          {
+            "id": "step_01"
+          }
+        ]
+      }
+    },
+    {
+      "standard": {
+        "typeId": "path_flux_01_step_00",
+        "internalName": "Arcanist Path | Step 0 | Flux-conducting"
+      },
+      "text": { },
+      "pathStep": {
+        "tier": 0,
+        "isAdditional": false,
+        "pathType": "Flux"
+      },
+      "fluxUpgrade": {
+        "fluxMaximumUpgrade": 2
+      }
+    },
+    {
+      "standard": {
+        "typeId": "path_flux_additionals",
+        "internalName": "Additional Paths for Flux Paths"
+      },
+      "text": { },
+      "assetBundle": {
+        "assets": [
+          {
+            "id": "path_flux_additional_00_step"
+          }
+        ]
+      }
+    },
+    {
+      "standard": {
+        "typeId": "path_flux_additional_00_step",
+        "internalName": "Additional 0 for Flux Paths"
+      },
+      "text": { },
+      "pathStep": {
+        "tier": 0,
+        "isAdditional": true,
+        "pathType": "Flux"
+      },
+      "fluxUpgrade": {
+        "fluxCapacityUpgrade": 5
+      }
+    }
+  ]
+}

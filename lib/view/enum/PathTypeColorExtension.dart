@@ -5,7 +5,7 @@ import '../../enums/PathType.dart';
 extension PathTypeColor on PathType {
   Color get color {
     switch (this) {
-      case PathType.Flow:
+      case PathType.Flux:
         return Colors.blueGrey.shade400;     // calm bluish-grey
       case PathType.Fighter:
         return Colors.red.shade400;           // softer red, not neon

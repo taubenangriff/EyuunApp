@@ -43,7 +43,7 @@ class _PathsWidgetState extends State<PathsWidget> {
   late final List<PathValue> progressValues = [
     PathValue("CrafterPath", 3, 0, PathType.Crafter),
     PathValue("FighterPath", 5, 0, PathType.Fighter),
-    PathValue("FlowPath", 7, 0, PathType.Flow),
+    PathValue("FlowPath", 7, 0, PathType.Flux),
     PathValue("AcolytePath", 1, 4, PathType.Acolyte)
   ];
 
@@ -52,7 +52,7 @@ class _PathsWidgetState extends State<PathsWidget> {
         name: "Flow Add1",
         pathName: "Flow1",
         icon: "icon",
-        type: PathType.Flow),
+        type: PathType.Flux),
     AdditionalPathItem(
         name: "Crafter Add2",
         pathName: "CrafterSub1",

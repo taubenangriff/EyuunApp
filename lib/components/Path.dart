@@ -1,3 +1,4 @@
+import 'package:EyuunApp/components/AssetBundle.dart';
 import 'package:EyuunApp/components/PathStep.dart';
 import 'package:EyuunApp/core/assetLink.dart';
 import 'package:EyuunApp/enums/PathType.dart';
@@ -12,22 +13,17 @@ part 'Path.mapper.dart';
 @MappableClass()
 class PathStatic with PathStaticMappable {
   PathType pathType;
-  List<AssetLink> pickablePaths;
-  AssetLink? additionalPaths;
+  List<AssetLink> pickableSteps;
   int complexity;
 
-  PathStatic(this.pathType, this.pickablePaths, [ this.additionalPaths, this.complexity = 1 ]);
+  PathStatic(this.pathType, this.pickableSteps, [ this.complexity = 1 ]);
 }
 
 class PathComponent extends EyuunComponent<int> {
   static const String propertyName = "path";
 
   PathType pathType = PathType.Fighter;
-  List<AssetLink> pickablePaths = [];
-
-  /// Links to an Asset with the [PathComponent] of which the [PathComponent.pickablePaths] are used as a list of additional Paths unlocked by speccing into this path.
-  AssetLink? additionalPaths;
-
+  late List<AssetLink> pickableSteps;
   int complexity = 0;
 
   @override
@@ -47,18 +43,17 @@ class PathComponent extends EyuunComponent<int> {
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = PathStaticMapper.fromMap(staticData);
     pathType = stat.pathType;
-    pickablePaths = stat.pickablePaths;
-    additionalPaths = stat.additionalPaths;
+    pickableSteps = stat.pickableSteps;
     complexity = stat.complexity;
   }
 
   @override
   void reset() {
     pathType = PathType.Fighter;
+    pickableSteps = [];
+    complexity = 0;
   }
 
   @override
   Map<String, dynamic> saveDynamicData() => <String, dynamic>{};
-
-  int getPathLength() => pickablePaths.length;
 }

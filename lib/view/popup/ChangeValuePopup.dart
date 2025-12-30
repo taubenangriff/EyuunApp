@@ -23,7 +23,7 @@ class _ChangeValuePopupState extends State<ChangeValuePopup> {
   late int newVal = 0;
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return DecoratedBox(decoration: EyuunDecoration(paint: Brushes.silverSparkling(), cornerSize: 12), child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(
@@ -71,6 +71,6 @@ class _ChangeValuePopupState extends State<ChangeValuePopup> {
                         },
                         child: Text('Apply', style: TextStyle(color: Color(0xccfdcc3a)))))))
       ],
-    );
+    ));
   }
 }

@@ -97,22 +97,22 @@ class MyApp extends StatelessWidget {
           onPrimary: Colors.black,
           secondary: const Color(0xFFf8a763), // Gold accent
           onSecondary: Colors.black,
-          surface: const Color(0xFF263238), // Dark blue-grey
+          surface: const Color(0xff1e1e1e), // Dark blue-grey
           onSurface: Colors.white,
-          background: const Color(0xFF212121), // Dark background
+          background: const Color(0xff333333), // Dark background
           onBackground: Colors.white,
           error: Colors.red.shade400,
           onError: Colors.black,
         ),
-        scaffoldBackgroundColor: const Color(0xFF212121),
+        scaffoldBackgroundColor: const Color(0xff333333),
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF37474F), // Blue-grey 800
+          backgroundColor: Color(0xff1e1e1e), // Blue-grey 800
           foregroundColor: Colors.white,
           elevation: 2,
         ),
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
 
-          backgroundColor: Color(0xee1e1f22), // Gold
+          backgroundColor: Color(0xff1e1e1e), // Gold
           foregroundColor: Colors.black,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(

@@ -2,6 +2,26 @@
   "assets": [
     {
       "standard": {
+        "typeId": "path_feature"
+      },
+      "pathFeature": {
+        "paths": [
+          {
+            "id": "path_flux_01"
+          }
+        ],
+        "additionalPaths": [
+          {
+            "additionalPathBundle": {
+              "id": "path_flux_additionals"
+            },
+            "unlockingPathType": "Flux"
+          }
+        ]
+      }
+    },
+    {
+      "standard": {
         "typeId": "combat_feature"
       },
       "combatFeature": {
