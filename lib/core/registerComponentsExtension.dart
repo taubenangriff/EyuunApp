@@ -23,6 +23,7 @@ import 'package:EyuunApp/components/inventory.dart';
 import 'package:EyuunApp/components/upgradable.dart';
 import 'package:EyuunApp/components/upgrade/ArmorUpgrade.dart';
 import 'package:EyuunApp/components/upgrade/AttributesUpgrade.dart';
+import 'package:EyuunApp/components/upgrade/Buff.dart';
 import 'package:EyuunApp/components/upgrade/CharacterPathUpgrade.dart';
 import 'package:EyuunApp/components/upgrade/CombatUpgrade.dart';
 import 'package:EyuunApp/components/upgrade/FluxUpgrade.dart';
@@ -76,6 +77,7 @@ extension RegisterUpgradesExtension on WorldManager {
     registerComponent<IconComponent, int>(IconComponent.propertyName, () => IconComponent());
     registerComponent<AssetBundleComponent, int>(AssetBundleComponent.propertyName, () => AssetBundleComponent());
     registerComponent<CharacterBaseComponent, int>(CharacterBaseComponent.propertyName, () => CharacterBaseComponent());
+    registerComponent<BuffComponent, int>(BuffComponent.propertyName, () => BuffComponent());
 
     // register Upgrades
     registerComponent<ArmorUpgradeComponent, int>(ArmorUpgradeComponent.propertyName, () => ArmorUpgradeComponent());
