@@ -30,6 +30,15 @@
 
     "path_flux_01": "Arkanist",
     "path_flux_01_step_00": "Flussleitend",
+    "path_flux_01_step_01": "Kostspieliges Zaubern",
+    "path_flux_01_step_01_effectdesc": "Ermöglicht es dir mehr Fluss beim Zaubern auszugeben, um für jedes so ausgegebene Fluss einen Vorteil auf das Zaubern zu erhalten. Du darf für jeden gewählten Abschnitt dieses Pfades 1 Fluss zusätzlich ausgeben",
+    "path_flux_01_step_02": "Flusserfahrung",
+    "path_flux_01_step_02_effectdesc": "Erhöht den EW jedes Zauberns um die Hälfte des zum Wirken des Zaubers ausgegebenen Flusses",
+    "path_flux_01_step_03": "Lebendes Flussgefäß",
+    "path_flux_01_step_04": "Subtiles Zaubern",
+    "path_flux_01_step_04_effectdesc": "Jedes Fluss, das du beim Zaubern ausgibst, verhindert 1 Nachteil beim Wirken, der durch Zaubern mit weniger freien Händen, still zaubern oder zaubern ohne sichtbaren Effekt hinzugefügt wurde (Wenn du also 7 oder mehr Fluss ausgibst, darf der Zauber ohne Nachteile still, ohne Hände und ohne sichtbaren Effekt gewirkt werden)",
+    "path_flux_01_step_05": "Flusswiederverwertung",
+    "path_flux_01_step_05_effectdesc": "Wenn du beim Zaubern ein EW von mindestens 30 erreichst, erhältst du die Hälfte des zum Wirken dieses Zauberns ausgegebenen Fluss zurück (also auch Fluss, das für Vorteile ausgegeben wurde)",
     "path_flux_additional_00_step": "ZusatzFluss01",
 
     "damage_normal" : "Normal",

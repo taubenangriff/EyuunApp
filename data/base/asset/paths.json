@@ -13,16 +13,19 @@
             "id": "path_flux_01_step_00"
           },
           {
-            "id": "path_flux_01_step_00"
+            "id": "path_flux_01_step_01"
           },
           {
-            "id": "path_flux_01_step_00"
+            "id": "path_flux_01_step_02"
           },
           {
-            "id": "path_flux_01_step_00"
+            "id": "path_flux_01_step_03"
           },
           {
-            "id": "path_flux_01_step_00"
+            "id": "path_flux_01_step_04"
+          },
+          {
+            "id": "path_flux_01_step_05"
           }
         ]
       }
@@ -40,6 +43,86 @@
       },
       "fluxUpgrade": {
         "fluxMaximumUpgrade": 2
+      },
+      "buff": {}
+    },
+    {
+      "standard": {
+        "typeId": "path_flux_01_step_01",
+        "internalName": "Arcanist Path | Step 1 | Costly Casting"
+      },
+      "text": { },
+      "pathStep": {
+        "tier": 1,
+        "isAdditional": false,
+        "pathType": "Flux"
+      },
+      "fluxUpgrade": {
+        "fluxMaximumUpgrade": 1
+      },
+      "buff": {
+        "textDescription": "path_flux_01_step_01_effectdesc"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "path_flux_01_step_02",
+        "internalName": "Arcanist Path | Step 2 | Fluxknowledge"
+      },
+      "text": { },
+      "pathStep": {
+        "tier": 2,
+        "isAdditional": false,
+        "pathType": "Flux"
+      },
+      "buff": {
+        "textDescription": "path_flux_01_step_02_effectdesc"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "path_flux_01_step_03",
+        "internalName": "Arcanist Path | Step 3 | Jar of Flux"
+      },
+      "text": { },
+      "pathStep": {
+        "tier": 2,
+        "isAdditional": false,
+        "pathType": "Flux"
+      },
+      "fluxUpgrade": {
+        "fluxMaximumUpgrade": 2
+      },
+      "buff": { }
+    },
+    {
+      "standard": {
+        "typeId": "path_flux_01_step_04",
+        "internalName": "Arcanist Path | Step 4 | Subtle Casting"
+      },
+      "text": {},
+      "pathStep": {
+        "tier": 2,
+        "isAdditional": false,
+        "pathType": "Flux"
+      },
+      "buff": {
+        "textDescription": "path_flux_01_step_04_effectdesc"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "path_flux_01_step_05",
+        "internalName": "Arcanist Path | Step 5 | Flux Reusing"
+      },
+      "text": { },
+      "pathStep": {
+        "tier": 5,
+        "isAdditional": false,
+        "pathType": "Flux"
+      },
+      "buff": {
+        "textDescription": "path_flux_01_step_05_effectdesc"
       }
     },
     {

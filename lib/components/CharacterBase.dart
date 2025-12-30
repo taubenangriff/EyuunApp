@@ -10,7 +10,7 @@ class CharacterBaseDynamic with CharacterBaseDynamicMappable {
   AssetLink upbringing;
   AssetLink childhood;
   int level;
-  AssetLink origin;
+  String origin;
 
   CharacterBaseDynamic(this.upbringing, this.childhood, this.level, this.origin);
 }
@@ -26,7 +26,7 @@ class CharacterBaseComponent extends EyuunComponent<int> {
   late AssetLink upbringing;
   late AssetLink childhood;
   late int level;
-  late AssetLink origin;
+  late String origin;
 
   @override
   String getName() => propertyName;
