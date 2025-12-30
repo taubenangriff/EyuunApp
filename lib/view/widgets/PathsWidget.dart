@@ -79,8 +79,11 @@ class _PathsWidgetState extends State<PathsWidget> {
         final hideText = constraints.maxWidth < 100; // hide text if too narrow
 
         return DecoratedBox(
-          position: DecorationPosition.foreground,
-            decoration: EyuunDecoration(paint: Brushes.goldSparkling(), cornerSize: 12, fillCorners: true),
+            position: DecorationPosition.foreground,
+            decoration: EyuunDecoration(
+                paint: Brushes.goldSparkling(),
+                cornerSize: 12,
+                fillCorners: true),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: pathStep.pathType.color,
@@ -243,6 +246,23 @@ class _PathsWidgetState extends State<PathsWidget> {
                   // replace with your widget
                   ));
         }),
+        if (pathController.canPickNewPath()) const SizedBox(height: 16),
+        if (pathController.canPickNewPath())
+          SizedBox(
+              width: 160,
+              height: 46,
+              child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      PopupUtil.popup(
+                          context,
+                          const Center(
+                              child: Text(
+                                  "Popup showing all new paths grouped by type with a preview of their tiers")),
+                          maximumSize: Size(900, 700));
+                    });
+                  },
+                  child: Text('+ Add new Path'))),
         const SizedBox(height: 16),
         GridView.count(
             shrinkWrap: true, // so it fits inside other scrollables
