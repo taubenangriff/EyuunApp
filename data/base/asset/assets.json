@@ -11,6 +11,7 @@
         "typeId": "character",
         "internalName": "Human Player Character"
       },
+      "characterBase": {},
       "health": {
         "maxShield": 8,
         "maxDeathThrows": 3

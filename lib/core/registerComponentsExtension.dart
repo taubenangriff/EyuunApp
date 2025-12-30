@@ -32,6 +32,7 @@ import 'package:EyuunApp/components/upgrade/TalentsUpgrade.dart';
 
 import '../components/Attributes.dart';
 import '../components/Casted.dart';
+import '../components/CharacterBase.dart';
 import '../components/Combat.dart';
 import '../components/Item.dart';
 import '../components/LanguageLearner.dart';
@@ -74,6 +75,7 @@ extension RegisterUpgradesExtension on WorldManager {
     registerComponent<DamageTypeComponent, int>(DamageTypeComponent.propertyName, () => DamageTypeComponent());
     registerComponent<IconComponent, int>(IconComponent.propertyName, () => IconComponent());
     registerComponent<AssetBundleComponent, int>(AssetBundleComponent.propertyName, () => AssetBundleComponent());
+    registerComponent<CharacterBaseComponent, int>(CharacterBaseComponent.propertyName, () => CharacterBaseComponent());
 
     // register Upgrades
     registerComponent<ArmorUpgradeComponent, int>(ArmorUpgradeComponent.propertyName, () => ArmorUpgradeComponent());
