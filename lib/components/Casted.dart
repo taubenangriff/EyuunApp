@@ -2,13 +2,13 @@ import 'package:EyuunApp/enums/BillingCycle.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:EyuunApp/core/components/EyuunComponent.dart';
 
-import '../enums/CastTime.dart';
+import '../enums/ActionTime.dart';
 
 part 'Casted.mapper.dart';
 
 @MappableClass()
 class CastedStatic with CastedStaticMappable {
-  CastTime castTime;
+  ActionTime castTime;
   BillingCycle billingCycle;
   int fluxCost;
   int castingTimeMinutes;
@@ -21,7 +21,7 @@ class CastedComponent extends EyuunComponent<int> {
   static const String propertyName = "casted";
 
   /// The time needed to cast this
-  late CastTime castTime;
+  late ActionTime castTime;
 
   /// The way flux cost is deducted: Once, per round, or per hour.
   late BillingCycle billingCycle;
@@ -56,7 +56,7 @@ class CastedComponent extends EyuunComponent<int> {
 
   @override
   void reset() {
-    castTime = CastTime.None;
+    castTime = ActionTime.None;
     billingCycle = BillingCycle.Once;
     fluxCost = 0;
     castingTimeMinutes = 0;
