@@ -5,32 +5,43 @@ import 'package:flutter/material.dart';
 import 'Brushes.dart';
 
 class EyuunDecoration extends Decoration {
-  EyuunDecoration({required this.paint, this.cornerSize = 0, this.paintInnerLine = true, this.fillCorners = true});
+  EyuunDecoration({required this.paint, this.cornerSize = 0, this.paintInnerLine = true, this.fillCorners = true, this.background});
 
   final double cornerSize;
   final Paint paint;
+  final Color? background;
   final bool paintInnerLine;
   final bool fillCorners;
 
   @override
   BoxPainter createBoxPainter([void Function()? onChanged]) {
-    return _EyuunDecorationPainter(cornerSize, paint, paintInnerLine, fillCorners);
+    return _EyuunDecorationPainter(cornerSize, paint, paintInnerLine, fillCorners, background);
   }
 }
 
 class _EyuunDecorationPainter extends BoxPainter {
-  _EyuunDecorationPainter(this.cornerSize, this.paintBrush, this.paintInnerLine, this.fillCorners);
+  _EyuunDecorationPainter(this.cornerSize, this.paintBrush, this.paintInnerLine, this.fillCorners, this.background);
 
   final double cornerSize;
   final Paint paintBrush;
   final bool paintInnerLine;
   final bool fillCorners;
+  final Color? background;
 
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
     final Rect bounds = offset & (configuration.size ?? const Size(0, 0));
 
     _drawDecoration(canvas, bounds);
+  }
+
+  void _drawBackground(Canvas canvas, Rect bounds) {
+    if(background == null) {
+      return;
+    }
+
+
+
   }
 
   void _drawDecoration(Canvas canvas, Rect bounds) {
@@ -61,6 +72,26 @@ class _EyuunDecorationPainter extends BoxPainter {
         bounds.bottomRight + Offset(-middleLineOffset, -cornerDecoSize);
     var botRightEndOuter =
         bounds.bottomRight + Offset(-cornerDecoSize, -middleLineOffset);
+
+    if(background != null)
+    {
+      var backgroundPaint = Paint()..color = background!..style = PaintingStyle.fill;
+
+      var backgroundPath = Path();
+      var points = [
+        topLeftStartOuter,
+        topRightStartOuter,
+        topRightEndOuter,
+        botRightStartOuter,
+        botRightEndOuter,
+        botLeftStartOuter,
+        botLeftEndOuter,
+        topLeftEndOuter
+      ];
+
+      backgroundPath.addPolygon(points, true);
+      canvas.drawPath(backgroundPath, backgroundPaint);
+    }
 
     canvas.drawLine(topLeftStartOuter, topRightStartOuter, outerPaint);
     canvas.drawLine(topRightEndOuter, botRightStartOuter, outerPaint);
@@ -106,6 +137,7 @@ class _EyuunDecorationPainter extends BoxPainter {
         circleLengthOuter,
         false,
         outerPaint);
+
 
     if(paintInnerLine){
       Paint innerPaint = Paint.from(paintBrush)..strokeWidth = 0.8;

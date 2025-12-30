@@ -6,7 +6,7 @@ extension PathTypeColor on PathType {
   Color get color {
     switch (this) {
       case PathType.Flux:
-        return Colors.blueGrey.shade400;     // calm bluish-grey
+        return Colors.green.shade700;     // calm bluish-grey
       case PathType.Fighter:
         return Colors.red.shade400;           // softer red, not neon
       case PathType.Acolyte:

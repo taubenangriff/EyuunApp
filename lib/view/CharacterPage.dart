@@ -78,38 +78,35 @@ class _CharacterPageState extends State<CharacterPage> {
                       ),
                     ),
                     SizedBox(height: 16),
-                    Container(
-                      color: theme.canvasColor.withAlpha(120),
-                      child:
-                      Stack(
-                        children: [
-                          // The decorated box with your content
-                          DecoratedBox(
-                            decoration: EyuunDecoration(
-                                cornerSize: 20, paint: Brushes.goldSparkling()),
-                            child: const Padding(
-                              padding: EdgeInsets.all(20),
-                              child: AttributesWidget(),
-                            ),
+                    Stack(
+                      children: [
+                        // The decorated box with your content
+                        DecoratedBox(
+                          decoration: EyuunDecoration(
+                              cornerSize: 20, paint: Brushes.goldSparkling(), background: theme.canvasColor.withAlpha(120)
                           ),
-                          // The info button in the top right corner
-                          Positioned(
-                            top: 12,
-                            right: 12,
-                            child: IconButton(
-                              icon: const Icon(Icons.info_outline),
-                              tooltip: 'More info on Attributes',
-                              onPressed: () async {
-                                const url =
-                                    'https://eyuun.de/proben-projekte#eigenschaftenwuerfe--proben';
-                                if (await canLaunchUrl(Uri.parse(url))) {
-                                  await launchUrl(Uri.parse(url));
-                                }
-                              },
-                            ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(20),
+                            child: AttributesWidget(),
                           ),
-                        ],
-                      ),
+                        ),
+                        // The info button in the top right corner
+                        Positioned(
+                          top: 12,
+                          right: 12,
+                          child: IconButton(
+                            icon: const Icon(Icons.info_outline),
+                            tooltip: 'More info on Attributes',
+                            onPressed: () async {
+                              const url =
+                                  'https://eyuun.de/proben-projekte#eigenschaftenwuerfe--proben';
+                              if (await canLaunchUrl(Uri.parse(url))) {
+                                await launchUrl(Uri.parse(url));
+                              }
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(height: 16),
                     Stack(

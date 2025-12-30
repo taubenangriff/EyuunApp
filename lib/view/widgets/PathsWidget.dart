@@ -9,6 +9,7 @@ import 'package:EyuunApp/core/services/CharacterService.dart';
 import 'package:EyuunApp/main.dart';
 import 'package:EyuunApp/view/popup/PathPopup.dart';
 import 'package:EyuunApp/view/popup/PopupUtil.dart';
+import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
@@ -16,6 +17,7 @@ import '../../core/registerServices.dart';
 import '../../core/services/TextService.dart';
 import '../../enums/PathType.dart';
 import '../enum/PathTypeColorExtension.dart';
+import 'eyuun/Brushes.dart';
 
 class PathsWidget extends StatefulWidget {
   const PathsWidget({super.key});
@@ -70,46 +72,49 @@ class _PathsWidgetState extends State<PathsWidget> {
 
   Widget _buildAdditionalPathButton(
       BuildContext context, Entity additionalPathItem) {
-
     var pathStep = additionalPathItem.get<PathStepComponent>()!;
 
     return LayoutBuilder(
       builder: (context, constraints) {
         final hideText = constraints.maxWidth < 100; // hide text if too narrow
 
-        return ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: pathStep.pathType.color,
-            foregroundColor: pathStep.pathType.textColor,
-            padding: const EdgeInsets.all(8),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-          onPressed: () => setState(() {}),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.auto_awesome, size: 32),
-              if (!hideText) ...[
-                const SizedBox(height: 4),
-                Text(
-                  locator<TextService>().getText(additionalPathItem.getTextKey()),
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
+        return DecoratedBox(
+          position: DecorationPosition.foreground,
+            decoration: EyuunDecoration(paint: Brushes.goldSparkling(), cornerSize: 12, fillCorners: true),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: pathStep.pathType.color,
+                foregroundColor: pathStep.pathType.textColor,
+                padding: const EdgeInsets.all(8),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
                 ),
-              ],
-            ],
-          ),
-        );
+              ),
+              onPressed: () => setState(() {}),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.auto_awesome, size: 32),
+                  if (!hideText) ...[
+                    const SizedBox(height: 4),
+                    Text(
+                      locator<TextService>()
+                          .getText(additionalPathItem.getTextKey()),
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ],
+              ),
+            ));
       },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-
-    var additionalPathWidgets = pathController.getChosenAdditionalPaths()
+    var additionalPathWidgets = pathController
+        .getChosenAdditionalPaths()
         .map((item) => _buildAdditionalPathButton(context, item))
         .toList();
 
@@ -119,9 +124,9 @@ class _PathsWidgetState extends State<PathsWidget> {
           () => setState(() {
                 PopupUtil.popup(
                     context,
-                    const Center(child: Text(
-                        "Popup showing all available Additional Paths first, then the rest you cannot yet pick."))
-                    ,
+                    const Center(
+                        child: Text(
+                            "Popup showing all available Additional Paths first, then the rest you cannot yet pick.")),
                     maximumSize: Size(900, 700));
               })));
     }
@@ -137,14 +142,13 @@ class _PathsWidgetState extends State<PathsWidget> {
 
         // Progress bars
         ...pathController.getChosenPaths().map((path) {
-          
           var pathId = path.getTypeId();
           var pathComponent = path.get<PathComponent>() ?? PathComponent();
 
           var progress = pathController.getPathProgress(pathId);
           var progressMax = pathController.getPathMaximum(pathId);
 
-          if(progressMax < 1) {
+          if (progressMax < 1) {
             progressMax = 1;
           }
 
@@ -212,12 +216,11 @@ class _PathsWidgetState extends State<PathsWidget> {
                                         child: Container(
                                           width: 36,
                                           height: 36,
-                                          decoration: BoxDecoration(
-                                            border: Border.all(width: 2),
-                                            color: pathType.color,
-                                            borderRadius: BorderRadius.circular(
-                                                25), // circular knob
-                                          ),
+                                          decoration: EyuunDecoration(
+                                              paint: Brushes.goldSparkling(),
+                                              background: pathType.color,
+                                              fillCorners: false,
+                                              cornerSize: 8),
                                           alignment: Alignment.center,
                                           child: Text(
                                             '$progress',
