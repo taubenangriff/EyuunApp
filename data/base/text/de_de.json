@@ -69,6 +69,23 @@
     "uitext_applyStatusEffect": "Fügt dem Ziel folgenden Statuseffekt hinzu:",
     "uitext_applyStatusEffectOnHit": "Fügt dem Ziel folgenden Statuseffekt hinzu:",
     "uitext_pushback": "Stößt das Ziel um 3 Schritt zurück",
-    "uitext_resistence": "Resistenz"
+    "uitext_resistence": "Resistenz",
+
+    "uitext_fluxcapacityupgrade": "Erhöhte Flusskapazität:",
+    "uitext_fluxmaximumupgrade": "Erhöhtes Flussmaximum:",
+    "uitext_armortoughnessupgrade": "Bonusrüstung:",
+    "uitext_attributediceupgrade": "Zusätzliche Attributwürfel:",
+    "uitext_pathupgrade": "Zusätzliche Pfade:",
+    "uitext_speedupgrade": "Geschwindigkeit:",
+    "uitext_evasionupgrade": "Ausweichen:",
+    "uitext_initiativeupgrade": "Initiative:",
+    "uitext_actionsupgrade": "Bonusaktionen:",
+    "uitext_reactionsupgrade": "Bonusreaktionen:",
+    "uitext_maxhealthupgrade": "erhöhte Max-Leben:",
+    "uitext_maxdtupgrade": "zusätzliche Todeswürfe:",
+    "uitext_langpotentialupgrade": "erhöhtes Sprachpotenzial:",
+    "uitext_skillpointsupgrade": "zusätzliche Talentpunkte:",
+    "uitext_skillceilingupgrade": "erhöhter max. Talentwert:",
+    "master_upgrade_effectdesc": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
   }
 }

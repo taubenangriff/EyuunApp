@@ -6,6 +6,7 @@ import 'package:EyuunApp/core/assetLink.dart';
 import 'package:EyuunApp/core/components/EntityExtensions.dart';
 import 'package:EyuunApp/core/services/assetloader.dart';
 import 'package:EyuunApp/view/enum/RomanNumeralExtension.dart';
+import 'package:EyuunApp/view/widgets/BuffDisplay.dart';
 import 'package:flutter/material.dart';
 import 'package:lorem_ipsum/lorem_ipsum.dart';
 import 'package:oxygen/oxygen.dart';
@@ -72,7 +73,11 @@ class _PathPopupState extends State<PathPopup> {
                     : (widget.pathController.canPickStep(typeId)
                         ? Colors.orangeAccent
                         : Colors.grey.shade700)),
-          ))
+          )),
+          SizedBox(width: 10),
+          Flexible(
+            child: BuffDisplay(buff: typeId)
+          )
         ]));
   }
 

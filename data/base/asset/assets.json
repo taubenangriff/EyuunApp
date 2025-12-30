@@ -349,6 +349,9 @@
       "standard": {
         "typeId": "master_upgrade"
       },
+      "buff": {
+        "textDescription": "master_upgrade_effectdesc"
+      },
       "text": { },
       "armorUpgrade" : {
         "armorToughnessBonus": 1
