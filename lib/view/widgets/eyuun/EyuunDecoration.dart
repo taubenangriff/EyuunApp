@@ -35,15 +35,6 @@ class _EyuunDecorationPainter extends BoxPainter {
     _drawDecoration(canvas, bounds);
   }
 
-  void _drawBackground(Canvas canvas, Rect bounds) {
-    if(background == null) {
-      return;
-    }
-
-
-
-  }
-
   void _drawDecoration(Canvas canvas, Rect bounds) {
     Paint outerPaint = Paint.from(paintBrush)..strokeWidth = 1.5;
 
