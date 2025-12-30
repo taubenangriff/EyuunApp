@@ -1,6 +1,8 @@
 import 'package:EyuunApp/components/CharacterPath.dart';
+import 'package:EyuunApp/components/Path.dart';
 import 'package:EyuunApp/components/PathStep.dart';
 import 'package:EyuunApp/components/feature/PathFeature.dart';
+import 'package:EyuunApp/core/assetLink.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../components/upgradable.dart';
@@ -36,9 +38,22 @@ class PathController {
   /// is it possible to pick a new path.
   bool canPickNewPath() => true;
 
+  /// is it possible to pick a new additional path.
+  bool canPickAdditional() => true;
+
   /// picks a new path and adds it to [_characterPathComponent]. Doesn't add any pathSteps, that has to be done manually.
   void pickNewPath(String id) => UnimplementedError();
 
-  /// returns a list of static assets of all additional paths that are available to the character at the moment.
+  /// returns a list of static assets of all additional paths that are available to the character at the moment. Entries are assured to have [PathStepComponent].
   List<Entity> getPickableAdditionalPaths() => [];
+
+  /// gets the current progress of the path under [id]. returns 0 if [id] does not have [PathComponent].
+  int getPathProgress(String id) => 0;
+
+  /// gets the maximum possible progress of the path under [id]. returns 0 if [id] does not have [PathComponent].
+  int getPathMaximum(String id) => 0;
+
+  List<Entity> getChosenPaths() => _characterPathComponent.chosenPaths.getAssets();
+  List<Entity> getChosenPathSteps() => _characterPathComponent.chosenPathSteps.getAssets();
+  List<Entity> getChosenAdditionalPaths() => _characterPathComponent.chosenPathSteps.getAssets().where((e) => e.get<PathStepComponent>()?.isAdditional ?? false).toList();
 }

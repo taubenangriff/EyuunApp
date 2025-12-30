@@ -28,6 +28,10 @@
     "language_eyuun": "Eyuunisch",
     "fluff_eyuunlang" : "Gesprochen von den allermeisten Wesen, denen man in Eyuun über den Weg läuft.",
 
+    "path_flux_01": "Arkanist",
+    "path_flux_01_step_00": "Flussleitend",
+    "path_flux_additional_00_step": "ZusatzFluss01",
+
     "damage_normal" : "Normal",
     "fluff_damage_normal" : "Schaden = (Grundschaden - Rüstung) * Anfälligkeit.",
     "damage_armorpen": "Rüstungsbrechend",

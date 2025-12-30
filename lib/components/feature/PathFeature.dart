@@ -21,7 +21,7 @@ class PathFeatureStatic with PathFeatureStaticMappable {
 }
 
 class PathFeatureComponent extends EyuunComponent<int> {
-  static const String propertyName = "PathFeature";
+  static const String propertyName = "pathFeature";
 
   late List<AssetLink> paths;
   late List<PathAdditionalEntry> additionalPaths;

@@ -1,6 +1,8 @@
 import 'package:EyuunApp/components/text.dart';
+import 'package:EyuunApp/core/components/EntityExtensions.dart';
 import 'package:EyuunApp/core/services/assetloader.dart';
 import 'package:EyuunApp/core/repository/TextRepository.dart';
+import 'package:oxygen/oxygen.dart';
 
 import '../assetLink.dart';
 import '../registerServices.dart';
@@ -13,6 +15,8 @@ class TextService {
     _assetLoader = locator<AssetLoader>();
     _textRepository = locator<TextRepository>();
   }
+
+  String getTextFromEntity(Entity entity) => getText(entity.getTextKey());
 
   String getText(String textLookup)
   {

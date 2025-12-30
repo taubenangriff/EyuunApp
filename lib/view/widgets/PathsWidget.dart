@@ -1,9 +1,19 @@
 import 'dart:math';
 
+import 'package:EyuunApp/components/CharacterPath.dart';
+import 'package:EyuunApp/components/Path.dart';
+import 'package:EyuunApp/components/PathStep.dart';
+import 'package:EyuunApp/controller/PathController.dart';
+import 'package:EyuunApp/core/components/EntityExtensions.dart';
+import 'package:EyuunApp/core/services/CharacterService.dart';
+import 'package:EyuunApp/main.dart';
 import 'package:EyuunApp/view/popup/PathPopup.dart';
 import 'package:EyuunApp/view/popup/PopupUtil.dart';
 import 'package:flutter/material.dart';
+import 'package:oxygen/oxygen.dart';
 
+import '../../core/registerServices.dart';
+import '../../core/services/TextService.dart';
 import '../../enums/PathType.dart';
 import '../enum/PathTypeColorExtension.dart';
 
@@ -14,61 +24,14 @@ class PathsWidget extends StatefulWidget {
   State<PathsWidget> createState() => _PathsWidgetState();
 }
 
-class PathValue {
-  String name;
-  int progress;
-  int additional;
-  final PathType type;
-
-  PathValue(this.name, this.progress, this.additional, this.type);
-}
-
-class AdditionalPathItem {
-  final String name;
-  final String pathName;
-  final String icon;
-  final PathType type;
-
-  AdditionalPathItem(
-      {required this.name,
-      required this.pathName,
-      required this.icon,
-      required this.type});
-}
-
 class _PathsWidgetState extends State<PathsWidget> {
   static const int maxValue = 10;
   bool canAddAdditional = true;
 
-  late final List<PathValue> progressValues = [
-    PathValue("CrafterPath", 3, 0, PathType.Crafter),
-    PathValue("FighterPath", 5, 0, PathType.Fighter),
-    PathValue("FlowPath", 7, 0, PathType.Flux),
-    PathValue("AcolytePath", 1, 4, PathType.Acolyte)
-  ];
+  var character = locator<CharacterService>().character;
 
-  final List<AdditionalPathItem> additionalPaths = [
-    AdditionalPathItem(
-        name: "Flow Add1",
-        pathName: "Flow1",
-        icon: "icon",
-        type: PathType.Flux),
-    AdditionalPathItem(
-        name: "Crafter Add2",
-        pathName: "CrafterSub1",
-        icon: "icon",
-        type: PathType.Crafter),
-    AdditionalPathItem(
-        name: "Acolyte Add2",
-        pathName: "AcolyteSub2",
-        icon: "icon",
-        type: PathType.Acolyte),
-    AdditionalPathItem(
-        name: "Acolyte Add4",
-        pathName: "AcolyteSub",
-        icon: "icon",
-        type: PathType.Acolyte)
-  ];
+  late var pathController = PathController(character);
+  late var pathComponent = character.get<CharacterPathComponent>();
 
   Widget _buildAddNewAdditionalPathButton(
       BuildContext context, VoidCallback onPressed) {
@@ -106,15 +69,18 @@ class _PathsWidgetState extends State<PathsWidget> {
   }
 
   Widget _buildAdditionalPathButton(
-      BuildContext context, AdditionalPathItem item) {
+      BuildContext context, Entity additionalPathItem) {
+
+    var pathStep = additionalPathItem.get<PathStepComponent>()!;
+
     return LayoutBuilder(
       builder: (context, constraints) {
         final hideText = constraints.maxWidth < 100; // hide text if too narrow
 
         return ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: item.type.color,
-            foregroundColor: item.type.textColor,
+            backgroundColor: pathStep.pathType.color,
+            foregroundColor: pathStep.pathType.textColor,
             padding: const EdgeInsets.all(8),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -128,7 +94,7 @@ class _PathsWidgetState extends State<PathsWidget> {
               if (!hideText) ...[
                 const SizedBox(height: 4),
                 Text(
-                  item.name,
+                  locator<TextService>().getText(additionalPathItem.getTextKey()),
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -143,11 +109,11 @@ class _PathsWidgetState extends State<PathsWidget> {
   @override
   Widget build(BuildContext context) {
 
-    var additionalPathWidgets = additionalPaths
+    var additionalPathWidgets = pathController.getChosenAdditionalPaths()
         .map((item) => _buildAdditionalPathButton(context, item))
         .toList();
 
-    if (canAddAdditional) {
+    if (pathController.canPickAdditional()) {
       additionalPathWidgets.add(_buildAddNewAdditionalPathButton(
           context,
           () => setState(() {
@@ -157,12 +123,6 @@ class _PathsWidgetState extends State<PathsWidget> {
                         "Popup showing all available Additional Paths first, then the rest you cannot yet pick."))
                     ,
                     maximumSize: Size(900, 700));
-                additionalPaths.add(AdditionalPathItem(
-                    name: "Fighter Add1",
-                    pathName: "Fighter",
-                    icon: "icon",
-                    type: PathType.Fighter));
-                canAddAdditional = false;
               })));
     }
 
@@ -176,7 +136,20 @@ class _PathsWidgetState extends State<PathsWidget> {
         const SizedBox(height: 16),
 
         // Progress bars
-        ...progressValues.map((path) {
+        ...pathController.getChosenPaths().map((path) {
+          
+          var pathId = path.getTypeId();
+          var pathComponent = path.get<PathComponent>() ?? PathComponent();
+
+          var progress = pathController.getPathProgress(pathId);
+          var progressMax = pathController.getPathMaximum(pathId);
+
+          if(progressMax < 1) {
+            progressMax = 1;
+          }
+
+          var pathType = pathComponent.pathType;
+
           return Padding(
               padding: const EdgeInsets.all(2),
               child: InkWell(
@@ -195,7 +168,7 @@ class _PathsWidgetState extends State<PathsWidget> {
                           SizedBox(
                             width: 120,
                             child: Text(
-                              path.name,
+                              locator<TextService>().getTextFromEntity(path),
                               style:
                                   const TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -207,7 +180,7 @@ class _PathsWidgetState extends State<PathsWidget> {
                               builder: (context, constraints) {
                                 final barWidth = constraints.maxWidth;
                                 final position =
-                                    (path.progress / maxValue) * barWidth;
+                                    (progress / progressMax) * barWidth;
 
                                 return Stack(
                                   clipBehavior: Clip.none,
@@ -225,7 +198,7 @@ class _PathsWidgetState extends State<PathsWidget> {
                                       width: position,
                                       height: 24,
                                       decoration: BoxDecoration(
-                                        color: path.type.color,
+                                        color: pathType.color,
                                         borderRadius: BorderRadius.circular(12),
                                       ),
                                     ),
@@ -241,15 +214,15 @@ class _PathsWidgetState extends State<PathsWidget> {
                                           height: 36,
                                           decoration: BoxDecoration(
                                             border: Border.all(width: 2),
-                                            color: path.type.color,
+                                            color: pathType.color,
                                             borderRadius: BorderRadius.circular(
                                                 25), // circular knob
                                           ),
                                           alignment: Alignment.center,
                                           child: Text(
-                                            '${path.progress}',
+                                            '$progress',
                                             style: TextStyle(
-                                              color: path.type.textColor,
+                                              color: pathType.textColor,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 16,
                                             ),

@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'dart:math';
 
 import 'package:EyuunApp/components/Attributes.dart';
+import 'package:EyuunApp/components/Path.dart';
 import 'package:EyuunApp/components/health.dart';
 import 'package:EyuunApp/core/UpgradableInt.dart';
 import 'package:EyuunApp/core/components/standard.dart';
@@ -19,6 +20,7 @@ import 'package:oxygen/oxygen.dart';
 
 import 'dart:convert';
 
+import 'components/CharacterPath.dart';
 import 'components/Flux.dart';
 import 'components/inventory.dart';
 import 'core/assetLink.dart';
@@ -79,6 +81,10 @@ void fillTestData()
   char.get<FluxComponent>()?.fluxMaximum = 15.upgradable;
   char.get<FluxComponent>()?.fluxSpent = 2;
   char.get<FluxComponent>()?.fluxCapacity = 12.upgradable;
+
+  char.get<CharacterPathComponent>()?.chosenPaths.add(AssetLink("path_flux_01"));
+  char.get<CharacterPathComponent>()?.chosenPathSteps.add(AssetLink("path_flux_01_step_00"));
+  char.get<CharacterPathComponent>()?.chosenPathSteps.add(AssetLink("path_flux_additional_00_step"));
 }
 
 class MyApp extends StatelessWidget {
