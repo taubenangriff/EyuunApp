@@ -87,8 +87,8 @@ class _PathPopupState extends State<PathPopup> {
                     color: widget.pathController.isStepPicked(typeId)
                         ? Colors.grey.shade400
                         : (widget.pathController.canPickStep(typeId)
-                        ? Colors.orangeAccent
-                        : Colors.grey.shade700),
+                            ? Colors.orangeAccent
+                            : Colors.grey.shade700),
                   ),
                 ),
 
@@ -104,7 +104,6 @@ class _PathPopupState extends State<PathPopup> {
         ],
       ),
     );
-
   }
 
   @override
@@ -113,43 +112,46 @@ class _PathPopupState extends State<PathPopup> {
     var pathSteps =
         pathAsset?.get<PathComponent>()?.pickableSteps.getAssets() ?? [];
 
-    return SingleChildScrollView(
-      child: DecoratedBox(decoration: EyuunDecoration(paint: Brushes.silverSparkling(), cornerSize: 12), child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
-        child: Column(
-          children: [
-            Text(
-              locator<TextService>().getTextFromEntity(pathAsset!),
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+    return DecoratedBox(
+        decoration:
+            EyuunDecoration(paint: Brushes.silverSparkling(), cornerSize: 12),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+            child: Column(
+              children: [
+                Text(
+                  locator<TextService>().getTextFromEntity(pathAsset!),
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                for (var (index, step) in pathSteps.indexed) ...[
+                  widget.pathController.canPickNewPath() &&
+                          widget.pathController.canPickStep(step.getTypeId())
+                      ? InkWell(
+                          onTap: _increasePath,
+                          child: Container(
+                              decoration: BoxDecoration(
+                                // optional background
+                                border: Border.all(
+                                  color: Colors.orangeAccent, // border color
+                                  width: 1, // border thickness
+                                ),
+                                borderRadius:
+                                    BorderRadius.circular(8), // rounded corners
+                              ),
+                              child: _buildPath(step)))
+                      :
+                      //these paths are just for display.
+                      _buildPath(step),
+                  const SizedBox(height: 12),
+                ],
+              ],
             ),
-            const SizedBox(height: 16),
-            for (var (index, step) in pathSteps.indexed) ...[
-              widget.pathController.canPickNewPath() &&
-                      widget.pathController.canPickStep(step.getTypeId())
-                  ? InkWell(
-                      onTap: _increasePath,
-                      child: Container(
-                          decoration: BoxDecoration(
-                            // optional background
-                            border: Border.all(
-                              color: Colors.orangeAccent, // border color
-                              width: 1, // border thickness
-                            ),
-                            borderRadius:
-                                BorderRadius.circular(8), // rounded corners
-                          ),
-                          child: _buildPath(step)))
-                  :
-                  //these paths are just for display.
-                  _buildPath(step),
-              const SizedBox(height: 12),
-            ],
-          ],
-        ),
-      ),
-    ));
+          ),
+        ));
   }
 }

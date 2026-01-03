@@ -9,6 +9,7 @@ import 'package:EyuunApp/core/services/CharacterService.dart';
 import 'package:EyuunApp/main.dart';
 import 'package:EyuunApp/view/popup/PathPopup.dart';
 import 'package:EyuunApp/view/popup/PopupUtil.dart';
+import 'package:EyuunApp/view/widgets/BuffDisplay.dart';
 import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
@@ -93,7 +94,28 @@ class _PathsWidgetState extends State<PathsWidget> {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              onPressed: () => setState(() {}),
+              onPressed: () => setState(() {
+                PopupUtil.popup(
+                    context,
+                    DecoratedBox(decoration: EyuunDecoration(paint: Brushes.silverSparkling(), cornerSize: 12), child:
+                    Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 30, horizontal: 30),
+                        child: Column(
+                          children: [
+                            Text(
+                                locator<TextService>()
+                                    .getTextFromEntity(additionalPathItem),
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                            SizedBox(height: 16),
+                            BuffDisplay(buff: additionalPathItem.getTypeId())
+                          ],
+                        ))));
+              }),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -161,7 +183,11 @@ class _PathsWidgetState extends State<PathsWidget> {
               padding: const EdgeInsets.all(2),
               child: InkWell(
                   onTap: () {
-                    PopupUtil.popup(context, PathPopup(pathController: pathController, pathId: path.getTypeId()),
+                    PopupUtil.popup(
+                        context,
+                        PathPopup(
+                            pathController: pathController,
+                            pathId: path.getTypeId()),
                         maximumSize: Size(1000, 900));
                   },
                   borderRadius:
