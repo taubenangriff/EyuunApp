@@ -8,7 +8,19 @@ class StaticAssetLoader {
   StaticAssetLoader(this.componentRepository);
 
   Map<String, dynamic> toMap(Asset asset) {
-    return <String, dynamic>{};
+    var map = <String, dynamic>{};
+
+    for(var comp in asset.components){
+      var key = componentRepository.getKey(comp.runtimeType);
+      if(key == null) {
+        continue;
+      }
+
+      var submap = componentRepository.toMap(comp);
+      map[key] = submap;
+    }
+
+    return map;
   }
 
   Asset loadAsset(Map<String, dynamic> jsonMap) {
@@ -16,7 +28,6 @@ class StaticAssetLoader {
 
     for(var key in jsonMap.keys){
       if(componentRepository.isComponent(key)){
-
         var submap = jsonMap[key];
 
         var comp = componentRepository.fromMap(key, submap);
@@ -24,7 +35,6 @@ class StaticAssetLoader {
         {
           asset.components.add(comp);
         }
-
       }
     }
     return asset;

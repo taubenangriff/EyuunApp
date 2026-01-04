@@ -48,14 +48,14 @@ import 'components/standard.dart';
 import '../components/text.dart';
 import 'services/WorldManager.dart';
 
-extension registerComponentsExtension on ComponentRepository {
+extension registerEditorComponentsExtension on ComponentRepository {
   void registerComponents() {
-    registerComponent<StandardStatic>(StandardComponent.propertyName, (map) => StandardStatic.fromMap(map));
-    registerComponent<LanguageStatic>(LanguageComponent.propertyName, (map) => LanguageStaticMapper.fromMap(map));
+    registerComponent<StandardStatic>(StandardComponent.propertyName, (map) => StandardStatic.fromMap(map), (comp) => comp.toMap());
+    registerComponent<LanguageStatic>(LanguageComponent.propertyName, (map) => LanguageStaticMapper.fromMap(map), (comp) => comp.toMap());
   }
 }
 
-extension RegisterUpgradesExtension on WorldManager {
+extension RegisterComponentsExtension on WorldManager {
   void registerComponents() {
     registerComponent<StandardComponent, String>(StandardComponent.propertyName, () => StandardComponent());
     registerComponent<HealthComponent, int>(HealthComponent.propertyName, () => HealthComponent());
