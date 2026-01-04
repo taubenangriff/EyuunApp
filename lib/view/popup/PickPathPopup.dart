@@ -41,6 +41,7 @@ class _PickPathPopupState extends State<PickPathPopup> {
     allPaths.sort((x, y) => x.get<PathComponent>()?.pathType.index ?? 0 - (y.get<PathComponent>()?.pathType.index ?? 0));
 
     //remove Paths we already picked.
+    //TODO uncomment this again
     //allPaths.removeWhere((e) => widget.pathController.isPathPicked(e.getTypeId()));
 
     final filteredPaths = allPaths.where((path) {

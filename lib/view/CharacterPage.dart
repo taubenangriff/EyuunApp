@@ -147,9 +147,8 @@ class _CharacterPageState extends State<CharacterPage> {
                         ),
                       ],
                     ),
-                    if(languageLearner != null)
-                      SizedBox(height: 16),
-                    if(languageLearner != null)
+                    if (languageLearner != null) SizedBox(height: 16),
+                    if (languageLearner != null)
                       Stack(
                         children: [
                           // The decorated box with your content
@@ -177,8 +176,8 @@ class _CharacterPageState extends State<CharacterPage> {
                               },
                             ),
                           ),
-                      ],
-                    ),
+                        ],
+                      ),
                     SizedBox(height: 200)
                   ],
                 ))),
@@ -219,6 +218,16 @@ class _CharacterPageState extends State<CharacterPage> {
                 '${flux.fluxSpent}/${flux.fluxCapacity.current} (${flux.fluxMaximum.current})',
             tooltip: 'flux',
             icon: Icons.water,
+          ),
+          const SizedBox(width: 16),
+          _buildLargeFab(
+            onPressed: () {
+              PopupUtil.popup(
+                  context, const Center(child: Text('Description of what a rest does')), maximumSize: const Size(350,200));
+            },
+            text: 'Rest',
+            tooltip: 'Conduct a rest',
+            icon: Icons.bed_outlined,
           ),
         ],
       ),
