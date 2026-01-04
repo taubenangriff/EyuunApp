@@ -673,8 +673,8 @@
     },
     {
       "standard": {
-        "typeId": "level_0",
-        "internalName": "Level 0 | Base"
+        "typeId": "level_1",
+        "internalName": "Level 1 | Base"
       },
       "text": { },
       "talentsUpgrade" : {
@@ -690,8 +690,8 @@
     },
     {
       "standard": {
-        "typeId": "level_1",
-        "internalName": "Level 1"
+        "typeId": "level_2",
+        "internalName": "Level 2"
       },
       "text": { },
       "talentsUpgrade" : {

@@ -1,9 +1,12 @@
+import 'package:EyuunApp/components/Combat.dart';
 import 'package:EyuunApp/view/popup/ChangeHealthPopup.dart';
 import 'package:EyuunApp/view/popup/ChangeValuePopup.dart';
 import 'package:EyuunApp/view/popup/PopupUtil.dart';
+import 'package:EyuunApp/view/widgets/CombatStatsRow.dart';
 import 'package:EyuunApp/view/widgets/eyuun/Brushes.dart';
 import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../components/Flux.dart';
 import '../components/health.dart';
@@ -21,23 +24,14 @@ class CombatPage extends StatefulWidget {
 }
 
 class _CombatPageState extends State<CombatPage> {
-
   @override
   Widget build(BuildContext context) {
     var character = locator<CharacterService>().character;
     var health = character.get<HealthComponent>()!;
-
     var flux = character.get<FluxComponent>()!;
 
-    var vitalityCurrent = 12;
-    var vitalityMax = 20;
+    var combat = character.get<CombatComponent>();
 
-    final vitalityController = ChangeValueController(vitalityCurrent,
-        maxLimit: vitalityMax,
-        minLimit: 0,
-        onValUpdated: (val) => setState(() {
-          vitalityCurrent = val;
-        }));
     final fluxController = ChangeValueController(flux.fluxSpent,
         maxLimit: flux.fluxCapacity.current,
         minLimit: 0,
@@ -47,19 +41,49 @@ class _CombatPageState extends State<CombatPage> {
 
     return Scaffold(
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Center(
+          padding: const EdgeInsets.all(16),
+          child: Center(
             child: ConstrainedBox(
                 constraints: BoxConstraints(maxWidth: desiredSize),
-                child: Text('Combat'))),
-      ),
+                child: Column(children: [
+                  if (combat != null)
+                    Stack(
+                      children: [
+                        DecoratedBox(
+                          decoration: EyuunDecoration(
+                              cornerSize: 20,
+                              paint: Brushes
+                                  .goldSparkling()), // intentionally empty
+                          child: Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: CombatStatsRow(combat: combat)),
+                        ),
+                        // The info button in the top right corner
+                        Positioned(
+                          top: 12,
+                          right: 12,
+                          child: IconButton(
+                            icon: const Icon(Icons.info_outline),
+                            tooltip: 'More info on Combat',
+                            onPressed: () async {
+                              const url =
+                                  'https://eyuun.de/kaempfe';
+                              if (await canLaunchUrl(Uri.parse(url))) {
+                                await launchUrl(Uri.parse(url));
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    )
+                ])),
+          )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _buildLargeFab(
             onPressed: () {
-
               final healthController = HealthController();
               healthController.setDamageTarget(character);
 
@@ -70,7 +94,8 @@ class _CombatPageState extends State<CombatPage> {
                   }),
                   maximumSize: Size(350, 800));
             },
-            text: "${health.shield > 0 ? "${health.hitpoints}+${health.shield}" : "${health.hitpoints}"} / ${health.maxHitpoints.current}",
+            text:
+                "${health.shield > 0 ? "${health.hitpoints}+${health.shield}" : "${health.hitpoints}"} / ${health.maxHitpoints.current}",
             tooltip: 'Health',
             icon: Icons.heart_broken,
           ),
@@ -85,7 +110,8 @@ class _CombatPageState extends State<CombatPage> {
                     });
                   }));
             },
-            text: '${flux.fluxSpent}/${flux.fluxCapacity.current} (${flux.fluxMaximum.current})',
+            text:
+                '${flux.fluxSpent}/${flux.fluxCapacity.current} (${flux.fluxMaximum.current})',
             tooltip: 'flux',
             icon: Icons.water,
           ),
@@ -96,17 +122,16 @@ class _CombatPageState extends State<CombatPage> {
 
   Widget _buildLargeFab(
       {required IconData icon,
-        required VoidCallback onPressed,
-        required String text,
-        String tooltip = ""}) {
+      required VoidCallback onPressed,
+      required String text,
+      String tooltip = ""}) {
     var color = Color(0xccfdcc3a);
     return SizedBox(
         width: 130,
         height: 90,
-        child:
-        DecoratedBox(
+        child: DecoratedBox(
             decoration:
-            EyuunDecoration(cornerSize: 12, paint: Brushes.goldSparkling()),
+                EyuunDecoration(cornerSize: 12, paint: Brushes.goldSparkling()),
             position: DecorationPosition.foreground,
             child: FloatingActionButton(
                 heroTag: text,
@@ -115,6 +140,9 @@ class _CombatPageState extends State<CombatPage> {
                 child: Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Icon(icon, size: 36, color: color), Text(text, style: TextStyle(color: color))]))));
+                    children: [
+                      Icon(icon, size: 36, color: color),
+                      Text(text, style: TextStyle(color: color))
+                    ]))));
   }
 }
