@@ -17,6 +17,7 @@ import 'package:oxygen/oxygen.dart';
 import '../../core/registerServices.dart';
 import '../../core/services/TextService.dart';
 import '../widgets/eyuun/Brushes.dart';
+
 class UpbringingPopup extends StatelessWidget {
   final Entity? primary;
   final Entity? secondary;
@@ -45,16 +46,14 @@ class UpbringingPopup extends StatelessWidget {
                 entity: primary,
               ),
             ),
-            if(secondary != null)
-              const SizedBox(width: 24),
-
-            if(secondary != null)
-            Expanded(
-              child: _UpbringingColumn(
-                title: 'Secondary Upbringing',
-                entity: secondary,
+            if (secondary != null) const SizedBox(width: 24),
+            if (secondary != null)
+              Expanded(
+                child: _UpbringingColumn(
+                  title: 'Secondary Upbringing',
+                  entity: secondary,
+                ),
               ),
-            ),
           ],
         ),
       ),
@@ -122,26 +121,22 @@ class _UpbringingColumn extends StatelessWidget {
         // ───────── Divider ─────────
         if (fluff.isNotEmpty) ...[
           const SizedBox(height: 16),
-
           Divider(
             thickness: 1,
             color: Colors.grey.withOpacity(0.4),
           ),
-
           const SizedBox(height: 12),
-
-          Text(
-            fluff,
-            textAlign: TextAlign.justify,
-            style: TextStyle(
-              fontSize: 14,
-              height: 1.4,
-              color: Colors.grey.shade300,
-            ),
-          ),
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Text(
+                fluff,
+                textAlign: TextAlign.justify,
+                style: const TextStyle(
+                  fontStyle: FontStyle.italic,
+                ),
+              )),
         ],
       ],
     );
   }
 }
-

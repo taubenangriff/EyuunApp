@@ -53,7 +53,7 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
     var characterComponent = widget.character.get<CharacterBaseComponent>();
 
     var upbringingBuff = characterComponent?.upbringing.getEntity();
-    var secondUpbringingBuff = characterComponent?.secondUpbringing.getEntity();
+    var secondUpbringingBuff = characterComponent?.secondUpbringing?.getEntity();
     var childhoodBuff = characterComponent?.childhood.getEntity();
 
     var textService = locator<TextService>();
@@ -116,7 +116,7 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                               PopupUtil.popup(
                                 context,
                                 UpbringingPopup(primary: upbringingBuff, secondary: secondUpbringingBuff),
-                                maximumSize: Size(1000, 600)
+                                maximumSize: Size(characterComponent?.hasSecondaryUpbringing() ?? true ? 1000 : 500, 600)
                               );
                             },
                             child: Container(

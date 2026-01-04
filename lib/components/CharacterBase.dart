@@ -25,7 +25,7 @@ class CharacterBaseComponent extends EyuunComponent<int> {
   static const String propertyName = "characterBase";
 
   late AssetLink upbringing;
-  late AssetLink? secondUpbringing;
+  AssetLink? secondUpbringing;
   late AssetLink childhood;
   late int level;
   late String origin;
@@ -53,9 +53,15 @@ class CharacterBaseComponent extends EyuunComponent<int> {
 
   }
 
+  bool hasSecondaryUpbringing() => secondUpbringing != null;
+
   @override
   void reset() {
-
+    upbringing = AssetLink.invalid();
+    secondUpbringing = null;
+    childhood = AssetLink.invalid();
+    level = 0;
+    origin = "";
   }
 
   @override
