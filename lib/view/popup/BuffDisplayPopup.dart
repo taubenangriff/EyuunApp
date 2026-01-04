@@ -38,6 +38,7 @@ class BuffDisplayPopup extends StatelessWidget {
         padding: const EdgeInsets.symmetric(
             vertical: 30, horizontal: 30),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text(
                 locator<TextService>()
