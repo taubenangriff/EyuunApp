@@ -6,9 +6,9 @@ import 'package:EyuunApp/view/popup/UpbringingPopup.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
-import '../../core/registerServices.dart';
-import '../../core/services/TextService.dart';
-import '../popup/PopupUtil.dart';
+import '../../../core/registerServices.dart';
+import '../../../core/services/TextService.dart';
+import '../../popup/PopupUtil.dart';
 
 class CharacterInfoWidget extends StatefulWidget {
   final ImageProvider profileImage;

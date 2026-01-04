@@ -2,7 +2,7 @@ import 'package:EyuunApp/components/Combat.dart';
 import 'package:EyuunApp/view/popup/ChangeHealthPopup.dart';
 import 'package:EyuunApp/view/popup/ChangeValuePopup.dart';
 import 'package:EyuunApp/view/popup/PopupUtil.dart';
-import 'package:EyuunApp/view/widgets/CombatStatsRow.dart';
+import 'package:EyuunApp/view/widgets/Cards/CombatStatsRow.dart';
 import 'package:EyuunApp/view/widgets/eyuun/Brushes.dart';
 import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
 import 'package:flutter/material.dart';

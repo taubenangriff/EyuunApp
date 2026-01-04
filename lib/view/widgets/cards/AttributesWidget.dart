@@ -4,11 +4,10 @@ import 'package:EyuunApp/controller/AttributesController.dart';
 import 'package:EyuunApp/view/widgets/DiceIcon.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/Attributes.dart';
-import '../../core/registerServices.dart';
-import '../../core/services/CharacterService.dart';
-import '../../core/services/TextService.dart';
-import '../../enums/dice.dart';
+import '../../../components/Attributes.dart';
+import '../../../core/registerServices.dart';
+import '../../../core/services/CharacterService.dart';
+import '../../../core/services/TextService.dart';
 
 class AttributesWidget extends StatefulWidget {
   const AttributesWidget({super.key});
