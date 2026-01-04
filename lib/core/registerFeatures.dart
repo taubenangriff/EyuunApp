@@ -1,3 +1,4 @@
+import 'package:EyuunApp/components/feature/CharacterTables.dart';
 import 'package:EyuunApp/components/feature/LevelFeature.dart';
 import 'package:EyuunApp/core/registerServices.dart';
 import 'package:EyuunApp/core/services/assetloader.dart';
@@ -9,6 +10,7 @@ class FeatureIds {
   static const String combatFeature = "combat_feature";
   static const String pathFeature = "path_feature";
   static const String levelFeature = "level_feature";
+  static const String characterTablesFeature = "character_tables_feature";
 }
 
 void registerFeatures() {
@@ -24,4 +26,8 @@ void registerFeatures() {
       locator<AssetLoader>()
           .getStatic(FeatureIds.levelFeature)!
           .get<LevelFeatureComponent>()!);
+  locator.registerLazySingleton<CharacterTablesFeatureComponent>(() =>
+      locator<AssetLoader>()
+          .getStatic(FeatureIds.characterTablesFeature)!
+          .get<CharacterTablesFeatureComponent>()!);
 }

@@ -18,6 +18,8 @@ class AssetBundleComponent extends EyuunComponent<int> {
 
   List<AssetLink> assets = [];
 
+  List<Entity> getAssets() => assets.getAssets();
+
 
   @override
   String getName() => propertyName;

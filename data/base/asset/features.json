@@ -2,6 +2,16 @@
   "assets": [
     {
       "standard": {
+        "typeId": "character_tables_feature"
+      },
+      "characterTablesFeature": {
+        "languages": {
+          "id": "all_languages_pool"
+        }
+      }
+    },
+    {
+      "standard": {
         "typeId": "level_feature"
       },
       "levelFeature": {

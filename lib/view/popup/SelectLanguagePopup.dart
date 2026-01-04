@@ -103,7 +103,7 @@ class _SelectLanguagePopupState extends State<SelectLanguagePopup> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("${textService.getText("uitext_spendlangpotential")} (${widget.languagesController.getRemainingPotential()})"),
+                Text("${textService.getText("uitext_spendlangpotential")} ${widget.languagesController.getRemainingPotential()}"),
                 const SizedBox(width: 12),
                 Switch(
                   value: spendLangPotential,

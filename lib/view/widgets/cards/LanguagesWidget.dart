@@ -83,36 +83,40 @@ class _LanguageGridState extends State<LanguageGrid> {
                       ),
                     ),
                   )),
-            if(languageController.canLearnNew())
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  PopupUtil.popup(
-                      context,
-                      SelectLanguagePopup(
-                        languagesController: languageController,
-                        onAccept: () {
-                          setState(() {});
-                        },
-                      ),
-                      maximumSize: Size(900, 700));
-                });
-              },
-              child: const Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.add, size: 28),
-                  SizedBox(height: 4),
-                  Text(
-                    'Add Language',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
+            if (languageController.canLearnNew())
+              DecoratedBox(
+                  position: DecorationPosition.foreground,
+                  decoration: EyuunDecoration(
+                      paint: Brushes.goldSparkling(), cornerSize: 12),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        PopupUtil.popup(
+                            context,
+                            SelectLanguagePopup(
+                              languagesController: languageController,
+                              onAccept: () {
+                                setState(() {});
+                              },
+                            ),
+                            maximumSize: Size(900, 700));
+                      });
+                    },
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.add, size: 28),
+                        SizedBox(height: 4),
+                        Text(
+                          'Add Language',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-            ),
+                  )),
           ],
         )
       ],
