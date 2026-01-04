@@ -1,15 +1,6 @@
-import 'dart:collection';
 import 'dart:math';
 
-import 'package:EyuunApp/components/Attributes.dart';
-import 'package:EyuunApp/components/CharacterBase.dart';
-import 'package:EyuunApp/components/Path.dart';
-import 'package:EyuunApp/components/health.dart';
-import 'package:EyuunApp/core/UpgradableInt.dart';
-import 'package:EyuunApp/core/components/standard.dart';
-import 'package:EyuunApp/controller/AttributesController.dart';
 import 'package:EyuunApp/core/repository/AssetRepository.dart';
-import 'package:EyuunApp/io/AssetSerializer.dart';
 import 'package:EyuunApp/core/registerComponentsExtension.dart';
 import 'package:EyuunApp/core/registerSystemsExtension.dart';
 import 'package:EyuunApp/core/registerUpgradesExtension.dart';
@@ -22,17 +13,13 @@ import 'package:oxygen/oxygen.dart';
 
 import 'dart:convert';
 
-import 'components/CharacterPath.dart';
-import 'components/Flux.dart';
 import 'components/inventory.dart';
 import 'core/assetLink.dart';
 import 'core/registerFeatures.dart';
 import 'core/repository/TextRepository.dart';
 import 'core/services/CharacterService.dart';
-import 'core/services/TextService.dart';
 import 'core/services/assetloader.dart';
 
-import 'package:dart_mappable/dart_mappable.dart';
 
 late Entity character;
 
