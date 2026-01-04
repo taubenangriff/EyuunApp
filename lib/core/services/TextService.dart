@@ -16,7 +16,24 @@ class TextService {
     _textRepository = locator<TextRepository>();
   }
 
-  String getTextFromEntity(Entity entity) => getText(entity.getTextKey());
+  String getTextFromEntity(Entity? entity) {
+    if(entity == null){
+      return "!No Entity";
+    }
+    return getText(entity.getTextKey());
+  }
+
+  String getFluffFromEntity(Entity? entity) {
+    if(entity == null){
+      return "!No Entity";
+    }
+    var fluff = entity.getFluff();
+    if(fluff == null){
+      return "";
+    }
+    return getText(fluff);
+  }
+
 
   String getText(String textLookup)
   {

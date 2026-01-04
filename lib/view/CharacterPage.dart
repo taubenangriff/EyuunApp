@@ -70,10 +70,7 @@ class _CharacterPageState extends State<CharacterPage> {
                         child: CharacterInfoWidget(
                           profileImage: placeholderImage,
                           name: "Glup Shitto",
-                          upbringing: "Trodatome",
-                          level: 5,
-                          childhood: "Homeless",
-                          origin: "Afghanistan",
+                          character: character,
                         ),
                       ),
                     ),

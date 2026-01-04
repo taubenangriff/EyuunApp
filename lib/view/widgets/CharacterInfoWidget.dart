@@ -1,23 +1,23 @@
+import 'package:EyuunApp/components/CharacterBase.dart';
+import 'package:EyuunApp/view/popup/BuffDisplayPopup.dart';
+import 'package:EyuunApp/view/popup/UpbringingPopup.dart';
 import 'package:flutter/material.dart';
+import 'package:oxygen/oxygen.dart';
 
+import '../../core/registerServices.dart';
+import '../../core/services/TextService.dart';
 import '../popup/PopupUtil.dart';
 
 class CharacterInfoWidget extends StatefulWidget {
   final ImageProvider profileImage;
+  final Entity character;
   final String name;
-  final String upbringing;
-  final String childhood;
-  final String origin;
-  final int level;
 
   const CharacterInfoWidget(
       {super.key,
       required this.profileImage,
       required this.name,
-      required this.upbringing,
-      required this.childhood,
-      required this.origin,
-      required this.level});
+      required this.character});
 
   @override
   State<CharacterInfoWidget> createState() => _CharacterInfoWidgetState();
@@ -49,6 +49,14 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
 
     const double textHeight = (height - padding * 2) / 3;
     final double fontSize = isCompact ? 14 : 16;
+
+    var characterComponent = widget.character.get<CharacterBaseComponent>();
+
+    var upbringingBuff = characterComponent?.upbringing.getEntity();
+    var secondUpbringingBuff = characterComponent?.secondUpbringing.getEntity();
+    var childhoodBuff = characterComponent?.childhood.getEntity();
+
+    var textService = locator<TextService>();
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -107,12 +115,8 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                             onTap: () {
                               PopupUtil.popup(
                                 context,
-                                const Center(
-                                  child: Text(
-                                    'Popup describing upbringing buffs and effects.',
-                                  ),
-                                ),
-                                maximumSize: const Size(300, 200),
+                                UpbringingPopup(primary: upbringingBuff, secondary: secondUpbringingBuff),
+                                maximumSize: Size(1000, 600)
                               );
                             },
                             child: Container(
@@ -122,7 +126,7 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: Text(
-                                'Upbringing: ${widget.upbringing}',
+                                'Upbringing: ${textService.getTextFromEntity(upbringingBuff)}',
                                 style: TextStyle(
                                   fontSize: fontSize - 2,
                                   color: Theme.of(context).colorScheme.primary,
@@ -140,12 +144,7 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                             onTap: () {
                               PopupUtil.popup(
                                 context,
-                                const Center(
-                                  child: Text(
-                                    'Popup describing childhood buffs and effects.',
-                                  ),
-                                ),
-                                maximumSize: const Size(300, 200),
+                                BuffDisplayPopup(buff: childhoodBuff)
                               );
                             },
                             child: Container(
@@ -155,7 +154,7 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: Text(
-                                'Childhood: ${widget.childhood}',
+                                'Childhood: ${textService.getTextFromEntity(childhoodBuff)}',
                                 style: TextStyle(
                                   fontSize: fontSize - 2,
                                   color: Theme.of(context).colorScheme.primary,
@@ -201,7 +200,7 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: Text(
-                                'Level: ${widget.level}',
+                                'Level: ${characterComponent?.level}',
                                 style: TextStyle(
                                   fontSize: fontSize - 2,
                                   fontWeight: FontWeight.bold,
@@ -222,7 +221,7 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                               borderRadius: BorderRadius.circular(6),
                             ),
                             child: Text(
-                              'Origin: ${widget.origin}',
+                              'Origin: ${characterComponent?.origin}',
                               style: TextStyle(
                                 fontSize: fontSize - 2,
                                 fontWeight: FontWeight.bold,

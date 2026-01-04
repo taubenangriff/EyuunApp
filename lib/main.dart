@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'dart:math';
 
 import 'package:EyuunApp/components/Attributes.dart';
+import 'package:EyuunApp/components/CharacterBase.dart';
 import 'package:EyuunApp/components/Path.dart';
 import 'package:EyuunApp/components/health.dart';
 import 'package:EyuunApp/core/UpgradableInt.dart';
@@ -85,6 +86,12 @@ void fillTestData()
   char.get<CharacterPathComponent>()?.chosenPaths.add(AssetLink("path_flux_01"));
   char.get<CharacterPathComponent>()?.chosenPathSteps.add(AssetLink("path_flux_01_step_00"));
   char.get<CharacterPathComponent>()?.chosenPathSteps.add(AssetLink("path_flux_additional_00_step"));
+
+  char.get<CharacterBaseComponent>()?.childhood = AssetLink("childhood_homeless");
+  char.get<CharacterBaseComponent>()?.upbringing = AssetLink("upbringing_human");
+  char.get<CharacterBaseComponent>()?.secondUpbringing = AssetLink("upbringing_undead");
+  char.get<CharacterBaseComponent>()?.level = 1;
+  char.get<CharacterBaseComponent>()?.origin = "Afghanistan";
 }
 
 class MyApp extends StatelessWidget {

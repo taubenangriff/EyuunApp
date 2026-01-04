@@ -635,6 +635,43 @@
       "icon": {
         "iconFilepath": "data/base/icons/damage_type/icon_shield.png"
       }
+    },
+    {
+      "standard": {
+        "typeId": "upbringing_undead",
+        "internalName": "Undead upbringing"
+      },
+      "text": {
+        "fluff": "upbringing_undead_fluff"
+      },
+      "buff": {
+        "textDescription": "upbringing_undead_effectdesc"
+      }
+    },
+    {
+      "standard": {
+        "typeId": "upbringing_human",
+        "internalName": "Human upbringing"
+      },
+      "text": {
+        "fluff": "upbringing_human_effectdesc"
+      },
+      "buff": {
+        "textDescription": "upbringing_human_effectdesc"
+      },
+      "talentsUpgrade": {
+        "addSkillpoints": 3
+      }
+    },
+    {
+      "standard": {
+        "typeId": "childhood_homeless",
+        "internalName": "Childhood Human"
+      },
+      "text": { },
+      "buff": {
+        "textDescription": "childhood_homeless_effectdesc"
+      }
     }
   ]
 }

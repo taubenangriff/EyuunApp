@@ -41,6 +41,14 @@
     "path_flux_01_step_05_effectdesc": "Wenn du beim Zaubern ein EW von mindestens 30 erreichst, erhältst du die Hälfte des zum Wirken dieses Zauberns ausgegebenen Fluss zurück (also auch Fluss, das für Vorteile ausgegeben wurde)",
     "path_flux_additional_00_step": "ZusatzFluss01",
 
+    "upbringing_undead": "Untot",
+    "upbringing_undead_fluff": "Untote befinden sich in irgendeinem Zustand des Zerfalls, von fast komplett normal wie ihre vererbte Abstammung einst aussah, bis hin zu komplett skelettiert ist alles möglich. Sie werden durch außerweltliche Mächte oder potente Magie am Leben gehalten und müssen sich meistens eher bedeckt halten, um kein Aufsehen zu erregen",
+    "upbringing_undead_effectdesc": "Der SW von im Sterben liegen Proben erhöht sich bei Untoten nur um +2 durch Schaden und am Ende des Zuges",
+    "upbringing_human": "Mensch",
+    "upbringing_human_effectdesc": "Menschen gibt es in Eyuun in unterschiedlichsten Ausprägungen, von den Zenistiern, welche eher europäisch aussehen, zu den Qeniziern, welche eher asiatisch oder nordafrikanisch aussehen, zu den bleichen Nordlingen mit blassen Haaren und fast schon schneeweißer Haut. Menschen gibt es in bunter vielfalt, meistens in den zivilisierteren Gegenden, wie Zenistria, Qenizien und Kealuna",
+    "childhood_homeless": "Obdachlos",
+    "childhood_homeless_effectdesc": "Immer wenn du erschöpft werden würdest, wirf einen KO-Wurf gegen 4. Du erhältst nur bei einem Fehlschlag tatsächlich die Erschöpfung",
+
     "damage_normal" : "Normal",
     "fluff_damage_normal" : "Schaden = (Grundschaden - Rüstung) * Anfälligkeit.",
     "damage_armorpen": "Rüstungsbrechend",

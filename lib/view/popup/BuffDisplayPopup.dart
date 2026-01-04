@@ -22,7 +22,7 @@ import '../popup/PickPathPopup.dart';
 import '../widgets/eyuun/Brushes.dart';
 
 class BuffDisplayPopup extends StatelessWidget {
-  final Entity buff;
+  final Entity? buff;
 
   const BuffDisplayPopup({
     required this.buff,
@@ -30,16 +30,18 @@ class BuffDisplayPopup extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return DecoratedBox(decoration: EyuunDecoration(paint: Brushes.silverSparkling(), cornerSize: 12), child:
-    Padding(
+  Widget build(BuildContext context){
+    return DecoratedBox(
+      decoration: EyuunDecoration(paint: Brushes.silverSparkling(), cornerSize: 12),
+      child:
+      buff != null ? Padding(
         padding: const EdgeInsets.symmetric(
             vertical: 30, horizontal: 30),
         child: Column(
           children: [
             Text(
                 locator<TextService>()
-                    .getTextFromEntity(buff),
+                    .getTextFromEntity(buff!),
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 24,
@@ -48,6 +50,6 @@ class BuffDisplayPopup extends StatelessWidget {
             SizedBox(height: 16),
             BuffDisplay(buff: buff)
           ],
-        )));
+        )): const SizedBox(width:300, height:200));
   }
 }

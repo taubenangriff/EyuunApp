@@ -9,10 +9,11 @@ part 'CharacterBase.mapper.dart';
 class CharacterBaseDynamic with CharacterBaseDynamicMappable {
   AssetLink upbringing;
   AssetLink childhood;
+  AssetLink? secondUpbringing;
   int level;
   String origin;
 
-  CharacterBaseDynamic(this.upbringing, this.childhood, this.level, this.origin);
+  CharacterBaseDynamic(this.upbringing, this.childhood, this.level, this.origin, {this.secondUpbringing});
 }
 
 @MappableClass()
@@ -24,6 +25,7 @@ class CharacterBaseComponent extends EyuunComponent<int> {
   static const String propertyName = "characterBase";
 
   late AssetLink upbringing;
+  late AssetLink? secondUpbringing;
   late AssetLink childhood;
   late int level;
   late String origin;
@@ -40,6 +42,7 @@ class CharacterBaseComponent extends EyuunComponent<int> {
   void loadDynamicData(Map<String, dynamic> dynamicData) {
     var dyn = CharacterBaseDynamicMapper.fromMap(dynamicData);
     upbringing = dyn.upbringing;
+    secondUpbringing = dyn.secondUpbringing;
     childhood = dyn.childhood;
     level = dyn.level;
     origin = dyn.origin;
@@ -47,7 +50,7 @@ class CharacterBaseComponent extends EyuunComponent<int> {
 
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
-    var stat = CharacterBaseStaticMapper.fromMap(staticData);
+
   }
 
   @override
@@ -56,5 +59,5 @@ class CharacterBaseComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => CharacterBaseDynamic(upbringing, childhood, level, origin).toMap();
+  Map<String, dynamic> saveDynamicData() => CharacterBaseDynamic(upbringing, childhood, level, origin, secondUpbringing: secondUpbringing).toMap();
 }
