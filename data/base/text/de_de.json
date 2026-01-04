@@ -98,13 +98,15 @@
     "uitext_skillpointsupgrade": "zusätzliche Talentpunkte:",
     "uitext_skillceilingupgrade": "erhöhter max. Talentwert:",
     "uitext_searchpath": "Suche...",
-    "uitext_selectpath": "Select a path to see its steps",
-    "uitext_selectpath_02": "Select a Path",
-    "uitext_addpath": "Wähle",
+    "uitext_selectpath": "Wähle einen Pfad aus, um seine Schritte zu sehen",
+    "uitext_selectpath_02": "Wähle einen Pfad",
+    "uitext_addpath": "Wähle ",
 
     "uitext_secondary_upbringing": "Zusatzabstammung",
     "uitext_primary_upbringing": "Abstammung",
     "uitext_upbringing": "Abstammung: ",
     "uitext_childhood": "Kindheit: ",
+    "uitext_levelup_explainer": "Beim nächsten Levelup erhält dieser Charakter:",
+    "uitext_levelup": "Level erhöhen",
     "master_upgrade_effectdesc": "Wähle eine ein Tier und die dazu passende Werform (z.B. Werwolf, Werbär, Wereule, etc.). Als Reaktion kannst du dich in die Werform des Tieres verwandeln, oder, wenn du in Werform bist, wieder zurück in deine normale Gestalt. Dabei darf deine Werform eine Größengruppe größer oder kleiner sein, als dein Charakter. In Werform ist deine Ausrüstung nicht mehr erreichbar, wobei deine Rüstung ihre Effekte behält (sowohl Rüstungsschutz als auch Nachteile durch schwerere Rüstung) und du kannst keine Sprachen mehr sprechen, verstehst aber noch alle Sprachen, die du kennst (d.h. auch, dass alle deine Zauber stumm gewirkt werden müssen). Dafür verursachen deine waffenlosen Angriffe in Werform den vollen EW als Schaden und du erhältst zu deiner Werform passende Vor- bzw. Nachteile auf alle Proben, welche die SL für passend hält.\nNachdem du diesen Abschnitt gewählt hast, darfst du zusätzlich direkt einen weiteren zulässigen Abschnitt aus diesem Pfad wählen. Für alle Abschnitte dieses Pfades gilt: Der Abschnitt sollte nur gewählt werden, wenn dieser logisch zum gewählten Tier passt bzw. du erklären kannst, warum du in deiner Werform diese Fähigkeit hast."  }
 }

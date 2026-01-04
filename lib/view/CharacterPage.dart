@@ -62,26 +62,45 @@ class _CharacterPageState extends State<CharacterPage> {
                 constraints: BoxConstraints(maxWidth: desiredSize),
                 child: Column(
                   children: [
-                    DecoratedBox(
-                      decoration: EyuunDecoration(
-                          cornerSize: 20, paint: Brushes.goldSparkling()),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: CharacterInfoWidget(
-                          profileImage: placeholderImage,
-                          name: "Glup Shitto",
-                          character: character,
+                    Stack(children: [
+                      DecoratedBox(
+                        decoration: EyuunDecoration(
+                            cornerSize: 20, paint: Brushes.goldSparkling()),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: CharacterInfoWidget(
+                            profileImage: placeholderImage,
+                            name: "Glup Shitto",
+                            character: character,
+                          ),
                         ),
                       ),
-                    ),
+                      // The info button in the top right corner
+                      Positioned(
+                        top: 12,
+                        right: 12,
+                        child: IconButton(
+                          icon: const Icon(Icons.info_outline),
+                          tooltip: 'More info on Character Background',
+                          onPressed: () async {
+                            const url =
+                                'https://eyuun.de/charaktererstellung#vergangenheit';
+                            if (await canLaunchUrl(Uri.parse(url))) {
+                              await launchUrl(Uri.parse(url));
+                            }
+                          },
+                        ),
+                      ),
+                    ]),
                     SizedBox(height: 16),
                     Stack(
                       children: [
                         // The decorated box with your content
                         DecoratedBox(
                           decoration: EyuunDecoration(
-                              cornerSize: 20, paint: Brushes.goldSparkling(), background: theme.canvasColor.withAlpha(120)
-                          ),
+                              cornerSize: 20,
+                              paint: Brushes.goldSparkling(),
+                              background: theme.canvasColor.withAlpha(120)),
                           child: const Padding(
                             padding: EdgeInsets.all(20),
                             child: AttributesWidget(),
@@ -190,10 +209,9 @@ class _CharacterPageState extends State<CharacterPage> {
     return SizedBox(
         width: 130,
         height: 90,
-        child:
-        DecoratedBox(
+        child: DecoratedBox(
             decoration:
-            EyuunDecoration(cornerSize: 12, paint: Brushes.goldSparkling()),
+                EyuunDecoration(cornerSize: 12, paint: Brushes.goldSparkling()),
             position: DecorationPosition.foreground,
             child: FloatingActionButton(
                 heroTag: text,
@@ -202,6 +220,9 @@ class _CharacterPageState extends State<CharacterPage> {
                 child: Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Icon(icon, size: 36, color: color), Text(text, style: TextStyle(color: color))]))));
+                    children: [
+                      Icon(icon, size: 36, color: color),
+                      Text(text, style: TextStyle(color: color))
+                    ]))));
   }
 }

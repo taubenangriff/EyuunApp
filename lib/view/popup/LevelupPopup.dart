@@ -32,10 +32,10 @@ class LevelupPopup extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   // 🔹 Intro text
-                  const Text(
-                    'On the next levelup, you gain:',
+                   Text(
+                    locator<TextService>().getText("uitext_levelup_explainer"),
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                       color: Colors.grey,
@@ -66,16 +66,16 @@ class LevelupPopup extends StatelessWidget {
                     position: DecorationPosition.foreground,
                     decoration: EyuunDecoration(
                         paint: Brushes.goldSparkling(), cornerSize: 12),
-                    child: const ElevatedButton(
+                    child: ElevatedButton(
                       onPressed: null, //TODO add levelup
                       child: Padding(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 24,
                           vertical: 12,
                         ),
                         child: Text(
-                          'Levelup',
-                          style: TextStyle(fontSize: 16),
+                          locator<TextService>().getText("uitext_levelup"),
+                          style: const TextStyle(fontSize: 16),
                         ),
                       ),
                     ),
