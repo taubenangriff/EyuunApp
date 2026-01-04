@@ -3,15 +3,15 @@ import 'package:EyuunApp/core/components/EntityExtensions.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
-import '../../../components/Path.dart';
-import '../../../components/feature/PathFeature.dart';
-import '../../../controller/PathController.dart';
-import '../../../core/registerServices.dart';
-import '../../../core/services/TextService.dart';
-import '../../widgets/eyuun/Brushes.dart';
-import '../../widgets/eyuun/EyuunDecoration.dart';
-import '../../widgets/PathHeaderTile.dart';
-import '../../widgets/PathStepTile.dart';
+import '../../components/Path.dart';
+import '../../components/feature/PathFeature.dart';
+import '../../controller/PathController.dart';
+import '../../core/registerServices.dart';
+import '../../core/services/TextService.dart';
+import '../widgets/eyuun/Brushes.dart';
+import '../widgets/eyuun/EyuunDecoration.dart';
+import '../widgets/PathHeaderTile.dart';
+import '../widgets/PathStepTile.dart';
 
 class PickPathPopup extends StatefulWidget {
   final PathController pathController;
