@@ -22,48 +22,53 @@ class LanguageDetailWidget extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
+    var textService = locator<TextService>();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
         if (languageComp.written)
-          const Row(
+          Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.text_format,
                 size: 28,
               ),
-              SizedBox(width: 4),
+              const SizedBox(width: 4),
               Text(
-                "Written",
+                textService.getText("uitext_written_language"),
               ),
             ],
           ),
         if (languageComp.spoken) const SizedBox(height: 12),
         if (languageComp.spoken)
-          const Row(
+          Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.speaker_notes_outlined,
                 size: 28,
               ),
-              SizedBox(width: 4),
+              const SizedBox(width: 4),
               Text(
-                "Spoken",
+                textService.getText("uitext_spoken_language"),
               ),
             ],
           ),
         if (languageComp.alternativeCommunicationStyle)
           const SizedBox(height: 12),
         if (languageComp.alternativeCommunicationStyle)
-          const Row(
+          Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.sign_language,
                 size: 28,
               ),
-              SizedBox(width: 4),
-              Text("Alternative Communication"),
+              const SizedBox(width: 4),
+              Flexible(
+                  child: Text(
+                textService.getText("uitext_altcom_language"),
+              )),
             ],
           ),
         const SizedBox(height: 12),

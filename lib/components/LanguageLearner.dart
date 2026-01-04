@@ -29,7 +29,9 @@ class LanguageLearnerComponent extends EyuunComponent<int> {
   bool canLearnNew() => languagesLearned.length - languagesThroughProjects < languageMaxPotential.current;
 
   /// Returns the amount of languages already learned.
-  int languagesLearnedCount() => languagesLearned.length + languagesThroughProjects;
+  int totalLanguagesCount() => languagesLearned.length;
+
+  int getUsedPotential() => languagesLearned.length - languagesThroughProjects;
 
   @override
   String getName() => propertyName;

@@ -1,6 +1,8 @@
+import 'package:EyuunApp/controller/LanguagesController.dart';
 import 'package:EyuunApp/core/assetLink.dart';
 import 'package:EyuunApp/view/popup/LanguageDetailPopup.dart';
 import 'package:EyuunApp/view/popup/PopupUtil.dart';
+import 'package:EyuunApp/view/popup/SelectLanguagePopup.dart';
 import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
@@ -30,6 +32,7 @@ class _LanguageGridState extends State<LanguageGrid> {
   @override
   Widget build(BuildContext context) {
     final languages = widget.learner.languagesLearned.getAssets();
+    final languageController = LanguagesController(widget.learner);
     final textService = locator<TextService>();
 
     return Column(
@@ -53,7 +56,9 @@ class _LanguageGridState extends State<LanguageGrid> {
               DecoratedBox(
                   position: DecorationPosition.foreground,
                   decoration: EyuunDecoration(
-                      paint: Brushes.silverSparkling(), cornerSize: 12, paintInnerLine: false),
+                      paint: Brushes.silverSparkling(),
+                      cornerSize: 12,
+                      paintInnerLine: false),
                   child: InkWell(
                     borderRadius: BorderRadius.circular(8),
                     onTap: () {
@@ -78,11 +83,19 @@ class _LanguageGridState extends State<LanguageGrid> {
                       ),
                     ),
                   )),
+            if(languageController.canLearnNew())
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  widget.learner.languagesLearned
-                      .add(AssetLink("language_eyuun"));
+                  PopupUtil.popup(
+                      context,
+                      SelectLanguagePopup(
+                        languagesController: languageController,
+                        onAccept: () {
+                          setState(() {});
+                        },
+                      ),
+                      maximumSize: Size(900, 700));
                 });
               },
               child: const Row(

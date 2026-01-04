@@ -244,7 +244,7 @@
     "armor": null
   },
   "languageLearner": {
-    "languageMaxPotential": 0,
+    "languageMaxPotential": 2,
     "languagesLearned": []
   },
   "characterPath": {
