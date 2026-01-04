@@ -11,7 +11,7 @@ class LanguageLearnerDynamic with LanguageLearnerDynamicMappable {
   int languageMaxPotential;
   int languagesThroughProjects;
   List<AssetLink> languagesLearned;
-  LanguageLearnerDynamic(this.languageMaxPotential, this.languagesLearned, this.languagesThroughProjects);
+  LanguageLearnerDynamic(this.languageMaxPotential, this.languagesLearned, [this.languagesThroughProjects = 0]);
 }
 
 class LanguageLearnerComponent extends EyuunComponent<int> {
@@ -59,6 +59,7 @@ class LanguageLearnerComponent extends EyuunComponent<int> {
   void reset() {
     languagesLearned = [];
     languageMaxPotential = 0.upgradable;
+    languagesThroughProjects = 0;
   }
 
 }
