@@ -36,14 +36,16 @@ class LevelFeatureComponent extends EyuunComponent<int> {
     levels = stat.levels;
   }
 
-  Entity? getLevel(int index) {
-    if(index < 0 || index >= levels.length) {
+  /// returns the asset corresponding to the entered level. Levels are 1-based.
+  Entity? getLevelAsset(int level) {
+    level = level-1;
+    if(level < 0 || level >= levels.length) {
       return null;
     }
-    return levels[index].getEntity();
+    return levels[level].getEntity();
   }
 
-  bool isMaxLevel(int index) => index >= levels.length -1;
+  bool isMaxLevel(int level) => level >= levels.length;
 
   @override
   void reset() {

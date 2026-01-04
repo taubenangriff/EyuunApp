@@ -1,5 +1,7 @@
 import 'package:EyuunApp/components/CharacterBase.dart';
+import 'package:EyuunApp/components/feature/LevelFeature.dart';
 import 'package:EyuunApp/view/popup/BuffDisplayPopup.dart';
+import 'package:EyuunApp/view/popup/LevelupPopup.dart';
 import 'package:EyuunApp/view/popup/UpbringingPopup.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
@@ -56,7 +58,8 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
     var secondUpbringingBuff = characterComponent?.secondUpbringing?.getEntity();
     var childhoodBuff = characterComponent?.childhood.getEntity();
 
-    var textService = locator<TextService>();
+    var textService = locator<TextService>();    
+    var levelFeature = locator<LevelFeatureComponent>();
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -180,14 +183,30 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                           child: InkWell(
                             borderRadius: BorderRadius.circular(6),
                             onTap: () {
+                              if(characterComponent == null){
+                                return;
+                              }
+                              
+                              var isMax = levelFeature.isMaxLevel(characterComponent.level);
+
+                              if(isMax) {
+                                PopupUtil.popup(
+                                  context,
+                                  const Center(
+                                    child: Text(
+                                      'You have reached the maximum level!',
+                                    ),
+                                  ),
+                                  maximumSize: const Size(300, 200),
+                                );
+                                return;
+                              }
+
+                              var nextLevel = levelFeature.getLevelAsset(characterComponent.level + 1);
+
                               PopupUtil.popup(
                                 context,
-                                const Center(
-                                  child: Text(
-                                    'Popup explaining the next level-up.',
-                                  ),
-                                ),
-                                maximumSize: const Size(300, 200),
+                                LevelupPopup(buff: nextLevel)
                               );
                             },
                             child: Container(

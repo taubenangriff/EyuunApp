@@ -49,6 +49,9 @@
     "childhood_homeless": "Obdachlos",
     "childhood_homeless_effectdesc": "Immer wenn du erschöpft werden würdest, wirf einen KO-Wurf gegen 4. Du erhältst nur bei einem Fehlschlag tatsächlich die Erschöpfung",
 
+    "level_0": "Level 0",
+    "level_1": "Level 1",
+
     "damage_normal" : "Normal",
     "fluff_damage_normal" : "Schaden = (Grundschaden - Rüstung) * Anfälligkeit.",
     "damage_armorpen": "Rüstungsbrechend",
