@@ -11,7 +11,7 @@ import '../../../core/registerServices.dart';
 import '../../../core/services/TextService.dart';
 import '../../widgets/eyuun/Brushes.dart';
 import '../../widgets/eyuun/EyuunDecoration.dart';
-import 'PathStepTile.dart';
+import '../../widgets/PathStepTile.dart';
 
 class PathPopup extends StatefulWidget {
   final void Function(String)? onSubmitted;

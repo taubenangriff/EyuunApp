@@ -5,9 +5,9 @@ import 'package:EyuunApp/view/widgets/BuffDisplay.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
-import '../../../controller/PathController.dart';
-import '../../../core/registerServices.dart';
-import '../../../core/services/TextService.dart';
+import '../../controller/PathController.dart';
+import '../../core/registerServices.dart';
+import '../../core/services/TextService.dart';
 
 
 class PathStepTile extends StatelessWidget {

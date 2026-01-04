@@ -3,9 +3,8 @@ import 'package:EyuunApp/view/enum/PathTypeColorExtension.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
-import '../../../core/registerServices.dart';
-import '../../../core/services/TextService.dart';
-import '../../../core/services/assetloader.dart';
+import '../../core/registerServices.dart';
+import '../../core/services/TextService.dart';
 import 'StarRating.dart';
 
 class PathHeaderTile extends StatelessWidget {

@@ -10,13 +10,14 @@ import '../../../core/registerServices.dart';
 import '../../../core/services/TextService.dart';
 import '../../widgets/eyuun/Brushes.dart';
 import '../../widgets/eyuun/EyuunDecoration.dart';
-import 'PathHeaderTile.dart';
-import 'PathStepTile.dart';
+import '../../widgets/PathHeaderTile.dart';
+import '../../widgets/PathStepTile.dart';
 
 class PickPathPopup extends StatefulWidget {
   final PathController pathController;
   final PathFeatureComponent pathFeature = locator<PathFeatureComponent>();
   final void Function(String pathId)? onPathPicked;
+  final TextService textService = locator<TextService>();
 
   PickPathPopup({
     super.key,
@@ -36,10 +37,14 @@ class _PickPathPopupState extends State<PickPathPopup> {
   Widget build(BuildContext context) {
     final allPaths = widget.pathFeature.paths.getAssets();
 
-    allPaths.removeWhere((e) => widget.pathController.isPathPicked(e.getTypeId()));
+    // sort by pathType
+    allPaths.sort((x, y) => x.get<PathComponent>()?.pathType.index ?? 0 - (y.get<PathComponent>()?.pathType.index ?? 0));
+
+    //remove Paths we already picked.
+    //allPaths.removeWhere((e) => widget.pathController.isPathPicked(e.getTypeId()));
 
     final filteredPaths = allPaths.where((path) {
-      final name = locator<TextService>().getTextFromEntity(path).toLowerCase();
+      final name = widget.textService.getTextFromEntity(path).toLowerCase();
       return name.contains(searchQuery.toLowerCase());
     }).toList();
 
@@ -66,9 +71,9 @@ class _PickPathPopupState extends State<PickPathPopup> {
               children: [
                 // 🔍 Search bar
                 TextField(
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.search),
-                    hintText: 'Search paths...',
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.search),
+                    hintText: widget.textService.getText('uitext_searchpath'),
                   ),
                   onChanged: (value) {
                     setState(() {
@@ -93,7 +98,6 @@ class _PickPathPopupState extends State<PickPathPopup> {
                           itemBuilder: (context, index) {
                             final path = filteredPaths[index];
                             final typeId = path.getTypeId();
-                            final isSelected = typeId == selectedPathId;
 
                             return InkWell(
                               borderRadius: BorderRadius.circular(8),
@@ -114,10 +118,10 @@ class _PickPathPopupState extends State<PickPathPopup> {
                       Expanded(
                         flex: 2,
                         child: selectedPath == null
-                            ? const Center(
+                            ?  Center(
                                 child: Text(
-                                  'Select a path to see its steps',
-                                  style: TextStyle(
+                                  widget.textService.getText('uitext_selectpath'),
+                                  style: const TextStyle(
                                     fontStyle: FontStyle.italic,
                                   ),
                                 ),
@@ -151,7 +155,6 @@ class _PickPathPopupState extends State<PickPathPopup> {
               child: Padding(
                   padding: EdgeInsets.all(12),
                   child: SizedBox(
-                      width: 150,
                       height: 50,
                       child: DecoratedBox(
                           position: DecorationPosition.foreground,
@@ -169,12 +172,11 @@ class _PickPathPopupState extends State<PickPathPopup> {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: selectedPathId != null ? [
-
                                 Icon(Icons.add),
                                 Text(
-                                    'Add ${locator<TextService>().getText(selectedPathId ?? "")}')
+                                    '${widget.textService.getText('uitext_addpath')} ${widget.textService.getText(selectedPathId!)}')
                               ] : [
-                                Text('Select a Path')
+                                Text(widget.textService.getText('uitext_selectpath_02'))
                               ],
                             ),
                           ))))),
