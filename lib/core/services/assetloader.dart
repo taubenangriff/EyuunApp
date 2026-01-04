@@ -71,6 +71,29 @@ class AssetLoader {
     component?.loadStaticData(componentMap);
   }
 
+  void applyDynamicData(Entity entity, Map<String, dynamic> entityMap) {
+    for(var key in entityMap.keys)
+    {
+      if (!worldManager.isValidComponentName(key)) {
+        continue;
+      }
+      if(!worldManager.entityHasComponent(key, entity)){
+        continue;
+      }
+
+      var component = worldManager.getComponentFromEntity(key, entity);
+      var submap = entityMap[key];
+      component?.loadDynamicData(submap);
+    }
+  }
+
+  void _addComponentDynamicDataToEntity(
+      Entity entity, String componentId, Map<String, dynamic> entityMap) {
+    var component = worldManager.getComponentFromEntity(componentId, entity);
+    var componentMap = entityMap[componentId];
+    component?.loadDynamicData(componentMap);
+  }
+
   Future<void> reloadAssets() async {
     //clear entities from the static world
     for (var entity in worldManager.staticWorld.entities) {
