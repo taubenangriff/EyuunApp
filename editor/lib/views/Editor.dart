@@ -1,5 +1,13 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:editor/io/StaticAssetLoader.dart';
+import 'package:editor/main.dart';
+import 'package:editor/views/AssetWidget.dart';
+import 'package:eyuuncore/core/repository/ComponentRepository.dart';
 import 'package:flutter/material.dart';
 
+import '../Asset.dart';
 import 'SelectFile.dart';
 
 class Editor extends StatefulWidget {
@@ -11,6 +19,11 @@ class Editor extends StatefulWidget {
 
 class _EditorState extends State<Editor> {
   String selectedAsset = "";
+  File? assetFile;
+
+  Asset? loadedAsset = null;
+
+  var assetloader = StaticAssetLoader(componentRepo);
 
   @override
   Widget build(BuildContext context) {
@@ -21,23 +34,22 @@ class _EditorState extends State<Editor> {
           Flexible(
             flex: 1,
             child: SelectFileWidget(
-              onFileSelected: (file) {
+              onFileSelected: (file) async {
                 setState(() {
-                  selectedAsset = file.path;
+                  assetFile = file;
                 });
+
+                if(assetFile == null){
+                  return;
+                }
+                var json = await loadJsonFile(assetFile!);
+                loadedAsset = assetloader.loadAsset(json);
               },
             ),
           ),
           Flexible(
             flex: 3,
-            child: Center(
-              child: Text(
-                selectedAsset.isEmpty
-                    ? "Example with custom icons"
-                    : "Selected: $selectedAsset",
-                style: const TextStyle(color: Colors.grey),
-              ),
-            ),
+            child: loadedAsset != null ? AssetWidget(asset: loadedAsset!) : Center(child: Text("No asset selected")),
           ),
         ],
       ),
@@ -55,5 +67,11 @@ class _EditorState extends State<Editor> {
         ),
       ),
     );
+  }
+
+  Future<Map<String, dynamic>> loadJsonFile(File file) async {
+    final String contents = await file.readAsString();
+    final Map<String, dynamic> jsonMap = jsonDecode(contents);
+    return jsonMap;
   }
 }

@@ -1,0 +1,22 @@
+{
+  "standard": {
+    "typeId": "item_dummy1"
+  },
+  "text": {
+    "fluff" : "fluff_item_dummy1"
+  },
+  "item": {
+    "categoryText": "item_category1"
+  },
+  "cost": {
+    "money": 150,
+    "resourceCosts" : [
+      {
+        "resource" : {
+          "id": "resource_01"
+        },
+        "amount": 1
+      }
+    ]
+  }
+}

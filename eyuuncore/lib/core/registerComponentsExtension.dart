@@ -32,6 +32,8 @@ import 'package:eyuuncore/components/upgrade/FluxUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/HealthUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/LanguageLearnerUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/TalentsUpgrade.dart';
+import 'package:eyuuncore/core/repository/ComponentRepository.dart';
+import 'package:oxygen/oxygen.dart';
 
 import '../components/Attributes.dart';
 import '../components/Casted.dart';
@@ -45,6 +47,13 @@ import '../components/health.dart';
 import 'components/standard.dart';
 import '../components/text.dart';
 import 'services/WorldManager.dart';
+
+extension registerComponentsExtension on ComponentRepository {
+  void registerComponents() {
+    registerComponent<StandardStatic>(StandardComponent.propertyName, (map) => StandardStatic.fromMap(map));
+    registerComponent<LanguageStatic>(LanguageComponent.propertyName, (map) => LanguageStaticMapper.fromMap(map));
+  }
+}
 
 extension RegisterUpgradesExtension on WorldManager {
   void registerComponents() {

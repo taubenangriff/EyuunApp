@@ -1,10 +1,13 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 
 part 'Language.mapper.dart';
 
 @MappableClass()
-class LanguageStatic with LanguageStaticMappable {
+@reflector
+class LanguageStatic with LanguageStaticMappable, Reflecting {
   bool written;
   bool spoken;
   bool alternativeCommunicationStyle;

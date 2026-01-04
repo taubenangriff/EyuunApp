@@ -1,3 +1,6 @@
+import 'package:eyuuncore/core/reflection/reflector.dart';
+
+import '../reflection/Reflecting.dart';
 import 'EyuunComponent.dart';
 
 import 'package:dart_mappable/dart_mappable.dart';
@@ -5,12 +8,15 @@ import 'package:dart_mappable/dart_mappable.dart';
 part 'standard.mapper.dart';
 
 @MappableClass()
-class StandardStatic with StandardStaticMappable {
+@reflector
+class StandardStatic with StandardStaticMappable, Reflecting {
   final String typeId;
   final String? internalName;
   final String? comment;
 
   StandardStatic(this.typeId, this.internalName, this.comment);
+
+  static StandardStatic empty() => StandardStatic("notype", "noname", "none");
 
   static const fromMap = StandardStaticMapper.fromMap;
 }

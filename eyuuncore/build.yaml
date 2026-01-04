@@ -1,0 +1,10 @@
+targets:
+  $default:
+    builders:
+      reflectable_builder:
+        generate_for:
+          - lib/core/reflection/reflector.dart
+          - lib/core/components/standard.dart
+          - lib/components/**.dart
+        options:
+          formatted: true
