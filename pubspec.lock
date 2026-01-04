@@ -456,6 +456,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.0"
+  reflectable:
+    dependency: "direct main"
+    description:
+      name: reflectable
+      sha256: ab4a185dcf100e2ae003610474e37a8ff4aa714326db36d42d86c8426508ab7c
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.1.0"
   shelf:
     dependency: transitive
     description:
