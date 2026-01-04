@@ -13,15 +13,11 @@ import '../../components/upgrade/HealthUpgrade.dart';
 import '../../components/upgrade/TalentsUpgrade.dart';
 import '../../core/registerServices.dart';
 import '../../core/services/TextService.dart';
-import '../../core/services/assetloader.dart';
 
 class BuffDisplay extends StatelessWidget {
-  final String buff;
-  late final Entity? _entity;
+  final Entity? buff;
 
-  BuffDisplay({super.key, required this.buff}) {
-    _entity = locator<AssetLoader>().getStatic(buff);
-  }
+  const BuffDisplay({super.key, required this.buff});
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +26,12 @@ class BuffDisplay extends StatelessWidget {
 
   List<Widget> _buildContent(BuildContext context) {
     List<Widget> widgets = [];
-    if (_entity == null) {
-      widgets;
+    if (buff == null) {
+      return widgets;
     }
 
-    if (_entity!.has<BuffComponent>()) {
-      var key = _entity.get<BuffComponent>()!.textDescription;
+    if (buff!.has<BuffComponent>()) {
+      var key = buff!.get<BuffComponent>()!.textDescription;
       if (key != "") {
         var desctext = locator<TextService>().getText(key);
         widgets.add(Padding(
@@ -44,13 +40,13 @@ class BuffDisplay extends StatelessWidget {
       }
     }
 
-    if (_entity.has<FluxUpgradeComponent>()) {
+    if (buff!.has<FluxUpgradeComponent>()) {
 
       if(widgets.isNotEmpty){
         _addDivider(widgets);
       }
 
-      var fluxUpgrade = _entity.get<FluxUpgradeComponent>()!;
+      var fluxUpgrade = buff!.get<FluxUpgradeComponent>()!;
       if (fluxUpgrade.fluxCapacityUpgrade > 0) {
         widgets.add(_buildValueUpgradeWidget(
             context,
@@ -67,8 +63,8 @@ class BuffDisplay extends StatelessWidget {
       }
     }
 
-    if (_entity.has<ArmorUpgradeComponent>()) {
-      var armorUpgrade = _entity.get<ArmorUpgradeComponent>()!;
+    if (buff!.has<ArmorUpgradeComponent>()) {
+      var armorUpgrade = buff!.get<ArmorUpgradeComponent>()!;
       if (armorUpgrade.armorToughnessBonus > 0) {
         if(widgets.isNotEmpty){
           _addDivider(widgets);
@@ -81,8 +77,8 @@ class BuffDisplay extends StatelessWidget {
       }
     }
 
-    if (_entity.has<AttributesUpgradeComponent>()) {
-      var attributesUpgrade = _entity.get<AttributesUpgradeComponent>()!;
+    if (buff!.has<AttributesUpgradeComponent>()) {
+      var attributesUpgrade = buff!.get<AttributesUpgradeComponent>()!;
       if (attributesUpgrade.maxDiceIncreasesUpgrade > 0) {
         if(widgets.isNotEmpty){
           _addDivider(widgets);
@@ -95,8 +91,8 @@ class BuffDisplay extends StatelessWidget {
       }
     }
 
-    if (_entity.has<CharacterPathUpgradeComponent>()) {
-      var characterPathUpgrade = _entity.get<CharacterPathUpgradeComponent>()!;
+    if (buff!.has<CharacterPathUpgradeComponent>()) {
+      var characterPathUpgrade = buff!.get<CharacterPathUpgradeComponent>()!;
       if (characterPathUpgrade.pathCapacityUpgrade > 0) {
         if(widgets.isNotEmpty){
           _addDivider(widgets);
@@ -109,8 +105,8 @@ class BuffDisplay extends StatelessWidget {
       }
     }
 
-    if (_entity.has<CombatUpgradeComponent>()) {
-      var combatUpgrade = _entity.get<CombatUpgradeComponent>()!;
+    if (buff!.has<CombatUpgradeComponent>()) {
+      var combatUpgrade = buff!.get<CombatUpgradeComponent>()!;
 
       if(combatUpgrade.speedUpgrade > 0 || combatUpgrade.evasionUpgrade > 0 || combatUpgrade.initiativeUpgrade > 0 || combatUpgrade.actionsPerRoundUpgrade > 0 || combatUpgrade.reactionsPerRoundUpgrade > 0){
         if(widgets.isNotEmpty){
@@ -149,8 +145,8 @@ class BuffDisplay extends StatelessWidget {
       }
     }
 
-    if (_entity.has<HealthUpgradeComponent>()) {
-      var healthUpgrade = _entity.get<HealthUpgradeComponent>()!;
+    if (buff!.has<HealthUpgradeComponent>()) {
+      var healthUpgrade = buff!.get<HealthUpgradeComponent>()!;
 
       if (healthUpgrade.maxHitpointsUpgrade > 0 ||
           healthUpgrade.maxDeathThrowsUpgrade > 0) {
@@ -175,8 +171,8 @@ class BuffDisplay extends StatelessWidget {
       }
     }
 
-    if (_entity.has<LanguageLearnerUpgradeComponent>()) {
-      var llUpgrade = _entity.get<LanguageLearnerUpgradeComponent>()!;
+    if (buff!.has<LanguageLearnerUpgradeComponent>()) {
+      var llUpgrade = buff!.get<LanguageLearnerUpgradeComponent>()!;
 
       if (llUpgrade.languageMaxPotentialUpgrade > 0) {
         if(widgets.isNotEmpty){
@@ -190,8 +186,8 @@ class BuffDisplay extends StatelessWidget {
       }
     }
 
-    if (_entity.has<TalentsUpgradeComponent>()) {
-      var talentsUpgrade = _entity.get<TalentsUpgradeComponent>()!;
+    if (buff!.has<TalentsUpgradeComponent>()) {
+      var talentsUpgrade = buff!.get<TalentsUpgradeComponent>()!;
 
       if(talentsUpgrade.addSkillpoints > 0 || talentsUpgrade.skillCeilingUpgrade > 0){
         if(widgets.isNotEmpty){

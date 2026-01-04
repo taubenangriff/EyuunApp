@@ -18,6 +18,7 @@ import '../../core/registerServices.dart';
 import '../../core/services/TextService.dart';
 import '../../enums/PathType.dart';
 import '../enum/PathTypeColorExtension.dart';
+import '../popup/BuffDisplayPopup.dart';
 import '../popup/PickPathPopup.dart';
 import 'eyuun/Brushes.dart';
 
@@ -98,24 +99,7 @@ class _PathsWidgetState extends State<PathsWidget> {
               onPressed: () => setState(() {
                 PopupUtil.popup(
                     context,
-                    DecoratedBox(decoration: EyuunDecoration(paint: Brushes.silverSparkling(), cornerSize: 12), child:
-                    Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 30, horizontal: 30),
-                        child: Column(
-                          children: [
-                            Text(
-                                locator<TextService>()
-                                    .getTextFromEntity(additionalPathItem),
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                )),
-                            SizedBox(height: 16),
-                            BuffDisplay(buff: additionalPathItem.getTypeId())
-                          ],
-                        ))));
+                    BuffDisplayPopup(buff: additionalPathItem));
               }),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

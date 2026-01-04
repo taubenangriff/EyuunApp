@@ -79,7 +79,7 @@ class PathStepTile extends StatelessWidget {
 
                 // 🔹 Buff display
                 Center(
-                  child: BuffDisplay(buff: typeId),
+                  child: BuffDisplay(buff: pathStep),
                 ),
               ],
             ),
