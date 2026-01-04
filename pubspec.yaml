@@ -53,6 +53,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - data/base/
     - data/base/asset/
     - data/base/text/
     - data/base/icons/dice/

@@ -17,6 +17,7 @@ import 'package:EyuunApp/core/services/WorldManager.dart';
 import 'package:EyuunApp/core/registerServices.dart';
 import 'package:EyuunApp/view/MainPage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:oxygen/oxygen.dart';
 
 import 'dart:convert';
@@ -61,14 +62,13 @@ void main() async {
   character = assetLoader.createInstance("character")!;
   locator<CharacterService>().changeCharacter(character);
 
+  await fillTestData();
   worldManager.world.execute(1);
-
-  fillTestData();
 
   runApp(const MyApp());
 }
 
-void fillTestData()
+Future fillTestData() async
 {
   //Fill Characters inventory with bullshit
   var random = Random();
@@ -78,20 +78,9 @@ void fillTestData()
 
   var char = locator<CharacterService>().character;
 
-  char.get<InventoryComponent>()?.addAll(inventoryItems);
-  char.get<FluxComponent>()?.fluxMaximum = 15.upgradable;
-  char.get<FluxComponent>()?.fluxSpent = 2;
-  char.get<FluxComponent>()?.fluxCapacity = 12.upgradable;
-
-  char.get<CharacterPathComponent>()?.chosenPaths.add(AssetLink("path_flux_01"));
-  char.get<CharacterPathComponent>()?.chosenPathSteps.add(AssetLink("path_flux_01_step_00"));
-  char.get<CharacterPathComponent>()?.chosenPathSteps.add(AssetLink("path_flux_additional_00_step"));
-
-  char.get<CharacterBaseComponent>()?.childhood = AssetLink("childhood_homeless");
-  char.get<CharacterBaseComponent>()?.upbringing = AssetLink("upbringing_human");
-  char.get<CharacterBaseComponent>()?.secondUpbringing = AssetLink("upbringing_undead");
-  char.get<CharacterBaseComponent>()?.level = 1;
-  char.get<CharacterBaseComponent>()?.origin = "Afghanistan";
+  final String response = await rootBundle.loadString("data/base/char.json");
+  var chardata = json.decode(response);
+  locator<AssetLoader>().applyDynamicData(char, chardata);
 }
 
 class MyApp extends StatelessWidget {
