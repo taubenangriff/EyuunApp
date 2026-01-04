@@ -673,12 +673,38 @@
     },
     {
       "standard": {
-        "typeId": "levels",
-        "internalName": "Childhood Human"
+        "typeId": "level_0",
+        "internalName": "Level 0 | Base"
       },
       "text": { },
-      "buff": {
-        "textDescription": "childhood_homeless_effectdesc"
+      "talentsUpgrade" : {
+        "addSkillpoints": 30,
+        "skillCeilingUpgrade": 6
+      },
+      "characterPathUpgrade" : {
+        "pathCapacityUpgrade": 1
+      },
+      "attributesUpgrade" : {
+        "maxDiceIncreasesUpgrade": 10
+      }
+    },
+    {
+      "standard": {
+        "typeId": "level_1",
+        "internalName": "Level 1"
+      },
+      "text": { },
+      "talentsUpgrade" : {
+        "addSkillpoints": 3
+      },
+      "characterPathUpgrade" : {
+        "additionalPathCapacityUpgrade": 1
+      },
+      "attributesUpgrade" : {
+        "maxDiceIncreasesUpgrade": 2
+      },
+      "combatUpgrade" : {
+        "evasionUpgrade": 1
       }
     }
   ]

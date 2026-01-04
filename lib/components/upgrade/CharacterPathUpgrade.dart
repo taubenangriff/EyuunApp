@@ -6,13 +6,15 @@ part 'CharacterPathUpgrade.mapper.dart';
 @MappableClass()
 class CharacterPathUpgradeStatDyn with CharacterPathUpgradeStatDynMappable {
   int pathCapacityUpgrade;
-  CharacterPathUpgradeStatDyn([this.pathCapacityUpgrade = 0]);
+  int additionalPathCapacityUpgrade;
+  CharacterPathUpgradeStatDyn([this.pathCapacityUpgrade = 0, this.additionalPathCapacityUpgrade = 0]);
 }
 
 class CharacterPathUpgradeComponent extends EyuunComponent<int> {
   static const String propertyName = "characterPathUpgrade";
 
   int pathCapacityUpgrade = 0;
+  int additionalPathCapacityUpgrade = 0;
 
   @override
   String getName() => propertyName;
@@ -25,6 +27,7 @@ class CharacterPathUpgradeComponent extends EyuunComponent<int> {
   @override
   void reset() {
     pathCapacityUpgrade = 0;
+    additionalPathCapacityUpgrade = 0;
   }
 
   @override
@@ -34,6 +37,7 @@ class CharacterPathUpgradeComponent extends EyuunComponent<int> {
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = CharacterPathUpgradeStatDynMapper.fromMap(staticData);
     pathCapacityUpgrade = stat.pathCapacityUpgrade;
+    additionalPathCapacityUpgrade = stat.additionalPathCapacityUpgrade;
   }
 
   @override

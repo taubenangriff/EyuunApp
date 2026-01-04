@@ -2,6 +2,21 @@
   "assets": [
     {
       "standard": {
+        "typeId": "level_feature"
+      },
+      "levelFeature": {
+        "levels": [
+          {
+            "id": "level_0"
+          },
+          {
+            "id": "level_1"
+          }
+        ]
+      }
+    },
+    {
+      "standard": {
         "typeId": "path_feature"
       },
       "pathFeature": {

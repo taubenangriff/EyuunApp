@@ -18,6 +18,7 @@ import 'package:EyuunApp/components/Spell.dart';
 import 'package:EyuunApp/components/Talents.dart';
 import 'package:EyuunApp/components/Weapon.dart';
 import 'package:EyuunApp/components/feature/CombatFeature.dart';
+import 'package:EyuunApp/components/feature/LevelFeature.dart';
 import 'package:EyuunApp/components/feature/PathFeature.dart';
 import 'package:EyuunApp/components/inventory.dart';
 import 'package:EyuunApp/components/upgradable.dart';
@@ -92,5 +93,6 @@ extension RegisterUpgradesExtension on WorldManager {
     // register Features
     registerComponent<CombatFeatureComponent, int>(CombatFeatureComponent.propertyName, () => CombatFeatureComponent());
     registerComponent<PathFeatureComponent, int>(PathFeatureComponent.propertyName, () => PathFeatureComponent());
+    registerComponent<LevelFeatureComponent, int>(LevelFeatureComponent.propertyName, () => LevelFeatureComponent());
   }
 }
