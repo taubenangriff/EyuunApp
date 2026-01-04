@@ -36,6 +36,8 @@ dependencies:
   dartdoc: ^9.0.0
   reflectable: ^5.1.0
   file_tree_view: ^0.0.7
+  eyuuncore:
+    path: ./eyuuncore
 
 dev_dependencies:
   flutter_test:

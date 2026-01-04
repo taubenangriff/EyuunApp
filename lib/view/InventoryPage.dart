@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:EyuunApp/components/Item.dart';
 import 'package:EyuunApp/view/controller/ChangeValueController.dart';
 import 'package:EyuunApp/view/popup/ChangeItemCountPopup.dart';
 import 'package:EyuunApp/view/popup/ChangeValuePopup.dart';
@@ -10,15 +9,14 @@ import 'package:EyuunApp/view/widgets/InventoryItemWidget.dart';
 import 'package:EyuunApp/view/widgets/InventoryWidget.dart';
 import 'package:EyuunApp/view/widgets/eyuun/Brushes.dart';
 import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
+import 'package:eyuuncore/components/Item.dart';
+import 'package:eyuuncore/components/inventory.dart';
+import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/core/services/CharacterService.dart';
+import 'package:eyuuncore/core/services/TextService.dart';
+import 'package:eyuuncore/core/services/assetloader.dart';
 import 'package:flutter/material.dart';
 import 'package:lorem_ipsum/lorem_ipsum.dart';
-
-import '../components/inventory.dart';
-import '../components/text.dart';
-import '../core/registerServices.dart';
-import '../core/services/CharacterService.dart';
-import '../core/services/TextService.dart';
-import '../core/services/assetloader.dart';
 
 class InventoryPage extends StatefulWidget {
   const InventoryPage({super.key});

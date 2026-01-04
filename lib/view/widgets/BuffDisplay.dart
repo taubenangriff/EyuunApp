@@ -1,18 +1,18 @@
-import 'package:EyuunApp/components/health.dart';
-import 'package:EyuunApp/components/upgrade/ArmorUpgrade.dart';
-import 'package:EyuunApp/components/upgrade/Buff.dart';
-import 'package:EyuunApp/components/upgrade/CharacterPathUpgrade.dart';
-import 'package:EyuunApp/components/upgrade/FluxUpgrade.dart';
-import 'package:EyuunApp/components/upgrade/LanguageLearnerUpgrade.dart';
+import 'package:eyuuncore/components/health.dart';
+import 'package:eyuuncore/components/upgrade/ArmorUpgrade.dart';
+import 'package:eyuuncore/components/upgrade/AttributesUpgrade.dart';
+import 'package:eyuuncore/components/upgrade/Buff.dart';
+import 'package:eyuuncore/components/upgrade/CharacterPathUpgrade.dart';
+import 'package:eyuuncore/components/upgrade/CombatUpgrade.dart';
+import 'package:eyuuncore/components/upgrade/FluxUpgrade.dart';
+import 'package:eyuuncore/components/upgrade/HealthUpgrade.dart';
+import 'package:eyuuncore/components/upgrade/LanguageLearnerUpgrade.dart';
+import 'package:eyuuncore/components/upgrade/TalentsUpgrade.dart';
+import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
-import '../../components/upgrade/AttributesUpgrade.dart';
-import '../../components/upgrade/CombatUpgrade.dart';
-import '../../components/upgrade/HealthUpgrade.dart';
-import '../../components/upgrade/TalentsUpgrade.dart';
-import '../../core/registerServices.dart';
-import '../../core/services/TextService.dart';
 
 class BuffDisplay extends StatelessWidget {
   final Entity? buff;

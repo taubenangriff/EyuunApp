@@ -1,9 +1,7 @@
-import 'dart:math';
-
-import 'package:EyuunApp/components/Flux.dart';
-import 'package:EyuunApp/components/LanguageLearner.dart';
-import 'package:EyuunApp/components/health.dart';
-import 'package:EyuunApp/controller/HealthController.dart';
+import 'package:eyuuncore/components/Flux.dart';
+import 'package:eyuuncore/components/LanguageLearner.dart';
+import 'package:eyuuncore/components/health.dart';
+import 'package:eyuuncore/controller/HealthController.dart';
 import 'package:EyuunApp/view/controller/ChangeValueController.dart';
 import 'package:EyuunApp/view/popup/ChangeHealthPopup.dart';
 import 'package:EyuunApp/view/popup/ChangeValuePopup.dart';
@@ -13,12 +11,11 @@ import 'package:EyuunApp/view/widgets/Cards/PathsWidget.dart';
 import 'package:EyuunApp/view/widgets/cards/LanguagesWidget.dart';
 import 'package:EyuunApp/view/widgets/eyuun/Brushes.dart';
 import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
+import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:flutter/material.dart';
 import 'package:EyuunApp/view/popup/PopupUtil.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../core/registerServices.dart';
-import '../core/services/CharacterService.dart';
 
 class CharacterPage extends StatefulWidget {
   const CharacterPage({super.key});

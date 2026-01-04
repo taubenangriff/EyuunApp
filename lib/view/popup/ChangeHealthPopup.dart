@@ -1,17 +1,17 @@
-import 'package:EyuunApp/components/DamageType.dart';
-import 'package:EyuunApp/components/Icon.dart';
-import 'package:EyuunApp/components/feature/CombatFeature.dart';
-import 'package:EyuunApp/controller/HealthController.dart';
-import 'package:EyuunApp/core/assetLink.dart';
-import 'package:EyuunApp/core/components/EntityExtensions.dart';
+import 'package:eyuuncore/components/DamageType.dart';
+import 'package:eyuuncore/components/Icon.dart';
+import 'package:eyuuncore/components/feature/CombatFeature.dart';
+import 'package:eyuuncore/controller/HealthController.dart';
+import 'package:eyuuncore/core/assetLink.dart';
+import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:EyuunApp/view/controller/ChangeValueController.dart';
 import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
+import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
-import '../../core/registerServices.dart';
-import '../../core/services/TextService.dart';
 import '../widgets/ItemWheel.dart';
 import '../widgets/eyuun/Brushes.dart';
 

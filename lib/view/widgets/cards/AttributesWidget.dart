@@ -1,13 +1,13 @@
 import 'dart:math';
 
-import 'package:EyuunApp/controller/AttributesController.dart';
+import 'package:eyuuncore/components/Attributes.dart';
+import 'package:eyuuncore/controller/AttributesController.dart';
 import 'package:EyuunApp/view/widgets/DiceIcon.dart';
+import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/core/services/CharacterService.dart';
+import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 
-import '../../../components/Attributes.dart';
-import '../../../core/registerServices.dart';
-import '../../../core/services/CharacterService.dart';
-import '../../../core/services/TextService.dart';
 
 class AttributesWidget extends StatefulWidget {
   const AttributesWidget({super.key});

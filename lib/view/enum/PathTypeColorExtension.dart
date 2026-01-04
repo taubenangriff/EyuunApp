@@ -1,6 +1,5 @@
+import 'package:eyuuncore/enums/PathType.dart';
 import 'package:flutter/material.dart';
-
-import '../../enums/PathType.dart';
 
 extension PathTypeColor on PathType {
   Color get color {

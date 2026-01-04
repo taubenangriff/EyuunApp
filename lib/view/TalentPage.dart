@@ -1,13 +1,12 @@
-import 'package:EyuunApp/components/Attributes.dart';
-import 'package:EyuunApp/components/Talents.dart';
-import 'package:EyuunApp/core/services/CharacterService.dart';
+import 'package:eyuuncore/components/Attributes.dart';
+import 'package:eyuuncore/components/Skillcheck.dart';
+import 'package:eyuuncore/components/Talents.dart';
+import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:EyuunApp/view/widgets/DiceIcon.dart';
+import 'package:eyuuncore/core/services/TextService.dart';
+import 'package:eyuuncore/core/services/assetloader.dart';
 import 'package:flutter/material.dart';
-
-import '../components/Skillcheck.dart';
-import '../core/registerServices.dart';
-import '../core/services/TextService.dart';
-import '../core/services/assetloader.dart';
 
 class TalentPage extends StatefulWidget {
   final double desiredSize;

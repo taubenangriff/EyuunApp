@@ -1,27 +1,23 @@
 import 'dart:math';
 
-import 'package:EyuunApp/core/repository/AssetRepository.dart';
-import 'package:EyuunApp/core/registerComponentsExtension.dart';
-import 'package:EyuunApp/core/registerSystemsExtension.dart';
-import 'package:EyuunApp/core/registerUpgradesExtension.dart';
-import 'package:EyuunApp/core/services/WorldManager.dart';
-import 'package:EyuunApp/core/registerServices.dart';
+import 'package:eyuuncore/components/inventory.dart';
+import 'package:eyuuncore/core/assetLink.dart';
+import 'package:eyuuncore/core/registerFeatures.dart';
+import 'package:eyuuncore/core/repository/AssetRepository.dart';
+import 'package:eyuuncore/core/registerComponentsExtension.dart';
+import 'package:eyuuncore/core/registerSystemsExtension.dart';
+import 'package:eyuuncore/core/registerUpgradesExtension.dart';
+import 'package:eyuuncore/core/repository/TextRepository.dart';
+import 'package:eyuuncore/core/services/CharacterService.dart';
+import 'package:eyuuncore/core/services/WorldManager.dart';
+import 'package:eyuuncore/core/registerServices.dart';
 import 'package:EyuunApp/view/MainPage.dart';
+import 'package:eyuuncore/core/services/assetloader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:oxygen/oxygen.dart';
 
 import 'dart:convert';
-
-import 'components/inventory.dart';
-import 'core/assetLink.dart';
-import 'core/registerFeatures.dart';
-import 'core/repository/TextRepository.dart';
-import 'core/services/CharacterService.dart';
-import 'core/services/assetloader.dart';
-
-
-late Entity character;
 
 String textFile = "data/base/text/de_de.json";
 
@@ -46,7 +42,7 @@ void main() async {
 
   registerFeatures();
 
-  character = assetLoader.createInstance("character")!;
+  var character = assetLoader.createInstance("character")!;
   locator<CharacterService>().changeCharacter(character);
 
   await fillTestData();

@@ -1,12 +1,8 @@
-import 'package:EyuunApp/components/AssetBundle.dart';
-import 'package:EyuunApp/core/assetLink.dart';
-import 'package:EyuunApp/core/services/assetloader.dart';
+import 'package:eyuuncore/controller/LanguagesController.dart';
+import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
-import '../../../components/LanguageLearner.dart';
-import '../../../core/registerServices.dart';
-import '../../../core/services/TextService.dart';
-import '../../controller/LanguagesController.dart';
 import '../widgets/LanguageDetailWidget.dart';
 import '../widgets/eyuun/Brushes.dart';
 import '../widgets/eyuun/EyuunDecoration.dart';

@@ -1,6 +1,5 @@
+import 'package:eyuuncore/components/Combat.dart';
 import 'package:flutter/material.dart';
-
-import '../../../components/Combat.dart';
 
 class CombatStatsRow extends StatelessWidget {
   final CombatComponent combat;

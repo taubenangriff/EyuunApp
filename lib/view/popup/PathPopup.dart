@@ -1,12 +1,12 @@
-import 'package:EyuunApp/components/Path.dart';
-import 'package:EyuunApp/core/assetLink.dart';
-import 'package:EyuunApp/core/components/EntityExtensions.dart';
-import 'package:EyuunApp/core/services/assetloader.dart';
+import 'package:eyuuncore/components/Path.dart';
+import 'package:eyuuncore/controller/PathController.dart';
+import 'package:eyuuncore/core/assetLink.dart';
+import 'package:eyuuncore/core/components/EntityExtensions.dart';
+import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/core/services/TextService.dart';
+import 'package:eyuuncore/core/services/assetloader.dart';
 import 'package:flutter/material.dart';
 
-import '../../controller/PathController.dart';
-import '../../core/registerServices.dart';
-import '../../core/services/TextService.dart';
 import '../widgets/eyuun/Brushes.dart';
 import '../widgets/eyuun/EyuunDecoration.dart';
 import '../widgets/PathStepTile.dart';

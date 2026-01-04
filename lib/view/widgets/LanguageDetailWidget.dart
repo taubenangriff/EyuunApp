@@ -1,10 +1,9 @@
+import 'package:eyuuncore/components/Language.dart';
+import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
-import 'package:lorem_ipsum/lorem_ipsum.dart';
 
-import '../../components/Language.dart';
-import '../../core/registerServices.dart';
-import '../../core/services/TextService.dart';
 
 class LanguageDetailWidget extends StatelessWidget {
   final Entity languageEntity;

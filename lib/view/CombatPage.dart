@@ -1,18 +1,18 @@
-import 'package:EyuunApp/components/Combat.dart';
+import 'package:eyuuncore/components/Combat.dart';
 import 'package:EyuunApp/view/popup/ChangeHealthPopup.dart';
 import 'package:EyuunApp/view/popup/ChangeValuePopup.dart';
 import 'package:EyuunApp/view/popup/PopupUtil.dart';
 import 'package:EyuunApp/view/widgets/Cards/CombatStatsRow.dart';
 import 'package:EyuunApp/view/widgets/eyuun/Brushes.dart';
 import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
+import 'package:eyuuncore/components/Flux.dart';
+import 'package:eyuuncore/components/health.dart';
+import 'package:eyuuncore/controller/HealthController.dart';
+import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../components/Flux.dart';
-import '../components/health.dart';
-import '../controller/HealthController.dart';
-import '../core/registerServices.dart';
-import '../core/services/CharacterService.dart';
 import '../main.dart';
 import 'controller/ChangeValueController.dart';
 

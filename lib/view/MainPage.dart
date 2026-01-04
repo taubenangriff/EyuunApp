@@ -3,13 +3,13 @@ import 'dart:math';
 
 import 'package:EyuunApp/view/CharacterPage.dart';
 import 'package:EyuunApp/view/InventoryPage.dart';
+import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/core/services/CharacterService.dart';
+import 'package:eyuuncore/io/AssetSerializer.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:html' as html;
 
-import '../core/registerServices.dart';
-import '../core/services/CharacterService.dart';
-import '../io/AssetSerializer.dart';
 import 'CombatPage.dart';
 import 'TalentPage.dart';
 

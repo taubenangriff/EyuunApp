@@ -1,15 +1,15 @@
-import 'package:EyuunApp/controller/LanguagesController.dart';
-import 'package:EyuunApp/core/assetLink.dart';
+import 'package:eyuuncore/components/LanguageLearner.dart';
+import 'package:eyuuncore/controller/LanguagesController.dart';
+import 'package:eyuuncore/core/assetLink.dart';
 import 'package:EyuunApp/view/popup/LanguageDetailPopup.dart';
 import 'package:EyuunApp/view/popup/PopupUtil.dart';
 import 'package:EyuunApp/view/popup/SelectLanguagePopup.dart';
 import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
+import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
-import '../../../components/LanguageLearner.dart';
-import '../../../core/registerServices.dart';
-import '../../../core/services/TextService.dart';
 import '../eyuun/Brushes.dart';
 
 class LanguageGrid extends StatefulWidget {
