@@ -36,6 +36,8 @@ class _PickPathPopupState extends State<PickPathPopup> {
   Widget build(BuildContext context) {
     final allPaths = widget.pathFeature.paths.getAssets();
 
+    allPaths.removeWhere((e) => widget.pathController.isPathPicked(e.getTypeId()));
+
     final filteredPaths = allPaths.where((path) {
       final name = locator<TextService>().getTextFromEntity(path).toLowerCase();
       return name.contains(searchQuery.toLowerCase());
