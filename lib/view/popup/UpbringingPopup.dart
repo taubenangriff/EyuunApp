@@ -1,14 +1,3 @@
-import 'dart:math';
-
-import 'package:EyuunApp/components/CharacterPath.dart';
-import 'package:EyuunApp/components/Path.dart';
-import 'package:EyuunApp/components/PathStep.dart';
-import 'package:EyuunApp/controller/PathController.dart';
-import 'package:EyuunApp/core/components/EntityExtensions.dart';
-import 'package:EyuunApp/core/services/CharacterService.dart';
-import 'package:EyuunApp/main.dart';
-import 'package:EyuunApp/view/popup/PathPopup.dart';
-import 'package:EyuunApp/view/popup/PopupUtil.dart';
 import 'package:EyuunApp/view/widgets/BuffDisplay.dart';
 import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +31,7 @@ class UpbringingPopup extends StatelessWidget {
           children: [
             Expanded(
               child: _UpbringingColumn(
-                title: 'Primary Upbringing',
+                title: locator<TextService>().getText("uitext_primary_upbringing"),
                 entity: primary,
               ),
             ),
@@ -50,7 +39,7 @@ class UpbringingPopup extends StatelessWidget {
             if (secondary != null)
               Expanded(
                 child: _UpbringingColumn(
-                  title: 'Secondary Upbringing',
+                  title: locator<TextService>().getText("uitext_secondary_upbringing"),
                   entity: secondary,
                 ),
               ),
@@ -97,9 +86,7 @@ class _UpbringingColumn extends StatelessWidget {
           title,
           textAlign: TextAlign.center,
           style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            letterSpacing: 0.5,
+            fontSize: 16
           ),
         ),
 
@@ -123,7 +110,7 @@ class _UpbringingColumn extends StatelessWidget {
           const SizedBox(height: 16),
           Divider(
             thickness: 1,
-            color: Colors.grey.withOpacity(0.4),
+            color: Colors.grey.withAlpha(100),
           ),
           const SizedBox(height: 12),
           Padding(

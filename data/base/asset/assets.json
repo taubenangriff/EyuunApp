@@ -670,6 +670,16 @@
       "buff": {
         "textDescription": "childhood_homeless_effectdesc"
       }
+    },
+    {
+      "standard": {
+        "typeId": "levels",
+        "internalName": "Childhood Human"
+      },
+      "text": { },
+      "buff": {
+        "textDescription": "childhood_homeless_effectdesc"
+      }
     }
   ]
 }

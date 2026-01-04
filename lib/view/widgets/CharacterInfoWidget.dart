@@ -126,7 +126,7 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: Text(
-                                'Upbringing: ${textService.getTextFromEntity(upbringingBuff)}',
+                                '${textService.getText('uitext_upbringing')}${textService.getTextFromEntity(upbringingBuff)}${secondUpbringingBuff != null ? ", ${textService.getTextFromEntity(secondUpbringingBuff)}" : ""}',
                                 style: TextStyle(
                                   fontSize: fontSize - 2,
                                   color: Theme.of(context).colorScheme.primary,
@@ -154,7 +154,7 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: Text(
-                                'Childhood: ${textService.getTextFromEntity(childhoodBuff)}',
+                                '${textService.getText('uitext_childhood')}${textService.getTextFromEntity(childhoodBuff)}',
                                 style: TextStyle(
                                   fontSize: fontSize - 2,
                                   color: Theme.of(context).colorScheme.primary,
