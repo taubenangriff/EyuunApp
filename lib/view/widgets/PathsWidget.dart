@@ -7,7 +7,7 @@ import 'package:EyuunApp/controller/PathController.dart';
 import 'package:EyuunApp/core/components/EntityExtensions.dart';
 import 'package:EyuunApp/core/services/CharacterService.dart';
 import 'package:EyuunApp/main.dart';
-import 'package:EyuunApp/view/popup/PathPopup.dart';
+import 'package:EyuunApp/view/popup/Path/PathPopup.dart';
 import 'package:EyuunApp/view/popup/PopupUtil.dart';
 import 'package:EyuunApp/view/widgets/BuffDisplay.dart';
 import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
@@ -18,6 +18,7 @@ import '../../core/registerServices.dart';
 import '../../core/services/TextService.dart';
 import '../../enums/PathType.dart';
 import '../enum/PathTypeColorExtension.dart';
+import '../popup/Path/PickPathPopup.dart';
 import 'eyuun/Brushes.dart';
 
 class PathsWidget extends StatefulWidget {
@@ -282,9 +283,7 @@ class _PathsWidgetState extends State<PathsWidget> {
                     setState(() {
                       PopupUtil.popup(
                           context,
-                          const Center(
-                              child: Text(
-                                  "Popup showing all new paths grouped by type with a preview of their tiers")),
+                          PickPathPopup(pathController: pathController),
                           maximumSize: Size(900, 700));
                     });
                   },
