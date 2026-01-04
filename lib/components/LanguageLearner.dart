@@ -9,8 +9,9 @@ part 'LanguageLearner.mapper.dart';
 @MappableClass()
 class LanguageLearnerDynamic with LanguageLearnerDynamicMappable {
   int languageMaxPotential;
+  int languagesThroughProjects;
   List<AssetLink> languagesLearned;
-  LanguageLearnerDynamic(this.languageMaxPotential, this.languagesLearned);
+  LanguageLearnerDynamic(this.languageMaxPotential, this.languagesLearned, this.languagesThroughProjects);
 }
 
 class LanguageLearnerComponent extends EyuunComponent<int> {
@@ -19,14 +20,16 @@ class LanguageLearnerComponent extends EyuunComponent<int> {
   /// The language potential of the character
   late UpgradableInt languageMaxPotential;
 
+  late int languagesThroughProjects;
+
   /// The list of languages learned.
   late List<AssetLink> languagesLearned;
 
   /// Returns whether a character can learn a new language
-  bool canLearnNew() => languagesLearned.length < languageMaxPotential.current;
+  bool canLearnNew() => languagesLearned.length - languagesThroughProjects < languageMaxPotential.current;
 
   /// Returns the amount of languages already learned.
-  int languagesLearnedCount() => languagesLearned.length;
+  int languagesLearnedCount() => languagesLearned.length + languagesThroughProjects;
 
   @override
   String getName() => propertyName;
@@ -41,6 +44,7 @@ class LanguageLearnerComponent extends EyuunComponent<int> {
     var dyn = LanguageLearnerDynamicMapper.fromMap(dynamicData);
     languageMaxPotential = dyn.languageMaxPotential.upgradable;
     languagesLearned = dyn.languagesLearned;
+    languagesThroughProjects = dyn.languagesThroughProjects;
   }
 
   @override
