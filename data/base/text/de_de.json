@@ -41,6 +41,10 @@
     "path_flux_01_step_05_effectdesc": "Wenn du beim Zaubern ein EW von mindestens 30 erreichst, erhältst du die Hälfte des zum Wirken dieses Zauberns ausgegebenen Fluss zurück (also auch Fluss, das für Vorteile ausgegeben wurde)",
     "path_flux_additional_00_step": "ZusatzFluss01",
 
+    "path_fighter_01": "Duellant",
+    "path_fighter_01_step_00": "Gegenangriff",
+    "path_fighter_01_step_00_effectdesc": "Du erhältst jedes Mal eine Angriffschance gegen ein Ziel, wenn du dich erfolgreich gegen einen Angriff des Ziels verteidigt hast. In dieser Angriffschance darfst du das Ziel nur mit Nahkampfwaffen angreifen",
+
     "upbringing_undead": "Untot",
     "upbringing_undead_fluff": "Untote befinden sich in irgendeinem Zustand des Zerfalls, von fast komplett normal wie ihre vererbte Abstammung einst aussah, bis hin zu komplett skelettiert ist alles möglich. Sie werden durch außerweltliche Mächte oder potente Magie am Leben gehalten und müssen sich meistens eher bedeckt halten, um kein Aufsehen zu erregen",
     "upbringing_undead_effectdesc": "Der SW von im Sterben liegen Proben erhöht sich bei Untoten nur um +2 durch Schaden und am Ende des Zuges",

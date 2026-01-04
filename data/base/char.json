@@ -251,11 +251,17 @@
     "chosenPaths": [
       {
         "id": "path_flux_01"
+      },
+      {
+        "id": "path_fighter_01"
       }
     ],
     "chosenPathSteps": [
       {
         "id": "path_flux_01_step_00"
+      },
+      {
+        "id": "path_fighter_01_step_00"
       },
       {
         "id": "path_flux_additional_00_step"

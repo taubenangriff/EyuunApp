@@ -23,6 +23,9 @@
         "paths": [
           {
             "id": "path_flux_01"
+          },
+          {
+            "id": "path_fighter_01"
           }
         ],
         "additionalPaths": [

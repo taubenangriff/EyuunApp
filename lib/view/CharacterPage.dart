@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:EyuunApp/components/Flux.dart';
+import 'package:EyuunApp/components/LanguageLearner.dart';
 import 'package:EyuunApp/components/health.dart';
 import 'package:EyuunApp/controller/HealthController.dart';
 import 'package:EyuunApp/view/controller/ChangeValueController.dart';
@@ -9,6 +10,7 @@ import 'package:EyuunApp/view/popup/ChangeValuePopup.dart';
 import 'package:EyuunApp/view/widgets/Cards/AttributesWidget.dart';
 import 'package:EyuunApp/view/widgets/Cards/CharacterInfoWidget.dart';
 import 'package:EyuunApp/view/widgets/Cards/PathsWidget.dart';
+import 'package:EyuunApp/view/widgets/cards/LanguagesWidget.dart';
 import 'package:EyuunApp/view/widgets/eyuun/Brushes.dart';
 import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
 import 'package:flutter/material.dart';
@@ -26,12 +28,6 @@ class CharacterPage extends StatefulWidget {
 }
 
 class _CharacterPageState extends State<CharacterPage> {
-  var healthCurrent = 5;
-  var healthMax = 50;
-
-  var vitalityCurrent = 12;
-  var vitalityMax = 20;
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -41,11 +37,8 @@ class _CharacterPageState extends State<CharacterPage> {
     var character = locator<CharacterService>().character;
     var health = character.get<HealthComponent>()!;
     var flux = character.get<FluxComponent>()!;
+    var languageLearner = character.get<LanguageLearnerComponent>();
 
-    final vitalityController = ChangeValueController(vitalityCurrent,
-        maxLimit: vitalityMax,
-        minLimit: 0,
-        onValUpdated: (val) => vitalityCurrent = val);
     final fluxController = ChangeValueController(flux.fluxSpent,
         maxLimit: flux.fluxCapacity.current,
         minLimit: 0,
@@ -152,6 +145,38 @@ class _CharacterPageState extends State<CharacterPage> {
                             },
                           ),
                         ),
+                      ],
+                    ),
+                    if(languageLearner != null)
+                      SizedBox(height: 16),
+                    if(languageLearner != null)
+                      Stack(
+                        children: [
+                          // The decorated box with your content
+                          DecoratedBox(
+                            decoration: EyuunDecoration(
+                                cornerSize: 20, paint: Brushes.goldSparkling()),
+                            child: Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: LanguageGrid(learner: languageLearner),
+                            ),
+                          ),
+                          // The info button in the top right corner
+                          Positioned(
+                            top: 12,
+                            right: 12,
+                            child: IconButton(
+                              icon: const Icon(Icons.info_outline),
+                              tooltip: 'More info on Languages',
+                              onPressed: () async {
+                                const url =
+                                    'https://eyuun.de/charaktere-level#sprachen';
+                                if (await canLaunchUrl(Uri.parse(url))) {
+                                  await launchUrl(Uri.parse(url));
+                                }
+                              },
+                            ),
+                          ),
                       ],
                     ),
                     SizedBox(height: 200)

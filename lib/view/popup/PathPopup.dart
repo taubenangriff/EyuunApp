@@ -21,7 +21,7 @@ class PathPopup extends StatefulWidget {
   const PathPopup(
       {this.onSubmitted,
       this.setState,
-      this.pathId = "",
+      required this.pathId,
       required this.pathController,
       super.key});
 
@@ -42,7 +42,7 @@ class _PathPopupState extends State<PathPopup> {
 
   @override
   Widget build(BuildContext context) {
-    var pathAsset = locator<AssetLoader>().getStatic("path_flux_01");
+    var pathAsset = locator<AssetLoader>().getStatic(widget.pathId);
     var pathSteps =
         pathAsset?.get<PathComponent>()?.pickableSteps.getAssets() ?? [];
 
