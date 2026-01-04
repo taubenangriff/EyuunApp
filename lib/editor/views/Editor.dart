@@ -1,9 +1,6 @@
-import 'dart:ffi';
-
-import 'package:editor/views/SelectFile.dart';
-import 'package:file_tree_view/file_tree_view.dart';
-import 'package:file_tree_view/style.dart';
 import 'package:flutter/material.dart';
+
+import 'SelectFile.dart';
 
 class Editor extends StatefulWidget {
   const Editor({super.key});
