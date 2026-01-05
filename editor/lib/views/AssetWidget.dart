@@ -5,6 +5,7 @@ import 'package:eyuuncore/core/components/standard.dart';
 import 'package:eyuuncore/core/reflection/Reflecting.dart';
 import 'package:eyuuncore/core/reflection/reflector.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:reflectable/mirrors.dart';
 
 import '../Asset.dart';
@@ -75,9 +76,9 @@ class _AssetWidgetState extends State<AssetWidget> {
     Type vartype = declMirror.reflectedType;
 
     var widgets = <Widget>[
-      Text(vartype.toString()),
+      SizedBox(width: 150, child: Text(vartype.toString())),
       SizedBox(width: 16),
-      Text(declMirror.simpleName),
+      SizedBox(width: 150, child: Text(declMirror.simpleName)),
       SizedBox(width: 16),
     ];
 
@@ -110,6 +111,34 @@ class _AssetWidgetState extends State<AssetWidget> {
             });
           },
         ))
+      );
+    }
+
+
+    if (vartype == int) {
+
+      var stringVal = instanceMirror.invokeGetter(declMirror.simpleName) as int;
+
+      var numController = TextEditingController(text: stringVal.toString());
+
+      widgets.add(
+          Flexible(child:
+          TextFormField(
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            keyboardType: TextInputType.numberWithOptions(decimal: true),
+            controller: numController,
+            onFieldSubmitted: (newval) {
+              var integer = int.tryParse(newval);
+              if(integer == null) {
+                setState(() {});
+                return;
+              }
+              setState(() {
+                instanceMirror.invokeSetter(declMirror.simpleName, integer);
+                print("fuck");
+              });
+            },
+          ))
       );
     }
 
