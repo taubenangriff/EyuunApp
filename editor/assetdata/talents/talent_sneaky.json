@@ -6,8 +6,8 @@
     "text": {
         "textKey": "text_sneaky"
     },
-    "stat": {
-        "constrainedBy": []
+    "talent": {
+        "specializations": []
     },
     "skillcheck": {
         "checkedAttributes": [

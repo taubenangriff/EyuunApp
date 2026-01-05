@@ -6,8 +6,8 @@
     "text": {
         "textKey": "text_athletic"
     },
-    "stat": {
-        "constrainedBy": []
+    "talent": {
+        "specializations": []
     },
     "skillcheck": {
         "checkedAttributes": [

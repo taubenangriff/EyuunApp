@@ -3,9 +3,9 @@
         "typeId": "talent_investigate",
         "internalName": "Talent: Investigate"
     },
-    "text": {},
-    "stat": {
-        "constrainedBy": []
+    "text": {},    
+    "talent": {
+        "specializations": []
     },
     "skillcheck": {
         "checkedAttributes": [

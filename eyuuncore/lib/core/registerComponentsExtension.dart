@@ -15,6 +15,7 @@ import 'package:eyuuncore/components/PathStep.dart';
 import 'package:eyuuncore/components/Project.dart';
 import 'package:eyuuncore/components/Projectile.dart';
 import 'package:eyuuncore/components/Spell.dart';
+import 'package:eyuuncore/components/Talent.dart';
 import 'package:eyuuncore/components/Talents.dart';
 import 'package:eyuuncore/components/Weapon.dart';
 import 'package:eyuuncore/components/feature/CharacterTables.dart';
@@ -83,7 +84,7 @@ extension registerEditorComponentsExtension on ComponentRepository {
     registerComponent<AssetBundleStatic>(AssetBundleComponent.propertyName, (map) => AssetBundleStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<CharacterBaseStatic>(CharacterBaseComponent.propertyName, (map) => CharacterBaseStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<BuffStatic>(BuffComponent.propertyName, (map) => BuffStaticMapper.fromMap(map), (comp) => comp.toMap());
-
+    registerComponent<TalentStatic>(TalentComponent.propertyName, (map) => TalentStaticMapper.fromMap(map), (comp) => comp.toMap());
     //Upgrades
 
     registerComponent<ArmorUpgradeStatDyn>(ArmorUpgradeComponent.propertyName, (map) => ArmorUpgradeStatDynMapper.fromMap(map), (comp) => comp.toMap());
@@ -100,6 +101,7 @@ extension registerEditorComponentsExtension on ComponentRepository {
     registerComponent<PathFeatureStatic>(PathFeatureComponent.propertyName, (map) => PathFeatureStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<LevelFeatureStatic>(LevelFeatureComponent.propertyName, (map) => LevelFeatureStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<CharacterTablesFeatureStatic>(CharacterTablesFeatureComponent.propertyName, (map) => CharacterTablesFeatureStaticMapper.fromMap(map), (comp) => comp.toMap());
+
   }
 }
 
@@ -137,6 +139,7 @@ extension RegisterComponentsExtension on WorldManager {
     registerComponent<AssetBundleComponent, int>(AssetBundleComponent.propertyName, () => AssetBundleComponent());
     registerComponent<CharacterBaseComponent, int>(CharacterBaseComponent.propertyName, () => CharacterBaseComponent());
     registerComponent<BuffComponent, int>(BuffComponent.propertyName, () => BuffComponent());
+    registerComponent<TalentComponent, int>(TalentComponent.propertyName, () => TalentComponent());
 
     // register Upgrades
     registerComponent<ArmorUpgradeComponent, int>(ArmorUpgradeComponent.propertyName, () => ArmorUpgradeComponent());

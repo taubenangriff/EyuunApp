@@ -4,8 +4,8 @@
         "internalName": "Talent: Manipulation"
     },
     "text": {},
-    "stat": {
-        "constrainedBy": []
+    "talent": {
+        "specializations": []
     },
     "skillcheck": {
         "checkedAttributes": [
