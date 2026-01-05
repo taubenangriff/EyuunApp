@@ -1,0 +1,14 @@
+{
+    "standard": {
+        "typeId": "path_flux_additionals",
+        "internalName": "Additional Paths for Flux Paths"
+    },
+    "text": {},
+    "assetBundle": {
+        "assets": [
+            {
+                "id": "path_flux_additional_00_step"
+            }
+        ]
+    }
+}

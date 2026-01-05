@@ -1,0 +1,16 @@
+{
+    "standard": {
+        "typeId": "path_flux_01_step_03",
+        "internalName": "Arcanist Path | Step 3 | Jar of Flux"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 2,
+        "isAdditional": false,
+        "pathType": "Flux"
+    },
+    "fluxUpgrade": {
+        "fluxMaximumUpgrade": 2
+    },
+    "buff": {}
+}

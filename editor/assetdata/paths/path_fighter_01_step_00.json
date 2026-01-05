@@ -1,0 +1,18 @@
+{
+    "standard": {
+        "typeId": "path_fighter_01_step_00",
+        "internalName": "Duelist Path | Step 0 | Counterattack"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 0,
+        "isAdditional": false,
+        "pathType": "Fighter"
+    },
+    "fluxUpgrade": {
+        "fluxMaximumUpgrade": 2
+    },
+    "buff": {
+        "textDescription": "path_fighter_01_step_00_effectdesc"
+    }
+}

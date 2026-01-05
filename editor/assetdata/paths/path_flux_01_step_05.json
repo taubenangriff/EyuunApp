@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_flux_01_step_05",
+        "internalName": "Arcanist Path | Step 5 | Flux Reusing"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 5,
+        "isAdditional": false,
+        "pathType": "Flux"
+    },
+    "buff": {
+        "textDescription": "path_flux_01_step_05_effectdesc"
+    }
+}

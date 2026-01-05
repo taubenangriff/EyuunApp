@@ -1,0 +1,16 @@
+{
+    "standard": {
+        "typeId": "path_flux_01_step_00",
+        "internalName": "Arcanist Path | Step 0 | Flux-conducting"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 0,
+        "isAdditional": false,
+        "pathType": "Flux"
+    },
+    "fluxUpgrade": {
+        "fluxMaximumUpgrade": 2
+    },
+    "buff": {}
+}

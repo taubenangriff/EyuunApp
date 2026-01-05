@@ -60,7 +60,7 @@ class _EditorState extends State<Editor> {
         child: FloatingActionButton(
           onPressed: () {
             var dir = Directory('D:\\Coding\\flexbackend\\editor\\assetdata');
-            assetexporter.export(dir, Directory('D:\\Coding\\flexoutput'));
+            assetexporter.export(dir, Directory('D:\\Coding\\flexbackend'));
             // export
           },
           tooltip: "Export assets",

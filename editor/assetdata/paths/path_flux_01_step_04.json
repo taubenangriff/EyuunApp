@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_flux_01_step_04",
+        "internalName": "Arcanist Path | Step 4 | Subtle Casting"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 2,
+        "isAdditional": false,
+        "pathType": "Flux"
+    },
+    "buff": {
+        "textDescription": "path_flux_01_step_04_effectdesc"
+    }
+}

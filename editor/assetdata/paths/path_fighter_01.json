@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_fighter_01",
+        "internalName": "Duelist Path"
+    },
+    "text": {},
+    "path": {
+        "pathType": "Fighter",
+        "pickableSteps": [
+            {
+                "id": "path_fighter_01_step_00"
+            }
+        ]
+    }
+}

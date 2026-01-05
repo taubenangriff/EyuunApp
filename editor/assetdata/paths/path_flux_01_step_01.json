@@ -1,0 +1,18 @@
+{
+    "standard": {
+        "typeId": "path_flux_01_step_01",
+        "internalName": "Arcanist Path | Step 1 | Costly Casting"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 1,
+        "isAdditional": false,
+        "pathType": "Flux"
+    },
+    "fluxUpgrade": {
+        "fluxMaximumUpgrade": 1
+    },
+    "buff": {
+        "textDescription": "path_flux_01_step_01_effectdesc"
+    }
+}
