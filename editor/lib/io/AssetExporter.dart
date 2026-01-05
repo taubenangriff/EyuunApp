@@ -38,8 +38,18 @@ class AssetExporter {
 
     for(var file in files) {
       var data = file.readAsStringSync();
-      var assetData = jsonDecode(data);
-      assetfile.assets.add(assetData);
+
+      try {
+        var assetData = jsonDecode(data);
+        var loaded = staticAssetLoader.loadAsset(assetData);
+        var remapped = staticAssetLoader.toMap(loaded);
+        assetfile.assets.add(remapped);
+
+      } on Exception catch (exception) {
+        print("asset at ${file.path} contains invalid data and is as such not exported.");
+        print(exception);
+      }
+
     }
 
     for(var subDirectory in subDirectories) {
