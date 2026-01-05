@@ -25,12 +25,13 @@ class _AssetWidgetState extends State<AssetWidget> {
 
     return Container(
       padding: const EdgeInsets.all(16),
-      child: Column(
+      child: SingleChildScrollView(
+        child: Column(
         children: [
           for (var entry in asset.components.entries)
             buildPanel(context, entry.key, entry.value)
         ]
-      ),
+      )),
     );
   }
 
@@ -77,6 +78,7 @@ class _AssetWidgetState extends State<AssetWidget> {
       Text(vartype.toString()),
       SizedBox(width: 16),
       Text(declMirror.simpleName),
+      SizedBox(width: 16),
     ];
 
     if (vartype == bool) {
