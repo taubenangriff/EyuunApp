@@ -1,0 +1,35 @@
+{
+    "standard": {
+        "typeId": "talent_wildlife",
+        "internalName": "Talent: Wildnerness"
+    },
+    "text": { },
+    "talent": {
+        "specializations": []
+    },
+    "skillcheck": {
+        "checkedAttributes": [
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Courage"
+                    }
+                ]
+            },
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Intuition"
+                    }
+                ]
+            },
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Agility"
+                    }
+                ]
+            }
+        ]
+    }
+}

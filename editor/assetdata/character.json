@@ -64,6 +64,63 @@
       },
       {
         "id": "talent_investigate"
+      },
+      {
+        "id": "talent_humanperception"
+      },
+      {
+        "id": "talent_perception"
+      },
+      {
+        "id": "talent_plants"
+      },
+      {
+        "id": "talent_flux"
+      },
+      {
+        "id": "talent_stories"
+      },
+      {
+        "id": "talent_society"
+      },
+      {
+        "id": "talent_crafting"
+      },
+      {
+        "id": "talent_medicine"
+      },
+      {
+        "id": "talent_technology"
+      },
+      {
+        "id": "talent_animals"
+      },
+      {
+        "id": "talent_perform"
+      },
+      {
+        "id": "talent_religion"
+      },
+      {
+        "id": "talent_wildlife"
+      },
+      {
+        "id": "spellschool_elements"
+      },
+      {
+        "id": "spellschool_will"
+      },
+      {
+        "id": "spellschool_summoner"
+      },
+      {
+        "id": "spellschool_matter"
+      },
+      {
+        "id": "spellschool_nature"
+      },
+      {
+        "id": "spellschool_spacetime"
       }
     ]
   },
