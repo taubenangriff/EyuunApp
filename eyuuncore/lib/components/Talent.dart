@@ -1,4 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:eyuuncore/enums/TalentGroup.dart';
 
 import '../core/assetLink.dart';
 import '../core/components/EyuunComponent.dart';
@@ -11,14 +12,16 @@ part 'Talent.mapper.dart';
 @reflector
 class TalentStatic with TalentStaticMappable, ComponentReflectable {
   List<AssetLink> specializations;
+  TalentGroup skillGroup;
 
-  TalentStatic(this.specializations);
+  TalentStatic(this.specializations, this.skillGroup);
 }
 
 class TalentComponent extends EyuunComponent<int> {
   static const String propertyName = "talent";
 
   late List<AssetLink> specializations;
+  late TalentGroup skillGroup;
 
   @override
   String getName() => propertyName;
@@ -37,11 +40,13 @@ class TalentComponent extends EyuunComponent<int> {
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = TalentStaticMapper.fromMap(staticData);
     specializations = stat.specializations;
+    skillGroup = stat.skillGroup;
   }
 
   @override
   void reset() {
     specializations = [];
+    skillGroup = TalentGroup.Basic;
   }
 
   @override
