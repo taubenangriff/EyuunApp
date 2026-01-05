@@ -3,6 +3,7 @@ import 'package:eyuuncore/controller/PathController.dart';
 import 'package:eyuuncore/core/assetLink.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/core/services/assetloader.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,7 @@ class _PathPopupState extends State<PathPopup> {
 
   @override
   Widget build(BuildContext context) {
-    var pathAsset = locator<AssetLoader>().getStatic(widget.pathId);
+    var pathAsset = locator<GameObjectService>().getStatic(widget.pathId);
     var pathSteps =
         pathAsset?.get<PathComponent>()?.pickableSteps.getAssets() ?? [];
 

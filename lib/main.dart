@@ -3,12 +3,13 @@ import 'dart:math';
 import 'package:eyuuncore/components/inventory.dart';
 import 'package:eyuuncore/core/assetLink.dart';
 import 'package:eyuuncore/core/registerFeatures.dart';
-import 'package:eyuuncore/core/repository/AssetRepository.dart';
+import 'package:eyuuncore/core/repository/AssetDataRepository.dart';
 import 'package:eyuuncore/core/registerComponentsExtension.dart';
 import 'package:eyuuncore/core/registerSystemsExtension.dart';
 import 'package:eyuuncore/core/registerUpgradesExtension.dart';
 import 'package:eyuuncore/core/repository/TextRepository.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
+import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:EyuunApp/view/MainPage.dart';
@@ -34,7 +35,7 @@ void main() async {
   worldManager.registerUpgrades();
   worldManager.init();
 
-  await locator<AssetRepository>().reloadAssetFile();
+  await locator<AssetDataRepository>().reloadAssetFile();
 
   var assetLoader = locator<AssetLoader>();
   await assetLoader.reloadAssets();
@@ -42,7 +43,9 @@ void main() async {
 
   registerFeatures();
 
-  var character = assetLoader.createInstance("character")!;
+  var goService = locator<GameObjectService>();
+
+  var character = goService.createNewInstance("character")!;
   locator<CharacterService>().changeCharacter(character);
 
   await fillTestData();

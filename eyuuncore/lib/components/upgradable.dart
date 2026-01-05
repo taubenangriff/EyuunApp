@@ -1,4 +1,5 @@
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
+import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/core/services/assetloader.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:oxygen/oxygen.dart';
@@ -40,7 +41,7 @@ class UpgradableComponent extends EyuunComponent<int> {
 
   List<Entity> getAllUpgrades() {
     return upgrades
-        .map((e) => locator<AssetLoader>().getStatic(e))
+        .map((e) => locator<GameObjectService>().getStatic(e))
         .where((e) => e != null)
         .map((e) => e as Entity)
         .toList();

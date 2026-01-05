@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/core/components/standard.dart';
 import 'package:eyuuncore/components/text.dart';
-import 'package:eyuuncore/core/repository/AssetRepository.dart';
+import 'package:eyuuncore/core/repository/AssetDataRepository.dart';
+import 'package:eyuuncore/core/repository/StaticAssetRepository.dart';
 import 'package:flutter/services.dart';
 import 'package:oxygen/oxygen.dart';
 import 'package:uuid/uuid.dart';
@@ -13,42 +14,10 @@ import '../registerServices.dart';
 
 class AssetLoader {
   var worldManager = locator<WorldManager>();
-  var assetRepository = locator<AssetRepository>();
+  var assetRepository = locator<AssetDataRepository>();
+  var staticAssetRepository = locator<StaticAssetRepository>();
 
-  Map<String, String> textKeys = {};
-
-  var uuid = const Uuid();
-
-  Map<String, Entity> staticAssets = {};
-
-  Entity? createInstance(String typeId) {
-    if (!assetRepository.isValidDefinition(typeId)) {
-      return null;
-    }
-
-    String id = uuid.v4();
-
-    var entity = worldManager.world.createEntity();
-    _addComponentsToEntity(entity, typeId);
-    entity.get<StandardComponent>()?.objectId = id;
-
-    return entity;
-  }
-
-  //Get a static instance of an asset as an entity. Never change anything on that static instance though.
-  Entity? getStatic(String typeId) {
-    if (!assetRepository.isValidDefinition(typeId)) {
-      return null;
-    }
-    //return cached entity if it exists
-    if (!staticAssets.containsKey(typeId)) {
-      return null;
-    }
-    return staticAssets[typeId];
-  }
-
-  //TODO add data loading as well. Right now, the only thing this does is create an empty entity with empty instances of the components defined by the asset.
-  void _addComponentsToEntity(Entity entity, String typeId) {
+  void fillEntityWithAssetData(Entity entity, String typeId) {
     var asset = assetRepository.getAssetMap(typeId);
     if (asset == null) {
       throw ArgumentError(
@@ -109,23 +78,9 @@ class AssetLoader {
 
       //load static entity
       var entity = worldManager.staticWorld.createEntity();
-      _addComponentsToEntity(entity, typeId);
-      staticAssets[typeId] = entity;
+      fillEntityWithAssetData(entity, typeId);
+
+      staticAssetRepository.register(typeId, entity);
     }
-  }
-
-  String getTextKey(String typeId) {
-    var entity = getStatic(typeId);
-    return entity?.getTextKey() ?? typeId;
-  }
-
-  String getFluffKey(String typeId) {
-    var entity = getStatic(typeId);
-    return entity?.getFluff() ?? typeId;
-  }
-
-  String getShortKey(String typeId) {
-    var entity = getStatic(typeId);
-    return entity?.getShort() ?? typeId;
   }
 }

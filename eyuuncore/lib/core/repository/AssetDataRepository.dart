@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 
 String assetFile = "data/base/asset/assets.json";
 
-class AssetRepository {
+class AssetDataRepository {
   Map<String, Map<String, dynamic>> assets = {};
 
   Map<String, dynamic>? getAssetMap(String typeId) =>

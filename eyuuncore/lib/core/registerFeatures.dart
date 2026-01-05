@@ -1,6 +1,7 @@
 import 'package:eyuuncore/components/feature/CharacterTables.dart';
 import 'package:eyuuncore/components/feature/LevelFeature.dart';
 import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/core/services/assetloader.dart';
 
 import '../components/feature/CombatFeature.dart';
@@ -15,19 +16,19 @@ class FeatureIds {
 
 void registerFeatures() {
   locator.registerLazySingleton<CombatFeatureComponent>(() =>
-      locator<AssetLoader>()
+      locator<GameObjectService>()
           .getStatic(FeatureIds.combatFeature)!
           .get<CombatFeatureComponent>()!);
   locator.registerLazySingleton<PathFeatureComponent>(() =>
-      locator<AssetLoader>()
+      locator<GameObjectService>()
           .getStatic(FeatureIds.pathFeature)!
           .get<PathFeatureComponent>()!);
   locator.registerLazySingleton<LevelFeatureComponent>(() =>
-      locator<AssetLoader>()
+      locator<GameObjectService>()
           .getStatic(FeatureIds.levelFeature)!
           .get<LevelFeatureComponent>()!);
   locator.registerLazySingleton<CharacterTablesFeatureComponent>(() =>
-      locator<AssetLoader>()
+      locator<GameObjectService>()
           .getStatic(FeatureIds.characterTablesFeature)!
           .get<CharacterTablesFeatureComponent>()!);
 }

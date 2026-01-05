@@ -13,6 +13,7 @@ import 'package:eyuuncore/components/Item.dart';
 import 'package:eyuuncore/components/inventory.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
+import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/core/services/assetloader.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,7 @@ class _InventoryPageState extends State<InventoryPage> {
 
   final _textService = locator<TextService>();
   final _assetLoader = locator<AssetLoader>();
+  final _gameObjectService = locator<GameObjectService>();
 
   late InventoryComponent? _inventory;
 
@@ -498,7 +500,7 @@ class _InventoryPageState extends State<InventoryPage> {
       BuildContext context, InventoryItem item, ThemeData theme) {
     final size = MediaQuery.of(context).size;
 
-    final itemText = _assetLoader.getStatic(item.type.id)?.get<ItemComponent>()?.categoryText;
+    final itemText = _gameObjectService.getStatic(item.type.id)?.get<ItemComponent>()?.categoryText;
 
     return Scaffold(
       backgroundColor: Colors.transparent,

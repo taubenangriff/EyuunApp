@@ -4,6 +4,7 @@ import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:EyuunApp/view/widgets/DiceIcon.dart';
+import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/core/services/assetloader.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +65,7 @@ class _TalentPageState extends State<TalentPage> {
   Row _buildTalentDisplay(SkillEntry talent, BuildContext context) {
     final theme = Theme.of(context);
 
-    var talentAsset = locator<AssetLoader>().getStatic(talent.skill.id);
+    var talentAsset = locator<GameObjectService>().getStatic(talent.skill.id);
     final skillcheck = talentAsset?.get<SkillcheckComponent>();
 
     final attributes = locator<CharacterService>().character.get<AttributesComponent>()!;

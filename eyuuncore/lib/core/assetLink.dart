@@ -1,6 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/core/services/assetloader.dart';
 import 'package:oxygen/oxygen.dart';
 
@@ -13,16 +14,16 @@ class AssetLink with AssetLinkMappable {
 
   AssetLink(this.id);
 
-  Entity? getEntity() => locator<AssetLoader>().getStatic(id);
-  Entity? getNewEntityInstance() => locator<AssetLoader>().createInstance(id);
+  Entity? getEntity() => locator<GameObjectService>().getStatic(id);
+  Entity? createNewInstance() => locator<GameObjectService>().createNewInstance(id);
 
   static AssetLink fromEntity(Entity e) => AssetLink(e.getTypeId());
   static AssetLink invalid() => AssetLink(noType);
 
-  bool isValidLink() => id != noType ? locator<AssetLoader>().getStatic(id) != null : false;
+  bool isValidLink() => id != noType ? locator<GameObjectService>().getStatic(id) != null : false;
 }
 
 extension GetObjectLinkListObjects on Iterable<AssetLink> {
   List<Entity> getAssets() => map((AssetLink e) => e.getEntity()).where((e) => e != null).map((e) => e!).toList();
-  List<Entity> getNewAssetInstances() => map((AssetLink e) => e.getNewEntityInstance()).where((e) => e != null).map((e) => e!).toList();
+  List<Entity> createNewInstances() => map((AssetLink e) => e.createNewInstance()).where((e) => e != null).map((e) => e!).toList();
 }
