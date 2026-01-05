@@ -4,9 +4,10 @@
         "internalName": "Human upbringing"
     },
     "text": {
-        "fluff": "upbringing_human_fluff"
+        "fluff": "upbringing_human_effectdesc"
     },
-    "buff": {
-        "textDescription": "upbringing_human_effectdesc"
+    "buff": { },
+    "talentsUpgrade": {
+        "addSkillpoints": 3
     }
 }
