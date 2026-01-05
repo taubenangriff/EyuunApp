@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "childhood_homeless",
+        "internalName": "Childhood Human"
+    },
+    "text": {},
+    "buff": {
+        "textDescription": "childhood_homeless_effectdesc"
+    }
+}

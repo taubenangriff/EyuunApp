@@ -1,0 +1,40 @@
+{
+    "standard": {
+        "typeId": "talent_athletic",
+        "internalName": "Talent: Athletic"
+    },
+    "text": {
+        "textKey": "text_athletic"
+    },
+    "stat": {
+        "constrainedBy": []
+    },
+    "skillcheck": {
+        "checkedAttributes": [
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Courage"
+                    }
+                ]
+            },
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Agility"
+                    }
+                ]
+            },
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Constitution"
+                    },
+                    {
+                        "id": "baseSkill_Strength"
+                    }
+                ]
+            }
+        ]
+    }
+}

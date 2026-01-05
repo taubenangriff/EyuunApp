@@ -1,0 +1,14 @@
+{
+    "standard": {
+        "typeId": "damage_heal"
+    },
+    "text": {
+        "fluff": "fluff_damage_heal"
+    },
+    "damageType": {
+        "damageCalculation": "Heal"
+    },
+    "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_heal.png"
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "standard": {
+        "typeId": "damage_poison"
+    },
+    "text": {
+        "fluff": "fluff_damage_poison"
+    },
+    "damageType": {
+        "damageCalculation": "Normal",
+        "applyStatusEffectOnHit": {
+            "id": "status_poisoned"
+        }
+    },
+    "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_poison.png"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "standard": {
+        "typeId": "baseSkill_Agility",
+        "internalName": "Attribute: Agility"
+    },
+    "text": {
+        "short": "text_Agility_short"
+    },
+    "stat": {
+        "constrainedBy": []
+    }
+}

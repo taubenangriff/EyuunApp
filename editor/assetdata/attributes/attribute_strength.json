@@ -1,0 +1,12 @@
+{
+    "standard": {
+        "typeId": "baseSkill_Strength",
+        "internalName": "Attribute: Strength"
+    },
+    "text": {
+        "short": "text_Strength_short"
+    },
+    "stat": {
+        "constrainedBy": []
+    }
+}

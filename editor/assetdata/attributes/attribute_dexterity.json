@@ -1,0 +1,12 @@
+{
+    "standard": {
+        "typeId": "baseSkill_Dexterity",
+        "internalName": "Attribute: Dexterity"
+    },
+    "text": {
+        "short": "text_Dexterity_short"
+    },
+    "stat": {
+        "constrainedBy": []
+    }
+}

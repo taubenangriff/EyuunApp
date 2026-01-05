@@ -1,0 +1,12 @@
+{
+    "standard": {
+        "typeId": "upbringing_undead",
+        "internalName": "Undead upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_undead_fluff"
+    },
+    "buff": {
+        "textDescription": "upbringing_undead_effectdesc"
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "standard": {
+        "typeId": "language_oldpeople"
+    },
+    "text": {
+        "fluff": "fluff_oldpeoplelang"
+    },
+    "language": {
+        "written": true,
+        "spoken": true,
+        "alternativeCommunicationStyle": false
+    }
+}

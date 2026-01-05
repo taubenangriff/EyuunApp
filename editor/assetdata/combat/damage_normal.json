@@ -1,0 +1,14 @@
+{
+    "standard": {
+        "typeId": "damage_normal"
+    },
+    "text": {
+        "fluff": "fluff_damage_normal"
+    },
+    "damageType": {
+        "damageCalculation": "Normal"
+    },
+    "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_normaldamage.png"
+    }
+}

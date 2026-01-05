@@ -1,0 +1,37 @@
+{
+    "standard": {
+        "typeId": "talent_sneaky",
+        "internalName": "Talent: Sneaking"
+    },
+    "text": {
+        "textKey": "text_sneaky"
+    },
+    "stat": {
+        "constrainedBy": []
+    },
+    "skillcheck": {
+        "checkedAttributes": [
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Courage"
+                    }
+                ]
+            },
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Intuition"
+                    }
+                ]
+            },
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Agility"
+                    }
+                ]
+            }
+        ]
+    }
+}

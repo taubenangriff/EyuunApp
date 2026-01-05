@@ -1,0 +1,12 @@
+{
+    "standard": {
+        "typeId": "baseSkill_Intuition",
+        "internalName": "Attribute: Intuition"
+    },
+    "text": {
+        "short": "text_Intuition_short"
+    },
+    "stat": {
+        "constrainedBy": []
+    }
+}

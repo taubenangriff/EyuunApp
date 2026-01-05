@@ -1,0 +1,12 @@
+{
+    "standard": {
+        "typeId": "baseSkill_Constitution",
+        "internalName": "Attribute: Constitution"
+    },
+    "text": {
+        "short": "text_Constitution_short"
+    },
+    "stat": {
+        "constrainedBy": []
+    }
+}

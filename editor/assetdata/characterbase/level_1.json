@@ -1,0 +1,17 @@
+{
+    "standard": {
+        "typeId": "level_1",
+        "internalName": "Level 1 | Base"
+    },
+    "text": {},
+    "talentsUpgrade": {
+        "addSkillpoints": 30,
+        "skillCeilingUpgrade": 6
+    },
+    "characterPathUpgrade": {
+        "pathCapacityUpgrade": 1
+    },
+    "attributesUpgrade": {
+        "maxDiceIncreasesUpgrade": 10
+    }
+}

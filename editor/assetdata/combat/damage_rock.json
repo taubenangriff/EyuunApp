@@ -1,0 +1,13 @@
+{
+    "standard": {
+        "typeId": "damage_rock"
+    },
+    "text": {},
+    "damageType": {
+        "damageCalculation": "Normal",
+        "pushback": 3
+    },
+    "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_rock.png"
+    }
+}

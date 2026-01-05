@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "damage_lava"
+    },
+    "text": {
+        "fluff": "fluff_damage_lava"
+    },
+    "damageType": {
+        "damageCalculation": "Normal",
+        "degradeArmor": true
+    },
+    "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_lava.png"
+    }
+}

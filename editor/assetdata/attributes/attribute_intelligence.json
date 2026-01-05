@@ -1,0 +1,12 @@
+{
+    "standard": {
+        "typeId": "baseSkill_Intelligence",
+        "internalName": "Attribute: Intelligence"
+    },
+    "text": {
+        "short": "text_Intelligence_short"
+    },
+    "stat": {
+        "constrainedBy": []
+    }
+}

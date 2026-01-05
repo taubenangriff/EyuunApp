@@ -1,0 +1,14 @@
+{
+    "standard": {
+        "typeId": "damage_direct"
+    },
+    "text": {
+        "fluff": "fluff_damage_direct"
+    },
+    "damageType": {
+        "damageCalculation": "IgnoreArmor"
+    },
+    "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_direct.png"
+    }
+}

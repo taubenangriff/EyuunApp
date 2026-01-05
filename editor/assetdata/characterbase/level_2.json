@@ -1,0 +1,19 @@
+{
+    "standard": {
+        "typeId": "level_2",
+        "internalName": "Level 2"
+    },
+    "text": {},
+    "talentsUpgrade": {
+        "addSkillpoints": 3
+    },
+    "characterPathUpgrade": {
+        "additionalPathCapacityUpgrade": 1
+    },
+    "attributesUpgrade": {
+        "maxDiceIncreasesUpgrade": 2
+    },
+    "combatUpgrade": {
+        "evasionUpgrade": 1
+    }
+}

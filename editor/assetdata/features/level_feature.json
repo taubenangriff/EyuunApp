@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "level_feature"
+    },
+    "levelFeature": {
+        "levels": [
+            {
+                "id": "level_1"
+            },
+            {
+                "id": "level_2"
+            }
+        ]
+    }
+}

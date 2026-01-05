@@ -1,0 +1,14 @@
+{
+    "standard": {
+        "typeId": "damage_add_shield"
+    },
+    "text": {
+        "fluff": "fluff_damage_shield"
+    },
+    "damageType": {
+        "damageCalculation": "AddShield"
+    },
+    "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_shield.png"
+    }
+}

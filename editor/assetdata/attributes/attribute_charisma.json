@@ -1,0 +1,12 @@
+{
+    "standard": {
+        "typeId": "baseSkill_Charisma",
+        "internalName": "Attribute: Charisma"
+    },
+    "text": {
+        "short": "text_Charisma_short"
+    },
+    "stat": {
+        "constrainedBy": []
+    }
+}

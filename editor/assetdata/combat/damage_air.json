@@ -1,0 +1,14 @@
+{
+    "standard": {
+        "typeId": "damage_air"
+    },
+    "text": {
+        "fluff": "fluff_damage_air"
+    },
+    "damageType": {
+        "damageCalculation": "IgnoreWornArmor"
+    },
+    "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_air.png"
+    }
+}

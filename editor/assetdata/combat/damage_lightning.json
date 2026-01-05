@@ -1,0 +1,14 @@
+{
+    "standard": {
+        "typeId": "damage_lightning"
+    },
+    "text": {
+        "fluff": "fluff_damage_lightning"
+    },
+    "damageType": {
+        "damageCalculation": "UnoReverseCardArmor"
+    },
+    "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_lightning.png"
+    }
+}

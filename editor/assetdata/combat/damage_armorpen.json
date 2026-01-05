@@ -1,0 +1,14 @@
+{
+    "standard": {
+        "typeId": "damage_armorpen"
+    },
+    "text": {
+        "fluff": "fluff_damage_armorpen"
+    },
+    "damageType": {
+        "damageCalculation": "IgnoreHalfArmor"
+    },
+    "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_ap.png"
+    }
+}

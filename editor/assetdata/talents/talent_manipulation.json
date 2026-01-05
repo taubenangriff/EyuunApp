@@ -1,0 +1,38 @@
+{
+    "standard": {
+        "typeId": "talent_manipulation",
+        "internalName": "Talent: Manipulation"
+    },
+    "text": {},
+    "stat": {
+        "constrainedBy": []
+    },
+    "skillcheck": {
+        "checkedAttributes": [
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Intelligence"
+                    }
+                ]
+            },
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Intuition"
+                    }
+                ]
+            },
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Charisma"
+                    },
+                    {
+                        "id": "baseSkill_Strength"
+                    }
+                ]
+            }
+        ]
+    }
+}

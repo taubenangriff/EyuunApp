@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "damage_fire"
+    },
+    "text": {},
+    "damageType": {
+        "damageCalculation": "Normal",
+        "applyStatusEffect": {
+            "id": "status_burning"
+        }
+    },
+    "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_fire.png"
+    }
+}

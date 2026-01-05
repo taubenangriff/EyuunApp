@@ -1,0 +1,27 @@
+{
+    "standard": {
+        "typeId": "all_languages_pool"
+    },
+    "text": {
+        "fluff": "fluff_eyuunlang"
+    },
+    "assetBundle": {
+        "assets": [
+            {
+                "id": "language_eyuun"
+            },
+            {
+                "id": "language_shunaoa"
+            },
+            {
+                "id": "language_oldpeople"
+            },
+            {
+                "id": "language_faagus"
+            },
+            {
+                "id": "language_asl"
+            }
+        ]
+    }
+}

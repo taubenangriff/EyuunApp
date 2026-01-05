@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "damage_water"
+    },
+    "text": {},
+    "damageType": {
+        "damageCalculation": "Normal",
+        "applyStatusEffect": {
+            "id": "status_wet"
+        }
+    },
+    "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_water.png"
+    }
+}

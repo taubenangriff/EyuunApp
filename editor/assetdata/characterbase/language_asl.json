@@ -1,0 +1,13 @@
+{
+    "standard": {
+        "typeId": "language_asl"
+    },
+    "text": {
+        "fluff": "fluff_asllang"
+    },
+    "language": {
+        "written": true,
+        "spoken": false,
+        "alternativeCommunicationStyle": true
+    }
+}

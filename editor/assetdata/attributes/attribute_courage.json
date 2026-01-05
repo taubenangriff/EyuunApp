@@ -1,0 +1,12 @@
+{
+    "standard": {
+        "typeId": "baseSkill_Courage",
+        "internalName": "Attribute: Courage"
+    },
+    "text": {
+        "short": "text_Courage_short"
+    },
+    "stat": {
+        "constrainedBy": []
+    }
+}

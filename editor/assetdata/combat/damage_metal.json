@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "damage_metal"
+    },
+    "text": {},
+    "damageType": {
+        "damageCalculation": "Normal",
+        "applyStatusEffectOnHit": {
+            "id": "status_fucked"
+        }
+    },
+    "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_metal.png"
+    }
+}

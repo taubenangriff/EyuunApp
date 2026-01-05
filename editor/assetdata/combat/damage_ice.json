@@ -1,0 +1,13 @@
+{
+    "standard": {
+        "typeId": "damage_ice"
+    },
+    "text": {},
+    "damageType": {
+        "damageCalculation": "Normal",
+        "useFreezingLogic": true
+    },
+    "icon": {
+        "iconFilepath": "data/base/icons/damage_type/icon_ice.png"
+    }
+}

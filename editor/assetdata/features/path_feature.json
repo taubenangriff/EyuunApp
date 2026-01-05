@@ -1,0 +1,23 @@
+{
+    "standard": {
+        "typeId": "path_feature"
+    },
+    "pathFeature": {
+        "paths": [
+            {
+                "id": "path_flux_01"
+            },
+            {
+                "id": "path_fighter_01"
+            }
+        ],
+        "additionalPaths": [
+            {
+                "additionalPathBundle": {
+                    "id": "path_flux_additionals"
+                },
+                "unlockingPathType": "Flux"
+            }
+        ]
+    }
+}
