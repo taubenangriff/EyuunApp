@@ -6,34 +6,34 @@ import 'package:eyuuncore/core/reflection/reflector.dart';
 import '../core/UpgradableInt.dart';
 import '../core/assetLink.dart';
 
-part 'Talents.mapper.dart';
+part 'SkillLearner.mapper.dart';
 
 @MappableClass()
-class TalentEntry with TalentEntryMappable {
-  AssetLink talent;
+class SkillEntry with SkillEntryMappable {
+  AssetLink skill;
   int value;
 
-  TalentEntry(this.talent, this.value);
+  SkillEntry(this.skill, this.value);
 }
 
 @MappableClass()
-class TalentsDynamic with TalentsDynamicMappable {
+class SkillLearnerDynamic with SkillLearnerDynamicMappable {
   int skillpoints;
   int skillCeiling;
-  List<TalentEntry> talents;
+  List<SkillEntry> skills;
 
-  TalentsDynamic(this.skillpoints, this.skillCeiling, this.talents);
+  SkillLearnerDynamic(this.skillpoints, this.skillCeiling, this.skills);
 }
 
 @MappableClass()
 @reflector
-class TalentsStatic with TalentsStaticMappable, ComponentReflectable {
-  List<AssetLink> talents;
-  TalentsStatic(this.talents);
+class SkillLearnerStatic with SkillLearnerStaticMappable, ComponentReflectable {
+  List<AssetLink> skills;
+  SkillLearnerStatic(this.skills);
 }
 
-class TalentsComponent extends EyuunComponent<int> {
-  static const String propertyName = "talents";
+class SkillLearnerComponent extends EyuunComponent<int> {
+  static const String propertyName = "skillLearner";
 
   /// The amount of skillpoints a character can distribute on talents.
   late UpgradableInt skillpoints;
@@ -42,16 +42,16 @@ class TalentsComponent extends EyuunComponent<int> {
   late UpgradableInt skillCeiling;
 
   /// The list of talents this character uses.
-  List<TalentEntry> talents = [];
+  List<SkillEntry> skills = [];
 
   /// returns the talentEntry for the Talent listed in key. returns null, if the talent does not exist.
-  TalentEntry? getTalent(String key) => talents.firstWhere((e) => e.talent.id == key, orElse: null);
+  SkillEntry? getSkill(String key) => skills.firstWhere((e) => e.skill.id == key, orElse: null);
 
   /// If the talent is present in talents, this function sets it's value to newVal.
-  void setTalentSkill(String key, int newVal) => getTalent(key)?.value = newVal;
+  void setSkillValue(String key, int newVal) => getSkill(key)?.value = newVal;
 
   /// get's a talents skill value or 0 if the talent does not exist in the talents list.
-  int getTalentSkill(String key) => getTalent(key)?.value ?? 0;
+  int getSkillValue(String key) => getSkill(key)?.value ?? 0;
 
   @override
   String getName() => propertyName;
@@ -64,26 +64,26 @@ class TalentsComponent extends EyuunComponent<int> {
 
   @override
   void loadDynamicData(Map<String, dynamic> dynamicData) {
-    var dyn = TalentsDynamicMapper.fromMap(dynamicData);
+    var dyn = SkillLearnerDynamicMapper.fromMap(dynamicData);
     //full outer join the lists without duplicates
-    talents.removeWhere((x) => dyn.talents.any((y) => x.talent.id == y.talent.id));
-    talents.addAll(dyn.talents);
+    skills.removeWhere((x) => dyn.skills.any((y) => x.skill.id == y.skill.id));
+    skills.addAll(dyn.skills);
     skillpoints = dyn.skillpoints.upgradable;
     skillCeiling = dyn.skillCeiling.upgradable;
   }
 
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
-    var stat = TalentsStaticMapper.fromMap(staticData);
-    talents = stat.talents.map((e) => TalentEntry(e, 0)).toList();
+    var stat = SkillLearnerStaticMapper.fromMap(staticData);
+    skills = stat.skills.map((e) => SkillEntry(e, 0)).toList();
   }
 
   @override
   void reset() {
-    talents = [];
+    skills = [];
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => TalentsDynamic(skillpoints.base, skillCeiling.base, talents).toMap();
+  Map<String, dynamic> saveDynamicData() => SkillLearnerDynamic(skillpoints.base, skillCeiling.base, skills).toMap();
 
 }

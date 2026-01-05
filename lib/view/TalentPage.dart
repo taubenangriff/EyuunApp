@@ -1,6 +1,6 @@
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/Skillcheck.dart';
-import 'package:eyuuncore/components/Talents.dart';
+import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:EyuunApp/view/widgets/DiceIcon.dart';
@@ -18,7 +18,7 @@ class TalentPage extends StatefulWidget {
 }
 
 class _TalentPageState extends State<TalentPage> {
-  final talents = locator<CharacterService>().character.get<TalentsComponent>()?.talents ?? [];
+  final talents = locator<CharacterService>().character.get<SkillLearnerComponent>()?.skills ?? [];
 
   final Map<int, Map<int, String>> selectedValues = {};
 
@@ -61,10 +61,10 @@ class _TalentPageState extends State<TalentPage> {
     );
   }
 
-  Row _buildTalentDisplay(TalentEntry talent, BuildContext context) {
+  Row _buildTalentDisplay(SkillEntry talent, BuildContext context) {
     final theme = Theme.of(context);
 
-    var talentAsset = locator<AssetLoader>().getStatic(talent.talent.id);
+    var talentAsset = locator<AssetLoader>().getStatic(talent.skill.id);
     final skillcheck = talentAsset?.get<SkillcheckComponent>();
 
     final attributes = locator<CharacterService>().character.get<AttributesComponent>()!;
@@ -76,7 +76,7 @@ class _TalentPageState extends State<TalentPage> {
         Expanded(
           flex: 2,
           child: Text(
-            _textService.getText(talent.talent.id),
+            _textService.getText(talent.skill.id),
             style: theme.textTheme.titleMedium,
           ),
         ),

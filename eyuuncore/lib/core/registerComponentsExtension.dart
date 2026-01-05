@@ -16,7 +16,7 @@ import 'package:eyuuncore/components/Project.dart';
 import 'package:eyuuncore/components/Projectile.dart';
 import 'package:eyuuncore/components/Spell.dart';
 import 'package:eyuuncore/components/Talent.dart';
-import 'package:eyuuncore/components/Talents.dart';
+import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/components/Weapon.dart';
 import 'package:eyuuncore/components/feature/CharacterTables.dart';
 import 'package:eyuuncore/components/feature/CombatFeature.dart';
@@ -62,7 +62,7 @@ extension registerEditorComponentsExtension on ComponentRepository {
     registerComponent<ItemStatic>(ItemComponent.propertyName, (map) => ItemStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<SkillcheckStatic>(SkillcheckComponent.propertyName, (map) => SkillcheckStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<EmptyData>(FluxComponent.propertyName, (map) => EmptyDataMapper.fromMap(map), (comp) => comp.toMap());
-    registerComponent<TalentsStatic>(TalentsComponent.propertyName, (map) => TalentsStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<SkillLearnerStatic>(SkillLearnerComponent.propertyName, (map) => SkillLearnerStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<EmptyData>(CombatComponent.propertyName, (map) => EmptyDataMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<CostStatic>(CostComponent.propertyName, (map) => CostStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<LanguageStatic>(LanguageComponent.propertyName, (map) => LanguageStaticMapper.fromMap(map), (comp) => comp.toMap());
@@ -117,7 +117,7 @@ extension RegisterComponentsExtension on WorldManager {
     registerComponent<ItemComponent, int>(ItemComponent.propertyName, () => ItemComponent());
     registerComponent<SkillcheckComponent, int>(SkillcheckComponent.propertyName, () => SkillcheckComponent());
     registerComponent<FluxComponent, int>(FluxComponent.propertyName, () => FluxComponent());
-    registerComponent<TalentsComponent, int>(TalentsComponent.propertyName, () => TalentsComponent());
+    registerComponent<SkillLearnerComponent, int>(SkillLearnerComponent.propertyName, () => SkillLearnerComponent());
     registerComponent<CombatComponent, int>(CombatComponent.propertyName, () => CombatComponent());
     registerComponent<CostComponent, int>(CostComponent.propertyName, () => CostComponent());
     registerComponent<LanguageComponent, int>(LanguageComponent.propertyName, () => LanguageComponent());

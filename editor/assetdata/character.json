@@ -51,8 +51,8 @@
   },
   "flux": {},
   "inventory": {},
-  "talents": {
-    "talents": [
+  "skillLearner": {
+    "skills": [
       {
         "id": "talent_athletic"
       },
