@@ -17,6 +17,7 @@ class PathAdditionalEntry with PathAdditionalEntryMappable {
 }
 
 @MappableClass()
+@reflector
 class PathFeatureStatic with PathFeatureStaticMappable, ComponentReflectable {
   List<AssetLink> paths;
   List<PathAdditionalEntry> additionalPaths;
