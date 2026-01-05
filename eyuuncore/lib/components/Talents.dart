@@ -1,5 +1,7 @@
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 
 import '../core/UpgradableInt.dart';
 import '../core/assetLink.dart';
@@ -24,7 +26,8 @@ class TalentsDynamic with TalentsDynamicMappable {
 }
 
 @MappableClass()
-class TalentsStatic with TalentsStaticMappable {
+@reflector
+class TalentsStatic with TalentsStaticMappable, ComponentReflectable {
   List<AssetLink> talents;
   TalentsStatic(this.talents);
 }

@@ -1,13 +1,16 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
 
 import '../core/components/EyuunComponent.dart';
+import '../core/reflection/reflector.dart';
 
 part 'text.mapper.dart';
 
 @MappableClass(
   ignoreNull: false
 )
-class TextStatic with TextStaticMappable {
+@reflector
+class TextStatic with TextStaticMappable, ComponentReflectable {
   String? textOverride;
   String? fluff;
   String? short;

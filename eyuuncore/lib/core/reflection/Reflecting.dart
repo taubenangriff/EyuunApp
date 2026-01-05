@@ -1,1 +1,1 @@
-mixin Reflecting {}
+mixin ComponentReflectable {}

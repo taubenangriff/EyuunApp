@@ -1,7 +1,7 @@
-import 'package:eyuuncore/core/components/standard.dart';
-import 'package:eyuuncore/components/Language.dart';
+import 'package:eyuuncore/core/registerComponentsExtension.dart';
 import 'package:reflectable/reflectable.dart';
 
+import '../repository/ComponentRepository.dart';
 import 'reflector.reflectable.dart';
 
 class Reflector extends Reflectable {
@@ -11,8 +11,7 @@ class Reflector extends Reflectable {
 
 const reflector = Reflector();
 
-
 // for some GODFUCKING reason reflection needs entry points
 void main() {
-
+  ComponentRepository().registerComponents();
 }

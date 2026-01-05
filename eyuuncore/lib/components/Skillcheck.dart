@@ -1,3 +1,6 @@
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
+
 import '../core/assetLink.dart';
 import '../core/components/EyuunComponent.dart';
 import 'package:dart_mappable/dart_mappable.dart';
@@ -18,7 +21,8 @@ class SkillcheckStaticOption with SkillcheckStaticOptionMappable {
 }
 
 @MappableClass()
-class SkillcheckStatic with SkillcheckStaticMappable {
+@reflector
+class SkillcheckStatic with SkillcheckStaticMappable, ComponentReflectable {
   List<SkillcheckStaticOption> checkedAttributes;
   SkillcheckStatic(this.checkedAttributes);
 }

@@ -32,6 +32,7 @@ import 'package:eyuuncore/components/upgrade/FluxUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/HealthUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/LanguageLearnerUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/TalentsUpgrade.dart';
+import 'package:eyuuncore/core/reflection/EmptyData.dart';
 import 'package:eyuuncore/core/repository/ComponentRepository.dart';
 import 'package:oxygen/oxygen.dart';
 
@@ -51,6 +52,18 @@ import 'services/WorldManager.dart';
 extension registerEditorComponentsExtension on ComponentRepository {
   void registerComponents() {
     registerComponent<StandardStatic>(StandardComponent.propertyName, (map) => StandardStatic.fromMap(map), (comp) => comp.toMap());
+    registerComponent<HealthStatic>(HealthComponent.propertyName, (map) => HealthStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<AttributesStatic>(AttributesComponent.propertyName, (map) => AttributesStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<UpgradableStatic>(UpgradableComponent.propertyName, (map) => UpgradableStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<BoonStatic>(BoonComponent.propertyName, (map) => BoonStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<EmptyData>(InventoryComponent.propertyName, (map) => EmptyDataMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<TextStatic>(TextComponent.propertyName, (map) => TextStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<ItemStatic>(ItemComponent.propertyName, (map) => ItemStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<SkillcheckStatic>(SkillcheckComponent.propertyName, (map) => SkillcheckStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<EmptyData>(FluxComponent.propertyName, (map) => EmptyDataMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<TalentsStatic>(TalentsComponent.propertyName, (map) => TalentsStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<EmptyData>(CombatComponent.propertyName, (map) => EmptyDataMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<CostStatic>(CostComponent.propertyName, (map) => CostStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<LanguageStatic>(LanguageComponent.propertyName, (map) => LanguageStaticMapper.fromMap(map), (comp) => comp.toMap());
   }
 }

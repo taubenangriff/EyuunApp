@@ -1,5 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 
 import '../core/assetLink.dart';
 
@@ -16,7 +18,8 @@ class CostEntry with CostEntryMappable {
 }
 
 @MappableClass()
-class CostStatic with CostStaticMappable {
+@reflector
+class CostStatic with CostStaticMappable, ComponentReflectable {
   int money;
   List<CostEntry> resourceCosts;
 

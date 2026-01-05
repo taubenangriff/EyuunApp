@@ -7,7 +7,7 @@ part 'Language.mapper.dart';
 
 @MappableClass()
 @reflector
-class LanguageStatic with LanguageStaticMappable, Reflecting {
+class LanguageStatic with LanguageStaticMappable, ComponentReflectable {
   bool written;
   bool spoken;
   bool alternativeCommunicationStyle;

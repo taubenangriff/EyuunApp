@@ -9,7 +9,7 @@ part 'standard.mapper.dart';
 
 @MappableClass()
 @reflector
-class StandardStatic with StandardStaticMappable, Reflecting {
+class StandardStatic with StandardStaticMappable, ComponentReflectable {
   final String typeId;
   final String? internalName;
   final String? comment;

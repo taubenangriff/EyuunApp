@@ -3,12 +3,15 @@ import 'package:eyuuncore/core/services/assetloader.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:oxygen/oxygen.dart';
 
+import '../core/reflection/Reflecting.dart';
+import '../core/reflection/reflector.dart';
 import '../core/registerServices.dart';
 
 part 'upgradable.mapper.dart';
 
 @MappableClass()
-class UpgradableStatic with UpgradableStaticMappable {
+@reflector
+class UpgradableStatic with UpgradableStaticMappable, ComponentReflectable {
   List<String> defaultUpgrades;
 
   UpgradableStatic(this.defaultUpgrades);

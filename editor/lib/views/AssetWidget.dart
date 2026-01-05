@@ -26,12 +26,15 @@ class _AssetWidgetState extends State<AssetWidget> {
     return Container(
       padding: const EdgeInsets.all(16),
       child: Column(
-        children: asset.components.map((e) => buildPanel(context, e)).toList(),
+        children: [
+          for (var entry in asset.components.entries)
+            buildPanel(context, entry.key, entry.value)
+        ]
       ),
     );
   }
 
-  Widget buildPanel(BuildContext context, Reflecting reflecting) {
+  Widget buildPanel(BuildContext context, String name, ComponentReflectable reflecting) {
     List<Widget> texts = [];
 
     InstanceMirror mirror = reflector.reflect(reflecting);
@@ -47,7 +50,7 @@ class _AssetWidgetState extends State<AssetWidget> {
     return Column(
       children:
           <Widget>[
-            Text(reflecting.runtimeType.toString()),
+            Text(name),
             SizedBox(height: 16),
           ] +
           texts +

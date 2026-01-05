@@ -10,13 +10,9 @@ class StaticAssetLoader {
   Map<String, dynamic> toMap(Asset asset) {
     var map = <String, dynamic>{};
 
-    for(var comp in asset.components){
-      var key = componentRepository.getKey(comp.runtimeType);
-      if(key == null) {
-        continue;
-      }
-
-      var submap = componentRepository.toMap(comp);
+    for(var entry in asset.components.entries){
+      var key = entry.key;
+      var submap = componentRepository.toMap(entry.value);
       map[key] = submap;
     }
 
@@ -33,7 +29,7 @@ class StaticAssetLoader {
         var comp = componentRepository.fromMap(key, submap);
         if(comp != null)
         {
-          asset.components.add(comp);
+          asset.components[key] = comp;
         }
       }
     }

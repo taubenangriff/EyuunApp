@@ -2,11 +2,14 @@ import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
 
 import '../core/UpgradableInt.dart';
+import '../core/reflection/Reflecting.dart';
+import '../core/reflection/reflector.dart';
 
 part 'Boon.mapper.dart';
 
 @MappableClass()
-class BoonStatic with BoonStaticMappable {
+@reflector
+class BoonStatic with BoonStaticMappable, ComponentReflectable {
   int maxBoon;
 
   BoonStatic(this.maxBoon);

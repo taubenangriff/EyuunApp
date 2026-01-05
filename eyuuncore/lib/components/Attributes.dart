@@ -1,8 +1,10 @@
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 
 import '../core/UpgradableInt.dart';
 import '../core/assetLink.dart';
+import '../core/reflection/Reflecting.dart';
 import '../enums/dice.dart';
 
 part 'Attributes.mapper.dart';
@@ -14,7 +16,8 @@ class AttributesDynamic with AttributesDynamicMappable {
 }
 
 @MappableClass()
-class AttributesStatic with AttributesStaticMappable {
+@reflector
+class AttributesStatic with AttributesStaticMappable, ComponentReflectable {
   List<AssetLink> statValues;
   int defaultDiceIncreases;
   AttributesStatic(this.statValues, this.defaultDiceIncreases);

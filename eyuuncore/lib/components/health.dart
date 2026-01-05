@@ -1,7 +1,9 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/UpgradableInt.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 
 import '../core/components/EyuunComponent.dart';
+import '../core/reflection/Reflecting.dart';
 part 'health.mapper.dart';
 
 @MappableClass()
@@ -18,7 +20,8 @@ class HealthDynamic with HealthDynamicMappable {
 }
 
 @MappableClass()
-class HealthStatic with HealthStaticMappable {
+@reflector
+class HealthStatic with HealthStaticMappable, ComponentReflectable {
   int maxShield;
   int maxDeathThrows;
 
