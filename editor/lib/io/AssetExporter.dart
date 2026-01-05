@@ -20,8 +20,9 @@ class AssetExporter {
   AssetExporter(this.componentRepository, this.staticAssetLoader);
 
   void export(Directory srcDir, Directory outputDirectory) {
-    outputDirectory.deleteSync(recursive: true);
-    outputDirectory.createSync();
+    var rooteddir = Directory(join(outputDirectory.path, exportRoot));
+    rooteddir.deleteSync(recursive: true);
+    rooteddir.createSync();
     _processDirectory(srcDir, outputDirectory, srcDir);
   }
 
