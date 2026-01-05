@@ -1,0 +1,75 @@
+
+{
+  "standard": {
+    "typeId": "character",
+    "internalName": "Human Player Character"
+  },
+  "characterBase": {},
+  "health": {
+    "maxShield": 8,
+    "maxDeathThrows": 3
+  },
+  "combat": {},
+  "attributes": {
+    "defaultDiceIncreases" : 4,
+    "statValues": [
+      {
+        "id": "baseSkill_Courage"
+      },
+      {
+        "id": "baseSkill_Intelligence"
+      },
+      {
+        "id": "baseSkill_Intuition"
+      },
+      {
+        "id": "baseSkill_Charisma"
+      },
+      {
+        "id": "baseSkill_Dexterity"
+      },
+      {
+        "id": "baseSkill_Agility"
+      },
+      {
+        "id": "baseSkill_Constitution"
+      },
+      {
+        "id": "baseSkill_Strength"
+      }
+    ]
+  },
+  "upgradable": {
+    "defaultUpgrades": [
+      "base_healthUpgrade",
+      "base_AnotherHealthUpgrade",
+      "master_upgrade"
+    ]
+  },
+  "boon": {
+    "maxBoon": 5
+  },
+  "flux": {},
+  "inventory": {},
+  "talents": {
+    "talents": [
+      {
+        "id": "talent_athletic"
+      },
+      {
+        "id": "talent_sneaky"
+      },
+      {
+        "id": "talent_manipulation"
+      },
+      {
+        "id": "talent_investigate"
+      }
+    ]
+  },
+  "characterPath": {
+    "pathCapacity": 1,
+    "additionalPathCapacity": 0
+  },
+  "languageLearner": {}
+}
