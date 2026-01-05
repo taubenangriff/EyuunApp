@@ -1,11 +1,14 @@
 import 'package:eyuuncore/core/assetLink.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 
 part 'CombatFeature.mapper.dart';
 
 @MappableClass()
-class CombatFeatureStatic with CombatFeatureStaticMappable {
+@reflector
+class CombatFeatureStatic with CombatFeatureStaticMappable, ComponentReflectable {
   List<AssetLink> damageTypes;
   List<AssetLink> healTypes;
   int damageTypesDefaultIndex;

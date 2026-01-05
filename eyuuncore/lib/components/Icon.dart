@@ -2,12 +2,15 @@ import 'dart:io';
 
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 import 'package:flutter/material.dart';
 
 part 'Icon.mapper.dart';
 
 @MappableClass()
-class IconStatic with IconStaticMappable {
+@reflector
+class IconStatic with IconStaticMappable, ComponentReflectable {
   String iconFilepath;
 
   IconStatic(this.iconFilepath);

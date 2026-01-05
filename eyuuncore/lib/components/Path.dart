@@ -1,6 +1,8 @@
 import 'package:eyuuncore/components/AssetBundle.dart';
 import 'package:eyuuncore/components/PathStep.dart';
 import 'package:eyuuncore/core/assetLink.dart';
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 import 'package:eyuuncore/enums/PathType.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
@@ -8,10 +10,9 @@ import 'package:oxygen/oxygen.dart';
 
 part 'Path.mapper.dart';
 
-// TLDR: Do not use. We will transform this into a reusable AssetList component later which is then used by a PathFeature.
-
 @MappableClass()
-class PathStatic with PathStaticMappable {
+@reflector
+class PathStatic with PathStaticMappable, ComponentReflectable {
   PathType pathType;
   List<AssetLink> pickableSteps;
   int complexity;

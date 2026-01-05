@@ -1,13 +1,16 @@
 import 'package:eyuuncore/core/assetLink.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 import 'package:oxygen/oxygen.dart';
 
 part 'AssetBundle.mapper.dart';
 
 
 @MappableClass()
-class AssetBundleStatic with AssetBundleStaticMappable {
+@reflector
+class AssetBundleStatic with AssetBundleStaticMappable, ComponentReflectable {
   List<AssetLink> assets;
 
   AssetBundleStatic(this.assets);

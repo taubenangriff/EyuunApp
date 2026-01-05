@@ -1,3 +1,5 @@
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 import 'package:eyuuncore/enums/BillingCycle.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
@@ -7,7 +9,8 @@ import '../enums/ActionTime.dart';
 part 'Casted.mapper.dart';
 
 @MappableClass()
-class CastedStatic with CastedStaticMappable {
+@reflector
+class CastedStatic with CastedStaticMappable, ComponentReflectable {
   ActionTime castTime;
   BillingCycle billingCycle;
   int fluxCost;

@@ -1,13 +1,16 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/components/Skillcheck.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 
 import '../core/assetLink.dart';
 
 part 'CombatShield.mapper.dart';
 
 @MappableClass()
-class CombatShieldStatDyn with CombatShieldStatDynMappable {
+@reflector
+class CombatShieldStatDyn with CombatShieldStatDynMappable, ComponentReflectable {
   AssetLink shieldType;
   CombatShieldStatDyn(this.shieldType);
 }

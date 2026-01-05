@@ -1,10 +1,13 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 import '../../core/components/EyuunComponent.dart';
 
 part 'AttributesUpgrade.mapper.dart';
 
 @MappableClass()
-class AttributesUpgradeStatDyn with AttributesUpgradeStatDynMappable {
+@reflector
+class AttributesUpgradeStatDyn with AttributesUpgradeStatDynMappable, ComponentReflectable {
   int maxDiceIncreasesUpgrade;
   AttributesUpgradeStatDyn([this.maxDiceIncreasesUpgrade = 0]);
 }

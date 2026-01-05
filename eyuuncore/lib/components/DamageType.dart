@@ -1,3 +1,5 @@
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 import 'package:eyuuncore/enums/DamageCalculation.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
@@ -7,7 +9,8 @@ import '../core/assetLink.dart';
 part 'DamageType.mapper.dart';
 
 @MappableClass()
-class DamageTypeStatic with DamageTypeStaticMappable {
+@reflector
+class DamageTypeStatic with DamageTypeStaticMappable, ComponentReflectable {
   DamageCalculation damageCalculation;
   bool degradeArmor;
   AssetLink? applyStatusEffectOnHit;

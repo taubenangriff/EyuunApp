@@ -1,10 +1,13 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 import '../../core/components/EyuunComponent.dart';
 
 part 'CombatUpgrade.mapper.dart';
 
 @MappableClass()
-class CombatUpgradeStatDyn with CombatUpgradeStatDynMappable {
+@reflector
+class CombatUpgradeStatDyn with CombatUpgradeStatDynMappable, ComponentReflectable {
   int speedUpgrade;
   int evasionUpgrade;
   int initiativeUpgrade;

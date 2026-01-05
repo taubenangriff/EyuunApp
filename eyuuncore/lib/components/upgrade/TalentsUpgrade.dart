@@ -1,10 +1,13 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 import '../../core/components/EyuunComponent.dart';
 
 part 'TalentsUpgrade.mapper.dart';
 
 @MappableClass()
-class TalentsUpgradeStatDyn with TalentsUpgradeStatDynMappable {
+@reflector
+class TalentsUpgradeStatDyn with TalentsUpgradeStatDynMappable, ComponentReflectable {
   int addSkillpoints;
   int skillCeilingUpgrade;
   TalentsUpgradeStatDyn([this.addSkillpoints = 0, this.skillCeilingUpgrade = 0]);

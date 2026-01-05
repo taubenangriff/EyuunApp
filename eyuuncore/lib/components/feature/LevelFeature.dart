@@ -3,11 +3,14 @@ import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../../core/assetLink.dart';
+import '../../core/reflection/Reflecting.dart';
+import '../../core/reflection/reflector.dart';
 
 part 'LevelFeature.mapper.dart';
 
 @MappableClass()
-class LevelFeatureStatic with LevelFeatureStaticMappable {
+@reflector
+class LevelFeatureStatic with LevelFeatureStaticMappable, ComponentReflectable {
   List<AssetLink> levels;
   LevelFeatureStatic(this.levels);
 }

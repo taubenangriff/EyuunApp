@@ -1,5 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 
 import '../core/assetLink.dart';
 
@@ -17,7 +19,8 @@ class CharacterBaseDynamic with CharacterBaseDynamicMappable {
 }
 
 @MappableClass()
-class CharacterBaseStatic with CharacterBaseStaticMappable {
+@reflector
+class CharacterBaseStatic with CharacterBaseStaticMappable, ComponentReflectable {
   CharacterBaseStatic();
 }
 

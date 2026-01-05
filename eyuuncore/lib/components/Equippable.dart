@@ -1,11 +1,12 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
 
 part 'Equippable.mapper.dart';
 
 @MappableClass()
 //As weapon data needs to be saved for individual items, and all static properties need to also be dynamically saved and loaded, we create a dual-use class for the data mapping.
-class EquippableStatDyn with EquippableStatDynMappable {
+class EquippableStatDyn with EquippableStatDynMappable, ComponentReflectable {
   int equipmentSlotsNeeded;
   bool isArmor;
 

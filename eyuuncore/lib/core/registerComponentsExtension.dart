@@ -65,6 +65,41 @@ extension registerEditorComponentsExtension on ComponentRepository {
     registerComponent<EmptyData>(CombatComponent.propertyName, (map) => EmptyDataMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<CostStatic>(CostComponent.propertyName, (map) => CostStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<LanguageStatic>(LanguageComponent.propertyName, (map) => LanguageStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<EmptyData>(LanguageLearnerComponent.propertyName, (map) => EmptyDataMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<CraftMethodStatic>(CraftMethodComponent.propertyName, (map) => CraftMethodStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<ArmorStatic>(ArmorComponent.propertyName, (map) => ArmorStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<EmptyData>(WeaponComponent.propertyName, (map) => EmptyDataMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<EquippableStatDyn>(EquippableComponent.propertyName, (map) => EquippableStatDynMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<CombatShieldStatDyn>(CombatShieldComponent.propertyName, (map) => CombatShieldStatDynMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<ProjectileStatic>(ProjectileComponent.propertyName, (map) => ProjectileStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<CharacterPathStatic>(CharacterPathComponent.propertyName, (map) => CharacterPathStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<PathStepStatic>(PathStepComponent.propertyName, (map) => PathStepStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<PathStatic>(PathComponent.propertyName, (map) => PathStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<SpellStatic>(SpellComponent.propertyName, (map) => SpellStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<CastedStatic>(CastedComponent.propertyName, (map) => CastedStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<ProjectStatic>(ProjectComponent.propertyName, (map) => ProjectStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<DamageTypeStatic>(DamageTypeComponent.propertyName, (map) => DamageTypeStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<IconStatic>(IconComponent.propertyName, (map) => IconStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<AssetBundleStatic>(AssetBundleComponent.propertyName, (map) => AssetBundleStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<CharacterBaseStatic>(CharacterBaseComponent.propertyName, (map) => CharacterBaseStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<BuffStatic>(BuffComponent.propertyName, (map) => BuffStaticMapper.fromMap(map), (comp) => comp.toMap());
+
+    //Upgrades
+
+    registerComponent<ArmorUpgradeStatDyn>(ArmorUpgradeComponent.propertyName, (map) => ArmorUpgradeStatDynMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<AttributesUpgradeStatDyn>(AttributesUpgradeComponent.propertyName, (map) => AttributesUpgradeStatDynMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<CharacterPathUpgradeStatDyn>(CharacterPathUpgradeComponent.propertyName, (map) => CharacterPathUpgradeStatDynMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<CombatUpgradeStatDyn>(CombatUpgradeComponent.propertyName, (map) => CombatUpgradeStatDynMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<FluxUpgradeStatDyn>(FluxUpgradeComponent.propertyName, (map) => FluxUpgradeStatDynMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<HealthUpgradeStatDyn>(HealthUpgradeComponent.propertyName, (map) => HealthUpgradeStatDynMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<LanguageLearnerUpgradeStatDyn>(LanguageLearnerUpgradeComponent.propertyName, (map) => LanguageLearnerUpgradeStatDynMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<TalentsUpgradeStatDyn>(TalentsUpgradeComponent.propertyName, (map) => TalentsUpgradeStatDynMapper.fromMap(map), (comp) => comp.toMap());
+
+    // register Features
+    registerComponent<CombatFeatureStatic>(CombatFeatureComponent.propertyName, (map) => CombatFeatureStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<PathFeatureStatic>(PathFeatureComponent.propertyName, (map) => PathFeatureStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<LevelFeatureStatic>(LevelFeatureComponent.propertyName, (map) => LevelFeatureStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<CharacterTablesFeatureStatic>(CharacterTablesFeatureComponent.propertyName, (map) => CharacterTablesFeatureStaticMapper.fromMap(map), (comp) => comp.toMap());
   }
 }
 

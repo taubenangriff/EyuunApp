@@ -1,12 +1,15 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/assetLink.dart';
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 
 import '../core/components/EyuunComponent.dart';
 
 part 'CraftMethod.mapper.dart';
 
 @MappableClass()
-class CraftMethodStatic with CraftMethodStaticMappable {
+@reflector
+class CraftMethodStatic with CraftMethodStaticMappable, ComponentReflectable {
   String appliedEffect;
   int increaseSuccessThreshold;
 

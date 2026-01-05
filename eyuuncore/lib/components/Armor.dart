@@ -1,5 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/UpgradableInt.dart';
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 
 import '../core/components/EyuunComponent.dart';
 
@@ -18,7 +20,8 @@ class ArmorDynamic with ArmorDynamicMappable {
 }
 
 @MappableClass()
-class ArmorStatic with ArmorStaticMappable {
+@reflector
+class ArmorStatic with ArmorStaticMappable, ComponentReflectable {
   int armorToughness;
 
   int splittableImpactOnCraft;

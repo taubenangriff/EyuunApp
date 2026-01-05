@@ -1,10 +1,13 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 import '../../core/components/EyuunComponent.dart';
 
 part 'HealthUpgrade.mapper.dart';
 
 @MappableClass()
-class HealthUpgradeStatDyn with HealthUpgradeStatDynMappable {
+@reflector
+class HealthUpgradeStatDyn with HealthUpgradeStatDynMappable, ComponentReflectable {
   int maxHitpointsUpgrade;
   int maxShieldUpgrade;
   int maxDeathThrowsUpgrade;

@@ -1,10 +1,13 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 import '../../core/components/EyuunComponent.dart';
 
 part 'CharacterPathUpgrade.mapper.dart';
 
 @MappableClass()
-class CharacterPathUpgradeStatDyn with CharacterPathUpgradeStatDynMappable {
+@reflector
+class CharacterPathUpgradeStatDyn with CharacterPathUpgradeStatDynMappable, ComponentReflectable {
   int pathCapacityUpgrade;
   int additionalPathCapacityUpgrade;
   CharacterPathUpgradeStatDyn([this.pathCapacityUpgrade = 0, this.additionalPathCapacityUpgrade = 0]);

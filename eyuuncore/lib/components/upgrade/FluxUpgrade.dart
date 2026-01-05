@@ -1,10 +1,13 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 import '../../core/components/EyuunComponent.dart';
 
 part 'FluxUpgrade.mapper.dart';
 
 @MappableClass()
-class FluxUpgradeStatDyn with FluxUpgradeStatDynMappable {
+@reflector
+class FluxUpgradeStatDyn with FluxUpgradeStatDynMappable, ComponentReflectable {
   int fluxCapacityUpgrade;
   int fluxMaximumUpgrade;
   FluxUpgradeStatDyn(

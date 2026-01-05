@@ -1,3 +1,5 @@
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 import 'package:eyuuncore/enums/PathType.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
@@ -5,7 +7,8 @@ import 'package:eyuuncore/core/components/EyuunComponent.dart';
 part 'PathStep.mapper.dart';
 
 @MappableClass()
-class PathStepStatic with PathStepStaticMappable {
+@reflector
+class PathStepStatic with PathStepStaticMappable, ComponentReflectable {
   bool isAdditional;
   int tier;
   PathType pathType;

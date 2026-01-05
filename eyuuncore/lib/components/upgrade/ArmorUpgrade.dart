@@ -1,10 +1,13 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 import '../../core/components/EyuunComponent.dart';
+import '../../core/reflection/Reflecting.dart';
 
 part 'ArmorUpgrade.mapper.dart';
 
 @MappableClass()
-class ArmorUpgradeStatDyn with ArmorUpgradeStatDynMappable {
+@reflector
+class ArmorUpgradeStatDyn with ArmorUpgradeStatDynMappable, ComponentReflectable {
   int armorToughnessBonus;
   ArmorUpgradeStatDyn([this.armorToughnessBonus = 0]);
 }

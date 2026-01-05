@@ -1,10 +1,13 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 
 part 'Buff.mapper.dart';
 
 @MappableClass()
-class BuffStatic with BuffStaticMappable {
+@reflector
+class BuffStatic with BuffStaticMappable, ComponentReflectable {
   String textDescription;
   BuffStatic([this.textDescription = ""]);
 }

@@ -1,10 +1,13 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 import '../../core/components/EyuunComponent.dart';
 
 part 'LanguageLearnerUpgrade.mapper.dart';
 
 @MappableClass()
-class LanguageLearnerUpgradeStatDyn with LanguageLearnerUpgradeStatDynMappable {
+@reflector
+class LanguageLearnerUpgradeStatDyn with LanguageLearnerUpgradeStatDynMappable, ComponentReflectable {
   int languageMaxPotentialUpgrade;
   LanguageLearnerUpgradeStatDyn([this.languageMaxPotentialUpgrade = 0]);
 }

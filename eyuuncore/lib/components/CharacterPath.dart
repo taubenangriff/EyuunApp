@@ -1,13 +1,16 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/UpgradableInt.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 
 import '../core/assetLink.dart';
 
 part 'CharacterPath.mapper.dart';
 
 @MappableClass()
-class CharacterPathStatic with CharacterPathStaticMappable {
+@reflector
+class CharacterPathStatic with CharacterPathStaticMappable, ComponentReflectable {
   int pathCapacity;
   int additionalPathCapacity;
   CharacterPathStatic(this.pathCapacity, this.additionalPathCapacity);

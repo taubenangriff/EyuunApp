@@ -1,3 +1,5 @@
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+import 'package:eyuuncore/core/reflection/reflector.dart';
 import 'package:eyuuncore/enums/PathType.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
@@ -7,6 +9,7 @@ import '../../core/assetLink.dart';
 part 'PathFeature.mapper.dart';
 
 @MappableClass()
+@reflector
 class PathAdditionalEntry with PathAdditionalEntryMappable {
   AssetLink additionalPathBundle;
   PathType unlockingPathType;
@@ -14,7 +17,7 @@ class PathAdditionalEntry with PathAdditionalEntryMappable {
 }
 
 @MappableClass()
-class PathFeatureStatic with PathFeatureStaticMappable {
+class PathFeatureStatic with PathFeatureStaticMappable, ComponentReflectable {
   List<AssetLink> paths;
   List<PathAdditionalEntry> additionalPaths;
   PathFeatureStatic(this.paths, this.additionalPaths);
