@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:editor/io/AssetExporter.dart';
 import 'package:editor/io/StaticAssetLoader.dart';
 import 'package:editor/main.dart';
 import 'package:editor/views/AssetWidget.dart';
@@ -24,6 +25,7 @@ class _EditorState extends State<Editor> {
   Asset? loadedAsset = null;
 
   var assetloader = StaticAssetLoader(componentRepo);
+  late var assetexporter = AssetExporter(componentRepo, assetloader);
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +59,8 @@ class _EditorState extends State<Editor> {
         width: 128,
         child: FloatingActionButton(
           onPressed: () {
+            var dir = Directory('D:\\Coding\\flexbackend\\editor\\assetdata');
+            assetexporter.export(dir, Directory('D:\\Coding\\flexoutput'));
             // export
           },
           tooltip: "Export assets",

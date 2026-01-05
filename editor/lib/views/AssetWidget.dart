@@ -82,66 +82,68 @@ class _AssetWidgetState extends State<AssetWidget> {
       SizedBox(width: 16),
     ];
 
-    if (vartype == bool) {
-      widgets.add(
-        Switch(
-          value: instanceMirror.invokeGetter(declMirror.simpleName) as bool,
-          onChanged: (newval) {
-            setState(() {
-              instanceMirror.invokeSetter(declMirror.simpleName, newval);
-            });
-          },
-        ),
-      );
-    }
+    Widget? varWidget = null;
 
-    if (vartype == String) {
+    varWidget = switch(vartype) {
+      String => _buildStringWidget(instanceMirror, declMirror),
+      int => _buildIntWidget(instanceMirror, declMirror),
+      bool => _buildBoolWidget(instanceMirror, declMirror),
+      _ => null
+    };
 
-      var stringVal = instanceMirror.invokeGetter(declMirror.simpleName) as String? ?? "";
-
-      var _controller = TextEditingController(text: stringVal);
-
-      widgets.add(
-        Flexible(child:
-        TextField(
-          controller: _controller,
-          onChanged: (newval) {
-            setState(() {
-              instanceMirror.invokeSetter(declMirror.simpleName, newval);
-            });
-          },
-        ))
-      );
-    }
-
-
-    if (vartype == int) {
-
-      var stringVal = instanceMirror.invokeGetter(declMirror.simpleName) as int;
-
-      var numController = TextEditingController(text: stringVal.toString());
-
-      widgets.add(
-          Flexible(child:
-          TextFormField(
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            keyboardType: TextInputType.numberWithOptions(decimal: true),
-            controller: numController,
-            onFieldSubmitted: (newval) {
-              var integer = int.tryParse(newval);
-              if(integer == null) {
-                setState(() {});
-                return;
-              }
-              setState(() {
-                instanceMirror.invokeSetter(declMirror.simpleName, integer);
-                print("fuck");
-              });
-            },
-          ))
-      );
+    if(varWidget != null){
+      widgets.add(Flexible(child: varWidget));
     }
 
     return Row(children: widgets);
+  }
+
+  Switch _buildBoolWidget(InstanceMirror instanceMirror, VariableMirror declMirror) {
+    return Switch(
+        value: instanceMirror.invokeGetter(declMirror.simpleName) as bool,
+        onChanged: (newval) {
+          setState(() {
+            instanceMirror.invokeSetter(declMirror.simpleName, newval);
+          });
+        },
+      );
+  }
+
+  Widget _buildIntWidget(InstanceMirror instanceMirror, VariableMirror declMirror) {
+    var stringVal = instanceMirror.invokeGetter(declMirror.simpleName) as int;
+
+    var numController = TextEditingController(text: stringVal.toString());
+
+    return TextFormField(
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+      keyboardType: TextInputType.numberWithOptions(decimal: true),
+      controller: numController,
+      onFieldSubmitted: (newval) {
+        var integer = int.tryParse(newval);
+        if(integer == null) {
+          setState(() {});
+          return;
+        }
+        setState(() {
+          instanceMirror.invokeSetter(declMirror.simpleName, integer);
+          print("fuck");
+        });
+      },
+    );
+  }
+
+  Widget _buildStringWidget(InstanceMirror instanceMirror, VariableMirror declMirror) {
+
+    var stringVal = instanceMirror.invokeGetter(declMirror.simpleName) as String? ?? "";
+    var strController = TextEditingController(text: stringVal);
+
+    return TextField(
+      controller: strController,
+      onChanged: (newval) {
+        setState(() {
+          instanceMirror.invokeSetter(declMirror.simpleName, newval);
+        });
+      },
+    );
   }
 }
