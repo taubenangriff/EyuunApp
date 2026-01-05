@@ -1,0 +1,13 @@
+{
+    "standard": {
+        "typeId": "fightingstyle_range",
+        "internalName": "Fighting: Range"
+    },
+    "text": { },
+    "talent": {
+        "specializations": []
+    },
+    "skillcheck": {
+        "checkedAttributes": []
+    }
+}

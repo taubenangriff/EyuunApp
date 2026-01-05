@@ -14,7 +14,7 @@ class TalentStatic with TalentStaticMappable, ComponentReflectable {
   List<AssetLink> specializations;
   TalentGroup skillGroup;
 
-  TalentStatic(this.specializations, this.skillGroup);
+  TalentStatic(this.specializations, {this.skillGroup = TalentGroup.Basic});
 }
 
 class TalentComponent extends EyuunComponent<int> {

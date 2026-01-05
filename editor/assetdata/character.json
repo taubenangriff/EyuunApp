@@ -121,6 +121,12 @@
       },
       {
         "id": "spellschool_spacetime"
+      },
+      {
+        "id": "fightingstyle_melee"
+      },
+      {
+        "id": "fightingstyle_range"
       }
     ]
   },

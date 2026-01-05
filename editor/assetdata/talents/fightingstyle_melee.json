@@ -1,0 +1,13 @@
+{
+    "standard": {
+        "typeId": "fightingstyle_melee",
+        "internalName": "Fighting: Melee"
+    },
+    "text": { },
+    "talent": {
+        "specializations": []
+    },
+    "skillcheck": {
+        "checkedAttributes": []
+    }
+}
