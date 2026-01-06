@@ -45,28 +45,19 @@ void main() async {
 
   var goService = locator<GameObjectService>();
 
-  var character = goService.createInstance("character")!;
+  final String response = await rootBundle.loadString("data/base/char.json");
+  var chardata = json.decode(response);
+  var character = goService.loadEntity(chardata);
+
+  if(character == null){
+    return;
+  }
+
   locator<CharacterService>().changeCharacter(character);
 
-  await fillTestData();
   worldManager.world.execute(1);
 
   runApp(const MyApp());
-}
-
-Future fillTestData() async
-{
-  //Fill Characters inventory with bullshit
-  var random = Random();
-  List<InventoryItem> inventoryItems = List.generate(
-      15,
-          (index) => InventoryItem(AssetLink("item_dummy1"), count: random.nextInt(10) + 1));
-
-  var char = locator<CharacterService>().character;
-
-  final String response = await rootBundle.loadString("data/base/char.json");
-  var chardata = json.decode(response);
-  locator<AssetLoader>().applyDynamicData(char, chardata);
 }
 
 class MyApp extends StatelessWidget {

@@ -56,13 +56,6 @@ class AssetLoader {
     }
   }
 
-  void _addComponentDynamicDataToEntity(
-      Entity entity, String componentId, Map<String, dynamic> entityMap) {
-    var component = worldManager.getComponentFromEntity(componentId, entity);
-    var componentMap = entityMap[componentId];
-    component?.loadDynamicData(componentMap);
-  }
-
   String? getTypeIdFromAssetMap(Map<String, dynamic> assetMap) {
     return assetMap['standard']['typeId'] as String?;
   }

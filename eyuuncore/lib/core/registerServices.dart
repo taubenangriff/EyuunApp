@@ -1,4 +1,5 @@
 import 'package:eyuuncore/core/repository/AssetDataRepository.dart';
+import 'package:eyuuncore/core/repository/GameObjectRepository.dart';
 import 'package:eyuuncore/core/repository/StaticAssetRepository.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
@@ -16,6 +17,7 @@ void setupGetIt() {
   locator.registerSingleton<WorldManager>(WorldManager());
   locator.registerSingleton<AssetDataRepository>(AssetDataRepository());
   locator.registerSingleton<StaticAssetRepository>(StaticAssetRepository());
+  locator.registerSingleton<GameObjectRepository>(GameObjectRepository());
   locator.registerSingleton<AssetLoader>(AssetLoader());
   locator.registerSingleton<TextRepository>(TextRepository());
   locator.registerSingleton<GameObjectService>(GameObjectService());
