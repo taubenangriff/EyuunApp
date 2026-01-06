@@ -14,14 +14,7 @@ dart pub global run dhttpd --path doc/api
 
 - then go to http://localhost:8080 
 
-
-## Demo App 
-
-- The app is a UX demo with a character page. 
-- Paths are a demonstrator widget
-- Attributes are fully wired to the backend. The button right now randomizes the characters dice for demo purposes. 
-- The Health Button is also connected to the backend.
-- Press the Download button to get a json export of all the dynamic data of the character.
+> Note that the eyuuncore and editor reside in ./eyuuncore and ./editor respectively, the build_runners for those projects must be run seperatly.
 
 ## Assets 
 ### Asset Structure
@@ -34,27 +27,13 @@ dart pub global run dhttpd --path doc/api
 
 ### Asset Library
 
-- in data/base/asset/assets.json, a library of static assets is defined.
-- It's like the old flexapps repositories, but this is for all kinds of entities at once.
-- assets only define their static data in here
-- dynamic data is persisted "elsewhere"
+- in data/base/asset/assets.json, a library of assets is defined.
+- static asset data is defined in the asset library
 
-## IO 
-### dart_mappable 
-- I used dart_mappable to easily create some mappable classes for the dynamic and static data parts. 
-- Yes, this means code duplication of nearly all properties and some manual mapping again, but as flutter is lacking proper reflection, this is even one of the more concise ways to do it...
-
-### Load 
-- entities are loaded from the asset file, where the static asset data is defined.
-- loading of dynamic data is using with the `loadDynamicData` method of components.
-- although not implemented, loading of dynamic data will be going like this: 
-```
-for key in dynamic_data_map 
-    if entity has component with key 
-        load dynamic_data_map[key] into component
-```
-### Save 
-- we can save the dynamic data of the character. There is the AssetSerializer for this which works with any component, and on a component level using the `saveDynamicData` method.
+### Editor 
+- the asset file can include other asset files.
+- the asset library is generated using the editor from the project files. 
+- The project files for the assets are in ./editor/assetdata, one file, one asset.
 
 ## Accessing things
 
@@ -65,7 +44,8 @@ for key in dynamic_data_map
 
 ### Services
 - WorldManager: create entities and manipulate their component structure
-- AssetLoader: access the static asset library and create entity instances
+- GameObjectService: Access static asset data, get asset instances via their objectId and create new Asset Instances.
+- LoadDataService: Service that reloads asset data.
 - TextService: access the text library
 - CharacterService: access and change the current character 
 
