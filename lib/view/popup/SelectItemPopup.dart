@@ -3,8 +3,14 @@ import 'dart:math';
 import 'package:EyuunApp/view/controller/ChangeValueController.dart';
 import 'package:EyuunApp/view/popup/ChangeValuePopup.dart';
 import 'package:EyuunApp/view/popup/PopupUtil.dart';
+import 'package:eyuuncore/components/AssetBundle.dart';
+import 'package:eyuuncore/components/Icon.dart';
+import 'package:eyuuncore/core/components/EntityExtensions.dart';
+import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 import 'package:lorem_ipsum/lorem_ipsum.dart';
+import 'package:oxygen/oxygen.dart';
 
 class Item {
   List<Item> children;
@@ -18,7 +24,7 @@ class Item {
 }
 
 class ItemGridNavigator extends StatefulWidget {
-  final List<Item> rootItems;
+  final List<Entity> rootItems;
 
   const ItemGridNavigator({super.key, required this.rootItems});
 
@@ -27,11 +33,13 @@ class ItemGridNavigator extends StatefulWidget {
 }
 
 class _ItemGridNavigatorState extends State<ItemGridNavigator> {
-  late List<Item> currentItems;
-  final List<Item> navigationStack = [];
-  Item? selectedItem;
+  late List<Entity> currentItems;
+  final List<Entity> navigationStack = [];
+  Entity? selectedItem;
 
   int inInventoryCount = 11;
+
+  var _textService = locator<TextService>();
 
   @override
   void initState() {
@@ -39,12 +47,12 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
     currentItems = widget.rootItems;
   }
 
-  void navigateTo(Item item) {
-    if (item.hasChildren()) {
+  void navigateTo(Entity item) {
+    if (item.has<AssetBundleComponent>()) {
       setState(() {
         selectedItem == null;
         navigationStack.add(item);
-        currentItems = item.children;
+        currentItems = item.get<AssetBundleComponent>()!.getAssets();
       });
     } else {
       setState(() {
@@ -61,7 +69,8 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
         currentItems = widget.rootItems;
       } else {
         navigationStack.removeRange(index + 1, navigationStack.length);
-        currentItems = navigationStack.last.children;
+        currentItems =
+            navigationStack.last.get<AssetBundleComponent>()!.getAssets();
       }
     });
   }
@@ -106,7 +115,8 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
                               const Icon(Icons.chevron_right, size: 18),
                               TextButton(
                                 onPressed: () => navigateBackTo(i),
-                                child: Text(navigationStack[i].name),
+                                child: Text(_textService
+                                    .getTextFromEntity(navigationStack[i])),
                               ),
                             ]
                           ],
@@ -129,7 +139,7 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
                         return ElevatedButton(
                           onPressed: () => navigateTo(item),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: item.hasChildren()
+                            backgroundColor: item.has<AssetBundleComponent>()
                                 ? Theme.of(context).colorScheme.primaryContainer
                                 : Theme.of(context)
                                     .colorScheme
@@ -138,10 +148,12 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(item.icon, size: 32),
+                              item.has<IconComponent>()
+                                  ? Image(image: item.get<IconComponent>()!.getImage())
+                                  : Icon(Icons.add, size: 32),
                               const SizedBox(height: 8),
                               Text(
-                                item.name,
+                                _textService.getTextFromEntity(item),
                                 textAlign: TextAlign.center,
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -169,10 +181,12 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               const SizedBox(height: 30),
-                              Icon(selectedItem!.icon, size: 64),
+                              selectedItem?.has<IconComponent>() ?? false
+                                  ? Image(image: selectedItem!.get<IconComponent>()!.getImage(), width: 128, height: 128)
+                                  : Icon(Icons.add, size: 32),
                               const SizedBox(height: 16),
                               Text(
-                                selectedItem!.name,
+                                _textService.getTextFromEntity(selectedItem),
                                 style:
                                     Theme.of(context).textTheme.headlineSmall,
                               ),
@@ -181,7 +195,7 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
                                   child: SingleChildScrollView(
                                       child: Column(children: [
                                 Text(
-                                  selectedItem!.description,
+                                  _textService.getFluffFromEntity(selectedItem),
                                   textAlign: TextAlign.justify,
                                 )
                               ]))),

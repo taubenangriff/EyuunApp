@@ -22,7 +22,7 @@ class ItemShopFeatureComponent extends EyuunComponent<int> {
   /// link to the Asset with [AssetBundleComponent] that contains all the language assets.
   late AssetLink topLevelBundle;
 
-  List<Entity> getLanguages() => topLevelBundle.getEntity()?.get<AssetBundleComponent>()?.getAssets() ?? [];
+  List<Entity> getShopItems() => topLevelBundle.getEntity()?.get<AssetBundleComponent>()?.getAssets() ?? [];
 
   @override
   String getName() => propertyName;

@@ -4,6 +4,13 @@
     },
     "text": { },
     "assetBundle": {
-        "assets": []
+        "assets": [
+            {
+                "id": "armor_01"
+            },
+            {
+                "id": "holdable_01"
+            }
+        ]
     }
 }

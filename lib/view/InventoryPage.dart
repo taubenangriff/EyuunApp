@@ -14,6 +14,7 @@ import 'package:eyuuncore/components/Armor.dart';
 import 'package:eyuuncore/components/Combat.dart';
 import 'package:eyuuncore/components/Holdable.dart';
 import 'package:eyuuncore/components/Item.dart';
+import 'package:eyuuncore/components/feature/ItemShopFeature.dart';
 import 'package:eyuuncore/components/inventory.dart';
 import 'package:eyuuncore/controller/InventoryController.dart';
 import 'package:eyuuncore/controller/CombatController.dart';
@@ -25,6 +26,7 @@ import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/core/services/assetloader.dart';
 import 'package:flutter/material.dart';
 import 'package:lorem_ipsum/lorem_ipsum.dart';
+import 'package:oxygen/oxygen.dart';
 
 class InventoryPage extends StatefulWidget {
   const InventoryPage({super.key});
@@ -258,6 +260,8 @@ class _InventoryPageState extends State<InventoryPage> {
       if (_combatController.getFreeHands() > 0) _buildAddHoldableSlot()
     ];
 
+    List<Entity> shopItems = locator<ItemShopFeatureComponent>().getShopItems();
+
     return Scaffold(
       body: Stack(
         children: [
@@ -349,7 +353,7 @@ class _InventoryPageState extends State<InventoryPage> {
             onPressed: () {
               PopupUtil.popup(
                 context,
-                ItemGridNavigator(rootItems: dummyItems),
+                ItemGridNavigator(rootItems: shopItems),
                 maximumSize: const Size(900, 700),
               );
             },

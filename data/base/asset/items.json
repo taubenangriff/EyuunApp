@@ -1,1 +1,1 @@
-{"include":["data/base/asset/items/armor.json","data/base/asset/items/handheld.json"],"assets":[{"standard":{"typeId":"itemshop_list","internalName":null,"comment":null},"text":{"textOverride":null,"fluff":null,"short":null},"assetBundle":{"assets":[]}}]}
+{"include":["data/base/asset/items/armor.json","data/base/asset/items/handheld.json"],"assets":[{"standard":{"typeId":"itemshop_list","internalName":null,"comment":null},"text":{"textOverride":null,"fluff":null,"short":null},"assetBundle":{"assets":[{"id":"armor_01"},{"id":"holdable_01"}]}}]}

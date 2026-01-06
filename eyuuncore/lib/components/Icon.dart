@@ -47,4 +47,6 @@ class IconComponent extends EyuunComponent<int> {
 
   @override
   Map<String, dynamic> saveDynamicData() => <String, dynamic>{};
+
+  AssetImage getImage() => AssetImage(iconFilepath);
 }

@@ -21,6 +21,7 @@ import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/components/Weapon.dart';
 import 'package:eyuuncore/components/feature/CharacterTables.dart';
 import 'package:eyuuncore/components/feature/CombatFeature.dart';
+import 'package:eyuuncore/components/feature/ItemShopFeature.dart';
 import 'package:eyuuncore/components/feature/LevelFeature.dart';
 import 'package:eyuuncore/components/feature/PathFeature.dart';
 import 'package:eyuuncore/components/inventory.dart';
@@ -103,7 +104,7 @@ extension registerEditorComponentsExtension on ComponentRepository {
     registerComponent<PathFeatureStatic>(PathFeatureComponent.propertyName, (map) => PathFeatureStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<LevelFeatureStatic>(LevelFeatureComponent.propertyName, (map) => LevelFeatureStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<CharacterTablesFeatureStatic>(CharacterTablesFeatureComponent.propertyName, (map) => CharacterTablesFeatureStaticMapper.fromMap(map), (comp) => comp.toMap());
-
+    registerComponent<ItemShopFeatureStatic>(ItemShopFeatureComponent.propertyName, (map) => ItemShopFeatureStaticMapper.fromMap(map), (comp) => comp.toMap());
   }
 }
 
@@ -159,5 +160,6 @@ extension RegisterComponentsExtension on WorldManager {
     registerComponent<PathFeatureComponent, int>(PathFeatureComponent.propertyName, () => PathFeatureComponent());
     registerComponent<LevelFeatureComponent, int>(LevelFeatureComponent.propertyName, () => LevelFeatureComponent());
     registerComponent<CharacterTablesFeatureComponent, int>(CharacterTablesFeatureComponent.propertyName, () => CharacterTablesFeatureComponent());
+    registerComponent<ItemShopFeatureComponent, int>(ItemShopFeatureComponent.propertyName, () => ItemShopFeatureComponent());
   }
 }
