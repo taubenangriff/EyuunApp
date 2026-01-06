@@ -1,14 +1,17 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
+import 'package:eyuuncore/core/reflection/Reflecting.dart';
+
+import '../core/reflection/reflector.dart';
 
 part 'Holdable.mapper.dart';
 
 @MappableClass()
-class HoldableStatic with HoldableStaticMappable {
+@reflector
+class HoldableStatic with HoldableStaticMappable, ComponentReflectable {
   int equipmentSlotsNeeded;
-  bool takesArmorSlot;
 
-  HoldableStatic(this.equipmentSlotsNeeded, this.takesArmorSlot);
+  HoldableStatic(this.equipmentSlotsNeeded);
 }
 
 class HoldableComponent extends EyuunComponent<int> {
@@ -16,9 +19,6 @@ class HoldableComponent extends EyuunComponent<int> {
 
   /// The amount of equipment Slots needed to hold this item
   late int equipmentSlotsNeeded;
-
-  /// Whether this equippable takes up the armor Slot.
-  late bool takesArmorSlot;
 
   @override
   String getName() => propertyName;
@@ -37,13 +37,11 @@ class HoldableComponent extends EyuunComponent<int> {
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = HoldableStaticMapper.fromMap(staticData);
     equipmentSlotsNeeded = stat.equipmentSlotsNeeded;
-    takesArmorSlot = stat.takesArmorSlot;
   }
 
   @override
   void reset() {
     equipmentSlotsNeeded = 0;
-    takesArmorSlot = false;
   }
 
   @override

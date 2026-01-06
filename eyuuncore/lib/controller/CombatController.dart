@@ -14,6 +14,8 @@ class CombatController {
     UnimplementedError();
   }
 
+  void unequipHoldable(int heldIndex) => UnimplementedError();
+
   bool canEquipArmor(Entity entity) => true;
 
   void equipArmor(Entity entity) {

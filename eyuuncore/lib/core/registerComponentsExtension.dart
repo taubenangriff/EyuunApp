@@ -9,6 +9,7 @@ import 'package:eyuuncore/components/CraftMethod.dart';
 import 'package:eyuuncore/components/DamageType.dart';
 import 'package:eyuuncore/components/Equippable.dart';
 import 'package:eyuuncore/components/Flux.dart';
+import 'package:eyuuncore/components/Holdable.dart';
 import 'package:eyuuncore/components/Icon.dart';
 import 'package:eyuuncore/components/Language.dart';
 import 'package:eyuuncore/components/PathStep.dart';
@@ -85,6 +86,7 @@ extension registerEditorComponentsExtension on ComponentRepository {
     registerComponent<CharacterBaseStatic>(CharacterBaseComponent.propertyName, (map) => CharacterBaseStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<BuffStatic>(BuffComponent.propertyName, (map) => BuffStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<TalentStatic>(TalentComponent.propertyName, (map) => TalentStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<HoldableStatic>(HoldableComponent.propertyName, (map) => HoldableStaticMapper.fromMap(map), (comp) => comp.toMap());
     //Upgrades
 
     registerComponent<ArmorUpgradeStatDyn>(ArmorUpgradeComponent.propertyName, (map) => ArmorUpgradeStatDynMapper.fromMap(map), (comp) => comp.toMap());
@@ -140,6 +142,7 @@ extension RegisterComponentsExtension on WorldManager {
     registerComponent<CharacterBaseComponent, int>(CharacterBaseComponent.propertyName, () => CharacterBaseComponent());
     registerComponent<BuffComponent, int>(BuffComponent.propertyName, () => BuffComponent());
     registerComponent<TalentComponent, int>(TalentComponent.propertyName, () => TalentComponent());
+    registerComponent<HoldableComponent, int>(HoldableComponent.propertyName, () => HoldableComponent());
 
     // register Upgrades
     registerComponent<ArmorUpgradeComponent, int>(ArmorUpgradeComponent.propertyName, () => ArmorUpgradeComponent());

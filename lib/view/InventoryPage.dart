@@ -254,11 +254,9 @@ class _InventoryPageState extends State<InventoryPage> {
         [];
 
     List<Widget> slotWidgets = [
-      Expanded(child: _buildArmorSlot()),
-      for (var (index, _) in holdables.indexed)
-        Expanded(child: _buildHoldableSlot(index)),
-      if(_combatController.getFreeHands() > 0)
-        Expanded(child: _buildAddHoldableSlot())
+      _buildArmorSlot(),
+      for (var (index, _) in holdables.indexed) _buildHoldableSlot(index),
+      if (_combatController.getFreeHands() > 0) _buildAddHoldableSlot()
     ];
 
     return Scaffold(
@@ -286,12 +284,22 @@ class _InventoryPageState extends State<InventoryPage> {
                     child: Column(
                       children: [
                         Container(
-                          padding: const EdgeInsets.all(8),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: slotWidgets,
-                          ),
-                        ),
+                            padding: const EdgeInsets.all(8),
+                            child: GridView.builder(
+                              shrinkWrap: true,
+                              gridDelegate:
+                                  const SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent:
+                                    128, // 👈 desired item width
+                                crossAxisSpacing: 12,
+                                mainAxisSpacing: 12,
+                                childAspectRatio: 1, // tweak if needed
+                              ),
+                              itemCount: slotWidgets.length,
+                              itemBuilder: (context, index) {
+                                return slotWidgets[index];
+                              },
+                            )),
                         Expanded(child: _buildItemDetailWidget(theme)),
                       ],
                     ),
@@ -630,13 +638,19 @@ class _InventoryPageState extends State<InventoryPage> {
             return;
           }
           _combatController.equipArmor(armorEntity);
+          _inventoryController.dropItem(x);
 
           //update visual armor
           armor = x;
         },
-        onTap: () => setState(() {
-          selectedItem = armor;
-        }),
+        onTap: () {
+          if (armor == null) {
+            return;
+          }
+          setState(() {
+            selectedItem = armor;
+          });
+        },
         onItemChanged: (newItem) => setState(() {
           if (newItem == null && selectedItem == armor) {
             selectedItem = null;
@@ -648,6 +662,49 @@ class _InventoryPageState extends State<InventoryPage> {
   Widget _buildHoldableSlot(int index) => buildEquipmentSlot(
         label: "Holdable",
         getItem: () => holdables[index],
+        setItem: (x) {
+          //clearing slot
+          if (x == null) {
+            _combatController.unequipHoldable(index);
+            holdables[index] = null;
+            return;
+          }
+          //adding holdable if x isn't null
+          var holdableEntity = x.object?.getEntity();
+          if (holdableEntity == null) {
+            return;
+          }
+          if (!holdableEntity.has<HoldableComponent>()) {
+            return;
+          }
+          if (!_combatController.canEquipHoldable(holdableEntity)) {
+            return;
+          }
+          _combatController.equipHoldable(holdableEntity);
+          _inventoryController.dropItem(x);
+
+          //update visual armor
+          holdables[index] = x;
+        },
+        onTap: () {
+          if (holdables[index] == null) {
+            return;
+          }
+          setState(() {
+            selectedItem = weapon;
+          });
+        },
+        onItemChanged: (newItem) => setState(() {
+          if (newItem == null && selectedItem == holdables[index]) {
+            selectedItem = null;
+          }
+          holdables[index] = newItem;
+        }),
+      );
+
+  Widget _buildAddHoldableSlot() => buildEquipmentSlot(
+        label: "+",
+        getItem: () => null,
         setItem: (x) {
           //clearing slot
           if (x == null) {
@@ -681,44 +738,6 @@ class _InventoryPageState extends State<InventoryPage> {
           weapon = newItem;
         }),
       );
-
-  Widget _buildAddHoldableSlot() => buildEquipmentSlot(
-    label: "+",
-    getItem: () => null,
-    setItem: (x) {
-
-      //clearing slot
-      if (x == null) {
-        _combatController.unequipArmor();
-        armor = null;
-        return;
-      }
-      //adding holdable if x isn't null
-      var holdableEntity = x.object?.getEntity();
-      if (holdableEntity == null) {
-        return;
-      }
-      if (!holdableEntity.has<HoldableComponent>()) {
-        return;
-      }
-      if (!_combatController.canEquipHoldable(holdableEntity)) {
-        return;
-      }
-      _combatController.equipHoldable(holdableEntity);
-
-      //update visual armor
-      armor = x;
-    },
-    onTap: () => setState(() {
-      selectedItem = weapon;
-    }),
-    onItemChanged: (newItem) => setState(() {
-      if (newItem == null && selectedItem == weapon) {
-        selectedItem = null;
-      }
-      weapon = newItem;
-    }),
-  );
 
   Widget buildEquipmentSlot({
     required String label,

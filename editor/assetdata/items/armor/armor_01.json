@@ -1,0 +1,29 @@
+{
+  "standard": {
+    "typeId": "armor_01"
+  },
+  "text": {
+    "fluff" : "fluff_item_dummy1"
+  },
+  "item": {
+    "categoryText": "item_category1"
+  },
+  "cost": {
+    "money": 150,
+    "resourceCosts" : [
+      {
+        "resource" : {
+          "id": "resource_01"
+        },
+        "amount": 1
+      }
+    ]
+  },
+  "armor": {
+    "armorToughness": 3,
+    "splittableImpactOnCraft": 2,
+    "evasionImpactOnCraft": 0,
+    "athleticImpactOnCraft": 0,
+    "stealthImpactOnCraft": 0
+  }
+}
