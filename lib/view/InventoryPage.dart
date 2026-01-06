@@ -369,7 +369,7 @@ class _InventoryPageState extends State<InventoryPage> {
       onAcceptWithDetails: (details) {
         final draggedItem = details.data;
         setState(() {
-          _inventoryController.dropItem(draggedItem);
+          _inventoryController.deleteItem(draggedItem);
         });
       },
       builder: (context, candidateData, rejectedData) {
@@ -638,7 +638,7 @@ class _InventoryPageState extends State<InventoryPage> {
             return;
           }
           _combatController.equipArmor(armorEntity);
-          _inventoryController.dropItem(x);
+          _inventoryController.deleteItem(x);
 
           //update visual armor
           armor = x;
@@ -681,7 +681,7 @@ class _InventoryPageState extends State<InventoryPage> {
             return;
           }
           _combatController.equipHoldable(holdableEntity);
-          _inventoryController.dropItem(x);
+          _inventoryController.deleteItem(x);
 
           //update visual armor
           holdables[index] = x;
