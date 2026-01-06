@@ -1,1 +1,1 @@
-{"include":["data/base/asset/items/armor.json","data/base/asset/items/handheld.json"],"assets":[{"standard":{"typeId":"item_dummy1","internalName":null,"comment":null},"text":{"textOverride":null,"fluff":"fluff_item_dummy1","short":null},"item":{"categoryText":"item_category1"},"cost":{"money":150,"resourceCosts":[{"resource":{"id":"resource_01"},"amount":1}]}}]}
+{"include":["data/base/asset/items/armor.json","data/base/asset/items/handheld.json"],"assets":[]}

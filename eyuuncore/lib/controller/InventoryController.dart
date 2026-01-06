@@ -1,3 +1,4 @@
+import 'package:eyuuncore/components/Item.dart';
 import 'package:eyuuncore/components/inventory.dart';
 import 'package:oxygen/oxygen.dart';
 
@@ -9,7 +10,7 @@ class InventoryController {
   /// checks whether the slot at [slotIndex] is currently free.
   bool isSlotFree(int slotIndex) => true;
 
-  /// adds the entity to the slot at [slotIndex].
+  /// adds the entity to the slot at [slotIndex]. The entity must have [ItemComponent].
   ///
   /// Throws an error if the slot is already taken.
   void addObjectToSlot(Entity entity, int slotIndex) => UnimplementedError();

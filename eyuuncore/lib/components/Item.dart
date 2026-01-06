@@ -9,20 +9,22 @@ part 'Item.mapper.dart';
 @reflector
 class ItemStatic with ItemStaticMappable, ComponentReflectable {
   String categoryText;
-  ItemStatic(this.categoryText);
+  int maxStackSize;
+  ItemStatic(this.categoryText, this.maxStackSize);
 }
 
 class ItemComponent extends EyuunComponent<int> {
   static const String propertyName = "item";
 
   late String categoryText;
+  late int maxStackSize;
 
   @override
   String getName() => propertyName;
 
   @override
   void init([int? data]) {
-    // TODO: implement init
+    reset();
   }
 
   @override
@@ -34,11 +36,13 @@ class ItemComponent extends EyuunComponent<int> {
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = ItemStaticMapper.fromMap(staticData);
     categoryText = stat.categoryText;
+    maxStackSize = stat.maxStackSize;
   }
 
   @override
   void reset() {
     categoryText = "";
+    maxStackSize = 0;
   }
 
   @override

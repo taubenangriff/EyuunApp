@@ -6,7 +6,8 @@
     "fluff" : "fluff_item_dummy1"
   },
   "item": {
-    "categoryText": "item_category1"
+    "categoryText": "item_category1",
+    "maxStackSize": 1
   },
   "cost": {
     "money": 150,
