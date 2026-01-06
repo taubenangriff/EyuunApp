@@ -1,284 +1,415 @@
 {
-  "standard": {
-    "objectId": "8c325009-b118-4872-9464-b2279e8e1307",
-    "typeId": "character"
-  },
-  "health": {
-    "maxHitpoints": 0,
-    "hitpoints": 62,
-    "shield": 0,
-    "deathThrows": 0,
-    "naturalArmor": 0
-  },
-  "attributes": {
-    "statValues": [
-      {
-        "stat": {
-          "id": "baseSkill_Courage"
-        },
-        "dice": "d8"
+  "gameObjects": [
+    {
+      "standard": {
+        "objectId": "8c325009-b118-4872-9464-b2279e8e1307",
+        "typeId": "character"
       },
-      {
-        "stat": {
-          "id": "baseSkill_Intelligence"
-        },
-        "dice": "d6"
+      "health": {
+        "maxHitpoints": 0,
+        "hitpoints": 62,
+        "shield": 0,
+        "deathThrows": 0,
+        "naturalArmor": 0
       },
-      {
-        "stat": {
-          "id": "baseSkill_Intuition"
-        },
-        "dice": "d8"
+      "attributes": {
+        "statValues": [
+          {
+            "stat": {
+              "id": "baseSkill_Courage"
+            },
+            "dice": "d8"
+          },
+          {
+            "stat": {
+              "id": "baseSkill_Intelligence"
+            },
+            "dice": "d6"
+          },
+          {
+            "stat": {
+              "id": "baseSkill_Intuition"
+            },
+            "dice": "d8"
+          },
+          {
+            "stat": {
+              "id": "baseSkill_Charisma"
+            },
+            "dice": "d4"
+          },
+          {
+            "stat": {
+              "id": "baseSkill_Dexterity"
+            },
+            "dice": "d10"
+          },
+          {
+            "stat": {
+              "id": "baseSkill_Agility"
+            },
+            "dice": "d6"
+          },
+          {
+            "stat": {
+              "id": "baseSkill_Constitution"
+            },
+            "dice": "d6"
+          },
+          {
+            "stat": {
+              "id": "baseSkill_Strength"
+            },
+            "dice": "d8"
+          }
+        ]
       },
-      {
-        "stat": {
-          "id": "baseSkill_Charisma"
-        },
-        "dice": "d4"
+      "upgradable": {
+        "appliedUpgrades": []
       },
-      {
-        "stat": {
-          "id": "baseSkill_Dexterity"
-        },
-        "dice": "d10"
+      "boon": {
+        "currentBoon": 0,
+        "boonRegeneration": 0,
+        "boonSpentSinceLastRest": 0
       },
-      {
-        "stat": {
-          "id": "baseSkill_Agility"
-        },
-        "dice": "d6"
+      "inventory": {
+        "items": [
+          {
+            "objectId": null,
+            "typeId": {
+              "id": "item_dummy1"
+            },
+            "count": 6,
+            "slot": 0
+          },
+          {
+            "objectId": null,
+            "typeId": {
+              "id": "item_dummy1"
+            },
+            "count": 8,
+            "slot": 1
+          },
+          {
+            "objectId": null,
+            "typeId": {
+              "id": "item_dummy1"
+            },
+            "count": 8,
+            "slot": 2
+          },
+          {
+            "objectId": null,
+            "typeId": {
+              "id": "item_dummy1"
+            },
+            "count": 7,
+            "slot": 3
+          },
+          {
+            "objectId": null,
+            "typeId": {
+              "id": "item_dummy1"
+            },
+            "count": 7,
+            "slot": 4
+          },
+          {
+            "objectId": null,
+            "typeId": {
+              "id": "item_dummy1"
+            },
+            "count": 6,
+            "slot": 5
+          },
+          {
+            "objectId": null,
+            "typeId": {
+              "id": "item_dummy1"
+            },
+            "count": 1,
+            "slot": 6
+          },
+          {
+            "objectId": null,
+            "typeId": {
+              "id": "item_dummy1"
+            },
+            "count": 10,
+            "slot": 7
+          },
+          {
+            "objectId": null,
+            "typeId": {
+              "id": "item_dummy1"
+            },
+            "count": 4,
+            "slot": 8
+          },
+          {
+            "objectId": null,
+            "typeId": {
+              "id": "item_dummy1"
+            },
+            "count": 1,
+            "slot": 9
+          },
+          {
+            "objectId": null,
+            "typeId": {
+              "id": "item_dummy1"
+            },
+            "count": 9,
+            "slot": 10
+          },
+          {
+            "objectId": null,
+            "typeId": {
+              "id": "item_dummy1"
+            },
+            "count": 9,
+            "slot": 11
+          },
+          {
+            "objectId": null,
+            "typeId": {
+              "id": "item_dummy1"
+            },
+            "count": 5,
+            "slot": 12
+          },
+          {
+            "objectId": null,
+            "typeId": {
+              "id": "item_dummy1"
+            },
+            "count": 8,
+            "slot": 13
+          },
+          {
+            "objectId": null,
+            "typeId": {
+              "id": "item_dummy1"
+            },
+            "count": 1,
+            "slot": 14
+          }
+        ],
+        "money": 0
       },
-      {
-        "stat": {
-          "id": "baseSkill_Constitution"
-        },
-        "dice": "d6"
+      "flux": {
+        "fluxSpent": 2,
+        "fluxCapacity": 12,
+        "fluxMaximum": 15
       },
-      {
-        "stat": {
-          "id": "baseSkill_Strength"
+      "skillLearner": {
+        "skillpoints": 0,
+        "skillCeiling": 0,
+        "skills": [
+          {
+            "skill": {
+              "id": "talent_athletic"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "talent_sneaky"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "talent_manipulation"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "talent_investigate"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "talent_humanperception"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "talent_perception"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "talent_plants"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "talent_flux"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "talent_stories"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "talent_society"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "talent_crafting"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "talent_medicine"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "talent_technology"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "talent_animals"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "talent_perform"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "talent_religion"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "talent_wildlife"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "spellschool_elements"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "spellschool_will"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "spellschool_summoner"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "spellschool_matter"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "spellschool_nature"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "spellschool_spacetime"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "fightingstyle_melee"
+            },
+            "value": 0
+          },
+          {
+            "skill": {
+              "id": "fightingstyle_range"
+            },
+            "value": 0
+          }
+        ]
+      },
+      "combat": {
+        "speed": 0,
+        "evasion": 0,
+        "initiative": 0,
+        "actionsPerRound": 0,
+        "reactionsPerRound": 0,
+        "isSurprised": false,
+        "remainingActions": 0,
+        "remainingReactions": 0,
+        "equipmentSlotCount": 0,
+        "equippedItems": [],
+        "armor": null
+      },
+      "languageLearner": {
+        "languageMaxPotential": 2,
+        "languagesLearned": [],
+        "languagesThroughProjects": 0
+      },
+      "characterPath": {
+        "chosenPaths": [
+          {
+            "id": "path_flux_01"
+          },
+          {
+            "id": "path_fighter_01"
+          }
+        ],
+        "chosenPathSteps": [
+          {
+            "id": "path_flux_01_step_00"
+          },
+          {
+            "id": "path_fighter_01_step_00"
+          },
+          {
+            "id": "path_flux_additional_00_step"
+          }
+        ]
+      },
+      "characterBase": {
+        "upbringing": {
+          "id": "upbringing_human"
         },
-        "dice": "d8"
+        "childhood": {
+          "id": "childhood_homeless"
+        },
+        "level": 1,
+        "origin": "Afghanistan",
+        "secondUpbringing": {
+          "id": "upbringing_undead"
+        }
       }
-    ]
-  },
-  "upgradable": {
-    "appliedUpgrades": []
-  },
-  "boon": {
-    "currentBoon": 0,
-    "boonRegeneration": 0,
-    "boonSpentSinceLastRest": 0
-  },
-  "inventory": {
-    "items": [
-      {
-        "objectId": null,
-        "typeId": {
-          "id": "item_dummy1"
-        },
-        "count": 6,
-        "slot": 0
-      },
-      {
-        "objectId": null,
-        "typeId": {
-          "id": "item_dummy1"
-        },
-        "count": 8,
-        "slot": 1
-      },
-      {
-        "objectId": null,
-        "typeId": {
-          "id": "item_dummy1"
-        },
-        "count": 8,
-        "slot": 2
-      },
-      {
-        "objectId": null,
-        "typeId": {
-          "id": "item_dummy1"
-        },
-        "count": 7,
-        "slot": 3
-      },
-      {
-        "objectId": null,
-        "typeId": {
-          "id": "item_dummy1"
-        },
-        "count": 7,
-        "slot": 4
-      },
-      {
-        "objectId": null,
-        "typeId": {
-          "id": "item_dummy1"
-        },
-        "count": 6,
-        "slot": 5
-      },
-      {
-        "objectId": null,
-        "typeId": {
-          "id": "item_dummy1"
-        },
-        "count": 1,
-        "slot": 6
-      },
-      {
-        "objectId": null,
-        "typeId": {
-          "id": "item_dummy1"
-        },
-        "count": 10,
-        "slot": 7
-      },
-      {
-        "objectId": null,
-        "typeId": {
-          "id": "item_dummy1"
-        },
-        "count": 4,
-        "slot": 8
-      },
-      {
-        "objectId": null,
-        "typeId": {
-          "id": "item_dummy1"
-        },
-        "count": 1,
-        "slot": 9
-      },
-      {
-        "objectId": null,
-        "typeId": {
-          "id": "item_dummy1"
-        },
-        "count": 9,
-        "slot": 10
-      },
-      {
-        "objectId": null,
-        "typeId": {
-          "id": "item_dummy1"
-        },
-        "count": 9,
-        "slot": 11
-      },
-      {
-        "objectId": null,
-        "typeId": {
-          "id": "item_dummy1"
-        },
-        "count": 5,
-        "slot": 12
-      },
-      {
-        "objectId": null,
-        "typeId": {
-          "id": "item_dummy1"
-        },
-        "count": 8,
-        "slot": 13
-      },
-      {
-        "objectId": null,
-        "typeId": {
-          "id": "item_dummy1"
-        },
-        "count": 1,
-        "slot": 14
-      }
-    ],
-    "money": 0
-  },
-  "flux": {
-    "fluxSpent": 2,
-    "fluxCapacity": 12,
-    "fluxMaximum": 15
-  },
-  "talents": {
-    "skillpoints": 0,
-    "skillCeiling": 0,
-    "talents": [
-      {
-        "talent": {
-          "id": "talent_athletic"
-        },
-        "value": 0
-      },
-      {
-        "talent": {
-          "id": "talent_sneaky"
-        },
-        "value": 0
-      },
-      {
-        "talent": {
-          "id": "talent_manipulation"
-        },
-        "value": 0
-      },
-      {
-        "talent": {
-          "id": "talent_investigate"
-        },
-        "value": 0
-      }
-    ]
-  },
-  "combat": {
-    "speed": 0,
-    "evasion": 0,
-    "initiative": 0,
-    "actionsPerRound": 0,
-    "reactionsPerRound": 0,
-    "isSurprised": false,
-    "remainingActions": 0,
-    "remainingReactions": 0,
-    "equipmentSlotCount": 0,
-    "equippedItems": [],
-    "armor": null
-  },
-  "languageLearner": {
-    "languageMaxPotential": 2,
-    "languagesLearned": []
-  },
-  "characterPath": {
-    "chosenPaths": [
-      {
-        "id": "path_flux_01"
-      },
-      {
-        "id": "path_fighter_01"
-      }
-    ],
-    "chosenPathSteps": [
-      {
-        "id": "path_flux_01_step_00"
-      },
-      {
-        "id": "path_fighter_01_step_00"
-      },
-      {
-        "id": "path_flux_additional_00_step"
-      }
-    ]
-  },
-  "characterBase": {
-    "upbringing": {
-      "id": "upbringing_human"
-    },
-    "childhood": {
-      "id": "childhood_homeless"
-    },
-    "level": 1,
-    "origin": "Afghanistan",
-    "secondUpbringing": {
-      "id": "upbringing_undead"
     }
-  }
+  ]
 }

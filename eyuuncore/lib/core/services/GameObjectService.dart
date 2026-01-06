@@ -3,6 +3,7 @@ import 'package:eyuuncore/core/repository/AssetDataRepository.dart';
 import 'package:eyuuncore/core/repository/GameObjectRepository.dart';
 import 'package:eyuuncore/core/repository/StaticAssetRepository.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';
+import 'package:eyuuncore/io/GameObjectsExport.dart';
 import 'package:oxygen/oxygen.dart';
 import 'package:uuid/uuid.dart';
 import 'package:uuid/v8.dart';
@@ -69,4 +70,12 @@ class GameObjectService {
   }
 
   List<Entity> getObjects() => _gameObjectRepository.getEntities();
+
+  void loadEntities(GameObjectsExport export){
+    for(var entry in export.gameObjects){
+      if(entry is Map<String, dynamic>){
+        loadEntity(entry);
+      }
+    }
+  }
 }

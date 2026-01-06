@@ -14,6 +14,7 @@ import 'package:eyuuncore/core/services/WorldManager.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:EyuunApp/view/MainPage.dart';
 import 'package:eyuuncore/core/services/assetloader.dart';
+import 'package:eyuuncore/io/GameObjectsExport.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:oxygen/oxygen.dart';
@@ -46,8 +47,10 @@ void main() async {
   var goService = locator<GameObjectService>();
 
   final String response = await rootBundle.loadString("data/base/char.json");
-  var chardata = json.decode(response);
-  var character = goService.loadEntity(chardata);
+  var gameObjects = GameObjectsExportMapper.fromJson(response);
+  goService.loadEntities(gameObjects);
+
+  var character = goService.getObject("8c325009-b118-4872-9464-b2279e8e1307");
 
   if(character == null){
     return;
