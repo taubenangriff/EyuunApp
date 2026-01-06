@@ -10,6 +10,7 @@ import 'package:eyuuncore/core/registerUpgradesExtension.dart';
 import 'package:eyuuncore/core/repository/TextRepository.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
+import 'package:eyuuncore/core/services/LoadDataService.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:EyuunApp/view/MainPage.dart';
@@ -38,8 +39,8 @@ void main() async {
 
   await locator<AssetDataRepository>().reloadAssetFile();
 
-  var assetLoader = locator<AssetLoader>();
-  await assetLoader.reloadAssets();
+  var loadDataService = locator<LoadDataService>();
+  await loadDataService.reloadAssets();
   await locator<TextRepository>().reloadTexts(textFile);
 
   registerFeatures();

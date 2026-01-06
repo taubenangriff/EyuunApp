@@ -6,8 +6,6 @@ class InventoryController {
 
   InventoryController(this._inventory);
 
-  void addItemToSlot(String typeId, int slotIndex, count) => UnimplementedError();
-
   void addObjectToSlot(Entity entity, int slotIndex) => UnimplementedError();
 
   Entity? getItemInSlot(int slotIndex) {

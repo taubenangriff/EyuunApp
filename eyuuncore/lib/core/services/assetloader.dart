@@ -60,24 +60,4 @@ class AssetLoader {
     return assetMap['standard']['typeId'] as String?;
   }
 
-  Future<void> reloadAssets() async {
-    //clear entities from the static world
-    for (var entity in worldManager.staticWorld.entities) {
-      entity.dispose();
-    }
-    worldManager.staticWorld.execute(1);
-
-    for (var asset in assetRepository.getAssetMaps()) {
-      var typeId = getTypeIdFromAssetMap(asset);
-      if (typeId == null) {
-        continue;
-      }
-
-      //load static entity
-      var entity = worldManager.staticWorld.createEntity();
-      applyStaticData(entity, typeId);
-
-      staticAssetRepository.register(typeId, entity);
-    }
-  }
 }

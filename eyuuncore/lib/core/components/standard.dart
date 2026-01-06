@@ -31,21 +31,27 @@ class StandardDynamic with StandardDynamicMappable {
 
 class StandardComponent extends EyuunComponent<String> {
   late String objectId;
-  late final String typeId;
+  late String typeId;
 
   static String propertyName = "standard";
 
   String? internalName;
   String? comment;
 
+  late bool isStatic;
+
   @override
-  void init([String? objectId]) {
-    this.objectId = objectId ?? "Noid";
+  void init([String? data]) {
+    reset();
   }
 
   @override
   void reset() {
     objectId = "";
+    typeId = "";
+    internalName = null;
+    comment = null;
+    isStatic = false;
   }
 
   @override

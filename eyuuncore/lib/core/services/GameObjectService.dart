@@ -36,9 +36,38 @@ class GameObjectService {
     return _staticAssetRepository.getAssetData(typeId);
   }
 
+  void registerStatic(String typeId) {
+    if(!_assetDataRepository.isValidDefinition(typeId)){
+      return;
+    }
+    var entity = _worldManager.staticWorld.createEntity();
+    _assetLoader.applyStaticData(entity, typeId);
+    if(!entity.has<StandardComponent>()){
+      return;
+    }
+    entity.get<StandardComponent>()?.isStatic = true;
+
+    _staticAssetRepository.register(typeId, entity);
+  }
+
   Entity? getObject(String objectId) => _gameObjectRepository.getEntity(objectId);
 
   Entity? createInstance(String typeId) {
+    var entity = _createEntity(typeId);
+    if(entity == null){
+      return null;
+    }
+
+    String id = uuid.v4();
+    entity.get<StandardComponent>()?.objectId = id;
+
+    _gameObjectRepository.registerEntity(entity);
+    entity.get<StandardComponent>()?.isStatic = false;
+
+    return entity;
+  }
+
+  Entity? _createEntity(String typeId) {
     if(!_assetDataRepository.isValidDefinition(typeId)){
       return null;
     }
@@ -46,10 +75,9 @@ class GameObjectService {
     var entity = _worldManager.world.createEntity();
     _assetLoader.applyStaticData(entity, typeId);
 
-    String id = uuid.v4();
-    entity.get<StandardComponent>()?.objectId = id;
-
-    _gameObjectRepository.registerEntity(entity);
+    if(!entity.has<StandardComponent>()){
+      return null;
+    }
 
     return entity;
   }
@@ -59,12 +87,15 @@ class GameObjectService {
     if (typeId == null) {
       return null;
     }
+    var entity = _createEntity(typeId);
+    if(entity == null){
+      return null;
+    }
 
-    var entity = _worldManager.world.createEntity();
-    _assetLoader.applyStaticData(entity, typeId);
     _assetLoader.applyDynamicData(entity, entityMap);
-
     _gameObjectRepository.registerEntity(entity);
+
+    entity.get<StandardComponent>()?.isStatic = false;
 
     return entity;
   }

@@ -3,6 +3,7 @@ import 'package:eyuuncore/core/repository/GameObjectRepository.dart';
 import 'package:eyuuncore/core/repository/StaticAssetRepository.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
+import 'package:eyuuncore/core/services/LoadDataService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/core/services/assetloader.dart';
 import 'package:eyuuncore/io/AssetSerializer.dart';
@@ -24,6 +25,7 @@ void setupGetIt() {
   locator.registerSingleton<GameObjectService>(GameObjectService());
   locator.registerSingleton<TextService>(TextService());
   locator.registerSingleton<CharacterService>(CharacterService());
+  locator.registerSingleton<LoadDataService>(LoadDataService());
   locator.registerLazySingleton<AssetSerializer>(() => AssetSerializer());
   locator.registerLazySingleton<GameObjectsSerializer>(() => GameObjectsSerializer());
 }
