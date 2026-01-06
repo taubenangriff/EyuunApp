@@ -1,12 +1,7 @@
 import 'dart:math';
 
 import 'package:eyuuncore/components/Attributes.dart';
-import 'package:eyuuncore/core/services/WorldManager.dart';
-import 'package:eyuuncore/core/services/assetloader.dart';
-import 'package:oxygen/oxygen.dart';
 import 'package:eyuuncore/enums/dice.dart';
-
-import '../core/registerServices.dart';
 
 class AttributesController{
 

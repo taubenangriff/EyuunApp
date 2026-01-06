@@ -1,5 +1,5 @@
 import 'package:eyuuncore/core/services/GameObjectService.dart';
-import 'package:eyuuncore/core/services/assetloader.dart';
+import 'package:eyuuncore/io/assetloader.dart';
 
 import '../registerServices.dart';
 import '../repository/AssetDataRepository.dart';

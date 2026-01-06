@@ -10,7 +10,7 @@ import 'package:uuid/v8.dart';
 
 import '../components/standard.dart';
 import '../registerServices.dart';
-import 'assetloader.dart';
+import '../../io/assetloader.dart';
 
 class GameObjectService {
   late AssetDataRepository _assetDataRepository;

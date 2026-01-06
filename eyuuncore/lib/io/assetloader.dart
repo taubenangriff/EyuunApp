@@ -9,8 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:oxygen/oxygen.dart';
 import 'package:uuid/uuid.dart';
 
-import 'WorldManager.dart';
-import '../registerServices.dart';
+import '../core/services/WorldManager.dart';
+import '../core/registerServices.dart';
 
 class AssetLoader {
   var worldManager = locator<WorldManager>();

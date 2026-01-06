@@ -1,6 +1,5 @@
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
-import 'package:eyuuncore/core/services/assetloader.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:oxygen/oxygen.dart';
 

@@ -2,7 +2,6 @@ import 'package:eyuuncore/components/feature/CharacterTables.dart';
 import 'package:eyuuncore/components/feature/LevelFeature.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
-import 'package:eyuuncore/core/services/assetloader.dart';
 
 import '../components/feature/CombatFeature.dart';
 import '../components/feature/ItemShopFeature.dart';
