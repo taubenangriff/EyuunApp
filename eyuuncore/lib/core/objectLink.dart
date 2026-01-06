@@ -1,5 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
+import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:oxygen/oxygen.dart';
 
 part 'objectLink.mapper.dart';
@@ -10,7 +12,7 @@ class ObjectLink with ObjectLinkMappable {
 
   ObjectLink(this.objectId);
 
-  Entity getEntity() => throw UnimplementedError();
+  Entity getEntity() => locator<GameObjectService>().getObject(objectId)!;
 
   static ObjectLink fromEntity(Entity e) => ObjectLink(e.getObjectId());
 }

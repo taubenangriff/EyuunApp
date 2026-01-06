@@ -726,7 +726,7 @@ class _InventoryPageState extends State<InventoryPage> {
           _combatController.equipHoldable(holdableEntity);
 
           //update visual armor
-          armor = x;
+          holdables.add(x);
         },
         onTap: () => setState(() {
           selectedItem = weapon;

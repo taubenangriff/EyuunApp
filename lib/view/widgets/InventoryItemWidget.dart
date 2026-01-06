@@ -1,3 +1,4 @@
+import 'package:eyuuncore/components/Icon.dart';
 import 'package:eyuuncore/components/inventory.dart';
 import 'package:flutter/material.dart';
 import '../InventoryPage.dart';
@@ -36,6 +37,9 @@ class InventoryItemWidget extends StatelessWidget {
       return _buildEmptySlot();
     }
 
+    var entity = item?.object?.getEntity();
+    var icon = entity?.get<IconComponent>()?.iconFilepath;
+
     final theme = Theme.of(context);
 
     return AnimatedContainer(
@@ -52,9 +56,9 @@ class InventoryItemWidget extends StatelessWidget {
           child: Center(
             child: Stack(
               children: [
-                const Align(
+                Align(
                   alignment: Alignment.center,
-                  child: Icon(Icons.inventory_2, size: 32),
+                  child: icon != null ? Image(image: AssetImage(icon), width: 86, height: 86) : const Icon(Icons.inventory_2, size: 32),
                 ),
                 if (item!.count > 1)
                   Align(
