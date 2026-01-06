@@ -9,8 +9,14 @@ import 'package:EyuunApp/view/widgets/InventoryItemWidget.dart';
 import 'package:EyuunApp/view/widgets/InventoryWidget.dart';
 import 'package:EyuunApp/view/widgets/eyuun/Brushes.dart';
 import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
+import 'package:eyuuncore/components/Armor.dart';
+import 'package:eyuuncore/components/Combat.dart';
+import 'package:eyuuncore/components/Holdable.dart';
 import 'package:eyuuncore/components/Item.dart';
 import 'package:eyuuncore/components/inventory.dart';
+import 'package:eyuuncore/controller/InventoryController.dart';
+import 'package:eyuuncore/controller/CombatController.dart';
+import 'package:eyuuncore/core/components/standard.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
@@ -32,16 +38,19 @@ class _InventoryPageState extends State<InventoryPage> {
   InventoryItem? selectedItem;
 
   InventoryItem? armor;
+
+  List<InventoryItem?> holdables = [];
+
   InventoryItem? weapon;
   InventoryItem? secondWeapon;
 
   bool hasDragTarget = false;
 
   final _textService = locator<TextService>();
-  final _assetLoader = locator<AssetLoader>();
   final _gameObjectService = locator<GameObjectService>();
 
   late InventoryComponent? _inventory;
+  late CombatComponent? _combatComponent;
 
   final List<Item> dummyItems = [
     Item("Weapons", Icons.security, [
@@ -208,6 +217,8 @@ class _InventoryPageState extends State<InventoryPage> {
     ]),
   ];
 
+  late InventoryController _inventoryController;
+  late CombatController _combatController;
 
   void _onItemSelected(InventoryItem? item) {
     setState(() {
@@ -216,16 +227,39 @@ class _InventoryPageState extends State<InventoryPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    _inventory =
+        locator<CharacterService>().character.get<InventoryComponent>();
+    _combatComponent =
+        locator<CharacterService>().character.get<CombatComponent>();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
     late double desiredSize = 1100;
 
-    _inventory = locator<CharacterService>().character.get<InventoryComponent>();
-
-    if(_inventory == null){
+    if (_inventory == null || _combatComponent == null) {
       return Container();
     }
+    _inventoryController = InventoryController(_inventory!);
+    _combatController = CombatController(_combatComponent!);
+
+    holdables = _combatComponent?.equippedItems
+            .map((e) => InventoryItem.fromEntity(e.getEntity()))
+            .toList() ??
+        [];
+
+    List<Widget> slotWidgets = [
+      Expanded(child: _buildArmorSlot()),
+      for (var (index, _) in holdables.indexed)
+        Expanded(child: _buildHoldableSlot(index)),
+      if(_combatController.getFreeHands() > 0)
+        Expanded(child: _buildAddHoldableSlot())
+    ];
 
     return Scaffold(
       body: Stack(
@@ -255,13 +289,7 @@ class _InventoryPageState extends State<InventoryPage> {
                           padding: const EdgeInsets.all(8),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Expanded(child: _buildArmorSlot()),
-                              const SizedBox(width: 8),
-                              Expanded(child: _buildWeaponSlot()),
-                              const SizedBox(width: 8),
-                              Expanded(child: _buildSecondWeaponSlot()),
-                            ],
+                            children: slotWidgets,
                           ),
                         ),
                         Expanded(child: _buildItemDetailWidget(theme)),
@@ -290,10 +318,9 @@ class _InventoryPageState extends State<InventoryPage> {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if(_inventory != null)
+          if (_inventory != null)
             _buildLargeFab(
               onPressed: () {
-
                 final moneyController = ChangeValueController(_inventory!.money,
                     maxLimit: 99999,
                     minLimit: 0,
@@ -330,77 +357,11 @@ class _InventoryPageState extends State<InventoryPage> {
 
   DragTarget<InventoryItem> _buildRemoveDragTarget() {
     return DragTarget<InventoryItem>(
-            onWillAcceptWithDetails: (data) => true,
-            onAcceptWithDetails: (details) {
-              final draggedItem = details.data;
-              setState(() {
-                //remove the dragged item
-              });
-            },
-            builder: (context, candidateData, rejectedData) {
-              final hovering = candidateData.isNotEmpty;
-
-              return AnimatedContainer(
-                duration: const Duration(milliseconds: 250),
-                width: 200,
-                decoration: BoxDecoration(
-                  gradient: hovering
-                      ? LinearGradient(
-                          colors: [
-                            Colors.red.withAlpha(100), // deep red
-                            Colors.transparent, // light pink-red tint
-                          ],
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                        )
-                      : const LinearGradient(
-                          colors: [
-                            Colors.transparent,
-                            Colors.transparent,
-                          ],
-                        ),
-                ),
-                child: Center(
-                  child: AnimatedOpacity(
-                    duration: const Duration(milliseconds: 200),
-                    opacity: hovering ? 1.0 : 0.0,
-                    child: const Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.delete_forever,
-                            size: 48, color: Colors.white),
-                        SizedBox(height: 8),
-                        Text(
-                          'Delete',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            },
-          );
-  }
-
-  DragTarget<InventoryItem> _buildGroupDragTarget() {
-    return DragTarget<InventoryItem>(
       onWillAcceptWithDetails: (data) => true,
       onAcceptWithDetails: (details) {
         final draggedItem = details.data;
         setState(() {
-          PopupUtil.popup(context,
-            Padding(padding: EdgeInsets.all(32), child: Row(children: [
-              Expanded(child: InventoryWidget(inventory: InventoryComponent())),
-              const Icon(Icons.swap_horiz, size: 52),
-              Expanded(child: InventoryWidget(inventory: InventoryComponent()))
-            ]),
-            ),
-            maximumSize: Size(900, 700)
-          );
+          _inventoryController.dropItem(draggedItem);
         });
       },
       builder: (context, candidateData, rejectedData) {
@@ -412,19 +373,88 @@ class _InventoryPageState extends State<InventoryPage> {
           decoration: BoxDecoration(
             gradient: hovering
                 ? LinearGradient(
-              colors: [
-                Colors.transparent, // light pink-red tint
-                Colors.blue.withAlpha(100), // deep red
-              ],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            )
+                    colors: [
+                      Colors.red.withAlpha(100), // deep red
+                      Colors.transparent, // light pink-red tint
+                    ],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  )
                 : const LinearGradient(
-              colors: [
-                Colors.transparent,
-                Colors.transparent,
-              ],
+                    colors: [
+                      Colors.transparent,
+                      Colors.transparent,
+                    ],
+                  ),
+          ),
+          child: Center(
+            child: AnimatedOpacity(
+              duration: const Duration(milliseconds: 200),
+              opacity: hovering ? 1.0 : 0.0,
+              child: const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.delete_forever, size: 48, color: Colors.white),
+                  SizedBox(height: 8),
+                  Text(
+                    'Delete',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
             ),
+          ),
+        );
+      },
+    );
+  }
+
+  DragTarget<InventoryItem> _buildGroupDragTarget() {
+    return DragTarget<InventoryItem>(
+      onWillAcceptWithDetails: (data) => true,
+      onAcceptWithDetails: (details) {
+        final draggedItem = details.data;
+        setState(() {
+          PopupUtil.popup(
+              context,
+              Padding(
+                padding: EdgeInsets.all(32),
+                child: Row(children: [
+                  Expanded(
+                      child: InventoryWidget(inventory: InventoryComponent())),
+                  const Icon(Icons.swap_horiz, size: 52),
+                  Expanded(
+                      child: InventoryWidget(inventory: InventoryComponent()))
+                ]),
+              ),
+              maximumSize: Size(900, 700));
+        });
+      },
+      builder: (context, candidateData, rejectedData) {
+        final hovering = candidateData.isNotEmpty;
+
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 250),
+          width: 200,
+          decoration: BoxDecoration(
+            gradient: hovering
+                ? LinearGradient(
+                    colors: [
+                      Colors.transparent, // light pink-red tint
+                      Colors.blue.withAlpha(100), // deep red
+                    ],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  )
+                : const LinearGradient(
+                    colors: [
+                      Colors.transparent,
+                      Colors.transparent,
+                    ],
+                  ),
           ),
           child: Center(
             child: AnimatedOpacity(
@@ -462,20 +492,18 @@ class _InventoryPageState extends State<InventoryPage> {
     );
   }
 
-
   Widget _buildLargeFab(
       {required IconData icon,
-        required VoidCallback onPressed,
-        required String text,
-        String tooltip = ""}) {
+      required VoidCallback onPressed,
+      required String text,
+      String tooltip = ""}) {
     var color = Color(0xccfdcc3a);
     return SizedBox(
         width: 130,
         height: 90,
-        child:
-        DecoratedBox(
+        child: DecoratedBox(
             decoration:
-            EyuunDecoration(cornerSize: 12, paint: Brushes.goldSparkling()),
+                EyuunDecoration(cornerSize: 12, paint: Brushes.goldSparkling()),
             position: DecorationPosition.foreground,
             child: FloatingActionButton(
                 heroTag: text,
@@ -484,13 +512,17 @@ class _InventoryPageState extends State<InventoryPage> {
                 child: Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Icon(icon, size: 36, color: color), Text(text, style: TextStyle(color: color))]))));
+                    children: [
+                      Icon(icon, size: 36, color: color),
+                      Text(text, style: TextStyle(color: color))
+                    ]))));
   }
 
   Widget _buildItemDetailWidget(ThemeData theme) => Container(
         margin: const EdgeInsets.all(8),
         padding: const EdgeInsets.all(16),
-        decoration: EyuunDecoration(cornerSize: 20, paint: Brushes.goldSparkling()),
+        decoration:
+            EyuunDecoration(cornerSize: 20, paint: Brushes.goldSparkling()),
         child: selectedItem == null
             ? _buildPlaceholder(theme)
             : _buildItemDetails(context, selectedItem!, theme),
@@ -500,7 +532,10 @@ class _InventoryPageState extends State<InventoryPage> {
       BuildContext context, InventoryItem item, ThemeData theme) {
     final size = MediaQuery.of(context).size;
 
-    final itemText = _gameObjectService.getStatic(item.type.id)?.get<ItemComponent>()?.categoryText;
+    final itemText = _gameObjectService
+        .getStatic(item.type.id)
+        ?.get<ItemComponent>()
+        ?.categoryText;
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -577,6 +612,26 @@ class _InventoryPageState extends State<InventoryPage> {
         label: "Armor",
         getItem: () => armor,
         setItem: (x) {
+          //clearing slot
+          if (x == null) {
+            _combatController.unequipArmor();
+            armor = null;
+            return;
+          }
+          //adding armor if x isn't null
+          var armorEntity = x.object?.getEntity();
+          if (armorEntity == null) {
+            return;
+          }
+          if (!armorEntity.has<ArmorComponent>()) {
+            return;
+          }
+          if (!_combatController.canEquipArmor(armorEntity)) {
+            return;
+          }
+          _combatController.equipArmor(armorEntity);
+
+          //update visual armor
           armor = x;
         },
         onTap: () => setState(() {
@@ -590,11 +645,31 @@ class _InventoryPageState extends State<InventoryPage> {
         }),
       );
 
-  Widget _buildWeaponSlot() => buildEquipmentSlot(
-        label: "Weapon",
-        getItem: () => weapon,
+  Widget _buildHoldableSlot(int index) => buildEquipmentSlot(
+        label: "Holdable",
+        getItem: () => holdables[index],
         setItem: (x) {
-          weapon = x;
+          //clearing slot
+          if (x == null) {
+            _combatController.unequipArmor();
+            armor = null;
+            return;
+          }
+          //adding holdable if x isn't null
+          var holdableEntity = x.object?.getEntity();
+          if (holdableEntity == null) {
+            return;
+          }
+          if (!holdableEntity.has<HoldableComponent>()) {
+            return;
+          }
+          if (!_combatController.canEquipHoldable(holdableEntity)) {
+            return;
+          }
+          _combatController.equipHoldable(holdableEntity);
+
+          //update visual armor
+          armor = x;
         },
         onTap: () => setState(() {
           selectedItem = weapon;
@@ -607,22 +682,43 @@ class _InventoryPageState extends State<InventoryPage> {
         }),
       );
 
-  Widget _buildSecondWeaponSlot() => buildEquipmentSlot(
-        label: "Weapon 2",
-        getItem: () => secondWeapon,
-        setItem: (x) {
-          secondWeapon = x;
-        },
-        onTap: () => setState(() {
-          selectedItem = secondWeapon;
-        }),
-        onItemChanged: (newItem) => setState(() {
-          if (newItem == null && selectedItem == secondWeapon) {
-            selectedItem = null;
-          }
-          secondWeapon = newItem;
-        }),
-      );
+  Widget _buildAddHoldableSlot() => buildEquipmentSlot(
+    label: "+",
+    getItem: () => null,
+    setItem: (x) {
+
+      //clearing slot
+      if (x == null) {
+        _combatController.unequipArmor();
+        armor = null;
+        return;
+      }
+      //adding holdable if x isn't null
+      var holdableEntity = x.object?.getEntity();
+      if (holdableEntity == null) {
+        return;
+      }
+      if (!holdableEntity.has<HoldableComponent>()) {
+        return;
+      }
+      if (!_combatController.canEquipHoldable(holdableEntity)) {
+        return;
+      }
+      _combatController.equipHoldable(holdableEntity);
+
+      //update visual armor
+      armor = x;
+    },
+    onTap: () => setState(() {
+      selectedItem = weapon;
+    }),
+    onItemChanged: (newItem) => setState(() {
+      if (newItem == null && selectedItem == weapon) {
+        selectedItem = null;
+      }
+      weapon = newItem;
+    }),
+  );
 
   Widget buildEquipmentSlot({
     required String label,

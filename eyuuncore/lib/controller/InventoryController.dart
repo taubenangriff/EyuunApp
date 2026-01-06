@@ -17,11 +17,15 @@ class InventoryController {
 
   void setItemCount(int slotIndex, int newCount) => UnimplementedError();
 
-  bool holdsUniqueItem(int slot) => false;
-
   int getFirstFreeSlotIndex() => 0;
 
   bool isFull() => false;
 
-  void clearSlot(int slotIndex) => UnimplementedError();
+  void dropItemInSlot(int slotIndex) => UnimplementedError();
+
+  void dropItem(InventoryItem item) => UnimplementedError();
+
+  void moveItem(int oldIndex, int newIndex) {
+    UnimplementedError();
+  }
 }

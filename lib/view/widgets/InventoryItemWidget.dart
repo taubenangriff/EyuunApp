@@ -43,7 +43,7 @@ class InventoryItemWidget extends StatelessWidget {
         decoration: EyuunDecoration(
             cornerSize: isSelected ? 14 : 8,
             fillCorners: isSelected,
-            background: theme.canvasColor.withAlpha(120),
+            background: theme.canvasColor,
             paint: isSelected
                 ? Brushes.goldSparkling()
                 : Brushes.silverSparkling()),

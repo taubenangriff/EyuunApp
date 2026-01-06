@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:eyuuncore/components/inventory.dart';
+import 'package:eyuuncore/controller/InventoryController.dart';
 import 'package:flutter/material.dart';
 import 'InventoryItemWidget.dart';
 
@@ -24,17 +25,20 @@ class _InventoryWidgetState extends State<InventoryWidget> {
   static const int columns = 6;
   static const int minSlots = 100;
 
+  late var inventory = widget.inventory;
+  late var inventoryController = InventoryController(inventory);
+
   @override
   void initState() {
     super.initState();
 
     final total =
-    max(((widget.inventory.maxCapacity / columns).ceil() * columns), minSlots)
+    max(((inventory.maxCapacity / columns).ceil() * columns), minSlots)
         .toInt();
 
     inventorySlots = List<InventoryItem?>.filled(total, null);
-    for (int i = 0; i < widget.inventory.maxCapacity; i++) {
-      inventorySlots[i] = widget.inventory.getSlotItem(i);
+    for (int i = 0; i < inventory.maxCapacity; i++) {
+      inventorySlots[i] = inventory.getSlotItem(i);
     }
   }
 
@@ -61,8 +65,8 @@ class _InventoryWidgetState extends State<InventoryWidget> {
               inventorySlots[oldIndex] = item;
               inventorySlots[index] = dragged;
 
-              widget.inventory.clearSlot(oldIndex);
-              widget.inventory.addItemToSlot(dragged, index);
+              //call controller to swap in code.
+              inventoryController.moveItem(oldIndex, index);
             });
           },
           builder: (context, candidateData, rejectedData) {

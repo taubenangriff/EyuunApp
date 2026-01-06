@@ -8,15 +8,19 @@ class CombatController {
 
   int getFreeHands() => 1;
 
-  bool canEquipWeapon(Entity entity) => true;
+  bool canEquipHoldable(Entity entity) => true;
 
-  void equipWeapon(Entity entity) {
+  void equipHoldable(Entity entity) {
     UnimplementedError();
   }
 
   bool canEquipArmor(Entity entity) => true;
 
   void equipArmor(Entity entity) {
+    UnimplementedError();
+  }
+
+  void unequipArmor() {
     UnimplementedError();
   }
 }
