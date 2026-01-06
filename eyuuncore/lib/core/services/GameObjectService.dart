@@ -67,4 +67,6 @@ class GameObjectService {
 
     return entity;
   }
+
+  List<Entity> getObjects() => _gameObjectRepository.getEntities();
 }

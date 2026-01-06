@@ -6,6 +6,7 @@ import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/core/services/assetloader.dart';
 import 'package:eyuuncore/io/AssetSerializer.dart';
+import 'package:eyuuncore/io/GameObjectsSerializer.dart';
 import 'package:get_it/get_it.dart';
 
 import 'repository/TextRepository.dart';
@@ -24,5 +25,5 @@ void setupGetIt() {
   locator.registerSingleton<TextService>(TextService());
   locator.registerSingleton<CharacterService>(CharacterService());
   locator.registerLazySingleton<AssetSerializer>(() => AssetSerializer());
-
+  locator.registerLazySingleton<GameObjectsSerializer>(() => GameObjectsSerializer());
 }

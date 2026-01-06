@@ -5,7 +5,9 @@ import 'package:EyuunApp/view/CharacterPage.dart';
 import 'package:EyuunApp/view/InventoryPage.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
+import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/io/AssetSerializer.dart';
+import 'package:eyuuncore/io/GameObjectsSerializer.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:html' as html;
@@ -122,8 +124,10 @@ class _MainPageState extends State<MainPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
-            var charJson = json.encode(locator<AssetSerializer>().serialize(locator<CharacterService>().character));
-            downloadConfig(charJson);
+            var objects = locator<GameObjectService>().getObjects();
+            var gameData = locator<GameObjectsSerializer>().exportGameObjects(objects);
+            var gameDataJson = gameData.toJson();
+            downloadConfig(gameDataJson);
           });
         },
         tooltip: 'Download',
