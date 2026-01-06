@@ -5,6 +5,8 @@ import 'package:EyuunApp/view/popup/ChangeValuePopup.dart';
 import 'package:EyuunApp/view/popup/PopupUtil.dart';
 import 'package:eyuuncore/components/AssetBundle.dart';
 import 'package:eyuuncore/components/Icon.dart';
+import 'package:eyuuncore/components/inventory.dart';
+import 'package:eyuuncore/controller/ShoppingController.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
@@ -12,21 +14,11 @@ import 'package:flutter/material.dart';
 import 'package:lorem_ipsum/lorem_ipsum.dart';
 import 'package:oxygen/oxygen.dart';
 
-class Item {
-  List<Item> children;
-  String name;
-  IconData icon;
-  String description = loremIpsum(words: Random().nextInt(100) + 100);
-
-  bool hasChildren() => children.isNotEmpty;
-
-  Item(this.name, this.icon, [this.children = const []]);
-}
-
 class ItemGridNavigator extends StatefulWidget {
   final List<Entity> rootItems;
+  final InventoryComponent inventory;
 
-  const ItemGridNavigator({super.key, required this.rootItems});
+  const ItemGridNavigator({super.key, required this.rootItems, required this.inventory});
 
   @override
   State<ItemGridNavigator> createState() => _ItemGridNavigatorState();
@@ -39,7 +31,8 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
 
   int inInventoryCount = 11;
 
-  var _textService = locator<TextService>();
+  final _textService = locator<TextService>();
+  late final _shoppingController = ShoppingController(widget.inventory);
 
   @override
   void initState() {
@@ -218,6 +211,10 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
                                           child: const Text("x1"),
                                           onPressed: () {
                                             setState(() {
+                                              if(selectedItem == null){
+                                                return;
+                                              }
+                                              _shoppingController.buyItem(selectedItem!.getTypeId());
                                               inInventoryCount += 1;
                                             });
                                           })),
