@@ -1,7 +1,5 @@
 import 'dart:math';
 
-import 'package:eyuuncore/components/inventory.dart';
-import 'package:eyuuncore/core/assetLink.dart';
 import 'package:eyuuncore/core/registerFeatures.dart';
 import 'package:eyuuncore/core/repository/AssetDataRepository.dart';
 import 'package:eyuuncore/core/registerComponentsExtension.dart';
@@ -14,11 +12,9 @@ import 'package:eyuuncore/core/services/LoadDataService.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:EyuunApp/view/MainPage.dart';
-import 'package:eyuuncore/core/services/assetloader.dart';
 import 'package:eyuuncore/io/GameObjectsExport.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:oxygen/oxygen.dart';
 
 import 'dart:convert';
 

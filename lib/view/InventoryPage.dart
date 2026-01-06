@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:EyuunApp/view/controller/ChangeValueController.dart';
-import 'package:EyuunApp/view/popup/ChangeItemCountPopup.dart';
 import 'package:EyuunApp/view/popup/ChangeValuePopup.dart';
 import 'package:EyuunApp/view/popup/PopupUtil.dart';
 import 'package:EyuunApp/view/popup/SelectItemPopup.dart';
@@ -13,19 +12,13 @@ import 'package:EyuunApp/view/widgets/cards/ItemDisplayWidget.dart';
 import 'package:eyuuncore/components/Armor.dart';
 import 'package:eyuuncore/components/Combat.dart';
 import 'package:eyuuncore/components/Holdable.dart';
-import 'package:eyuuncore/components/Item.dart';
 import 'package:eyuuncore/components/feature/ItemShopFeature.dart';
 import 'package:eyuuncore/components/inventory.dart';
 import 'package:eyuuncore/controller/InventoryController.dart';
 import 'package:eyuuncore/controller/CombatController.dart';
-import 'package:eyuuncore/core/components/standard.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
-import 'package:eyuuncore/core/services/GameObjectService.dart';
-import 'package:eyuuncore/core/services/TextService.dart';
-import 'package:eyuuncore/core/services/assetloader.dart';
 import 'package:flutter/material.dart';
-import 'package:lorem_ipsum/lorem_ipsum.dart';
 import 'package:oxygen/oxygen.dart';
 
 class InventoryPage extends StatefulWidget {
