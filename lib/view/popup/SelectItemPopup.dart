@@ -120,11 +120,12 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
                     child: GridView.builder(
                       padding: const EdgeInsets.all(8),
                       gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 4,
-                        mainAxisSpacing: 8,
-                        crossAxisSpacing: 8,
-                        childAspectRatio: 1,
+                      const SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent:
+                        128, // 👈 desired item width
+                        crossAxisSpacing: 12,
+                        mainAxisSpacing: 12,
+                        childAspectRatio: 1, // tweak if needed
                       ),
                       itemCount: currentItems.length,
                       itemBuilder: (context, index) {

@@ -22,7 +22,6 @@ class _InventoryWidgetState extends State<InventoryWidget> {
   late List<InventoryItem?> inventorySlots;
   InventoryItem? selectedItem;
 
-  static const int columns = 6;
   static const int minSlots = 100;
 
   late var inventory = widget.inventory;
@@ -32,11 +31,7 @@ class _InventoryWidgetState extends State<InventoryWidget> {
   void initState() {
     super.initState();
 
-    final total =
-    max(((inventory.maxCapacity / columns).ceil() * columns), minSlots)
-        .toInt();
-
-    inventorySlots = List<InventoryItem?>.filled(total, null);
+    inventorySlots = List<InventoryItem?>.filled(minSlots, null);
     for (int i = 0; i < inventory.maxCapacity; i++) {
       inventorySlots[i] = inventory.getSlotItem(i);
     }
@@ -46,12 +41,12 @@ class _InventoryWidgetState extends State<InventoryWidget> {
   Widget build(BuildContext context) {
     return GridView.builder(
       padding: const EdgeInsets.all(8),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: columns,
-        crossAxisSpacing: 8,
-        mainAxisSpacing: 8,
-        childAspectRatio: 1,
-      ),
+      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+      maxCrossAxisExtent: 128, // 👈 desired item width
+      crossAxisSpacing: 8,
+      mainAxisSpacing: 8,
+      childAspectRatio: 1, // tweak if needed
+    ),
       itemCount: inventorySlots.length,
       itemBuilder: (context, index) {
         final item = inventorySlots[index];

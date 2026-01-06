@@ -320,7 +320,6 @@ class _InventoryPageState extends State<InventoryPage> {
     );
   }
 
-
   Widget _buildLargeFab(
       {required IconData icon,
       required VoidCallback onPressed,

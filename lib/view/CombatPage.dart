@@ -1,3 +1,4 @@
+import 'package:EyuunApp/view/widgets/cards/TalentsWidget.dart';
 import 'package:eyuuncore/components/Combat.dart';
 import 'package:EyuunApp/view/popup/ChangeHealthPopup.dart';
 import 'package:EyuunApp/view/popup/ChangeValuePopup.dart';
@@ -6,10 +7,12 @@ import 'package:EyuunApp/view/widgets/Cards/CombatStatsRow.dart';
 import 'package:EyuunApp/view/widgets/eyuun/Brushes.dart';
 import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
 import 'package:eyuuncore/components/Flux.dart';
+import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/components/health.dart';
 import 'package:eyuuncore/controller/HealthController.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
+import 'package:eyuuncore/enums/TalentGroup.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -37,7 +40,13 @@ class _CombatPageState extends State<CombatPage> {
         minLimit: 0,
         onValUpdated: (val) => flux.fluxSpent = val);
 
-    late double desiredSize = 900;
+    late double desiredSize = 1100;
+
+    late var talents = locator<CharacterService>()
+        .character
+        .get<SkillLearnerComponent>()
+        ?.skills ??
+        [];
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -75,7 +84,27 @@ class _CombatPageState extends State<CombatPage> {
                           ),
                         ),
                       ],
-                    )
+                    ),
+                  SizedBox(height: 16),
+                  DecoratedBox(
+                      decoration: EyuunDecoration(
+                          paint: Brushes.goldSparkling(), cornerSize: 20),
+                      child: Padding(
+                          padding: EdgeInsets.all(20),
+                          child: Column(
+                            children: [
+                              const Text(
+                                'Spellschools',
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(height: 16),
+                              TalentsWidget(
+                                talents: talents,
+                                filter: const [TalentGroup.Spellschool],
+                              )
+                            ],
+                          ))),
                 ])),
           )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

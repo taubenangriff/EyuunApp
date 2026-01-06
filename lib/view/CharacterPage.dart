@@ -29,7 +29,7 @@ class _CharacterPageState extends State<CharacterPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
-    late double desiredSize = 900;
+    late double desiredSize = 1100;
 
     var character = locator<CharacterService>().character;
     var health = character.get<HealthComponent>()!;
@@ -55,7 +55,8 @@ class _CharacterPageState extends State<CharacterPage> {
                     Stack(children: [
                       DecoratedBox(
                         decoration: EyuunDecoration(
-                            cornerSize: 20, paint: Brushes.goldSparkling()),
+                            cornerSize: 20, paint: Brushes.goldSparkling(),
+                            background: theme.canvasColor.withAlpha(120)),
                         child: Padding(
                           padding: const EdgeInsets.all(20),
                           child: CharacterInfoWidget(
@@ -120,7 +121,8 @@ class _CharacterPageState extends State<CharacterPage> {
                         // The decorated box with your content
                         DecoratedBox(
                           decoration: EyuunDecoration(
-                              cornerSize: 20, paint: Brushes.goldSparkling()),
+                              cornerSize: 20, paint: Brushes.goldSparkling(),
+                              background: theme.canvasColor.withAlpha(120)),
                           child: const Padding(
                             padding: EdgeInsets.all(20),
                             child: PathsWidget(),

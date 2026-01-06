@@ -5,7 +5,8 @@
     },
     "text": { },
     "talent": {
-        "specializations": []
+        "specializations": [],
+        "skillGroup":"Spellschool"
     },
     "skillcheck": {
         "checkedAttributes": [
