@@ -3,7 +3,7 @@
     "typeId": "armor_01"
   },
   "text": {
-    "fluff" : "fluff_item_dummy1"
+    "fluff": "fluff_item_dummy1"
   },
   "item": {
     "categoryText": "item_category1",
@@ -11,9 +11,9 @@
   },
   "cost": {
     "money": 150,
-    "resourceCosts" : [
+    "resourceCosts": [
       {
-        "resource" : {
+        "resource": {
           "id": "resource_01"
         },
         "amount": 1
@@ -26,5 +26,8 @@
     "evasionImpactOnCraft": 0,
     "athleticImpactOnCraft": 0,
     "stealthImpactOnCraft": 0
+  },
+  "icon": {
+    "iconFilepath": "data/base/icons/weapon/armor.png"
   }
 }
