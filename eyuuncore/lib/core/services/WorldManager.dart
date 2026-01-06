@@ -1,6 +1,7 @@
 import 'package:eyuuncore/core/UpgradableInt.dart';
 import 'package:eyuuncore/core/upgradeDescriptor.dart';
 import 'package:oxygen/oxygen.dart';
+
 import '../components/EyuunComponent.dart';
 
 typedef FuncEyuunComponentAdder<T1 extends EyuunComponent<T2>, T2> = void Function(Entity entity);

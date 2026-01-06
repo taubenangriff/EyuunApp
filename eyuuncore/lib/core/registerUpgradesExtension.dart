@@ -11,6 +11,7 @@ import 'package:eyuuncore/components/upgrade/FluxUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/LanguageLearnerUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/TalentsUpgrade.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';
+
 import '../components/health.dart';
 import '../components/upgrade/CharacterPathUpgrade.dart';
 import '../components/upgrade/CombatUpgrade.dart';

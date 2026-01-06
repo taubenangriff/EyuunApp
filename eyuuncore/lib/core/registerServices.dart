@@ -5,9 +5,9 @@ import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/core/services/LoadDataService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
-import 'package:eyuuncore/io/assetloader.dart';
 import 'package:eyuuncore/io/AssetSerializer.dart';
 import 'package:eyuuncore/io/GameObjectsSerializer.dart';
+import 'package:eyuuncore/io/assetloader.dart';
 import 'package:get_it/get_it.dart';
 
 import 'repository/TextRepository.dart';

@@ -1,4 +1,3 @@
-import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/core/repository/AssetDataRepository.dart';
 import 'package:eyuuncore/core/repository/GameObjectRepository.dart';
 import 'package:eyuuncore/core/repository/StaticAssetRepository.dart';
@@ -6,11 +5,10 @@ import 'package:eyuuncore/core/services/WorldManager.dart';
 import 'package:eyuuncore/io/GameObjectsExport.dart';
 import 'package:oxygen/oxygen.dart';
 import 'package:uuid/uuid.dart';
-import 'package:uuid/v8.dart';
 
+import '../../io/assetloader.dart';
 import '../components/standard.dart';
 import '../registerServices.dart';
-import '../../io/assetloader.dart';
 
 class GameObjectService {
   late AssetDataRepository _assetDataRepository;

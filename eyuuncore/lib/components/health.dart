@@ -4,6 +4,7 @@ import 'package:eyuuncore/core/reflection/reflector.dart';
 
 import '../core/components/EyuunComponent.dart';
 import '../core/reflection/Reflecting.dart';
+
 part 'health.mapper.dart';
 
 @MappableClass()

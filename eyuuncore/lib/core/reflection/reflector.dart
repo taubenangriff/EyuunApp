@@ -2,7 +2,6 @@ import 'package:eyuuncore/core/registerComponentsExtension.dart';
 import 'package:reflectable/reflectable.dart';
 
 import '../repository/ComponentRepository.dart';
-import 'reflector.reflectable.dart';
 
 class Reflector extends Reflectable {
   const Reflector()

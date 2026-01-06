@@ -3,7 +3,6 @@ import 'package:eyuuncore/components/feature/CharacterTables.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:oxygen/oxygen.dart';
 
-import '../components/AssetBundle.dart';
 import '../core/assetLink.dart';
 import '../core/registerServices.dart';
 

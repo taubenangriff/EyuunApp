@@ -1,16 +1,9 @@
-import 'dart:convert';
-
-import 'package:eyuuncore/core/components/EntityExtensions.dart';
-import 'package:eyuuncore/core/components/standard.dart';
-import 'package:eyuuncore/components/text.dart';
 import 'package:eyuuncore/core/repository/AssetDataRepository.dart';
 import 'package:eyuuncore/core/repository/StaticAssetRepository.dart';
-import 'package:flutter/services.dart';
 import 'package:oxygen/oxygen.dart';
-import 'package:uuid/uuid.dart';
 
-import '../core/services/WorldManager.dart';
 import '../core/registerServices.dart';
+import '../core/services/WorldManager.dart';
 
 class AssetLoader {
   var worldManager = locator<WorldManager>();

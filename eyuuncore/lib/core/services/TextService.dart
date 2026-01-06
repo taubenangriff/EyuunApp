@@ -1,7 +1,7 @@
 import 'package:eyuuncore/components/text.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
-import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/core/repository/TextRepository.dart';
+import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../assetLink.dart';

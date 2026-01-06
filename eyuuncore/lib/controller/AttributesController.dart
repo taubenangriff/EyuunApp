@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/enums/dice.dart';
 

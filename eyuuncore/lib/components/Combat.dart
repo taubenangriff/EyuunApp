@@ -1,5 +1,5 @@
-import 'package:eyuuncore/components/Armor.dart';
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:eyuuncore/components/Armor.dart';
 import 'package:eyuuncore/core/UpgradableInt.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:oxygen/oxygen.dart';

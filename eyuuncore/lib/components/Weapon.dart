@@ -1,7 +1,7 @@
-import 'package:eyuuncore/core/UpgradableInt.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/components/CraftMethod.dart';
 import 'package:eyuuncore/components/Skillcheck.dart';
+import 'package:eyuuncore/core/UpgradableInt.dart';
 
 import '../core/assetLink.dart';
 import '../core/components/EyuunComponent.dart';

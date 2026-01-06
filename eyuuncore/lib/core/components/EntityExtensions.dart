@@ -1,5 +1,5 @@
-import 'package:eyuuncore/core/components/standard.dart';
 import 'package:eyuuncore/components/text.dart';
+import 'package:eyuuncore/core/components/standard.dart';
 import 'package:oxygen/oxygen.dart';
 
 extension EntityIdExtension on Entity {

@@ -15,9 +15,9 @@ import 'package:eyuuncore/components/Language.dart';
 import 'package:eyuuncore/components/PathStep.dart';
 import 'package:eyuuncore/components/Project.dart';
 import 'package:eyuuncore/components/Projectile.dart';
+import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/components/Spell.dart';
 import 'package:eyuuncore/components/Talent.dart';
-import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/components/Weapon.dart';
 import 'package:eyuuncore/components/feature/CharacterTables.dart';
 import 'package:eyuuncore/components/feature/CombatFeature.dart';
@@ -37,7 +37,6 @@ import 'package:eyuuncore/components/upgrade/LanguageLearnerUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/TalentsUpgrade.dart';
 import 'package:eyuuncore/core/reflection/EmptyData.dart';
 import 'package:eyuuncore/core/repository/ComponentRepository.dart';
-import 'package:oxygen/oxygen.dart';
 
 import '../components/Attributes.dart';
 import '../components/Casted.dart';
@@ -48,8 +47,8 @@ import '../components/LanguageLearner.dart';
 import '../components/Path.dart';
 import '../components/Skillcheck.dart';
 import '../components/health.dart';
-import 'components/standard.dart';
 import '../components/text.dart';
+import 'components/standard.dart';
 import 'services/WorldManager.dart';
 
 extension registerEditorComponentsExtension on ComponentRepository {

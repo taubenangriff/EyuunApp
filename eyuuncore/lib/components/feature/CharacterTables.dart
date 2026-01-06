@@ -1,9 +1,8 @@
-import 'package:eyuuncore/components/AssetBundle.dart';
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:eyuuncore/components/AssetBundle.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:eyuuncore/core/reflection/Reflecting.dart';
 import 'package:eyuuncore/core/reflection/reflector.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../../core/assetLink.dart';

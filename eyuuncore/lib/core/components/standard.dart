@@ -1,9 +1,8 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/reflection/reflector.dart';
 
 import '../reflection/Reflecting.dart';
 import 'EyuunComponent.dart';
-
-import 'package:dart_mappable/dart_mappable.dart';
 
 part 'standard.mapper.dart';
 

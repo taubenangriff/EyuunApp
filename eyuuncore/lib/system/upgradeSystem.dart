@@ -1,8 +1,8 @@
 import 'package:eyuuncore/components/upgradable.dart';
 import 'package:oxygen/oxygen.dart';
 
-import '../core/services/WorldManager.dart';
 import '../core/registerServices.dart';
+import '../core/services/WorldManager.dart';
 
 class UpgradeSystem extends System {
 
