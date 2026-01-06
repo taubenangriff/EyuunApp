@@ -36,19 +36,34 @@ class GameObjectService {
     UnimplementedError();
   }
 
-  Entity? createNewInstance(String typeId) {
-
+  Entity? createInstance(String typeId) {
     if(!_assetDataRepository.isValidDefinition(typeId)){
       return null;
     }
 
     var entity = _worldManager.world.createEntity();
-    _assetLoader.fillEntityWithAssetData(entity, typeId);
+    _assetLoader.applyStaticData(entity, typeId);
 
     String id = uuid.v4();
     entity.get<StandardComponent>()?.objectId = id;
 
+    //register entity with IDs and shit
+
     return entity;
   }
 
+  Entity? loadEntity(Map<String, dynamic> entityMap) {
+    var typeId = _assetLoader.getTypeIdFromAssetMap(entityMap);
+    if (typeId == null) {
+      return null;
+    }
+
+    var entity = _worldManager.world.createEntity();
+    _assetLoader.applyStaticData(entity, typeId);
+    _assetLoader.applyDynamicData(entity, entityMap);
+
+    //register entity with IDs and shit
+
+    return entity;
+  }
 }

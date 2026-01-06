@@ -17,7 +17,7 @@ class AssetLoader {
   var assetRepository = locator<AssetDataRepository>();
   var staticAssetRepository = locator<StaticAssetRepository>();
 
-  void fillEntityWithAssetData(Entity entity, String typeId) {
+  void applyStaticData(Entity entity, String typeId) {
     var asset = assetRepository.getAssetMap(typeId);
     if (asset == null) {
       throw ArgumentError(
@@ -63,6 +63,10 @@ class AssetLoader {
     component?.loadDynamicData(componentMap);
   }
 
+  String? getTypeIdFromAssetMap(Map<String, dynamic> assetMap) {
+    return assetMap['standard']['typeId'] as String?;
+  }
+
   Future<void> reloadAssets() async {
     //clear entities from the static world
     for (var entity in worldManager.staticWorld.entities) {
@@ -71,14 +75,14 @@ class AssetLoader {
     worldManager.staticWorld.execute(1);
 
     for (var asset in assetRepository.getAssetMaps()) {
-      var typeId = asset['standard']['typeId'] as String?;
+      var typeId = getTypeIdFromAssetMap(asset);
       if (typeId == null) {
         continue;
       }
 
       //load static entity
       var entity = worldManager.staticWorld.createEntity();
-      fillEntityWithAssetData(entity, typeId);
+      applyStaticData(entity, typeId);
 
       staticAssetRepository.register(typeId, entity);
     }

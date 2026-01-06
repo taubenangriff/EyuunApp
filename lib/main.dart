@@ -45,7 +45,7 @@ void main() async {
 
   var goService = locator<GameObjectService>();
 
-  var character = goService.createNewInstance("character")!;
+  var character = goService.createInstance("character")!;
   locator<CharacterService>().changeCharacter(character);
 
   await fillTestData();

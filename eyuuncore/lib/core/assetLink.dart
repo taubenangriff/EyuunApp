@@ -15,7 +15,7 @@ class AssetLink with AssetLinkMappable {
   AssetLink(this.id);
 
   Entity? getEntity() => locator<GameObjectService>().getStatic(id);
-  Entity? createNewInstance() => locator<GameObjectService>().createNewInstance(id);
+  Entity? createNewInstance() => locator<GameObjectService>().createInstance(id);
 
   static AssetLink fromEntity(Entity e) => AssetLink(e.getTypeId());
   static AssetLink invalid() => AssetLink(noType);
