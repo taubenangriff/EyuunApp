@@ -1,0 +1,10 @@
+{
+  "standard": {
+    "typeId": "item_shop_feature"
+  },
+  "itemShopFeature": {
+    "topLevelBundle": {
+      "id": "itemshop_list"
+    }
+  }
+}
