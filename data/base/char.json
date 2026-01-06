@@ -83,116 +83,24 @@
             "slot": 0
           },
           {
-            "objectId": null,
-            "typeId": {
-              "id": "item_dummy1"
+            "objectId": {
+              "objectId": "e8842450-6d35-4f8b-88ee-37ce33639178"
             },
-            "count": 8,
-            "slot": 1
-          },
-          {
-            "objectId": null,
             "typeId": {
-              "id": "item_dummy1"
-            },
-            "count": 8,
-            "slot": 2
-          },
-          {
-            "objectId": null,
-            "typeId": {
-              "id": "item_dummy1"
-            },
-            "count": 7,
-            "slot": 3
-          },
-          {
-            "objectId": null,
-            "typeId": {
-              "id": "item_dummy1"
-            },
-            "count": 7,
-            "slot": 4
-          },
-          {
-            "objectId": null,
-            "typeId": {
-              "id": "item_dummy1"
-            },
-            "count": 6,
-            "slot": 5
-          },
-          {
-            "objectId": null,
-            "typeId": {
-              "id": "item_dummy1"
+              "id": "armor_01"
             },
             "count": 1,
-            "slot": 6
+            "slot": 15
           },
           {
-            "objectId": null,
-            "typeId": {
-              "id": "item_dummy1"
+            "objectId": {
+              "objectId": "84a2a8f4-1172-480b-9f36-97fcf387f432"
             },
-            "count": 10,
-            "slot": 7
-          },
-          {
-            "objectId": null,
             "typeId": {
-              "id": "item_dummy1"
-            },
-            "count": 4,
-            "slot": 8
-          },
-          {
-            "objectId": null,
-            "typeId": {
-              "id": "item_dummy1"
+              "id": "holdable_01"
             },
             "count": 1,
-            "slot": 9
-          },
-          {
-            "objectId": null,
-            "typeId": {
-              "id": "item_dummy1"
-            },
-            "count": 9,
-            "slot": 10
-          },
-          {
-            "objectId": null,
-            "typeId": {
-              "id": "item_dummy1"
-            },
-            "count": 9,
-            "slot": 11
-          },
-          {
-            "objectId": null,
-            "typeId": {
-              "id": "item_dummy1"
-            },
-            "count": 5,
-            "slot": 12
-          },
-          {
-            "objectId": null,
-            "typeId": {
-              "id": "item_dummy1"
-            },
-            "count": 8,
-            "slot": 13
-          },
-          {
-            "objectId": null,
-            "typeId": {
-              "id": "item_dummy1"
-            },
-            "count": 1,
-            "slot": 14
+            "slot": 16
           }
         ],
         "money": 0
@@ -410,6 +318,30 @@
           "id": "upbringing_undead"
         }
       }
+    },
+    {
+      "standard": {
+        "objectId": "e8842450-6d35-4f8b-88ee-37ce33639178",
+        "typeId": "armor_01"
+      },
+      "text": {},
+      "item": {},
+      "cost": {},
+      "armor": {
+        "evasionImpact": 0,
+        "athleticImpact": 0,
+        "stealthImpact": 0
+      }
+    },
+    {
+      "standard": {
+        "objectId": "84a2a8f4-1172-480b-9f36-97fcf387f432",
+        "typeId": "holdable_01"
+      },
+      "text": {},
+      "item": {},
+      "cost": {},
+      "holdable": {}
     }
   ]
 }
