@@ -18,6 +18,13 @@
             {
                 "options": [
                     {
+                        "id": "baseSkill_Dexterity"
+                    }
+                ]
+            },
+            {
+                "options": [
+                    {
                         "id": "baseSkill_Intuition"
                     }
                 ]
