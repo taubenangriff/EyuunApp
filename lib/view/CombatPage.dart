@@ -42,11 +42,10 @@ class _CombatPageState extends State<CombatPage> {
 
     late double desiredSize = 1100;
 
-    late var talents = locator<CharacterService>()
-        .character
-        .get<SkillLearnerComponent>()
-        ?.skills ??
-        [];
+    var skillLearner =
+        locator<CharacterService>().character.get<SkillLearnerComponent>();
+
+    late var talents = skillLearner?.skills ?? [];
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -65,7 +64,8 @@ class _CombatPageState extends State<CombatPage> {
                                   .goldSparkling()), // intentionally empty
                           child: Padding(
                               padding: const EdgeInsets.all(20),
-                              child: CombatStatsRow(combat: combat)),
+                              child: CombatStatsRow(
+                                  combat: combat, skillLearner: skillLearner!)),
                         ),
                         // The info button in the top right corner
                         Positioned(
@@ -75,8 +75,7 @@ class _CombatPageState extends State<CombatPage> {
                             icon: const Icon(Icons.info_outline),
                             tooltip: 'More info on Combat',
                             onPressed: () async {
-                              const url =
-                                  'https://eyuun.de/kaempfe';
+                              const url = 'https://eyuun.de/kaempfe';
                               if (await canLaunchUrl(Uri.parse(url))) {
                                 await launchUrl(Uri.parse(url));
                               }

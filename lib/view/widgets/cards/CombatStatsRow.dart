@@ -1,18 +1,16 @@
 import 'package:eyuuncore/components/Combat.dart';
+import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:flutter/material.dart';
 
 class CombatStatsRow extends StatelessWidget {
   final CombatComponent combat;
+  final SkillLearnerComponent skillLearner;
 
-  const CombatStatsRow({
-    super.key,
-    required this.combat,
-  });
+  const CombatStatsRow(
+      {super.key, required this.combat, required this.skillLearner});
 
   @override
   Widget build(BuildContext context) {
-
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -41,6 +39,20 @@ class CombatStatsRow extends StatelessWidget {
             ),
           ],
         ),
+        const SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _StatItem(
+                icon: Icons.rice_bowl,
+                label: 'Melee attack',
+                value: skillLearner.getSkillValue("fightingstyle_melee")),
+            _StatItem(
+                icon: Icons.tap_and_play_rounded,
+                label: 'Range attack',
+                value: skillLearner.getSkillValue("fightingstyle_range")),
+          ],
+        )
       ],
     );
   }
@@ -64,10 +76,18 @@ class _StatItem extends StatelessWidget {
       children: [
         Icon(
           icon,
-          size: 24,
+          size: 32,
           color: Theme.of(context).colorScheme.primary,
         ),
-        const SizedBox(height: 4),
+        const SizedBox(width: 12),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.grey.shade400,
+          ),
+        ),
+        const SizedBox(width: 12),
         Text(
           value.toString(),
           style: const TextStyle(
@@ -75,15 +95,7 @@ class _StatItem extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 12,
-            color: Colors.grey.shade400,
-          ),
-        ),
       ],
     );
   }
 }
-

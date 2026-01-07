@@ -35,6 +35,74 @@ class _LanguageGridState extends State<LanguageGrid> {
     final languageController = LanguagesController(widget.learner);
     final textService = locator<TextService>();
 
+    var languageWidgets = [
+      for (final language in languages)
+        DecoratedBox(
+            position: DecorationPosition.foreground,
+            decoration: EyuunDecoration(
+                paint: Brushes.silverSparkling(),
+                cornerSize: 12,
+                paintInnerLine: false),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(8),
+              onTap: () {
+                PopupUtil.popup(
+                    context, LanguageDetailPopup(languageEntity: language));
+              },
+              child: Container(
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .surfaceContainerHighest
+                        .withAlpha(180)),
+                child: Text(
+                  textService.getTextFromEntity(language),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            )),
+      if (languageController.canLearnNew())
+        DecoratedBox(
+            position: DecorationPosition.foreground,
+            decoration:
+                EyuunDecoration(paint: Brushes.goldSparkling(), cornerSize: 12),
+            child: ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  PopupUtil.popup(
+                      context,
+                      SelectLanguagePopup(
+                        languagesController: languageController,
+                        onAccept: () {
+                          setState(() {});
+                        },
+                      ),
+                      maximumSize: Size(900, 700));
+                });
+              },
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.add, size: 28),
+                  SizedBox(height: 4),
+                  Text(
+                    'Add Language',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            )),
+    ];
+
     return Column(
       children: [
         const Text(
@@ -42,82 +110,21 @@ class _LanguageGridState extends State<LanguageGrid> {
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 16),
-        GridView.count(
+        GridView.builder(
           padding: const EdgeInsets.all(12),
           shrinkWrap: true, // fits inside other scrollables
           physics:
               const NeverScrollableScrollPhysics(), // avoid nested scrolling
-          crossAxisCount: 5,
-          mainAxisSpacing: 12,
-          crossAxisSpacing: 12,
-          childAspectRatio: 3,
-          children: [
-            for (final language in languages)
-              DecoratedBox(
-                  position: DecorationPosition.foreground,
-                  decoration: EyuunDecoration(
-                      paint: Brushes.silverSparkling(),
-                      cornerSize: 12,
-                      paintInnerLine: false),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(8),
-                    onTap: () {
-                      PopupUtil.popup(context,
-                          LanguageDetailPopup(languageEntity: language));
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .surfaceContainerHighest
-                              .withAlpha(180)),
-                      child: Text(
-                        textService.getTextFromEntity(language),
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  )),
-            if (languageController.canLearnNew())
-              DecoratedBox(
-                  position: DecorationPosition.foreground,
-                  decoration: EyuunDecoration(
-                      paint: Brushes.goldSparkling(), cornerSize: 12),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        PopupUtil.popup(
-                            context,
-                            SelectLanguagePopup(
-                              languagesController: languageController,
-                              onAccept: () {
-                                setState(() {});
-                              },
-                            ),
-                            maximumSize: Size(900, 700));
-                      });
-                    },
-                    child: const Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.add, size: 28),
-                        SizedBox(height: 4),
-                        Text(
-                          'Add Language',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  )),
-          ],
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 180, // 👈 desired item width
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 3, // tweak if needed
+          ),
+          itemCount: languageWidgets.length,
+          itemBuilder: (BuildContext context, int index) {
+            return languageWidgets[index];
+          },
         )
       ],
     );

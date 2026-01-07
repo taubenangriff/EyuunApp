@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:eyuuncore/components/Combat.dart';
+import 'package:eyuuncore/core/objectLink.dart';
 import 'package:eyuuncore/core/registerFeatures.dart';
 import 'package:eyuuncore/core/repository/AssetDataRepository.dart';
 import 'package:eyuuncore/core/registerComponentsExtension.dart';
@@ -51,6 +53,11 @@ void main() async {
 
   if(character == null){
     return;
+  }
+
+  var holdable = goService.createInstance("holdable_01");
+  if(holdable != null){
+    character.get<CombatComponent>()?.equippedItems.add(ObjectLink.fromEntity(holdable));
   }
 
   locator<CharacterService>().changeCharacter(character);
