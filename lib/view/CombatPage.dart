@@ -1,4 +1,7 @@
+import 'package:EyuunApp/view/widgets/cards/ActionsWidget.dart';
 import 'package:EyuunApp/view/widgets/cards/TalentsWidget.dart';
+import 'package:eyuuncore/components/ActionUser.dart';
+import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/Combat.dart';
 import 'package:EyuunApp/view/popup/ChangeHealthPopup.dart';
 import 'package:EyuunApp/view/popup/ChangeValuePopup.dart';
@@ -47,6 +50,9 @@ class _CombatPageState extends State<CombatPage> {
 
     late var talents = skillLearner?.skills ?? [];
 
+    var actionUser = character.get<ActionUserComponent>();
+    var attributes = character.get<AttributesComponent>();
+
     return Scaffold(
       body: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
@@ -85,25 +91,23 @@ class _CombatPageState extends State<CombatPage> {
                       ],
                     ),
                   SizedBox(height: 16),
-                  DecoratedBox(
-                      decoration: EyuunDecoration(
-                          paint: Brushes.goldSparkling(), cornerSize: 20),
-                      child: Padding(
-                          padding: EdgeInsets.all(20),
-                          child: Column(
-                            children: [
-                              const Text(
-                                'Spellschools',
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(height: 16),
-                              TalentsWidget(
-                                talents: talents,
-                                filter: const [TalentGroup.Spellschool],
-                              )
-                            ],
-                          ))),
+                  if(actionUser != null && attributes != null)
+                    DecoratedBox(
+                        decoration: EyuunDecoration(
+                            paint: Brushes.goldSparkling(), cornerSize: 20),
+                        child: Padding(
+                            padding: EdgeInsets.all(20),
+                            child: Column(
+                              children: [
+                                const Text(
+                                  'Actions',
+                                  style: TextStyle(
+                                      fontSize: 20, fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(height: 16),
+                                ActionsWidget(actionUser: actionUser, attributes: attributes)
+                              ],
+                            ))),
                 ])),
           )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

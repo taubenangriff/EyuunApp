@@ -1,3 +1,4 @@
+import 'package:EyuunApp/view/widgets/SkillCheckWidget.dart';
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/components/Skillcheck.dart';
@@ -60,45 +61,12 @@ class _TalentsWidgetState extends State<TalentsWidget> {
                 style: theme.textTheme.titleMedium,
               ),
             ),
-
             if (skillcheck != null)
               Expanded(
                 flex: 4,
-                child: Row(
-                  spacing: 46,
-                  children: [
-                    for (var attributeOption in skillcheck.checkedAttributes)
-                      attributeOption.options.length > 1
-                          ? SegmentedButton<String>(
-                              multiSelectionEnabled: false,
-                              emptySelectionAllowed: true,
-                              segments: attributeOption.options
-                                  .map((opt) => ButtonSegment(
-                                        value: opt.id,
-                                        label: _displayAttribute(
-                                            opt.id, attributes),
-                                      ))
-                                  .toList(),
-                              selected: {attributeOption.selectedOption.id},
-                              onSelectionChanged: (newSelection) {
-                                setState(() {
-                                  attributeOption.selectedOption =
-                                      attributeOption.options
-                                          .where(
-                                              (e) => e.id == newSelection.first)
-                                          .first;
-                                });
-                              },
-                            )
-                          : _displayAttribute(
-                              attributeOption.options.first.id, attributes)
-                  ],
-                ),
-              )
-
-            // Buttons (multiple segmented controls)
-            ,
-
+                child: SkillCheckWidget(
+                    skillcheck: skillcheck, attributes: attributes),
+              ),
             // Value
             Expanded(
               flex: 1,
@@ -112,17 +80,5 @@ class _TalentsWidgetState extends State<TalentsWidget> {
             ),
           ],
         ));
-  }
-
-  Widget _displayAttribute(String attribute, AttributesComponent attributes) {
-    return Row(
-      children: [
-        ConstrainedBox(
-            constraints: BoxConstraints(minWidth: 32),
-            child: Text(_textService.getShort(attribute))),
-        SizedBox(width: 12),
-        DiceIcon(type: attributes.getStatEntry(attribute)!.dice)
-      ],
-    );
   }
 }

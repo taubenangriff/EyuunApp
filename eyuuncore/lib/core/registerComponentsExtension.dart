@@ -1,4 +1,5 @@
 
+import 'package:eyuuncore/components/ActionUser.dart';
 import 'package:eyuuncore/components/Armor.dart';
 import 'package:eyuuncore/components/AssetBundle.dart';
 import 'package:eyuuncore/components/Boon.dart';
@@ -70,7 +71,7 @@ extension registerEditorComponentsExtension on ComponentRepository {
     registerComponent<EmptyData>(LanguageLearnerComponent.propertyName, (map) => EmptyDataMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<CraftMethodStatic>(CraftMethodComponent.propertyName, (map) => CraftMethodStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<ArmorStatic>(ArmorComponent.propertyName, (map) => ArmorStaticMapper.fromMap(map), (comp) => comp.toMap());
-    registerComponent<EmptyData>(WeaponComponent.propertyName, (map) => EmptyDataMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<WeaponStatic>(WeaponComponent.propertyName, (map) => WeaponStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<EquippableStatDyn>(EquippableComponent.propertyName, (map) => EquippableStatDynMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<CombatShieldStatDyn>(CombatShieldComponent.propertyName, (map) => CombatShieldStatDynMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<ProjectileStatic>(ProjectileComponent.propertyName, (map) => ProjectileStaticMapper.fromMap(map), (comp) => comp.toMap());
@@ -87,6 +88,7 @@ extension registerEditorComponentsExtension on ComponentRepository {
     registerComponent<BuffStatic>(BuffComponent.propertyName, (map) => BuffStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<TalentStatic>(TalentComponent.propertyName, (map) => TalentStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<HoldableStatic>(HoldableComponent.propertyName, (map) => HoldableStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<ActionUserStatic>(ActionUserComponent.propertyName, (map) => ActionUserStaticMapper.fromMap(map), (comp) => comp.toMap());
     //Upgrades
 
     registerComponent<ArmorUpgradeStatDyn>(ArmorUpgradeComponent.propertyName, (map) => ArmorUpgradeStatDynMapper.fromMap(map), (comp) => comp.toMap());
@@ -143,6 +145,7 @@ extension RegisterComponentsExtension on WorldManager {
     registerComponent<BuffComponent, int>(BuffComponent.propertyName, () => BuffComponent());
     registerComponent<TalentComponent, int>(TalentComponent.propertyName, () => TalentComponent());
     registerComponent<HoldableComponent, int>(HoldableComponent.propertyName, () => HoldableComponent());
+    registerComponent<ActionUserComponent, int>(ActionUserComponent.propertyName, () => ActionUserComponent());
 
     // register Upgrades
     registerComponent<ArmorUpgradeComponent, int>(ArmorUpgradeComponent.propertyName, () => ArmorUpgradeComponent());

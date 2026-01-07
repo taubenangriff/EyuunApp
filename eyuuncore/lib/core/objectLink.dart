@@ -18,5 +18,5 @@ class ObjectLink with ObjectLinkMappable {
 }
 
 extension GetObjectLinkListObjects on Iterable<ObjectLink> {
-  getObjects() => map((ObjectLink e) => e.getEntity()).where((e) => e != null).toList();
+  List<Entity> getObjects() => map((ObjectLink e) => e.getEntity()).where((e) => e != null).toList();
 }

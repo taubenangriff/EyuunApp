@@ -1,0 +1,34 @@
+{
+    "standard": {
+        "typeId": "weaponless_attack"
+    },
+    "text": {
+        "fluff": "fluff_item_dummy1"
+    },
+    "action": {
+        "actionTime": "Attack"
+    },
+    "weapon": {
+        "fightingType": {
+            "id": "fightingstyle_melee"
+        }
+    },
+    "skillcheck": {
+        "checkedAttributes": [
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Dexterity"
+                    }
+                ]
+            },
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Strength"
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -55,9 +55,9 @@ void main() async {
     return;
   }
 
-  var holdable = goService.createInstance("holdable_01");
-  if(holdable != null){
-    character.get<CombatComponent>()?.equippedItems.add(ObjectLink.fromEntity(holdable));
+  var weapon = goService.createInstance("weapon_01");
+  if(weapon != null){
+    character.get<CombatComponent>()?.equippedItems.add(ObjectLink.fromEntity(weapon));
   }
 
   locator<CharacterService>().changeCharacter(character);

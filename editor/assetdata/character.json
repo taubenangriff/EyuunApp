@@ -134,5 +134,12 @@
     "pathCapacity": 1,
     "additionalPathCapacity": 0
   },
-  "languageLearner": {}
+  "languageLearner": {},
+  "actionUser": {
+    "defaultActions": [
+      {
+        "id": "weaponless_attack"
+      }
+    ]
+  }
 }
