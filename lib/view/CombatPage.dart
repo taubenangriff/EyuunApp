@@ -91,7 +91,7 @@ class _CombatPageState extends State<CombatPage> {
                       ],
                     ),
                   SizedBox(height: 16),
-                  if(actionUser != null && attributes != null)
+                  if(actionUser != null && attributes != null && skillLearner != null)
                     DecoratedBox(
                         decoration: EyuunDecoration(
                             paint: Brushes.goldSparkling(), cornerSize: 20),
@@ -105,7 +105,7 @@ class _CombatPageState extends State<CombatPage> {
                                       fontSize: 20, fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(height: 16),
-                                ActionsWidget(actionUser: actionUser, attributes: attributes)
+                                ActionsWidget(actionUser: actionUser, attributes: attributes, skillLearner: skillLearner)
                               ],
                             ))),
                 ])),

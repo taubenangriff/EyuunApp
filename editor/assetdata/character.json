@@ -139,6 +139,12 @@
     "defaultActions": [
       {
         "id": "weaponless_attack"
+      },
+      {
+        "id": "throw_melee"
+      },
+      {
+        "id": "throw_range"
       }
     ]
   }

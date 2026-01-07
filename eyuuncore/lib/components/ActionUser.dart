@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:eyuuncore/components/Action.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../core/assetLink.dart';
@@ -25,10 +26,16 @@ class ActionUserComponent extends EyuunComponent<int> {
 
   /// filled by ActionSystem.dart
   List<ObjectLink> actionsThroughObjects = [];
+
   /// filled by ActionSystem.dart
   List<AssetLink> actionsThroughAssets = [];
 
-  List<Entity> getActions() => defaultActions.getAssets() + actionsThroughAssets.getAssets() + actionsThroughObjects.getObjects();
+  List<Entity> getActions() =>
+      (defaultActions.getAssets() +
+              actionsThroughAssets.getAssets() +
+              actionsThroughObjects.getObjects())
+          .where((e) => e.has<ActionComponent>())
+          .toList();
 
   @override
   String getName() => propertyName;

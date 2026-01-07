@@ -1,16 +1,16 @@
 {
     "standard": {
-        "typeId": "weaponless_attack"
+        "typeId": "throw_melee"
     },
     "text": {
-        "fluff": "weaponless_attack_fluff"
+        "fluff": "throw_melee_fluff"
     },
     "action": {
-        "actionTime": "Attack"
+        "actionTime": "Action"
     },
     "weapon": {
         "fightingType": {
-            "id": "fightingstyle_melee"
+            "id": "talent_athletic"
         }
     },
     "skillcheck": {
@@ -25,7 +25,7 @@
             {
                 "options": [
                     {
-                        "id": "baseSkill_Dexterity"
+                        "id": "baseSkill_Agility"
                     }
                 ]
             },

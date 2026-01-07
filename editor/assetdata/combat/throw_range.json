@@ -1,16 +1,16 @@
 {
     "standard": {
-        "typeId": "weaponless_attack"
+        "typeId": "throw_range"
     },
     "text": {
-        "fluff": "weaponless_attack_fluff"
+        "fluff": "throw_range_fluff"
     },
     "action": {
-        "actionTime": "Attack"
+        "actionTime": "Action"
     },
     "weapon": {
         "fightingType": {
-            "id": "fightingstyle_melee"
+            "id": "fightingstyle_range"
         }
     },
     "skillcheck": {
@@ -18,14 +18,7 @@
             {
                 "options": [
                     {
-                        "id": "baseSkill_Courage"
-                    }
-                ]
-            },
-            {
-                "options": [
-                    {
-                        "id": "baseSkill_Dexterity"
+                        "id": "baseSkill_Intuition"
                     }
                 ]
             },

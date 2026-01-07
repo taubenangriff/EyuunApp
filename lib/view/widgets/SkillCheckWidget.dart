@@ -13,7 +13,7 @@ class SkillCheckWidget extends StatefulWidget {
   final bool useWrap;
   final double iconSize;
 
-  const SkillCheckWidget({super.key, required this.skillcheck, required this.attributes, this.useWrap = false, this.iconSize = 32});
+  const SkillCheckWidget({super.key, required this.skillcheck, required this.attributes, this.useWrap = false, this.iconSize = 40});
 
   @override
   State<SkillCheckWidget> createState() => _SkillCheckWidgetState();
