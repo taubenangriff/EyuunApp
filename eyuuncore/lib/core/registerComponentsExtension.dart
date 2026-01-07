@@ -39,7 +39,7 @@ import 'package:eyuuncore/core/reflection/EmptyData.dart';
 import 'package:eyuuncore/core/repository/ComponentRepository.dart';
 
 import '../components/Attributes.dart';
-import '../components/Casted.dart';
+import '../components/Action.dart';
 import '../components/CharacterBase.dart';
 import '../components/Combat.dart';
 import '../components/Item.dart';
@@ -78,7 +78,7 @@ extension registerEditorComponentsExtension on ComponentRepository {
     registerComponent<PathStepStatic>(PathStepComponent.propertyName, (map) => PathStepStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<PathStatic>(PathComponent.propertyName, (map) => PathStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<SpellStatic>(SpellComponent.propertyName, (map) => SpellStaticMapper.fromMap(map), (comp) => comp.toMap());
-    registerComponent<CastedStatic>(CastedComponent.propertyName, (map) => CastedStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<ActionStatic>(ActionComponent.propertyName, (map) => ActionStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<ProjectStatic>(ProjectComponent.propertyName, (map) => ProjectStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<DamageTypeStatic>(DamageTypeComponent.propertyName, (map) => DamageTypeStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<IconStatic>(IconComponent.propertyName, (map) => IconStaticMapper.fromMap(map), (comp) => comp.toMap());
@@ -134,7 +134,7 @@ extension RegisterComponentsExtension on WorldManager {
     registerComponent<PathStepComponent, int>(PathStepComponent.propertyName, () => PathStepComponent());
     registerComponent<PathComponent, int>(PathComponent.propertyName, () => PathComponent());
     registerComponent<SpellComponent, int>(SpellComponent.propertyName, () => SpellComponent());
-    registerComponent<CastedComponent, int>(CastedComponent.propertyName, () => CastedComponent());
+    registerComponent<ActionComponent, int>(ActionComponent.propertyName, () => ActionComponent());
     registerComponent<ProjectComponent, int>(ProjectComponent.propertyName, () => ProjectComponent());
     registerComponent<DamageTypeComponent, int>(DamageTypeComponent.propertyName, () => DamageTypeComponent());
     registerComponent<IconComponent, int>(IconComponent.propertyName, () => IconComponent());

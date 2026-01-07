@@ -1,0 +1,32 @@
+{
+    "standard": {
+        "typeId": "weapon_01"
+    },
+    "text": {
+        "fluff": "fluff_item_dummy1"
+    },
+    "item": {
+        "categoryText": "item_category1",
+        "maxStackSize": 1
+    },
+    "cost": {
+        "money": 150,
+        "resourceCosts": [
+            {
+                "resource": {
+                    "id": "resource_01"
+                },
+                "amount": 1
+            }
+        ]
+    },
+    "holdable": {
+        "equipmentSlotsNeeded": 1
+    },
+    "icon": {
+        "iconFilepath": "data/base/icons/weapon/sword.png"
+    },
+    "action": {
+        "actionTime": "Attack"
+    }
+}

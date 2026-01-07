@@ -6,25 +6,25 @@ import 'package:eyuuncore/enums/BillingCycle.dart';
 
 import '../enums/ActionTime.dart';
 
-part 'Casted.mapper.dart';
+part 'Action.mapper.dart';
 
 @MappableClass()
 @reflector
-class CastedStatic with CastedStaticMappable, ComponentReflectable {
-  ActionTime castTime;
+class ActionStatic with ActionStaticMappable, ComponentReflectable {
+  ActionTime actionTime;
   BillingCycle billingCycle;
   int fluxCost;
   int castingTimeMinutes;
 
-  CastedStatic(this.castTime, this.billingCycle, this.fluxCost,
-      [this.castingTimeMinutes = 0]);
+  ActionStatic(this.actionTime, [this.billingCycle = BillingCycle.Once, this.fluxCost = 0,
+      this.castingTimeMinutes = 0]);
 }
 
-class CastedComponent extends EyuunComponent<int> {
-  static const String propertyName = "casted";
+class ActionComponent extends EyuunComponent<int> {
+  static const String propertyName = "action";
 
   /// The time needed to cast this
-  late ActionTime castTime;
+  late ActionTime actionTime;
 
   /// The way flux cost is deducted: Once, per round, or per hour.
   late BillingCycle billingCycle;
@@ -50,8 +50,8 @@ class CastedComponent extends EyuunComponent<int> {
 
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
-    var stat = CastedStaticMapper.fromMap(staticData);
-    castTime = stat.castTime;
+    var stat = ActionStaticMapper.fromMap(staticData);
+    actionTime = stat.actionTime;
     billingCycle = stat.billingCycle;
     fluxCost = stat.fluxCost;
     castingTimeMinutes = stat.castingTimeMinutes;
@@ -59,7 +59,7 @@ class CastedComponent extends EyuunComponent<int> {
 
   @override
   void reset() {
-    castTime = ActionTime.None;
+    actionTime = ActionTime.None;
     billingCycle = BillingCycle.Once;
     fluxCost = 0;
     castingTimeMinutes = 0;
