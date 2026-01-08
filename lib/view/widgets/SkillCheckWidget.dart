@@ -58,6 +58,7 @@ class _SkillCheckWidgetState extends State<SkillCheckWidget> {
     }
 
     return Row(
+      mainAxisSize: MainAxisSize.min,
       spacing: widget.spacing,
       children: children,
     );

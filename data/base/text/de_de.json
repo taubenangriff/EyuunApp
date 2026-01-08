@@ -65,6 +65,12 @@
     "level_1": "Level 1",
     "level_2": "Level 2",
 
+
+    "weapontype_smiteweapon": "Wuchtwaffe",
+    "weapontype_smiteweapon_effectdesc": "Angriffe mit diesen Waffen zählen als Flächenangriffe, die nur das Feld wo sich das Ziel befindet als Zielbereich haben",
+    "smite_weapon_axe": "Axt",
+    "smite_weapon_axe_fluff": "Kann leider nicht geworfen werden, ist aber gut zum Holzhacken.",
+
     "damage_normal" : "Normal",
     "fluff_damage_normal" : "Schaden = (Grundschaden - Rüstung) * Anfälligkeit.",
     "damage_armorpen": "Rüstungsbrechend",

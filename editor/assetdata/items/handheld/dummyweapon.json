@@ -1,0 +1,51 @@
+{
+    "standard": {
+        "typeId": "smite_weapon_axe"
+    },
+    "text": {
+        "fluff": "smite_weapon_axe_fluff"
+    },
+    "action": {
+        "actionTime": "Attack"
+    },
+    "item": {
+        "categoryText": "item_category1",
+        "maxStackSize": 1
+    },
+    "holdable": {
+        "equipmentSlotsNeeded": 1
+    },
+    "weapon": {
+        "fightingType": {
+            "id": "fightingstyle_melee"
+        },
+        "weaponType": {
+            "id": "weapontype_smiteweapon"
+        }
+    },
+    "skillcheck": {
+        "checkedAttributes": [
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Courage"
+                    }
+                ]
+            },
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Strength"
+                    }
+                ]
+            },
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Constitution"
+                    }
+                ]
+            }
+        ]
+    }
+}

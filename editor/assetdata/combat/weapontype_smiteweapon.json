@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "weapontype_smiteweapon",
+        "internalName": "Arcanist Path | Step 5 | Flux Reusing"
+    },
+    "text": {},
+    "buff": {
+        "textDescription": "weapontype_smiteweapon_effectdesc"
+    }
+}

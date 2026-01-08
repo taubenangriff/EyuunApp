@@ -39,7 +39,7 @@ class TextService {
     return _textRepository.getText(getTextKey(textLookup));
   }
 
-  String getTextFromLink(AssetLink textLink) => getText(textLink.id);
+  String getTextFromLink(AssetLink? textLink) => textLink == null ? "" : getText(textLink.id);
 
   bool hasFluff(String typeId)
   {

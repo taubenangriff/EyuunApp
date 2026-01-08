@@ -6,6 +6,7 @@ import 'package:EyuunApp/view/popup/PopupUtil.dart';
 import 'package:EyuunApp/view/popup/SelectItemPopup.dart';
 import 'package:EyuunApp/view/widgets/InventoryItemWidget.dart';
 import 'package:EyuunApp/view/widgets/InventoryWidget.dart';
+import 'package:EyuunApp/view/widgets/WeaponCraftingScreen.dart';
 import 'package:EyuunApp/view/widgets/eyuun/Brushes.dart';
 import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
 import 'package:EyuunApp/view/widgets/cards/ItemDisplayWidget.dart';
@@ -187,6 +188,19 @@ class _InventoryPageState extends State<InventoryPage> {
             text: 'Add Item',
             tooltip: 'Add an Item',
             icon: Icons.add,
+          ),
+          const SizedBox(width: 16),
+          _buildLargeFab(
+            onPressed: () {
+              PopupUtil.popup(
+                context,
+                WeaponCraftingScreen(),
+                maximumSize: const Size(1100, 800),
+              );
+            },
+            text: 'Crafting',
+            tooltip: 'Add an Item',
+            icon: Icons.waving_hand_rounded,
           ),
         ],
       ),
