@@ -83,8 +83,8 @@ class _ActionsWidgetState extends State<ActionsWidget> {
         shrinkWrap: true, // fits inside other scrollables
         physics: const NeverScrollableScrollPhysics(), // avoid nested scrolling
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 300, // 👈 desired item width
-          mainAxisExtent: 300,
+          maxCrossAxisExtent: 320, // 👈 desired item width
+          mainAxisExtent: 250,
           crossAxisSpacing: 12,
           mainAxisSpacing: 12,
         ),
@@ -104,52 +104,67 @@ class _ActionsWidgetState extends State<ActionsWidget> {
         SkillcheckController(widget.skillLearner, widget.attributes);
 
     return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // 🏷 Title
-            Text(
-              _textService.getTextFromEntity(entity),
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-              textAlign: TextAlign.center,
+        elevation: 4,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Stack(children: [
+            const Align(
+              alignment: Alignment.topLeft,
+              child: Icon(Icons.pin_drop),
             ),
-            const SizedBox(height: 12),
-            Text(
-              _textService.getText(
-                  entity.get<ActionComponent>()!.actionTime.getTextKey()),
-              textAlign: TextAlign.center,
+            Align(
+              alignment: Alignment.topCenter,
+              child: Text(
+                _textService.getText(
+                    entity.get<ActionComponent>()!.actionTime.getTextKey()),
+              ),
             ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: 44),
+                // 🏷 Title
+                Text(
+                  _textService.getTextFromEntity(entity),
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 16),
+                // 📖 Description
+                Text(
+                  _textService.getFluffFromEntity(entity),
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  textAlign: TextAlign.justify,
+                ),
 
-            // 📖 Description
-            Text(
-              _textService.getFluffFromEntity(entity),
-              style: Theme.of(context).textTheme.bodyMedium,
-              textAlign: TextAlign.justify,
+                const SizedBox(height: 16),
+              ],
             ),
-
-            const SizedBox(height: 16),
-
             // 🎲 Skill check widget
             if (entity.has<SkillcheckComponent>())
-              SkillCheckWidget(
-                  skillcheck: entity.get<SkillcheckComponent>()!,
-                  attributes: widget.attributes,
-                  useWrap: true,
-                  iconSize: 32),
+              Positioned(
+                  bottom: 4,
+                  child: Center(
+                      child: SkillCheckWidget(
+                          skillcheck: entity.get<SkillcheckComponent>()!,
+                          attributes: widget.attributes,
+                          useWrap: false,
+                          spacing: 0,
+                          iconSize: 32))),
             if (hasWeapon)
-              Text("Value: ${skillcheckController.getWeaponSkill(entity)}")
-          ],
-        ),
-      ),
-    );
+              Positioned(
+                child: Text(
+                    "Skill: ${skillcheckController.getWeaponSkill(entity)}"),
+                top: 4,
+                right: 4,
+              )
+          ]),
+        ));
   }
 }

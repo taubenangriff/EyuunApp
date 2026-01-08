@@ -12,8 +12,9 @@ class SkillCheckWidget extends StatefulWidget {
 
   final bool useWrap;
   final double iconSize;
+  final double spacing;
 
-  const SkillCheckWidget({super.key, required this.skillcheck, required this.attributes, this.useWrap = false, this.iconSize = 40});
+  const SkillCheckWidget({super.key, required this.skillcheck, required this.attributes, this.useWrap = false, this.iconSize = 40, this.spacing = 46});
 
   @override
   State<SkillCheckWidget> createState() => _SkillCheckWidgetState();
@@ -57,7 +58,7 @@ class _SkillCheckWidgetState extends State<SkillCheckWidget> {
     }
 
     return Row(
-      spacing: 46,
+      spacing: widget.spacing,
       children: children,
     );
   }
@@ -66,10 +67,11 @@ class _SkillCheckWidgetState extends State<SkillCheckWidget> {
     return Row(
       children: [
         DiceIcon(type: widget.attributes.getStatEntry(attribute)!.dice, size: widget.iconSize),
-        SizedBox(width: 12),
+        SizedBox(width: 4),
         ConstrainedBox(
-            constraints: BoxConstraints(minWidth: 32),
+            constraints: BoxConstraints(minWidth: 20),
             child: Text(_textService.getShort(attribute))),
+        SizedBox(width: 4),
       ],
     );
   }
