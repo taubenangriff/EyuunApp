@@ -20,23 +20,21 @@ class WeaponCraftingScreen extends StatefulWidget {
 }
 
 abstract class EntityHolder {
+  String name;
   Entity? entity;
-  EntityHolder(this.entity);
+  EntityHolder(this.name, this.entity);
 }
 
 class MaterialDef extends EntityHolder {
-  final String name;
-  MaterialDef(this.name, super.entity);
+  MaterialDef(super.name, super.entity);
 }
 
 class CraftMethodDef extends EntityHolder {
-  final String name;
-  CraftMethodDef(this.name, super.entity);
+  CraftMethodDef(super.name, super.entity);
 }
 
 class UpgradeDef extends EntityHolder {
-  final String name;
-  UpgradeDef(this.name, super.entity);
+  UpgradeDef(super.name, super.entity);
 }
 
 class UpgradeDragData {
@@ -86,7 +84,7 @@ class _WeaponCraftingScreenState extends State<WeaponCraftingScreen> {
   late final craftMethods =
       List.generate(8, (i) => CraftMethodDef('Method $i', entity));
   late final upgrades =
-      List.generate(30, (i) => UpgradeDef('Upgrade $i', entity));
+      List.generate(13, (i) => UpgradeDef('Upgrade $i', entity));
 
   Entity? selectedEntityContext;
 
@@ -96,79 +94,65 @@ class _WeaponCraftingScreenState extends State<WeaponCraftingScreen> {
 
     weapon.get<WeaponComponent>()?.weaponType = AssetLink("weapontype_smiteweapon");
 
-    return Scaffold(
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
         body: Padding(
-      padding: EdgeInsets.all(20),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          // 🧱 Materials / CraftMethods
-          Expanded(
-              child: Align(
-            alignment: Alignment.center,
-            child: Row(
-              children: [
-                SizedBox(width: 200, child: _buildMaterialList()),
-                Flexible(flex: 3, child: _buildWeaponSection()),
-                SizedBox(width: 200, child: _buildCraftMethodList()),
-              ],
-            ),
-          )),
-          const SizedBox(height: 16),
-          // ⬇ Upgrades
-          SizedBox(
-            height: 160,
-            child: _buildUpgradeGrid(),
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              // 📑 Tabs
+              const TabBar(
+                tabs: [
+                  Tab(text: 'Materials'),
+                  Tab(text: 'Craft Method'),
+                  Tab(text: 'Upgrades'),
+                ],
+              ),
+              // 🧱 Weapon section (always visible)
+              Expanded(
+                child: Center(
+                  child: _buildWeaponSection(),
+                ),
+              ),
+
+              const SizedBox(height: 12),
+              const SizedBox(height: 12),
+
+              // 🔄 Tab content
+              SizedBox(
+                height: 170,
+                child: TabBarView(
+                  children: [
+                    _buildMaterialList(),
+                    _buildCraftMethodList(),
+                    _buildUpgradeGrid(),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
+              // ⚒ Craft button
+              SizedBox(
+                width: 200,
+                child: FloatingActionButton(
+                  onPressed: () {},
+                  child: const Text("Craft!"),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 16),
-          SizedBox(
-              width: 200,
-              child:
-                  FloatingActionButton(onPressed: () {}, child: Text("Craft!")))
-        ],
+        ),
       ),
-    ));
-  }
-
-  Widget _buildCraftMethodList() {
-    return BalancedWrap(
-      minColumnWidth: 80,
-      horizontalSpacing: 4,
-      verticalSpacing: 4,
-      children: craftMethods.map((cm) {
-        return Padding(
-            padding: EdgeInsets.all(4),
-            child: Draggable<CraftDragData<CraftMethodDef>>(
-              data: CraftDragData(
-                value: cm,
-                type: CraftDragType.craftMethod,
-              ),
-              feedback: _slotTile(cm.name, dragging: true),
-              child: _slotTile(cm.name, context: cm.entity),
-            ));
-      }).toList(),
     );
   }
 
-  Widget _buildMaterialList() {
-    return BalancedWrap(
-      minColumnWidth: 80,
-      horizontalSpacing: 4,
-      verticalSpacing: 4,
-      children: materials.map((mat) {
-        return Padding(
-            padding: EdgeInsets.all(4),
-            child: Draggable<CraftDragData<MaterialDef>>(
-              data: CraftDragData(
-                value: mat,
-                type: CraftDragType.material,
-              ),
-              feedback: _slotTile(mat.name, dragging: true),
-              child: _slotTile(mat.name, context: mat.entity),
-            ));
-      }).toList(),
-    );
-  }
+  Widget _buildCraftMethodList() => _buildChoiceWrap<CraftMethodDef>(craftMethods);
+
+  Widget _buildMaterialList() => _buildChoiceWrap<MaterialDef>(materials);
+
+  Widget _buildUpgradeGrid() => _buildChoiceWrap<UpgradeDef>(upgrades);
 
   Widget _buildWeaponSection() {
     var slots = List.generate(upgradeSlots.length, (index) {
@@ -241,7 +225,7 @@ class _WeaponCraftingScreenState extends State<WeaponCraftingScreen> {
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
           SizedBox(
-              height: 120, child: BuffDisplay(buff: selectedEntityContext)),
+              height: 100, child: BuffDisplay(buff: selectedEntityContext)),
         ],
       ),
     );
@@ -303,28 +287,21 @@ class _WeaponCraftingScreenState extends State<WeaponCraftingScreen> {
           CraftDragData(type: CraftDragType.material, value: selectedMaterial),
       selectedMaterial?.name ?? 'Material Slot');
 
-  Widget _buildUpgradeGrid() {
-    return GridView.builder(
-      shrinkWrap: true,
-      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 86, // 👈 desired item width
-        mainAxisExtent: 86,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
-      ),
-      itemCount: upgrades.length,
-      itemBuilder: (context, index) {
-        var upg = upgrades[index];
-        return Draggable<CraftDragData<UpgradeDef>>(
-          data: CraftDragData(
-            value: upg,
-            type: CraftDragType.craftMethod,
-          ),
-          feedback: _slotTile(upg.name, dragging: true),
-          child: _slotTile(upg.name, context: upg.entity),
-        );
-      },
-    );
+  Widget _buildChoiceWrap<T extends EntityHolder>(List<T> items) {
+    return SingleChildScrollView(child: Wrap(
+        alignment: WrapAlignment.center,
+        spacing: 8,
+        runSpacing: 8,
+        children: items.map((upg) {
+      return Draggable<CraftDragData<T>>(
+        data: CraftDragData(
+          value: upg,
+          type: CraftDragType.craftMethod,
+        ),
+        feedback: _slotTile(upg.name, dragging: true),
+        child: _slotTile(upg.name, context: upg.entity),
+      );
+    }).toList()));
   }
 
   Widget _slotTile(String label, {bool dragging = false, Entity? context}) {

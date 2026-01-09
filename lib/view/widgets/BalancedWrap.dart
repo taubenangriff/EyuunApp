@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class BalancedWrap extends StatelessWidget {
   final List<Widget> children;
-  final double minColumnWidth;
+  final double minRowHeight;
   final double horizontalSpacing;
   final double verticalSpacing;
 
   const BalancedWrap({
     super.key,
     required this.children,
-    this.minColumnWidth = 200,
+    this.minRowHeight = 200,
     this.horizontalSpacing = 12,
     this.verticalSpacing = 12,
   });
@@ -22,7 +22,7 @@ class BalancedWrap extends StatelessWidget {
 
         // How many columns fit?
         final columnCount =
-        (maxWidth / minColumnWidth).floor().clamp(1, children.length);
+        (maxWidth / minRowHeight).floor().clamp(1, children.length);
 
         // Prepare columns
         final columns = List.generate(columnCount, (_) => <Widget>[]);
@@ -37,12 +37,12 @@ class BalancedWrap extends StatelessWidget {
           );
         }
 
-        return Row(
+        return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             for (var i = 0; i < columns.length; i++) ...[
               Expanded(
-                child: Column(
+                child: Row(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: columns[i],
