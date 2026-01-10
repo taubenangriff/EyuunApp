@@ -37,16 +37,17 @@ class Filter{
 
 class _ActionsWidgetState extends State<ActionsWidget> {
   var filters = [
-    Filter('All', [ActionTime.Action, ActionTime.Reaction, ActionTime.Attack, ActionTime.Defend]),
-    Filter('Action', [ActionTime.Action]),
-    Filter('Reaction', [ActionTime.Reaction]),
-    Filter('ActionAndReaction', [ActionTime.ActionAndReaction]),
-    Filter('Attack', [ActionTime.Attack]),
-    Filter('Defend', [ActionTime.Defend]),
-    Filter('Time', [ActionTime.Time]),
+    Filter('uitext_actiontime_all', [ActionTime.None, ActionTime.Action, ActionTime.Reaction, ActionTime.Attack, ActionTime.Defend, ActionTime.Time, ActionTime.ActionAndReaction]),
+    Filter('uitext_actiontime_action', [ActionTime.Action]),
+    Filter('uitext_actiontime_reaction', [ActionTime.Reaction]),
+    Filter('uitext_actiontime_round', [ActionTime.ActionAndReaction]),
+    Filter('uitext_actiontime_attack', [ActionTime.Attack]),
+    Filter('uitext_actiontime_defend', [ActionTime.Defend]),
+    Filter('uitext_actiontime_time', [ActionTime.Time]),
+    Filter('uitext_actiontime_none', [ActionTime.None]),
   ];
 
-  var filteredActionTimes = [];
+  late var filteredActionTimes = filters[0].filters;
 
   var selectedChoiceIndex = 0;
 

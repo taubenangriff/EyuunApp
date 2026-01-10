@@ -142,16 +142,11 @@ class _WeaponCraftingScreenState extends State<WeaponCraftingScreen> {
     );
   }
 
-  Widget _buildCraftMethodList() =>
-      _buildChoiceWrap<CraftMethodDef>(craftMethods);
-
-  Widget _buildMaterialList() => _buildChoiceWrap<MaterialDef>(materials);
-
-  Widget _buildUpgradeGrid() => _buildChoiceWrap<UpgradeDef>(upgrades);
-
   List<Widget> _upgradeSlots(List<UpgradeDef?> upgradeSlots) {
     return List.generate(upgradeSlots.length, (index) {
-      return _draggableSlot<UpgradeDef?>(upgradeSlots[index], (data) {
+      return _draggableSlot<UpgradeDef?>(
+          value: upgradeSlots[index],
+              onAccept: (data) {
         setState(() {
           // swap if coming from another slot
           if (data.fromUpgradeSlot != null) {
@@ -164,171 +159,158 @@ class _WeaponCraftingScreenState extends State<WeaponCraftingScreen> {
           }
         });
       },
-          () => upgradeSlots[index] = null,
-          () => CraftDragData(
+          onRemove: () => upgradeSlots[index] = null,
+          dragData: () => CraftDragData(
               type: CraftDragType.upgrade,
               value: upgradeSlots[index],
               fromUpgradeSlot: index),
-          upgradeSlots[index]?.name ?? "Upgrade Slot");
+          label: upgradeSlots[index]?.name ?? "Upgrade Slot");
     });
   }
 
-  Widget _buildMaterialView() {
+  Widget _buildMaterialView() => _buildSelectionView(
+    slot: _materialSlot(),
+    list: _buildChoiceWrap(materials),
+  );
+
+  Widget _buildCraftMethodView() => _buildSelectionView(
+    slot: _craftSlot(),
+    list: _buildChoiceWrap(craftMethods),
+  );
+
+  Widget _buildUpgradesView() => Column(
+    children: [
+      Flexible(
+        child: Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: _upgradeSlots(upgradeSlots),
+        ),
+      ),
+      const SizedBox(height: 16),
+      _sectionTitle('!Equipped Upgrade'),
+      const SizedBox(height: 16),
+      Flexible(child: BuffDisplay(buff: selectedEquippedBuffContext)),
+      const Divider(),
+      const SizedBox(height: 16),
+      _sectionTitle('!Potential Upgrade'),
+      const SizedBox(height: 16),
+      Flexible(child: BuffDisplay(buff: selectedEntityContext)),
+      const SizedBox(height: 16),
+      SizedBox(height: 170, child: _buildChoiceWrap(upgrades)),
+    ],
+  );
+
+
+  Widget _buildSelectionView({
+    required Widget slot,
+    required Widget list,
+  }) {
     return Column(
       children: [
-        Flexible(
-          child: _materialSlot(),
-        ),
-        SizedBox(height: 16),
-        const Text(
-          '!Equipped Upgrade',
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 16),
+        Flexible(child: slot),
+        const SizedBox(height: 16),
+
+        _sectionTitle('!Equipped Upgrade'),
+        const SizedBox(height: 16),
         Flexible(child: BuffDisplay(buff: selectedEquippedBuffContext)),
-        Divider(),
-        SizedBox(height: 16),
-        const Text(
-          '!Potential Upgrade',
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 16),
+
+        const Divider(),
+        const SizedBox(height: 16),
+
+        _sectionTitle('!Potential Upgrade'),
+        const SizedBox(height: 16),
         Flexible(child: BuffDisplay(buff: selectedEntityContext)),
-        SizedBox(height: 16),
-        SizedBox(height: 170, child: _buildMaterialList()),
+
+        const SizedBox(height: 16),
+        SizedBox(height: 170, child: list),
       ],
     );
   }
 
-  Widget _buildCraftMethodView() {
-    return Column(
-      children: [
-        Flexible(
-          child: _craftSlot(),
-        ),
-        SizedBox(height: 16),
-        const Text(
-          '!Equipped Upgrade',
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 16),
-        Flexible(child: BuffDisplay(buff: selectedEquippedBuffContext)),
-        Divider(),
-        SizedBox(height: 16),
-        const Text(
-          '!Potential Upgrade',
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 16),
-        Flexible(child: BuffDisplay(buff: selectedEntityContext)),
-        SizedBox(height: 16),
-        SizedBox(height: 170, child: _buildCraftMethodList()),
-      ],
-    );
-  }
+  Widget _sectionTitle(String text) => Text(
+    text,
+    style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+  );
 
-  Widget _buildUpgradesView() {
-    return Column(
-      children: [
-        Flexible(
-            child: Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: _upgradeSlots(upgradeSlots))),
-        SizedBox(height: 16),
-        const Text(
-          '!Equipped Upgrade',
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 16),
-        Flexible(child: BuffDisplay(buff: selectedEquippedBuffContext)),
-        Divider(),
-        SizedBox(height: 16),
-        const Text(
-          '!Potential Upgrade',
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 16),
-        Flexible(child: BuffDisplay(buff: selectedEntityContext)),
-        SizedBox(height: 16),
-        SizedBox(height: 170, child: _buildUpgradeGrid()),
-      ],
-    );
-  }
 
-  Widget _draggableSlot<T extends EntityHolder?>(
-      T definition,
-      void Function(CraftDragData<T>) setValueCallback,
-      void Function() removeValueCallback,
-      CraftDragData<T> Function() createCraftDragData,
-      String name) {
+  Widget _draggableSlot<T extends EntityHolder?>({
+    required T value,
+    required void Function(CraftDragData<T>) onAccept,
+    required VoidCallback onRemove,
+    required CraftDragData<T> Function() dragData,
+    required String label,
+  }) {
     return DragTarget<CraftDragData<T>>(
-      onAcceptWithDetails: (details) =>
-          setState(() => setValueCallback.call(details.data)),
+      onAcceptWithDetails: (d) => setState(() => onAccept(d.data)),
       builder: (_, __, ___) {
-        var slotbox = _slotBox(label: name, context: definition?.entity);
+        final slot = _slotBox(label: label, context: value?.entity);
 
-        if (definition == null) {
-          return slotbox;
-        }
+        if (value == null) return slot;
 
         return Draggable<CraftDragData<T>>(
-          data: createCraftDragData.call(),
-          feedback: Material(
-            color: Colors.transparent,
-            child: slotbox,
-          ),
-          childWhenDragging: Opacity(
-            opacity: 0.4,
-            child: slotbox,
-          ),
-          child: slotbox,
-          onDragEnd: (details) {
-            // dropped nowhere → remove
-            if (!details.wasAccepted) {
-              setState(() {
-                removeValueCallback.call();
-              });
-            }
+          data: dragData(),
+          feedback: Material(color: Colors.transparent, child: slot),
+          childWhenDragging: Opacity(opacity: 0.4, child: slot),
+          child: slot,
+          onDragEnd: (d) {
+            if (!d.wasAccepted) setState(onRemove);
           },
         );
       },
     );
   }
 
-  Widget _craftSlot() => _draggableSlot<CraftMethodDef?>(
-      selectedCraftMethod,
-      (data) => selectedCraftMethod = data.value,
-      () => selectedCraftMethod = null,
-      () => CraftDragData(
-          type: CraftDragType.craftMethod, value: selectedCraftMethod),
-      selectedCraftMethod?.name ?? 'Method Slot');
 
   Widget _materialSlot() => _draggableSlot<MaterialDef?>(
-      selectedMaterial,
-      (data) => selectedMaterial = data.value,
-      () => selectedMaterial = null,
-      () =>
-          CraftDragData(type: CraftDragType.material, value: selectedMaterial),
-      selectedMaterial?.name ?? 'Material Slot');
+    value: selectedMaterial,
+    onAccept: (d) => selectedMaterial = d.value,
+    onRemove: () => selectedMaterial = null,
+    dragData: () => CraftDragData(
+      type: CraftDragType.material,
+      value: selectedMaterial,
+    ),
+    label: selectedMaterial?.name ?? 'Material Slot',
+  );
+
+  Widget _craftSlot() => _draggableSlot<CraftMethodDef?>(
+    value: selectedCraftMethod,
+    onAccept: (d) => selectedCraftMethod = d.value,
+    onRemove: () => selectedCraftMethod = null,
+    dragData: () => CraftDragData(
+      type: CraftDragType.craftMethod,
+      value: selectedCraftMethod,
+    ),
+    label: selectedCraftMethod?.name ?? 'Method Slot',
+  );
+
 
   Widget _buildChoiceWrap<T extends EntityHolder>(List<T> items) {
     return SingleChildScrollView(
-        child: Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 8,
-            runSpacing: 8,
-            children: items.map((upg) {
-              return Draggable<CraftDragData<T>>(
-                data: CraftDragData(
-                  value: upg,
-                  type: CraftDragType.craftMethod,
-                ),
-                feedback: _slotTile(upg.name, dragging: true),
-                child: _slotTile(upg.name, context: upg.entity),
-              );
-            }).toList()));
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        spacing: 8,
+        runSpacing: 8,
+        children: items.map((item) {
+          return Draggable<CraftDragData<T>>(
+            data: CraftDragData(
+              value: item,
+              type: _dragTypeFor<T>(),
+            ),
+            feedback: _slotTile(item.name, dragging: true),
+            child: _slotTile(item.name, context: item.entity),
+          );
+        }).toList(),
+      ),
+    );
   }
+
+  CraftDragType _dragTypeFor<T>() {
+    if (T == MaterialDef) return CraftDragType.material;
+    if (T == CraftMethodDef) return CraftDragType.craftMethod;
+    return CraftDragType.upgrade;
+  }
+
 
   Widget _slotTile(String label, {bool dragging = false, Entity? context}) {
     return GestureDetector(

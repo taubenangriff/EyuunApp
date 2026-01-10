@@ -141,6 +141,7 @@
     "uitext_altcom_language": "Alternative Kommunikation",
     "uitext_picklanguage": "Wähle eine neue Sprache",
     "uitext_actiontime_none": "Keine Aktionskosten",
+    "uitext_actiontime_all": "Alle",
     "uitext_actiontime_action": "Aktion",
     "uitext_actiontime_reaction": "Reaktion",
     "uitext_actiontime_round": "Runde",
