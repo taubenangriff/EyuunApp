@@ -1,0 +1,44 @@
+{
+  "standard": {
+    "typeId": "parry_melee"
+  },
+  "text": {
+    "fluff": "smite_weapon_axe_fluff"
+  },
+  "action": {
+    "actionTime": "Defend"
+  },
+  "parry": {
+    "parriableAttackScopes": [
+      "Melee"
+    ],
+    "parryTalent": {
+      "id": "fightingstyle_melee"
+    }
+  },
+  "skillcheck": {
+    "checkedAttributes": [
+      {
+        "options": [
+          {
+            "id": "baseSkill_Courage"
+          }
+        ]
+      },
+      {
+        "options": [
+          {
+            "id": "baseSkill_Strength"
+          }
+        ]
+      },
+      {
+        "options": [
+          {
+            "id": "baseSkill_Constitution"
+          }
+        ]
+      }
+    ]
+  }
+}

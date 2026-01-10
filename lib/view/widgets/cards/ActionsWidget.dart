@@ -56,10 +56,11 @@ class _ActionsWidgetState extends State<ActionsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var actions = widget.actionUser.getActions();
+    var actions = widget.actionUser.getStaticActions();
 
     actions = actions.where((e) {
-      var actionTime = e.get<ActionComponent>()?.actionTime;
+      var actionDescriptor = e.action;
+      var actionTime = actionDescriptor.get<ActionComponent>()?.actionTime;
       if (actionTime == null) {
         return false;
       }
@@ -102,14 +103,15 @@ class _ActionsWidgetState extends State<ActionsWidget> {
         ),
         itemCount: actions.length,
         itemBuilder: (BuildContext context, int index) {
-          var entity = actions[index];
-          return buildCard(context, entity);
+          var actionLink = actions[index];
+          return buildCard(context, actionLink);
         },
       )
     ]);
   }
 
-  Widget buildCard(BuildContext context, Entity entity) {
+  Widget buildCard(BuildContext context, ActionLink actionLink) {
+    var entity = actionLink.action;
     var hasWeapon = entity.has<WeaponComponent>();
 
     SkillcheckController skillcheckController =
@@ -145,7 +147,7 @@ class _ActionsWidgetState extends State<ActionsWidget> {
                 const SizedBox(height: 44),
                 // 🏷 Title
                 Text(
-                  _textService.getTextFromEntity(entity),
+                  _textService.getTextFromEntity(entity) + (actionLink.hasExternalSource() ? " (${_textService.getTextFromEntity(actionLink.source)})" : ""),
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),

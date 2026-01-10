@@ -15,13 +15,12 @@
     "holdable": {
         "equipmentSlotsNeeded": 1
     },
-    "parry": {
-        "parriableAttackScopes": [
-            "Melee"
-        ],
-        "parryTalent": {
-            "id": "fightingstyle_melee"
-        }
+    "actionUser": {
+        "defaultActions": [
+            {
+                "id": "parry_melee"
+            }
+        ]
     },
     "craftable": {},
     "weapon": {
@@ -56,5 +55,8 @@
                 ]
             }
         ]
+    },
+    "upgradable": {
+        "defaultUpgrades": []
     }
 }

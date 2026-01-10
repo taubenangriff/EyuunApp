@@ -34,18 +34,27 @@ class GameObjectService {
     return _staticAssetRepository.getAssetData(typeId);
   }
 
-  void registerStatic(String typeId) {
+  void preloadStatic(String typeId) {
     if(!_assetDataRepository.isValidDefinition(typeId)){
       return;
     }
     var entity = _worldManager.staticWorld.createEntity();
+    _staticAssetRepository.register(typeId, entity);
+  }
+
+  void loadStaticData(String typeId) {
+    if(!_assetDataRepository.isValidDefinition(typeId)){
+      return;
+    }
+    var entity = _staticAssetRepository.getAssetData(typeId);
+    if(entity == null){
+      return;
+    }
     _assetLoader.applyStaticData(entity, typeId);
     if(!entity.has<StandardComponent>()){
       return;
     }
     entity.get<StandardComponent>()?.isStatic = true;
-
-    _staticAssetRepository.register(typeId, entity);
   }
 
   Entity? getObject(String objectId) => _gameObjectRepository.getEntity(objectId);

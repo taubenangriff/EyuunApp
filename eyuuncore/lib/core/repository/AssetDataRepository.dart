@@ -12,6 +12,8 @@ class AssetDataRepository {
 
   Iterable<Map<String, dynamic>> getAssetMaps() => assets.values;
 
+  Iterable<String> getTypeIds() => assets.keys;
+
   bool isValidDefinition(String typeId) {
     if (!assets.containsKey(typeId)) {
       return false;

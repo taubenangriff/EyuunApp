@@ -50,8 +50,21 @@ class CollectActionsSystem extends System {
 
     for (var heldItemLink in combatComponent.equippedItems) {
       var heldItem = heldItemLink.getEntity();
-      if (heldItem.has<WeaponComponent>() && heldItem.has<ActionComponent>()) {
-        actionUserComponent.actionsThroughObjects.add(heldItemLink);
+      if (heldItem.has<WeaponComponent>()) {
+        actionUserComponent.addAction(heldItem);
+      }
+
+      //add in the actions that the item itself has.
+      _copyActionsFromItemToItemHolder(heldItem, actionUserComponent);
+    }
+  }
+
+  void _copyActionsFromItemToItemHolder(Entity heldItem, ActionUserComponent actionUserComponent) {
+    //add in the actions that the item itself has.
+    if(heldItem.has<ActionUserComponent>()){
+      var actionsFromItem = heldItem.get<ActionUserComponent>()?.getActions() ?? [];
+      for(var actionFromItem in actionsFromItem){
+        actionUserComponent.addAction(actionFromItem, source: heldItem);
       }
     }
   }

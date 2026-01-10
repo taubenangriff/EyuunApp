@@ -23,7 +23,11 @@ class LoadDataService {
       if (typeId == null) {
         continue;
       }
-      _gameObjectService.registerStatic(typeId);
+      _gameObjectService.preloadStatic(typeId);
+    }
+
+    for(var typeId in _assetDataRepository.getTypeIds()){
+      _gameObjectService.loadStaticData(typeId);
     }
   }
 }

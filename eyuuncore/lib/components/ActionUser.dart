@@ -19,27 +19,42 @@ class ActionUserStatic with ActionUserStaticMappable, ComponentReflectable {
   ActionUserStatic(this.defaultActions);
 }
 
+class ActionLink {
+  Entity action;
+  Entity source;
+
+  hasExternalSource() => action != source;
+  ActionLink({required this.action, required Entity? source}) : source = source ?? action;
+}
+
 class ActionUserComponent extends EyuunComponent<int> {
   static const String propertyName = "actionUser";
 
-  late List<AssetLink> defaultActions;
+  late List<ActionLink> _defaultActions;
 
   /// filled by ActionSystem.dart
-  List<ObjectLink> actionsThroughObjects = [];
+  List<ActionLink> _actionsThroughEntities = [];
 
-  /// filled by ActionSystem.dart
-  List<AssetLink> actionsThroughAssets = [];
+  List<ActionLink> getStaticActions() => _defaultActions + _actionsThroughEntities;
 
-  List<Entity> getActions() =>
-      (defaultActions.getAssets() +
-              actionsThroughAssets.getAssets() +
-              actionsThroughObjects.getObjects())
-          .where((e) => e.has<ActionComponent>())
-          .toList();
+  List<Entity> getActions() => getStaticActions().map((e) => e.action).toList();
 
   void clearRegisteredActions() {
-    actionsThroughObjects = [];
-    actionsThroughAssets = [];
+    _actionsThroughEntities = [];
+  }
+
+  void _addDefaultAction(Entity? entity, {Entity? source}){
+    if(entity == null){
+      return;
+    }
+    _defaultActions.add(ActionLink(action: entity, source: source ?? entity));
+  }
+
+  void addAction(Entity? entity, {Entity? source}){
+    if(entity == null){
+      return;
+    }
+    _actionsThroughEntities.add(ActionLink(action: entity, source: source ?? entity));
   }
 
   @override
@@ -58,12 +73,16 @@ class ActionUserComponent extends EyuunComponent<int> {
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = ActionUserStaticMapper.fromMap(staticData);
-    defaultActions = stat.defaultActions;
+    for(var link in stat.defaultActions){
+      var entity = link.getEntity();
+      _addDefaultAction(entity);
+    }
   }
 
   @override
   void reset() {
-    defaultActions = [];
+    _defaultActions = [];
+    _actionsThroughEntities = [];
   }
 
   @override

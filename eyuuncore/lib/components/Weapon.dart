@@ -22,11 +22,12 @@ class WeaponStatic with WeaponStaticMappable, ComponentReflectable {
 
 @MappableClass()
 class WeaponDynamic with WeaponDynamicMappable {
+  AssetLink? attackAction;
   AssetLink fightingType;
   AssetLink? weaponType;
   double skillMultiplier;
 
-  WeaponDynamic(this.fightingType, {this.weaponType, this.skillMultiplier = 1});
+  WeaponDynamic(this.fightingType, {this.attackAction, this.weaponType, this.skillMultiplier = 1});
 }
 
 class WeaponComponent extends EyuunComponent<int> {
