@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_flux_05",
+        "internalName": "Elementalist Path"
+    },
+    "text": {},
+    "path": {
+        "pathType": "Flux",
+        "pickableSteps": [
+            {
+                "id": "path_flux_05_step_05"
+            }
+        ]
+    }
+}

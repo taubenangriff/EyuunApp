@@ -4,6 +4,7 @@ import '../../core/assetLink.dart';
 import '../../core/components/EyuunComponent.dart';
 import '../../core/reflection/reflector.dart';
 import '../../core/reflection/Reflecting.dart';
+import '../ActionUser.dart';
 
 part 'ActionUserUpgrade.mapper.dart';
 
@@ -11,13 +12,13 @@ part 'ActionUserUpgrade.mapper.dart';
 @reflector
 class ActionUserUpgradeStatDyn with ActionUserUpgradeStatDynMappable, ComponentReflectable {
   List<AssetLink> addedActions;
-  ActionUserUpgradeStatDyn({addedActions}) : addedActions = addedActions ?? [];
+  ActionUserUpgradeStatDyn({List<AssetLink>? addedActions}) : addedActions = addedActions ?? [];
 }
 
 class ActionUserUpgradeComponent extends EyuunComponent<int> {
   static const String propertyName = "actionUserUpgrade";
 
-  late List<AssetLink> addedActions;
+  late List<ActionLink> addedActions;
 
   @override
   String getName() => propertyName;
@@ -30,13 +31,23 @@ class ActionUserUpgradeComponent extends EyuunComponent<int> {
   @override
   void loadDynamicData(Map<String, dynamic> dynamicData) {
     var dyn = ActionUserUpgradeStatDynMapper.fromMap(dynamicData);
-    addedActions = dyn.addedActions;
+    _addEntities(dyn.addedActions);
+  }
+
+  void _addEntities(List<AssetLink> link){
+    for(var action in link){
+      var entity = action.getEntity();
+      if(entity == null){
+        continue;
+      }
+      addedActions.add(ActionLink(action: entity, source: entity));
+    }
   }
 
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = ActionUserUpgradeStatDynMapper.fromMap(staticData);
-    addedActions = stat.addedActions;
+    _addEntities(stat.addedActions);
   }
 
   @override
@@ -45,5 +56,5 @@ class ActionUserUpgradeComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => ActionUserUpgradeStatDyn(addedActions: addedActions).toMap();
+  Map<String, dynamic> saveDynamicData() => ActionUserUpgradeStatDyn(addedActions: addedActions.map((e) => AssetLink.fromEntity(e.action)).toList()).toMap();
 }

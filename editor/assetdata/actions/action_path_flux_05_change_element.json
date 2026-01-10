@@ -1,0 +1,12 @@
+{
+  "standard": {
+    "typeId": "action_path_flux_05_change_element"
+  },
+  "text": {
+    "textOverride": "path_flux_05_step_05"
+  },
+  "action": {
+    "actionDescription": "path_flux_05_step_05_action",
+    "actionTime": "Reaction"
+  }
+}

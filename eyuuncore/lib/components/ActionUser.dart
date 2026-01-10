@@ -37,13 +37,13 @@ class ActionUserComponent extends EyuunComponent<int> {
   /// filled by ActionSystem.dart
   late UpgradableList<ActionLink> actionsThroughEntities;
 
-  List<ActionLink> getStaticActions() =>
+  List<ActionLink> getActionsWithSource() =>
       _defaultActions + actionsThroughEntities.current;
 
-  List<Entity> getActions() => getStaticActions().map((e) => e.action).toList();
+  List<Entity> getActions() => getActionsWithSource().map((e) => e.action).toList();
 
   void clearRegisteredActions() {
-    actionsThroughEntities = <ActionLink>[].upgradable;
+    actionsThroughEntities.baseList.clear();
   }
 
   void _addDefaultAction(Entity? entity, {Entity? source}) {

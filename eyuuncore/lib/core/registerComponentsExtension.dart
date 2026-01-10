@@ -51,6 +51,7 @@ import '../components/Path.dart';
 import '../components/Skillcheck.dart';
 import '../components/health.dart';
 import '../components/text.dart';
+import '../components/upgrade/ActionUserUpgrade.dart';
 import 'components/standard.dart';
 import 'services/WorldManager.dart';
 
@@ -103,6 +104,7 @@ extension registerEditorComponentsExtension on ComponentRepository {
     registerComponent<HealthUpgradeStatDyn>(HealthUpgradeComponent.propertyName, (map) => HealthUpgradeStatDynMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<LanguageLearnerUpgradeStatDyn>(LanguageLearnerUpgradeComponent.propertyName, (map) => LanguageLearnerUpgradeStatDynMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<TalentsUpgradeStatDyn>(TalentsUpgradeComponent.propertyName, (map) => TalentsUpgradeStatDynMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<ActionUserUpgradeStatDyn>(ActionUserUpgradeComponent.propertyName, (map) => ActionUserUpgradeStatDynMapper.fromMap(map), (comp) => comp.toMap());
 
     // register Features
     registerComponent<CombatFeatureStatic>(CombatFeatureComponent.propertyName, (map) => CombatFeatureStaticMapper.fromMap(map), (comp) => comp.toMap());
@@ -162,6 +164,7 @@ extension RegisterComponentsExtension on WorldManager {
     registerComponent<HealthUpgradeComponent, int>(HealthUpgradeComponent.propertyName, () => HealthUpgradeComponent());
     registerComponent<LanguageLearnerUpgradeComponent, int>(LanguageLearnerUpgradeComponent.propertyName, () => LanguageLearnerUpgradeComponent());
     registerComponent<TalentsUpgradeComponent, int>(TalentsUpgradeComponent.propertyName, () => TalentsUpgradeComponent());
+    registerComponent<ActionUserUpgradeComponent, int>(ActionUserUpgradeComponent.propertyName, () => ActionUserUpgradeComponent());
 
     // register Features
     registerComponent<CombatFeatureComponent, int>(CombatFeatureComponent.propertyName, () => CombatFeatureComponent());

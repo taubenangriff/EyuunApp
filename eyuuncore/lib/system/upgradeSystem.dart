@@ -30,6 +30,22 @@ class UpgradeSystem extends System {
 
   /// removes all Upgrades from an entity
   void resetUpgrades(Entity entity){
+    _resetUpgradableInts(entity);
+    _resetUpgradableLists(entity);
+  }
+
+  void _resetUpgradableLists(Entity entity) {
+    for(var upgradeDescriptor in worldManager.listUpdates){
+      var baseComponent = worldManager.getComponentFromEntity(upgradeDescriptor.typeIdBase, entity);
+      if(baseComponent == null){
+        continue;
+      }
+      var upgradableList = upgradeDescriptor.getBase(baseComponent);
+      upgradableList.reset();
+    }
+  }
+
+  void _resetUpgradableInts(Entity entity) {
     for(var upgradeDescriptor in worldManager.upgrades) {
       var baseComponent = worldManager.getComponentFromEntity(upgradeDescriptor.typeIdBase, entity);
 
@@ -62,7 +78,10 @@ class UpgradeSystem extends System {
       if(upgradeList == null) {
         continue;
       }
-      upgradableList.upgradeList.addAll(upgradeList);
+
+      for(var entry in upgradeList){
+        upgradableList.addUpgrade(entry);
+      }
     }
   }
 

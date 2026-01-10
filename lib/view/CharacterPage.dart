@@ -13,6 +13,7 @@ import 'package:EyuunApp/view/widgets/eyuun/Brushes.dart';
 import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
+import 'package:eyuuncore/core/services/WorldManager.dart';
 import 'package:flutter/material.dart';
 import 'package:EyuunApp/view/popup/PopupUtil.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -205,6 +206,7 @@ class _CharacterPageState extends State<CharacterPage> {
           const SizedBox(width: 16),
           _buildLargeFab(
             onPressed: () {
+              locator<WorldManager>().world.execute(1);
               PopupUtil.popup(
                   context,
                   ChangeValuePopup(fluxController, valueChanged: (change) {

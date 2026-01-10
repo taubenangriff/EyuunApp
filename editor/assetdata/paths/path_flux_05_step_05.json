@@ -1,0 +1,22 @@
+{
+    "standard": {
+        "typeId": "path_flux_05_step_05",
+        "internalName": "Elementalist Path | Step 5 | Element Mastery"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 5,
+        "isAdditional": false,
+        "pathType": "Flux"
+    },
+    "buff": {
+        "textDescription": "path_flux_05_step_05_effectdesc"
+    },
+    "actionUserUpgrade": {
+        "addedActions": [
+            {
+                "id": "action_path_flux_05_change_element"
+            }
+        ]
+    }
+}

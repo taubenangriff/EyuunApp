@@ -56,7 +56,7 @@ class _ActionsWidgetState extends State<ActionsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var actions = widget.actionUser.getStaticActions();
+    var actions = widget.actionUser.getActionsWithSource();
 
     actions = actions.where((e) {
       var actionDescriptor = e.action;
