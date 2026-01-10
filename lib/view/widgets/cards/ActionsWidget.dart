@@ -29,16 +29,26 @@ class ActionsWidget extends StatefulWidget {
   State<ActionsWidget> createState() => _ActionsWidgetState();
 }
 
+class Filter{
+  String name;
+  List<ActionTime> filters;
+  Filter(this.name, this.filters);
+}
+
 class _ActionsWidgetState extends State<ActionsWidget> {
-  var filtrableActionTimes = [
-    ActionTime.Action,
-    ActionTime.Reaction,
-    ActionTime.ActionAndReaction,
-    ActionTime.Attack,
-    ActionTime.Defend,
-    ActionTime.Time
+  var filters = [
+    Filter('All', [ActionTime.Action, ActionTime.Reaction, ActionTime.Attack, ActionTime.Defend]),
+    Filter('Action', [ActionTime.Action]),
+    Filter('Reaction', [ActionTime.Reaction]),
+    Filter('ActionAndReaction', [ActionTime.ActionAndReaction]),
+    Filter('Attack', [ActionTime.Attack]),
+    Filter('Defend', [ActionTime.Defend]),
+    Filter('Time', [ActionTime.Time]),
   ];
+
   var filteredActionTimes = [];
+
+  var selectedChoiceIndex = 0;
 
   final _textService = locator<TextService>();
 
@@ -59,22 +69,22 @@ class _ActionsWidgetState extends State<ActionsWidget> {
         spacing: 8,
         runSpacing: 8,
         children: [
-          for (var actionType in filtrableActionTimes)
-            FilterChip(
-              label: Text(_textService.getText(actionType.getTextKey())),
+          for (var (index, filter) in filters.indexed)
+            ChoiceChip(
+              label: Text(_textService.getText(filter.name)),
               showCheckmark: true,
               shape: StadiumBorder(side: BorderSide()),
               backgroundColor: Colors.transparent,
               onSelected: (bool value) {
                 setState(() {
                   if (value) {
-                    filteredActionTimes.add(actionType);
-                    return;
+                    selectedChoiceIndex = index;
+                    filteredActionTimes = filter.filters;
                   }
-                  filteredActionTimes.remove(actionType);
+                  filteredActionTimes = filter.filters;
                 });
               },
-              selected: filteredActionTimes.contains(actionType),
+              selected: selectedChoiceIndex == index,
             ),
         ],
       ),
