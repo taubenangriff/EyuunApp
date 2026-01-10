@@ -87,15 +87,15 @@ class _WeaponCraftingScreenState extends State<WeaponCraftingScreen> {
       List.generate(13, (i) => UpgradeDef('Upgrade $i', entity));
 
   Entity? selectedEntityContext;
+  Entity? selectedEquippedBuffContext;
 
   @override
   Widget build(BuildContext context) {
-
-
-    weapon.get<WeaponComponent>()?.weaponType = AssetLink("weapontype_smiteweapon");
+    weapon.get<WeaponComponent>()?.weaponType =
+        AssetLink("weapontype_smiteweapon");
 
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(20),
@@ -104,29 +104,23 @@ class _WeaponCraftingScreenState extends State<WeaponCraftingScreen> {
               // 📑 Tabs
               const TabBar(
                 tabs: [
+                  Tab(text: 'Overview'),
                   Tab(text: 'Materials'),
                   Tab(text: 'Craft Method'),
                   Tab(text: 'Upgrades'),
                 ],
               ),
-              // 🧱 Weapon section (always visible)
-              Expanded(
-                child: Center(
-                  child: _buildWeaponSection(),
-                ),
-              ),
-
               const SizedBox(height: 12),
               const SizedBox(height: 12),
 
               // 🔄 Tab content
-              SizedBox(
-                height: 170,
+              Expanded(
                 child: TabBarView(
                   children: [
-                    _buildMaterialList(),
-                    _buildCraftMethodList(),
-                    _buildUpgradeGrid(),
+                    const Center(child: Text('Weapon full overview')),
+                    _buildMaterialView(),
+                    _buildCraftMethodView(),
+                    _buildUpgradesView(),
                   ],
                 ),
               ),
@@ -148,14 +142,15 @@ class _WeaponCraftingScreenState extends State<WeaponCraftingScreen> {
     );
   }
 
-  Widget _buildCraftMethodList() => _buildChoiceWrap<CraftMethodDef>(craftMethods);
+  Widget _buildCraftMethodList() =>
+      _buildChoiceWrap<CraftMethodDef>(craftMethods);
 
   Widget _buildMaterialList() => _buildChoiceWrap<MaterialDef>(materials);
 
   Widget _buildUpgradeGrid() => _buildChoiceWrap<UpgradeDef>(upgrades);
 
-  Widget _buildWeaponSection() {
-    var slots = List.generate(upgradeSlots.length, (index) {
+  List<Widget> _upgradeSlots(List<UpgradeDef?> upgradeSlots) {
+    return List.generate(upgradeSlots.length, (index) {
       return _draggableSlot<UpgradeDef?>(upgradeSlots[index], (data) {
         setState(() {
           // swap if coming from another slot
@@ -176,58 +171,88 @@ class _WeaponCraftingScreenState extends State<WeaponCraftingScreen> {
               fromUpgradeSlot: index),
           upgradeSlots[index]?.name ?? "Upgrade Slot");
     });
+  }
 
-    var allSlots = [_materialSlot(), _craftSlot()] + slots;
+  Widget _buildMaterialView() {
+    return Column(
+      children: [
+        Flexible(
+          child: _materialSlot(),
+        ),
+        SizedBox(height: 16),
+        const Text(
+          '!Equipped Upgrade',
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 16),
+        Flexible(child: BuffDisplay(buff: selectedEquippedBuffContext)),
+        Divider(),
+        SizedBox(height: 16),
+        const Text(
+          '!Potential Upgrade',
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 16),
+        Flexible(child: BuffDisplay(buff: selectedEntityContext)),
+        SizedBox(height: 16),
+        SizedBox(height: 170, child: _buildMaterialList()),
+      ],
+    );
+  }
 
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: Column(
-        children: [
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                '!Weapon',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(width: 40),
-              if (skillcheck != null && attributes != null)
-                SkillCheckWidget(
-                    skillcheck: skillcheck!,
-                    attributes: attributes!,
-                    iconSize: 32,
-                    spacing: 16),
-              const SizedBox(width: 40),
-              Text(locator<TextService>().getTextFromLink(weapon.get<WeaponComponent>()?.fightingType))
-            ],
-          ),
-          const SizedBox(height: 16),
-          const Text(
-            '!Weapon Type',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          BuffDisplay(
-              buff: weapon.get<WeaponComponent>()?.weaponType?.getEntity()),
-          Spacer(),
-          const SizedBox(height: 16),
-          Center(
+  Widget _buildCraftMethodView() {
+    return Column(
+      children: [
+        Flexible(
+          child: _craftSlot(),
+        ),
+        SizedBox(height: 16),
+        const Text(
+          '!Equipped Upgrade',
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 16),
+        Flexible(child: BuffDisplay(buff: selectedEquippedBuffContext)),
+        Divider(),
+        SizedBox(height: 16),
+        const Text(
+          '!Potential Upgrade',
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 16),
+        Flexible(child: BuffDisplay(buff: selectedEntityContext)),
+        SizedBox(height: 16),
+        SizedBox(height: 170, child: _buildCraftMethodList()),
+      ],
+    );
+  }
+
+  Widget _buildUpgradesView() {
+    return Column(
+      children: [
+        Flexible(
             child: Wrap(
-              spacing: 12,
-              runSpacing: 12,
-              children: allSlots,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Divider(),
-          const SizedBox(height: 8),
-          const Text(
-            '!Upgrade',
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-              height: 100, child: BuffDisplay(buff: selectedEntityContext)),
-        ],
-      ),
+                spacing: 8,
+                runSpacing: 8,
+                children: _upgradeSlots(upgradeSlots))),
+        SizedBox(height: 16),
+        const Text(
+          '!Equipped Upgrade',
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 16),
+        Flexible(child: BuffDisplay(buff: selectedEquippedBuffContext)),
+        Divider(),
+        SizedBox(height: 16),
+        const Text(
+          '!Potential Upgrade',
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 16),
+        Flexible(child: BuffDisplay(buff: selectedEntityContext)),
+        SizedBox(height: 16),
+        SizedBox(height: 170, child: _buildUpgradeGrid()),
+      ],
     );
   }
 
@@ -288,20 +313,21 @@ class _WeaponCraftingScreenState extends State<WeaponCraftingScreen> {
       selectedMaterial?.name ?? 'Material Slot');
 
   Widget _buildChoiceWrap<T extends EntityHolder>(List<T> items) {
-    return SingleChildScrollView(child: Wrap(
-        alignment: WrapAlignment.center,
-        spacing: 8,
-        runSpacing: 8,
-        children: items.map((upg) {
-      return Draggable<CraftDragData<T>>(
-        data: CraftDragData(
-          value: upg,
-          type: CraftDragType.craftMethod,
-        ),
-        feedback: _slotTile(upg.name, dragging: true),
-        child: _slotTile(upg.name, context: upg.entity),
-      );
-    }).toList()));
+    return SingleChildScrollView(
+        child: Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 8,
+            runSpacing: 8,
+            children: items.map((upg) {
+              return Draggable<CraftDragData<T>>(
+                data: CraftDragData(
+                  value: upg,
+                  type: CraftDragType.craftMethod,
+                ),
+                feedback: _slotTile(upg.name, dragging: true),
+                child: _slotTile(upg.name, context: upg.entity),
+              );
+            }).toList()));
   }
 
   Widget _slotTile(String label, {bool dragging = false, Entity? context}) {
@@ -331,7 +357,7 @@ class _WeaponCraftingScreenState extends State<WeaponCraftingScreen> {
     return GestureDetector(
         onTap: () {
           setState(() {
-            selectedEntityContext = context;
+            selectedEquippedBuffContext = context;
           });
         },
         child: Container(
