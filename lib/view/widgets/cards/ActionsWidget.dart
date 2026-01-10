@@ -1,3 +1,4 @@
+import 'package:EyuunApp/view/popup/PopupUtil.dart';
 import 'package:EyuunApp/view/widgets/SkillCheckWidget.dart';
 import 'package:eyuuncore/components/Action.dart';
 import 'package:eyuuncore/components/ActionUser.dart';
@@ -114,7 +115,11 @@ class _ActionsWidgetState extends State<ActionsWidget> {
     SkillcheckController skillcheckController =
         SkillcheckController(widget.skillLearner, widget.attributes);
 
-    return Card(
+    return GestureDetector(
+      onTap: () {
+        PopupUtil.popup(context, const Center(child: Text("Popup showing the action in full and a button to cast it.")), maximumSize: Size(600, 400));
+      },
+    child: Card(
         elevation: 4,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
@@ -176,6 +181,5 @@ class _ActionsWidgetState extends State<ActionsWidget> {
                 right: 4,
               )
           ]),
-        ));
-  }
+        )));  }
 }
