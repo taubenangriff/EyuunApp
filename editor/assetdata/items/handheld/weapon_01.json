@@ -9,6 +9,14 @@
         "categoryText": "item_category1",
         "maxStackSize": 1
     },
+    "parry": {
+        "parriableAttackScopes": [
+            "Melee"
+        ],
+        "parryTalent": {
+            "id": "fightingstyle_melee"
+        }
+    },
     "cost": {
         "money": 150,
         "resourceCosts": [
@@ -28,5 +36,14 @@
     },
     "action": {
         "actionTime": "Attack"
+    },
+    "craftable": {},
+    "weapon": {
+        "fightingType": {
+            "id": "fightingstyle_melee"
+        },
+        "weaponType": {
+            "id": "weapontype_smiteweapon"
+        }
     }
 }

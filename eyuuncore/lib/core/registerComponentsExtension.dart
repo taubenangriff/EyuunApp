@@ -7,12 +7,14 @@ import 'package:eyuuncore/components/CharacterPath.dart';
 import 'package:eyuuncore/components/CombatShield.dart';
 import 'package:eyuuncore/components/Cost.dart';
 import 'package:eyuuncore/components/CraftMethod.dart';
+import 'package:eyuuncore/components/Craftable.dart';
 import 'package:eyuuncore/components/DamageType.dart';
 import 'package:eyuuncore/components/Equippable.dart';
 import 'package:eyuuncore/components/Flux.dart';
 import 'package:eyuuncore/components/Holdable.dart';
 import 'package:eyuuncore/components/Icon.dart';
 import 'package:eyuuncore/components/Language.dart';
+import 'package:eyuuncore/components/Parry.dart';
 import 'package:eyuuncore/components/PathStep.dart';
 import 'package:eyuuncore/components/Project.dart';
 import 'package:eyuuncore/components/Projectile.dart';
@@ -89,6 +91,8 @@ extension registerEditorComponentsExtension on ComponentRepository {
     registerComponent<TalentStatic>(TalentComponent.propertyName, (map) => TalentStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<HoldableStatic>(HoldableComponent.propertyName, (map) => HoldableStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<ActionUserStatic>(ActionUserComponent.propertyName, (map) => ActionUserStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<CraftableStatic>(CraftableComponent.propertyName, (map) => CraftableStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<ParryStatic>(ParryComponent.propertyName, (map) => ParryStaticMapper.fromMap(map), (comp) => comp.toMap());
     //Upgrades
 
     registerComponent<ArmorUpgradeStatDyn>(ArmorUpgradeComponent.propertyName, (map) => ArmorUpgradeStatDynMapper.fromMap(map), (comp) => comp.toMap());
@@ -146,6 +150,8 @@ extension RegisterComponentsExtension on WorldManager {
     registerComponent<TalentComponent, int>(TalentComponent.propertyName, () => TalentComponent());
     registerComponent<HoldableComponent, int>(HoldableComponent.propertyName, () => HoldableComponent());
     registerComponent<ActionUserComponent, int>(ActionUserComponent.propertyName, () => ActionUserComponent());
+    registerComponent<CraftableComponent, int>(CraftableComponent.propertyName, () => CraftableComponent());
+    registerComponent<ParryComponent, int>(ParryComponent.propertyName, () => ParryComponent());
 
     // register Upgrades
     registerComponent<ArmorUpgradeComponent, int>(ArmorUpgradeComponent.propertyName, () => ArmorUpgradeComponent());

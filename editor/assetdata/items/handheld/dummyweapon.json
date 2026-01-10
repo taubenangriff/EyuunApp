@@ -15,6 +15,15 @@
     "holdable": {
         "equipmentSlotsNeeded": 1
     },
+    "parry": {
+        "parriableAttackScopes": [
+            "Melee"
+        ],
+        "parryTalent": {
+            "id": "fightingstyle_melee"
+        }
+    },
+    "craftable": {},
     "weapon": {
         "fightingType": {
             "id": "fightingstyle_melee"

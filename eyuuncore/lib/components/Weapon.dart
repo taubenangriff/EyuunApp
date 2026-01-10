@@ -1,5 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/components/CraftMethod.dart';
+import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/components/Skillcheck.dart';
 import 'package:eyuuncore/core/UpgradableInt.dart';
 import 'package:eyuuncore/core/reflection/Reflecting.dart';
@@ -23,31 +24,23 @@ class WeaponStatic with WeaponStaticMappable, ComponentReflectable {
 class WeaponDynamic with WeaponDynamicMappable {
   AssetLink fightingType;
   AssetLink? weaponType;
-  AssetLink? material;
-  AssetLink? craftMethod;
-  int upgradeSlots;
   double skillMultiplier;
 
-  WeaponDynamic(this.fightingType, {this.weaponType, this.material, this.craftMethod, this.upgradeSlots = 0, this.skillMultiplier = 1});
+  WeaponDynamic(this.fightingType, {this.weaponType, this.skillMultiplier = 1});
 }
 
 class WeaponComponent extends EyuunComponent<int> {
   static const String propertyName = "weapon";
 
+  /// Link to an Asset that describes this weapons fightingType. This asset is a talent and used to gather the value from [SkillLearnerComponent] for this weapon.
   late AssetLink fightingType;
 
-  /// Link to an asset with a [SkillcheckComponent] that describes this weapons Type
+  /// Link to an asset with the buff related this weapons Type. Skillcheck is decided by the weapon itself, not through here.
   late AssetLink? weaponType;
 
-  /// Link to an asset that describes this weapons material.
-  late AssetLink? material;
-
-  /// AssetLink to the [CraftMethodComponent] that describes this weapons craft method.
-  late AssetLink? craftMethod;
-
-  UpgradableInt upgradeSlots = 0.upgradable;
-
   double skillMultiplier = 1;
+
+  late AttackScope attackScope;
 
   @override
   String getName() => propertyName;
@@ -62,9 +55,6 @@ class WeaponComponent extends EyuunComponent<int> {
     var dyn = WeaponDynamicMapper.fromMap(dynamicData);
     fightingType = dyn.fightingType;
     weaponType =  dyn.weaponType;
-    material = dyn.material;
-    craftMethod = dyn.craftMethod;
-    upgradeSlots = dyn.upgradeSlots.upgradable;
     skillMultiplier = dyn.skillMultiplier;
   }
 
@@ -78,11 +68,11 @@ class WeaponComponent extends EyuunComponent<int> {
   @override
   void reset() {
     weaponType = AssetLink.invalid();
-    material = AssetLink.invalid();
-    craftMethod = AssetLink.invalid();
-    upgradeSlots = 0.upgradable;
+    attackScope = AttackScope.Melee;
+    skillMultiplier = 0;
+    fightingType = AssetLink.invalid();
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => WeaponDynamic(fightingType, weaponType: weaponType, material: material, craftMethod: craftMethod, upgradeSlots: upgradeSlots.base).toMap();
+  Map<String, dynamic> saveDynamicData() => WeaponDynamic(fightingType, weaponType: weaponType).toMap();
 }

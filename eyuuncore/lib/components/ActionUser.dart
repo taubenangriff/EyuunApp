@@ -37,6 +37,11 @@ class ActionUserComponent extends EyuunComponent<int> {
           .where((e) => e.has<ActionComponent>())
           .toList();
 
+  void clearRegisteredActions() {
+    actionsThroughObjects = [];
+    actionsThroughAssets = [];
+  }
+
   @override
   String getName() => propertyName;
 

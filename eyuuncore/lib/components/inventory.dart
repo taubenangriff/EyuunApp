@@ -69,6 +69,8 @@ class InventoryComponent extends EyuunComponent<int> {
     items.remove(index);
   }
 
+  List<InventoryItem> getItems() => items.values.toList();
+
   /// Adds an Item to the first free inventory Slot.
   void addItemToFirstFreeSlot(InventoryItem item) {
     var index = getNextFreeSlotIndex();

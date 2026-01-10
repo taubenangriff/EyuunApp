@@ -55,7 +55,7 @@ void main() async {
     return;
   }
 
-  var weapon = goService.createInstance("weapon_01");
+  var weapon = goService.createInstance("smite_weapon_axe");
   if(weapon != null){
     character.get<CombatComponent>()?.equippedItems.add(ObjectLink.fromEntity(weapon));
   }
