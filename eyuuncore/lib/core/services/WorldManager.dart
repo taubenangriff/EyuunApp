@@ -1,4 +1,4 @@
-import 'package:eyuuncore/core/UpgradableInt.dart';
+import 'package:eyuuncore/core/upgrading/UpgradableInt.dart';
 import 'package:eyuuncore/core/upgradeDescriptor.dart';
 import 'package:oxygen/oxygen.dart';
 

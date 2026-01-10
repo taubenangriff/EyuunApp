@@ -9,6 +9,7 @@ import '../core/components/EyuunComponent.dart';
 import '../core/objectLink.dart';
 import '../core/reflection/Reflecting.dart';
 import '../core/reflection/reflector.dart';
+import '../core/upgrading/UpgradableList.dart';
 
 part 'ActionUser.mapper.dart';
 
@@ -24,7 +25,8 @@ class ActionLink {
   Entity source;
 
   hasExternalSource() => action != source;
-  ActionLink({required this.action, required Entity? source}) : source = source ?? action;
+  ActionLink({required this.action, required Entity? source})
+    : source = source ?? action;
 }
 
 class ActionUserComponent extends EyuunComponent<int> {
@@ -33,28 +35,31 @@ class ActionUserComponent extends EyuunComponent<int> {
   late List<ActionLink> _defaultActions;
 
   /// filled by ActionSystem.dart
-  List<ActionLink> _actionsThroughEntities = [];
+  late UpgradableList<ActionLink> _actionsThroughEntities;
 
-  List<ActionLink> getStaticActions() => _defaultActions + _actionsThroughEntities;
+  List<ActionLink> getStaticActions() =>
+      _defaultActions + _actionsThroughEntities.current;
 
   List<Entity> getActions() => getStaticActions().map((e) => e.action).toList();
 
   void clearRegisteredActions() {
-    _actionsThroughEntities = [];
+    _actionsThroughEntities = <ActionLink>[].upgradable;
   }
 
-  void _addDefaultAction(Entity? entity, {Entity? source}){
-    if(entity == null){
+  void _addDefaultAction(Entity? entity, {Entity? source}) {
+    if (entity == null) {
       return;
     }
     _defaultActions.add(ActionLink(action: entity, source: source ?? entity));
   }
 
-  void addAction(Entity? entity, {Entity? source}){
-    if(entity == null){
+  void addAction(Entity? entity, {Entity? source}) {
+    if (entity == null) {
       return;
     }
-    _actionsThroughEntities.add(ActionLink(action: entity, source: source ?? entity));
+    _actionsThroughEntities.add(
+      ActionLink(action: entity, source: source ?? entity),
+    );
   }
 
   @override
@@ -73,7 +78,7 @@ class ActionUserComponent extends EyuunComponent<int> {
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = ActionUserStaticMapper.fromMap(staticData);
-    for(var link in stat.defaultActions){
+    for (var link in stat.defaultActions) {
       var entity = link.getEntity();
       _addDefaultAction(entity);
     }
@@ -82,7 +87,7 @@ class ActionUserComponent extends EyuunComponent<int> {
   @override
   void reset() {
     _defaultActions = [];
-    _actionsThroughEntities = [];
+    _actionsThroughEntities = <ActionLink>[].upgradable;
   }
 
   @override

@@ -2,7 +2,7 @@ import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:eyuuncore/core/reflection/reflector.dart';
 
-import '../core/UpgradableInt.dart';
+import '../core/upgrading/UpgradableInt.dart';
 import '../core/assetLink.dart';
 import '../core/reflection/Reflecting.dart';
 import '../enums/dice.dart';

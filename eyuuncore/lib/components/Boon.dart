@@ -1,7 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
 
-import '../core/UpgradableInt.dart';
+import '../core/upgrading/UpgradableInt.dart';
 import '../core/reflection/Reflecting.dart';
 import '../core/reflection/reflector.dart';
 

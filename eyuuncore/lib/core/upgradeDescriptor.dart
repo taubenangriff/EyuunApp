@@ -1,6 +1,7 @@
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
+import 'package:eyuuncore/core/upgrading/UpgradableList.dart';
 
-import 'UpgradableInt.dart';
+import 'upgrading/UpgradableInt.dart';
 
 //Used for registering Upgrades in the WorldManager.
 
@@ -15,4 +16,13 @@ class UpgradeDescriptor {
   int? Function(EyuunComponent) getUpgrade;
 
   UpgradeDescriptor(this.typeIdBase, this.typeIdUpgrade, this.getBase, this.getUpgrade);
+}
+
+class ListUpgradeDescriptor<T> {
+  String typeIdBase;
+  String typeIdUpgrade;
+  UpgradableList<T> Function(EyuunComponent) getBase;
+  List<T>? Function(EyuunComponent) getUpgrade;
+
+  ListUpgradeDescriptor(this.typeIdBase, this.typeIdUpgrade, this.getBase, this.getUpgrade);
 }

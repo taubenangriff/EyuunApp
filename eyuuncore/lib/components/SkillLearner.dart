@@ -3,7 +3,7 @@ import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:eyuuncore/core/reflection/Reflecting.dart';
 import 'package:eyuuncore/core/reflection/reflector.dart';
 
-import '../core/UpgradableInt.dart';
+import '../core/upgrading/UpgradableInt.dart';
 import '../core/assetLink.dart';
 
 part 'SkillLearner.mapper.dart';

@@ -2,7 +2,7 @@ import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/components/CraftMethod.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/components/Skillcheck.dart';
-import 'package:eyuuncore/core/UpgradableInt.dart';
+import 'package:eyuuncore/core/upgrading/UpgradableInt.dart';
 import 'package:eyuuncore/core/reflection/Reflecting.dart';
 
 import '../core/assetLink.dart';
