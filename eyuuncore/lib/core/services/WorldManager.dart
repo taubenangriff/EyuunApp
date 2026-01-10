@@ -3,6 +3,7 @@ import 'package:eyuuncore/core/upgradeDescriptor.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../components/EyuunComponent.dart';
+import '../upgrading/UpgradableList.dart';
 
 typedef FuncEyuunComponentAdder<T1 extends EyuunComponent<T2>, T2> = void Function(Entity entity);
 typedef FuncEyuunComponentChecker<T1 extends EyuunComponent<T2>, T2> = bool Function(Entity entity);
@@ -20,7 +21,9 @@ class WorldManager{
   Map<String, Type> components = {};
 
   List<UpgradeDescriptor> _updateRegistry = [];
+  List<ListUpgradeDescriptor> _listUpdateRegistry = [];
   List<UpgradeDescriptor> get upgrades => _updateRegistry;
+  List<ListUpgradeDescriptor> get listUpdates => _listUpdateRegistry;
 
   void registerUpgrade (
       UpgradableInt Function(EyuunComponent) getBase,
@@ -28,6 +31,14 @@ class WorldManager{
       String baseTypeId,
       String upgradeTypeId) {
     _updateRegistry.add(UpgradeDescriptor(baseTypeId, upgradeTypeId, getBase, getUpgrade));
+  }
+
+  void registerListUpgrade<T>(
+      UpgradableList<T> Function(EyuunComponent) getBase,
+      List<T>? Function(EyuunComponent) getUpgrade,
+      String baseTypeId,
+      String upgradeTypeId) {
+    _listUpdateRegistry.add(ListUpgradeDescriptor(baseTypeId, upgradeTypeId, getBase, getUpgrade));
   }
 
   void registerComponent<T1 extends EyuunComponent<T2>, T2>(String propertyName, T1 Function() create){

@@ -43,6 +43,30 @@ class UpgradeSystem extends System {
 
   /// Applies an upgrade to an entity.
   void applyUpgrade(Entity entity, Entity buff) {
+    applyUpgradableInts(entity, buff);
+    applyUpgradableLists(entity, buff);
+  }
+
+  void applyUpgradableLists(Entity entity, Entity buff){
+    for(var upgradeDescriptor in worldManager.listUpdates) {
+      var baseComponent = worldManager.getComponentFromEntity(upgradeDescriptor.typeIdBase, entity);
+      var upgradeComponent = worldManager.getComponentFromEntity(upgradeDescriptor.typeIdUpgrade, buff);
+
+      if(upgradeComponent == null || baseComponent == null){
+        continue;
+      }
+
+      var upgradableList = upgradeDescriptor.getBase(baseComponent);
+      var upgradeList = upgradeDescriptor.getUpgrade(upgradeComponent);
+
+      if(upgradeList == null) {
+        continue;
+      }
+      upgradableList.upgradeList.addAll(upgradeList);
+    }
+  }
+
+  void applyUpgradableInts(Entity entity, Entity buff) {
     for(var upgradeDescriptor in worldManager.upgrades) {
       var baseComponent = worldManager.getComponentFromEntity(upgradeDescriptor.typeIdBase, entity);
       var upgradeComponent = worldManager.getComponentFromEntity(upgradeDescriptor.typeIdUpgrade, buff);

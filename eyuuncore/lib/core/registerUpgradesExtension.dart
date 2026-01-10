@@ -1,3 +1,4 @@
+import 'package:eyuuncore/components/ActionUser.dart';
 import 'package:eyuuncore/components/Armor.dart';
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/CharacterPath.dart';
@@ -5,6 +6,7 @@ import 'package:eyuuncore/components/Combat.dart';
 import 'package:eyuuncore/components/Flux.dart';
 import 'package:eyuuncore/components/LanguageLearner.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
+import 'package:eyuuncore/components/upgrade/ActionUserUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/ArmorUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/AttributesUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/FluxUpgrade.dart';
@@ -120,5 +122,12 @@ extension RegisterUpgradesExtension on WorldManager {
         (e) => (e as TalentsUpgradeComponent).skillCeilingUpgrade,
         SkillLearnerComponent.propertyName,
         TalentsUpgradeComponent.propertyName);
+
+    //ActionUserUpgrade
+    registerListUpgrade(
+        (e) => (e as ActionUserComponent).actionsThroughEntities,
+        (e) => (e as ActionUserUpgradeComponent).addedActions,
+        ActionUserComponent.propertyName,
+        ActionUserUpgradeComponent.propertyName);
   }
 }
