@@ -9,9 +9,7 @@
         "isAdditional": false,
         "pathType": "Flux"
     },
-    "buff": {
-        "textDescription": "path_flux_05_step_05_effectdesc"
-    },
+    "buff": { },
     "actionUserUpgrade": {
         "addedActions": [
             {

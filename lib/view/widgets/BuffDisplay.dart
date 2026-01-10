@@ -1,4 +1,6 @@
+import 'package:eyuuncore/components/Action.dart';
 import 'package:eyuuncore/components/health.dart';
+import 'package:eyuuncore/components/upgrade/ActionUserUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/ArmorUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/AttributesUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/Buff.dart';
@@ -10,9 +12,9 @@ import 'package:eyuuncore/components/upgrade/LanguageLearnerUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/TalentsUpgrade.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
+import 'package:eyuuncore/enums/ActionTime.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
-
 
 class BuffDisplay extends StatelessWidget {
   final Entity? buff;
@@ -41,8 +43,7 @@ class BuffDisplay extends StatelessWidget {
     }
 
     if (buff!.has<FluxUpgradeComponent>()) {
-
-      if(widgets.isNotEmpty){
+      if (widgets.isNotEmpty) {
         _addDivider(widgets);
       }
 
@@ -66,7 +67,7 @@ class BuffDisplay extends StatelessWidget {
     if (buff!.has<ArmorUpgradeComponent>()) {
       var armorUpgrade = buff!.get<ArmorUpgradeComponent>()!;
       if (armorUpgrade.armorToughnessBonus > 0) {
-        if(widgets.isNotEmpty){
+        if (widgets.isNotEmpty) {
           _addDivider(widgets);
         }
         widgets.add(_buildValueUpgradeWidget(
@@ -80,7 +81,7 @@ class BuffDisplay extends StatelessWidget {
     if (buff!.has<AttributesUpgradeComponent>()) {
       var attributesUpgrade = buff!.get<AttributesUpgradeComponent>()!;
       if (attributesUpgrade.maxDiceIncreasesUpgrade > 0) {
-        if(widgets.isNotEmpty){
+        if (widgets.isNotEmpty) {
           _addDivider(widgets);
         }
         widgets.add(_buildValueUpgradeWidget(
@@ -94,7 +95,7 @@ class BuffDisplay extends StatelessWidget {
     if (buff!.has<CharacterPathUpgradeComponent>()) {
       var characterPathUpgrade = buff!.get<CharacterPathUpgradeComponent>()!;
       if (characterPathUpgrade.pathCapacityUpgrade > 0) {
-        if(widgets.isNotEmpty){
+        if (widgets.isNotEmpty) {
           _addDivider(widgets);
         }
         widgets.add(_buildValueUpgradeWidget(
@@ -108,8 +109,12 @@ class BuffDisplay extends StatelessWidget {
     if (buff!.has<CombatUpgradeComponent>()) {
       var combatUpgrade = buff!.get<CombatUpgradeComponent>()!;
 
-      if(combatUpgrade.speedUpgrade > 0 || combatUpgrade.evasionUpgrade > 0 || combatUpgrade.initiativeUpgrade > 0 || combatUpgrade.actionsPerRoundUpgrade > 0 || combatUpgrade.reactionsPerRoundUpgrade > 0){
-        if(widgets.isNotEmpty){
+      if (combatUpgrade.speedUpgrade > 0 ||
+          combatUpgrade.evasionUpgrade > 0 ||
+          combatUpgrade.initiativeUpgrade > 0 ||
+          combatUpgrade.actionsPerRoundUpgrade > 0 ||
+          combatUpgrade.reactionsPerRoundUpgrade > 0) {
+        if (widgets.isNotEmpty) {
           _addDivider(widgets);
         }
       }
@@ -150,7 +155,7 @@ class BuffDisplay extends StatelessWidget {
 
       if (healthUpgrade.maxHitpointsUpgrade > 0 ||
           healthUpgrade.maxDeathThrowsUpgrade > 0) {
-        if(widgets.isNotEmpty){
+        if (widgets.isNotEmpty) {
           _addDivider(widgets);
         }
       }
@@ -175,7 +180,7 @@ class BuffDisplay extends StatelessWidget {
       var llUpgrade = buff!.get<LanguageLearnerUpgradeComponent>()!;
 
       if (llUpgrade.languageMaxPotentialUpgrade > 0) {
-        if(widgets.isNotEmpty){
+        if (widgets.isNotEmpty) {
           _addDivider(widgets);
         }
         widgets.add(_buildValueUpgradeWidget(
@@ -189,8 +194,9 @@ class BuffDisplay extends StatelessWidget {
     if (buff!.has<TalentsUpgradeComponent>()) {
       var talentsUpgrade = buff!.get<TalentsUpgradeComponent>()!;
 
-      if(talentsUpgrade.addSkillpoints > 0 || talentsUpgrade.skillCeilingUpgrade > 0){
-        if(widgets.isNotEmpty){
+      if (talentsUpgrade.addSkillpoints > 0 ||
+          talentsUpgrade.skillCeilingUpgrade > 0) {
+        if (widgets.isNotEmpty) {
           _addDivider(widgets);
         }
       }
@@ -208,6 +214,34 @@ class BuffDisplay extends StatelessWidget {
             Icons.skip_next,
             "uitext_skillceilingupgrade",
             talentsUpgrade.skillCeilingUpgrade.toString()));
+      }
+    }
+
+    if (buff!.has<ActionUserUpgradeComponent>()) {
+      var actionUserUpgrade = buff!.get<ActionUserUpgradeComponent>()!;
+
+      for (var entry in actionUserUpgrade.addedActions) {
+        var actionEntity = entry.action;
+        var actionTime = actionEntity.get<ActionComponent>()?.actionTime;
+
+        if (actionTime == null) {
+          continue;
+        }
+        if (widgets.isNotEmpty) {
+          _addDivider(widgets);
+        }
+        widgets.add(SizedBox(height:6));
+        widgets.add(Align(
+            alignment: AlignmentGeometry.centerLeft,
+            child:
+                Text("${locator<TextService>().getText("uitext_actionUserUpgrade")}${locator<TextService>().getText(actionTime.getTextKey())}:")));
+        widgets.add(SizedBox(height:6));
+        var actionDesc =
+            locator<TextService>().getActionDescriptionFromEntity(actionEntity);
+
+        widgets.add(Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Text(actionDesc)));
       }
     }
     return widgets;

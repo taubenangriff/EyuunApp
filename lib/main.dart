@@ -64,10 +64,6 @@ void main() async {
     character.get<CombatComponent>()?.equippedItems.add(ObjectLink.fromEntity(weapon));
   }
 
-  character.get<CharacterPathComponent>()?.chosenPaths.add(AssetLink("path_flux_05"));
-  character.get<CharacterPathComponent>()?.chosenPathSteps.add(AssetLink("path_flux_05_step_05"));
-  character.get<UpgradableComponent>()?.appliedUpgrades.add("path_flux_05_step_05");
-
   locator<CharacterService>().changeCharacter(character);
 
   worldManager.world.execute(1);
