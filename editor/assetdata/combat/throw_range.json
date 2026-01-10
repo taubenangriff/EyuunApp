@@ -2,11 +2,10 @@
     "standard": {
         "typeId": "throw_range"
     },
-    "text": {
-        "fluff": "throw_range_fluff"
-    },
+    "text": { },
     "action": {
-        "actionTime": "Action"
+        "actionDescription": "throw_range_fluff",
+        "actionTime": "Attack"
     },
     "weapon": {
         "fightingType": {

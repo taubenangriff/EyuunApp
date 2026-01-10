@@ -156,7 +156,7 @@ class _ActionsWidgetState extends State<ActionsWidget> {
                 const SizedBox(height: 16),
                 // 📖 Description
                 Text(
-                  _textService.getFluffFromEntity(entity),
+                  _textService.getActionDescriptionFromEntity(entity),
                   style: Theme.of(context).textTheme.bodyMedium,
                   textAlign: TextAlign.justify,
                 ),

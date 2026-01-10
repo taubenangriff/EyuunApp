@@ -2,10 +2,9 @@
   "standard": {
     "typeId": "parry_melee"
   },
-  "text": {
-    "fluff": "smite_weapon_axe_fluff"
-  },
+  "text": { },
   "action": {
+    "actionDescription": "parry_melee_fluff",
     "actionTime": "Defend"
   },
   "parry": {

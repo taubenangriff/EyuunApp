@@ -1,3 +1,4 @@
+import 'package:eyuuncore/components/Action.dart';
 import 'package:eyuuncore/components/text.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/core/repository/TextRepository.dart';
@@ -21,6 +22,18 @@ class TextService {
       return "!No Entity";
     }
     return getText(entity.getTextKey());
+  }
+
+  String getActionDescriptionFromEntity(Entity? entity){
+    if(entity == null){
+      return "!No Entity";
+    }
+    var key = entity.get<ActionComponent>()?.actionDescription;
+    if(key == null){
+      return "";
+    }
+
+    return getText(key);
   }
 
   String getFluffFromEntity(Entity? entity) {

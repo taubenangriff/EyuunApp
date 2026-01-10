@@ -16,8 +16,10 @@ class ActionStatic with ActionStaticMappable, ComponentReflectable {
   int fluxCost;
   int castingTimeMinutes;
 
+  String? actionDescription;
+
   ActionStatic(this.actionTime, [this.billingCycle = BillingCycle.Once, this.fluxCost = 0,
-      this.castingTimeMinutes = 0]);
+      this.castingTimeMinutes = 0, this.actionDescription]);
 }
 
 class ActionComponent extends EyuunComponent<int> {
@@ -34,6 +36,8 @@ class ActionComponent extends EyuunComponent<int> {
 
   /// If castTime is set to Minutes, this is the amount of minutes needed to cast this.
   int castingTimeMinutes = 0;
+
+  String? actionDescription;
 
   @override
   String getName() => propertyName;
@@ -55,6 +59,7 @@ class ActionComponent extends EyuunComponent<int> {
     billingCycle = stat.billingCycle;
     fluxCost = stat.fluxCost;
     castingTimeMinutes = stat.castingTimeMinutes;
+    actionDescription = stat.actionDescription;
   }
 
   @override
@@ -63,6 +68,7 @@ class ActionComponent extends EyuunComponent<int> {
     billingCycle = BillingCycle.Once;
     fluxCost = 0;
     castingTimeMinutes = 0;
+    actionDescription = null;
   }
 
   @override

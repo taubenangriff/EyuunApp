@@ -2,10 +2,9 @@
     "standard": {
         "typeId": "weaponless_attack"
     },
-    "text": {
-        "fluff": "weaponless_attack_fluff"
-    },
+    "text": { },
     "action": {
+        "actionDescription": "weaponless_attack_fluff",
         "actionTime": "Attack"
     },
     "weapon": {

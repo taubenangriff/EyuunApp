@@ -2,10 +2,9 @@
     "standard": {
         "typeId": "throw_melee"
     },
-    "text": {
-        "fluff": "throw_melee_fluff"
-    },
+    "text": { },
     "action": {
+        "actionDescription": "throw_melee_fluff",
         "actionTime": "Action"
     },
     "weapon": {

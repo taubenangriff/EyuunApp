@@ -6,6 +6,7 @@
         "fluff": "smite_weapon_axe_fluff"
     },
     "action": {
+        "actionDescription": "attack_actiondesc",
         "actionTime": "Attack"
     },
     "item": {
