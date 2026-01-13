@@ -145,6 +145,9 @@
       },
       {
         "id": "throw_range"
+      },
+      {
+        "id": "action_hide"
       }
     ]
   }

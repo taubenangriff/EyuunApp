@@ -23,8 +23,10 @@ class SkillcheckStaticOption with SkillcheckStaticOptionMappable {
 @MappableClass()
 @reflector
 class SkillcheckStatic with SkillcheckStaticMappable, ComponentReflectable {
+  AssetLink? overrideTalentValue;
+  AssetLink? overrideSkillcheck;
   List<SkillcheckStaticOption> checkedAttributes;
-  SkillcheckStatic(this.checkedAttributes);
+  SkillcheckStatic({List<SkillcheckStaticOption>? checkedAttributes, this.overrideTalentValue, this.overrideSkillcheck}) : checkedAttributes = checkedAttributes ?? [];
 }
 
 @MappableClass()
@@ -34,7 +36,11 @@ class SkillcheckDynamic with SkillcheckDynamicMappable {
 }
 
 class SkillcheckComponent extends EyuunComponent<int> {
-  List<SkillcheckOption> checkedAttributes = [];
+  late AssetLink? overrideTalentValue;
+  late AssetLink? overrideSkillcheck;
+
+  List<SkillcheckOption> _checkedAttributes = [];
+  List<SkillcheckOption> get checkedAttributes => overrideSkillcheck?.getEntity()?.get<SkillcheckComponent>()?.checkedAttributes ?? _checkedAttributes;
 
   static const String propertyName = "skillcheck";
   @override
@@ -42,27 +48,31 @@ class SkillcheckComponent extends EyuunComponent<int> {
 
   @override
   void init([int? data]) {
-    checkedAttributes = [];
+    reset();
   }
 
   @override
   void loadDynamicData(Map<String, dynamic> dynamicData) {
     var dyn = SkillcheckDynamicMapper.fromMap(dynamicData);
-    checkedAttributes = dyn.checkedAttributes;
+    _checkedAttributes = dyn.checkedAttributes;
   }
 
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = SkillcheckStaticMapper.fromMap(staticData);
-    checkedAttributes = stat.checkedAttributes.map((e) => SkillcheckOption(e.options, e.options.first)).toList();
+    _checkedAttributes = stat.checkedAttributes.map((e) => SkillcheckOption(e.options, e.options.first)).toList();
+    overrideSkillcheck = stat.overrideSkillcheck;
+    overrideTalentValue = stat.overrideTalentValue;
   }
 
   @override
   void reset() {
-    checkedAttributes = [];
+    _checkedAttributes = [];
+    overrideSkillcheck = AssetLink.invalid();
+    overrideTalentValue = AssetLink.invalid();
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => SkillcheckDynamic(checkedAttributes).toMap();
+  Map<String, dynamic> saveDynamicData() => SkillcheckDynamic(_checkedAttributes).toMap();
 
 }

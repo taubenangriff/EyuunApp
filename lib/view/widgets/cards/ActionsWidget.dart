@@ -115,7 +115,7 @@ class _ActionsWidgetState extends State<ActionsWidget> {
     var hasWeapon = entity.has<WeaponComponent>();
 
     SkillcheckController skillcheckController =
-        SkillcheckController(widget.skillLearner, widget.attributes);
+        SkillcheckController(widget.skillLearner);
 
     return GestureDetector(
       onTap: () {

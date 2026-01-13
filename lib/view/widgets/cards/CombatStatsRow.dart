@@ -1,16 +1,25 @@
 import 'package:eyuuncore/components/Combat.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
+import 'package:eyuuncore/controller/SkillcheckController.dart';
+import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:flutter/material.dart';
 
 class CombatStatsRow extends StatelessWidget {
   final CombatComponent combat;
   final SkillLearnerComponent skillLearner;
+  late final SkillcheckController controller =
+      SkillcheckController(skillLearner);
 
-  const CombatStatsRow(
-      {super.key, required this.combat, required this.skillLearner});
+  CombatStatsRow({super.key, required this.combat, required this.skillLearner});
 
   @override
   Widget build(BuildContext context) {
+    var combatMelee =
+        locator<GameObjectService>().getStatic("fightingstyle_melee");
+    var combatRange =
+        locator<GameObjectService>().getStatic("fightingstyle_range");
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -43,14 +52,16 @@ class CombatStatsRow extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _StatItem(
-                icon: Icons.rice_bowl,
-                label: 'Melee attack',
-                value: skillLearner.getSkillValue("fightingstyle_melee")),
-            _StatItem(
-                icon: Icons.tap_and_play_rounded,
-                label: 'Range attack',
-                value: skillLearner.getSkillValue("fightingstyle_range")),
+            if (combatMelee != null)
+              _StatItem(
+                  icon: Icons.rice_bowl,
+                  label: 'Melee attack',
+                  value: controller.getActiveTalentSkill(combatMelee)),
+            if (combatRange != null)
+              _StatItem(
+                  icon: Icons.tap_and_play_rounded,
+                  label: 'Range attack',
+                  value: controller.getActiveTalentSkill(combatRange)),
           ],
         )
       ],
