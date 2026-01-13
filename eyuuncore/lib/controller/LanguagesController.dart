@@ -17,7 +17,7 @@ class LanguagesController {
 
   List<Entity> _evaluateLearnableLanguages() {
     return locator<CharacterTablesFeatureComponent>()
-        .getLanguages()
+        .languages
         .where((e) =>
             !targetLearner.languagesLearned.any((x) => x.id == e.getTypeId()))
         .toList();
