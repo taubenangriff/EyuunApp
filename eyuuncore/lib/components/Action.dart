@@ -18,8 +18,13 @@ class ActionStatic with ActionStaticMappable, ComponentReflectable {
 
   String? actionDescription;
 
-  ActionStatic(this.actionTime, [this.billingCycle = BillingCycle.Once, this.fluxCost = 0,
-      this.castingTimeMinutes = 0, this.actionDescription]);
+  ActionStatic({
+    this.actionTime = ActionTime.None,
+    this.billingCycle = BillingCycle.Once,
+    this.fluxCost = 0,
+    this.castingTimeMinutes = 0,
+    this.actionDescription,
+  });
 }
 
 class ActionComponent extends EyuunComponent<int> {

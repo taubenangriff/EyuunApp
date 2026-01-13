@@ -17,7 +17,7 @@ part 'ActionUser.mapper.dart';
 @reflector
 class ActionUserStatic with ActionUserStaticMappable, ComponentReflectable {
   List<AssetLink> defaultActions;
-  ActionUserStatic(this.defaultActions);
+  ActionUserStatic({List<AssetLink>? defaultActions}) : defaultActions = defaultActions ?? [];
 }
 
 class ActionLink {

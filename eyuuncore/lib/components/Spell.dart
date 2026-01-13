@@ -18,8 +18,14 @@ class SpellStatic with SpellStaticMappable, ComponentReflectable {
   int tier;
   AssetLink spellSchool;
 
-  SpellStatic(this.castScope, this.tier, this.spellSchool,
-      [this.castScopeX = 0, this.castScopeY = 0, this.castScopeZ = 0]);
+  SpellStatic({
+    this.castScope = CastScope.Self,
+    this.tier = 0,
+    spellSchool,
+    this.castScopeX = 0,
+    this.castScopeY = 0,
+    this.castScopeZ = 0,
+  }) : spellSchool = spellSchool ?? AssetLink.invalid();
 }
 
 class SpellComponent extends EyuunComponent<int> {

@@ -10,17 +10,22 @@ part 'CharacterPath.mapper.dart';
 
 @MappableClass()
 @reflector
-class CharacterPathStatic with CharacterPathStaticMappable, ComponentReflectable {
+class CharacterPathStatic
+    with CharacterPathStaticMappable, ComponentReflectable {
   int pathCapacity;
   int additionalPathCapacity;
-  CharacterPathStatic(this.pathCapacity, this.additionalPathCapacity);
+  CharacterPathStatic({this.pathCapacity = 0, this.additionalPathCapacity = 0});
 }
 
 @MappableClass()
 class CharacterPathDynamic with CharacterPathDynamicMappable {
   List<AssetLink> chosenPaths;
   List<AssetLink> chosenPathSteps;
-  CharacterPathDynamic(this.chosenPaths, this.chosenPathSteps);
+  CharacterPathDynamic({
+    List<AssetLink>? chosenPaths,
+    List<AssetLink>? chosenPathSteps,
+  }) : chosenPathSteps = chosenPathSteps ?? [],
+       chosenPaths = chosenPaths ?? [];
 }
 
 class CharacterPathComponent extends EyuunComponent<int> {
@@ -68,5 +73,8 @@ class CharacterPathComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => CharacterPathDynamic(chosenPaths, chosenPathSteps).toMap();
+  Map<String, dynamic> saveDynamicData() => CharacterPathDynamic(
+    chosenPaths: chosenPaths,
+    chosenPathSteps: chosenPathSteps,
+  ).toMap();
 }

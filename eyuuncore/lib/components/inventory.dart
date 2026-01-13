@@ -13,7 +13,8 @@ class InventoryDynamic with InventoryDynamicMappable {
 
   int money;
 
-  InventoryDynamic(this.items, this.money);
+  InventoryDynamic({List<InventoryItemDynamic>? items, this.money = 0})
+    : items = items ?? [];
 }
 
 @MappableClass()
@@ -23,12 +24,14 @@ class InventoryItemDynamic with InventoryItemDynamicMappable {
   int count;
   int slot;
 
-  InventoryItemDynamic(this.objectId, this.typeId, this.count, this.slot);
+  InventoryItemDynamic({this.objectId, typeId, this.count = 0, this.slot = 0})
+    : typeId = typeId ?? AssetLink.invalid();
 }
 
 class InventoryItem {
   /// If the inventory item links to a specific object, it is linked here
   ObjectLink? object;
+
   /// The asset key of the asset in inventory. Always stored regardless of specific object (weapon) or just a reusable asset (i.e. drugs etc.)
   AssetLink type;
 
@@ -130,7 +133,7 @@ class InventoryComponent extends EyuunComponent<int> {
   @override
   void loadDynamicData(Map<String, dynamic> dynamicData) {
     var dyn = InventoryDynamicMapper.fromMap(dynamicData);
-    for(var item in dyn.items) {
+    for (var item in dyn.items) {
       var addItem = InventoryItem.fromDynamic(item);
       items[item.slot] = addItem;
     }
@@ -143,13 +146,21 @@ class InventoryComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => InventoryDynamic(items
-          .map((index, item) => MapEntry(
-              index,
-              InventoryItemDynamic(
-                  item.object, item.type, item.count, index)))
-          .values
-          .toList(),
-          money)
-      .toMap();
+  Map<String, dynamic> saveDynamicData() => InventoryDynamic(
+    items: items
+        .map(
+          (index, item) => MapEntry(
+            index,
+            InventoryItemDynamic(
+              objectId: item.object,
+              typeId: item.type,
+              count: item.count,
+              slot: index,
+            ),
+          ),
+        )
+        .values
+        .toList(),
+    money: money,
+  ).toMap();
 }

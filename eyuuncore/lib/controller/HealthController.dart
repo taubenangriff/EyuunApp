@@ -110,9 +110,9 @@ class HealthController {
 
   void _reset() {
     oldHitpoints = _targetHealthComponent.hitpoints;
-    oldShield = _targetHealthComponent.shield;
+    oldShield = _targetHealthComponent.temporaryHitpoints;
     newHitpoints = _targetHealthComponent.hitpoints;
-    newShield = _targetHealthComponent.shield;
+    newShield = _targetHealthComponent.temporaryHitpoints;
     tempHealthChange = 0;
     absorbedByArmor = 0;
     hitpointChange = 0;
@@ -159,7 +159,7 @@ class HealthController {
   }
 
   int _getNaturalArmor() => _targetHealthComponent.naturalArmor.current;
-  int _getTempHealth() => _targetHealthComponent.shield;
+  int _getTempHealth() => _targetHealthComponent.temporaryHitpoints;
 
   void computeDamageSplit(int hpChange) {
     var damage = -hpChange;
@@ -177,12 +177,12 @@ class HealthController {
     hitpointChange = (damageAfterProne + tempHealthChange) * -1;
     hitpointChange = max(-_targetHealthComponent.hitpoints, hitpointChange);
     newHitpoints = min(_targetHealthComponent.hitpoints + hitpointChange, _targetHealthComponent.maxHitpoints.current);
-    newShield = _targetHealthComponent.shield + tempHealthChange;
+    newShield = _targetHealthComponent.temporaryHitpoints + tempHealthChange;
   }
 
   void apply() {
     _targetHealthComponent.hitpoints = newHitpoints;
-    _targetHealthComponent.shield = newShield;
+    _targetHealthComponent.temporaryHitpoints = newShield;
 
     if(damageTypeComponent.degradeArmor && hitpointChange < 0){
       //degrade armor

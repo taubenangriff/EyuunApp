@@ -17,7 +17,8 @@ part 'Weapon.mapper.dart';
 class WeaponStatic with WeaponStaticMappable, ComponentReflectable {
   AssetLink fightingType;
   double skillMultiplier;
-  WeaponStatic(this.fightingType, {this.skillMultiplier = 1});
+  WeaponStatic({AssetLink? fightingType, this.skillMultiplier = 1})
+    : fightingType = fightingType ?? AssetLink.invalid();
 }
 
 @MappableClass()
@@ -26,7 +27,11 @@ class WeaponDynamic with WeaponDynamicMappable {
   AssetLink? weaponType;
   double skillMultiplier;
 
-  WeaponDynamic(this.fightingType, {this.weaponType, this.skillMultiplier = 1});
+  WeaponDynamic({
+    AssetLink? fightingType,
+    this.weaponType,
+    this.skillMultiplier = 1,
+  }) : fightingType = fightingType ?? AssetLink.invalid();
 }
 
 class WeaponComponent extends EyuunComponent<int> {
@@ -54,7 +59,7 @@ class WeaponComponent extends EyuunComponent<int> {
   void loadDynamicData(Map<String, dynamic> dynamicData) {
     var dyn = WeaponDynamicMapper.fromMap(dynamicData);
     fightingType = dyn.fightingType;
-    weaponType =  dyn.weaponType;
+    weaponType = dyn.weaponType;
     skillMultiplier = dyn.skillMultiplier;
   }
 
@@ -74,5 +79,6 @@ class WeaponComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => WeaponDynamic(fightingType, weaponType: weaponType).toMap();
+  Map<String, dynamic> saveDynamicData() =>
+      WeaponDynamic(fightingType: fightingType, weaponType: weaponType).toMap();
 }

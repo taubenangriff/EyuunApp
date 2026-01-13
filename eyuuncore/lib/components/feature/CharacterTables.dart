@@ -11,9 +11,11 @@ part 'CharacterTables.mapper.dart';
 
 @MappableClass()
 @reflector
-class CharacterTablesFeatureStatic with CharacterTablesFeatureStaticMappable, ComponentReflectable {
+class CharacterTablesFeatureStatic
+    with CharacterTablesFeatureStaticMappable, ComponentReflectable {
   AssetLink languages;
-  CharacterTablesFeatureStatic(this.languages);
+  CharacterTablesFeatureStatic({AssetLink? languages})
+    : languages = languages ?? AssetLink.invalid();
 }
 
 class CharacterTablesFeatureComponent extends EyuunComponent<int> {
@@ -22,7 +24,8 @@ class CharacterTablesFeatureComponent extends EyuunComponent<int> {
   /// link to the Asset with [AssetBundleComponent] that contains all the language assets.
   late AssetLink languages;
 
-  List<Entity> getLanguages() => languages.getEntity()?.get<AssetBundleComponent>()?.getAssets() ?? [];
+  List<Entity> getLanguages() =>
+      languages.getEntity()?.get<AssetBundleComponent>()?.getAssets() ?? [];
 
   @override
   String getName() => propertyName;

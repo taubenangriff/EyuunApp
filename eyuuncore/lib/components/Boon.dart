@@ -12,7 +12,7 @@ part 'Boon.mapper.dart';
 class BoonStatic with BoonStaticMappable, ComponentReflectable {
   int maxBoon;
 
-  BoonStatic(this.maxBoon);
+  BoonStatic({this.maxBoon = 0});
 }
 
 @MappableClass()
@@ -21,7 +21,7 @@ class BoonDynamic with BoonDynamicMappable {
   int boonRegeneration;
   int boonSpentSinceLastRest;
 
-  BoonDynamic(this.currentBoon, this.boonRegeneration, this.boonSpentSinceLastRest);
+  BoonDynamic({this.currentBoon = 0, this.boonRegeneration = 0, this.boonSpentSinceLastRest = 0});
 }
 
 class BoonComponent extends EyuunComponent<int> {
@@ -41,7 +41,7 @@ class BoonComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => BoonDynamic(currentBoon, boonRegeneration.base, boonSpentSinceLastRest).toMap();
+  Map<String, dynamic> saveDynamicData() => BoonDynamic(currentBoon: currentBoon, boonRegeneration: boonRegeneration.base, boonSpentSinceLastRest: boonSpentSinceLastRest).toMap();
 
   @override
   void loadDynamicData(Map<String, dynamic> dynamicData) {

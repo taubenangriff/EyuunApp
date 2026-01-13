@@ -10,9 +10,11 @@ part 'CombatShield.mapper.dart';
 
 @MappableClass()
 @reflector
-class CombatShieldStatDyn with CombatShieldStatDynMappable, ComponentReflectable {
+class CombatShieldStatDyn
+    with CombatShieldStatDynMappable, ComponentReflectable {
   AssetLink shieldType;
-  CombatShieldStatDyn(this.shieldType);
+  CombatShieldStatDyn({shieldType})
+    : shieldType = shieldType ?? AssetLink.invalid();
 }
 
 class CombatShieldComponent extends EyuunComponent<int> {
@@ -47,5 +49,6 @@ class CombatShieldComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => CombatShieldStatDyn(shieldType).toMap();
+  Map<String, dynamic> saveDynamicData() =>
+      CombatShieldStatDyn(shieldType: shieldType).toMap();
 }

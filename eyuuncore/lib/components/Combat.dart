@@ -24,18 +24,19 @@ class CombatDynamic with CombatDynamicMappable {
   List<ObjectLink> equippedItems;
   ObjectLink? armor;
 
-  CombatDynamic(
-      this.speed,
-      this.evasion,
-      this.initiative,
-      this.actionsPerRound,
-      this.reactionsPerRound,
-      this.isSurprised,
-      this.remainingActions,
-      this.remainingReactions,
-      this.equipmentSlotCount,
-      this.equippedItems,
-      this.armor);
+  CombatDynamic({
+    this.speed = 0,
+    this.evasion = 0,
+    this.initiative = 0,
+    this.actionsPerRound = 0,
+    this.reactionsPerRound = 0,
+    this.isSurprised = false,
+    this.remainingActions = 0,
+    this.remainingReactions = 0,
+    this.equipmentSlotCount = 0,
+    List<ObjectLink>? equippedItems,
+    this.armor,
+  }) : equippedItems = equippedItems ?? [];
 }
 
 class CombatComponent extends EyuunComponent<int> {
@@ -43,12 +44,16 @@ class CombatComponent extends EyuunComponent<int> {
 
   /// walking speed
   late UpgradableInt speed;
+
   /// bonus on evasion rolls
   late UpgradableInt evasion;
+
   /// the current initiative roll. Outside combat, this value does not matter.
   late UpgradableInt initiative;
+
   /// the amount of actions a character can perform per round.
   late UpgradableInt actionsPerRound;
+
   /// the amount of reactions a character can perform per round.
   late UpgradableInt reactionsPerRound;
 
@@ -57,8 +62,10 @@ class CombatComponent extends EyuunComponent<int> {
 
   /// is the character currently surprised?
   late bool isSurprised;
+
   /// how many actions remain in this round
   late int remainingActions;
+
   /// how many reactions remain in this round
   late int remainingReactions;
 
@@ -77,19 +84,21 @@ class CombatComponent extends EyuunComponent<int> {
   }
 
   bool wearsArmor() => armor != null;
-  
-  /// gets the amount of equipment Slots that are used by items in equippedItems. 
-  int getOccupiedEquipmentSlotCount(){
+
+  /// gets the amount of equipment Slots that are used by items in equippedItems.
+  int getOccupiedEquipmentSlotCount() {
     var total = 0;
-    for(var item in equippedItems){
-      total += item.getEntity().get<HoldableComponent>()?.equipmentSlotsNeeded ?? 0;
+    for (var item in equippedItems) {
+      total +=
+          item.getEntity().get<HoldableComponent>()?.equipmentSlotsNeeded ?? 0;
     }
     return total;
   }
 
   /// gets whether an item can be equipped in your hand.
-  bool canEquipItem(Entity entity){
-    var slotsNeeded = entity.get<HoldableComponent>()?.equipmentSlotsNeeded ?? 0;
+  bool canEquipItem(Entity entity) {
+    var slotsNeeded =
+        entity.get<HoldableComponent>()?.equipmentSlotsNeeded ?? 0;
     return getOccupiedEquipmentSlotCount() <= equipmentSlotCount + slotsNeeded;
   }
 
@@ -139,16 +148,16 @@ class CombatComponent extends EyuunComponent<int> {
 
   @override
   Map<String, dynamic> saveDynamicData() => CombatDynamic(
-          speed.base,
-          evasion.base,
-          initiative.base,
-          actionsPerRound.base,
-          reactionsPerRound.base,
-          isSurprised,
-          remainingActions,
-          remainingReactions,
-          equipmentSlotCount,
-          equippedItems,
-          armor)
-      .toMap();
+    speed: speed.base,
+    evasion: evasion.base,
+    initiative: initiative.base,
+    actionsPerRound: actionsPerRound.base,
+    reactionsPerRound: reactionsPerRound.base,
+    isSurprised: isSurprised,
+    remainingActions: remainingActions,
+    remainingReactions: remainingReactions,
+    equipmentSlotCount: equipmentSlotCount,
+    equippedItems: equippedItems,
+    armor: armor,
+  ).toMap();
 }

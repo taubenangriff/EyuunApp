@@ -12,7 +12,7 @@ part 'LevelFeature.mapper.dart';
 @reflector
 class LevelFeatureStatic with LevelFeatureStaticMappable, ComponentReflectable {
   List<AssetLink> levels;
-  LevelFeatureStatic(this.levels);
+  LevelFeatureStatic({List<AssetLink>? levels}) : levels = levels ?? [];
 }
 
 class LevelFeatureComponent extends EyuunComponent<int> {
@@ -41,8 +41,8 @@ class LevelFeatureComponent extends EyuunComponent<int> {
 
   /// returns the asset corresponding to the entered level. Levels are 1-based.
   Entity? getLevelAsset(int level) {
-    level = level-1;
-    if(level < 0 || level >= levels.length) {
+    level = level - 1;
+    if (level < 0 || level >= levels.length) {
       return null;
     }
     return levels[level].getEntity();
@@ -51,9 +51,7 @@ class LevelFeatureComponent extends EyuunComponent<int> {
   bool isMaxLevel(int level) => level >= levels.length;
 
   @override
-  void reset() {
-
-  }
+  void reset() {}
 
   @override
   Map<String, dynamic> saveDynamicData() => <String, dynamic>{};

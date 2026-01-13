@@ -10,10 +10,11 @@ part 'CraftMethod.mapper.dart';
 @MappableClass()
 @reflector
 class CraftMethodStatic with CraftMethodStaticMappable, ComponentReflectable {
-  String appliedEffect;
+  AssetLink appliedEffect;
   int increaseSuccessThreshold;
 
-  CraftMethodStatic(this.appliedEffect, this.increaseSuccessThreshold);
+  CraftMethodStatic({appliedEffect, this.increaseSuccessThreshold = 0})
+    : appliedEffect = appliedEffect ?? [];
 }
 
 class CraftMethodComponent extends EyuunComponent<int> {
@@ -44,7 +45,7 @@ class CraftMethodComponent extends EyuunComponent<int> {
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = CraftMethodStaticMapper.fromMap(staticData);
-    appliedEffect = AssetLink(stat.appliedEffect);
+    appliedEffect = stat.appliedEffect;
     increaseSuccessThreshold = stat.increaseSuccessThreshold;
   }
 

@@ -11,8 +11,10 @@ part 'FluxUpgrade.mapper.dart';
 class FluxUpgradeStatDyn with FluxUpgradeStatDynMappable, ComponentReflectable {
   int fluxCapacityUpgrade;
   int fluxMaximumUpgrade;
-  FluxUpgradeStatDyn(
-      [this.fluxCapacityUpgrade = 0, this.fluxMaximumUpgrade = 0]);
+  FluxUpgradeStatDyn({
+    this.fluxCapacityUpgrade = 0,
+    this.fluxMaximumUpgrade = 0,
+  });
 }
 
 class FluxUpgradeComponent extends EyuunComponent<int> {
@@ -47,6 +49,8 @@ class FluxUpgradeComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() =>
-      FluxUpgradeStatDyn(fluxCapacityUpgrade, fluxMaximumUpgrade).toMap();
+  Map<String, dynamic> saveDynamicData() => FluxUpgradeStatDyn(
+    fluxCapacityUpgrade: fluxCapacityUpgrade,
+    fluxMaximumUpgrade: fluxMaximumUpgrade,
+  ).toMap();
 }

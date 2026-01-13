@@ -11,7 +11,7 @@ part 'Item.mapper.dart';
 class ItemStatic with ItemStaticMappable, ComponentReflectable {
   String categoryText;
   int maxStackSize;
-  ItemStatic(this.categoryText, this.maxStackSize);
+  ItemStatic({this.categoryText = "", this.maxStackSize = 0});
 }
 
 class ItemComponent extends EyuunComponent<int> {

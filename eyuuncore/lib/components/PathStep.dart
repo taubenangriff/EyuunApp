@@ -13,7 +13,11 @@ class PathStepStatic with PathStepStaticMappable, ComponentReflectable {
   int tier;
   PathType pathType;
 
-  PathStepStatic(this.isAdditional, this.tier, this.pathType);
+  PathStepStatic({
+    this.isAdditional = false,
+    this.tier = 0,
+    this.pathType = PathType.Fighter,
+  });
 }
 
 class PathStepComponent extends EyuunComponent<int> {
@@ -53,6 +57,4 @@ class PathStepComponent extends EyuunComponent<int> {
 
   @override
   Map<String, dynamic> saveDynamicData() => <String, dynamic>{};
-
-
 }

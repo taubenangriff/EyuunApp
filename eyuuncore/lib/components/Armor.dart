@@ -13,10 +13,11 @@ class ArmorDynamic with ArmorDynamicMappable {
   int athleticImpact;
   int stealthImpact;
 
-  ArmorDynamic(
-      this.evasionImpact,
-      this.athleticImpact,
-      this.stealthImpact);
+  ArmorDynamic({
+    this.evasionImpact = 0,
+    this.athleticImpact = 0,
+    this.stealthImpact = 0,
+  });
 }
 
 @MappableClass()
@@ -29,12 +30,13 @@ class ArmorStatic with ArmorStaticMappable, ComponentReflectable {
   int athleticImpactOnCraft;
   int stealthImpactOnCraft;
 
-  ArmorStatic(
-      this.armorToughness,
-      this.splittableImpactOnCraft,
-      this.evasionImpactOnCraft,
-      this.athleticImpactOnCraft,
-      this.stealthImpactOnCraft);
+  ArmorStatic({
+    this.armorToughness = 0,
+    this.splittableImpactOnCraft = 0,
+    this.evasionImpactOnCraft = 0,
+    this.athleticImpactOnCraft = 0,
+    this.stealthImpactOnCraft = 0,
+  });
 }
 
 class ArmorComponent extends EyuunComponent<int> {
@@ -45,17 +47,22 @@ class ArmorComponent extends EyuunComponent<int> {
 
   /// The impact that needs to be distributed by the crafter to this armor when crafted.
   int splittableImpactOnCraft = 0;
+
   /// The fixed impact on evasion applied to this armor when crafted.
   int evasionImpactOnCraft = 0;
+
   /// The fixed impact on athletic applied to this armor when crafted.
   int athleticImpactOnCraft = 0;
+
   /// The fixed impact on stealth applied to this armor when crafted.
   int stealthImpactOnCraft = 0;
 
   /// The impact on stealth of this armor.
   int evasionImpact = 0;
+
   /// The impact on athletic of this armor.
   int athleticImpact = 0;
+
   /// The impact on stealth of this armor.
   int stealthImpact = 0;
 
@@ -98,5 +105,9 @@ class ArmorComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => ArmorDynamic(evasionImpact, athleticImpact, stealthImpact).toMap();
+  Map<String, dynamic> saveDynamicData() => ArmorDynamic(
+    evasionImpact: evasionImpact,
+    athleticImpact: athleticImpact,
+    stealthImpact: stealthImpact,
+  ).toMap();
 }

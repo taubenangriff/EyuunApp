@@ -7,13 +7,12 @@ import 'package:oxygen/oxygen.dart';
 
 part 'AssetBundle.mapper.dart';
 
-
 @MappableClass()
 @reflector
 class AssetBundleStatic with AssetBundleStaticMappable, ComponentReflectable {
   List<AssetLink> assets;
 
-  AssetBundleStatic(this.assets);
+  AssetBundleStatic({List<AssetLink>? assets}) : assets = assets ?? [];
 }
 
 class AssetBundleComponent extends EyuunComponent<int> {
@@ -22,7 +21,6 @@ class AssetBundleComponent extends EyuunComponent<int> {
   List<AssetLink> assets = [];
 
   List<Entity> getAssets() => assets.getAssets();
-
 
   @override
   String getName() => propertyName;
@@ -50,5 +48,5 @@ class AssetBundleComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => AssetBundleStatic(assets).toMap();
+  Map<String, dynamic> saveDynamicData() => AssetBundleStatic(assets: assets).toMap();
 }

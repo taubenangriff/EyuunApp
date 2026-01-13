@@ -15,12 +15,20 @@ class CharacterBaseDynamic with CharacterBaseDynamicMappable {
   int level;
   String origin;
 
-  CharacterBaseDynamic(this.upbringing, this.childhood, this.level, this.origin, {this.secondUpbringing});
+  CharacterBaseDynamic({
+    upbringing,
+    childhood,
+    this.level = 0,
+    this.origin = "",
+    this.secondUpbringing,
+  }) : upbringing = upbringing ?? AssetLink.invalid(),
+       childhood = childhood ?? AssetLink.invalid();
 }
 
 @MappableClass()
 @reflector
-class CharacterBaseStatic with CharacterBaseStaticMappable, ComponentReflectable {
+class CharacterBaseStatic
+    with CharacterBaseStaticMappable, ComponentReflectable {
   CharacterBaseStatic();
 }
 
@@ -52,9 +60,7 @@ class CharacterBaseComponent extends EyuunComponent<int> {
   }
 
   @override
-  void loadStaticData(Map<String, dynamic> staticData) {
-
-  }
+  void loadStaticData(Map<String, dynamic> staticData) {}
 
   bool hasSecondaryUpbringing() => secondUpbringing != null;
 
@@ -68,5 +74,11 @@ class CharacterBaseComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => CharacterBaseDynamic(upbringing, childhood, level, origin, secondUpbringing: secondUpbringing).toMap();
+  Map<String, dynamic> saveDynamicData() => CharacterBaseDynamic(
+    upbringing: upbringing,
+    childhood: childhood,
+    level: level,
+    origin: origin,
+    secondUpbringing: secondUpbringing,
+  ).toMap();
 }

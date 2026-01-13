@@ -11,7 +11,7 @@ part 'Holdable.mapper.dart';
 class HoldableStatic with HoldableStaticMappable, ComponentReflectable {
   int equipmentSlotsNeeded;
 
-  HoldableStatic(this.equipmentSlotsNeeded);
+  HoldableStatic({this.equipmentSlotsNeeded = 0});
 }
 
 class HoldableComponent extends EyuunComponent<int> {

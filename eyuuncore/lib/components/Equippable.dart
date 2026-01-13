@@ -10,7 +10,7 @@ class EquippableStatDyn with EquippableStatDynMappable, ComponentReflectable {
   int equipmentSlotsNeeded;
   bool isArmor;
 
-  EquippableStatDyn(this.equipmentSlotsNeeded, this.isArmor);
+  EquippableStatDyn({this.equipmentSlotsNeeded = 0, this.isArmor = false});
 }
 
 class EquippableComponent extends EyuunComponent<int> {
@@ -48,5 +48,8 @@ class EquippableComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() =>  EquippableStatDyn(equipmentSlotsNeeded, isArmor).toMap();
+  Map<String, dynamic> saveDynamicData() => EquippableStatDyn(
+    equipmentSlotsNeeded: equipmentSlotsNeeded,
+    isArmor: isArmor,
+  ).toMap();
 }

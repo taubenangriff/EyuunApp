@@ -11,7 +11,7 @@ part 'Icon.mapper.dart';
 class IconStatic with IconStaticMappable, ComponentReflectable {
   String iconFilepath;
 
-  IconStatic(this.iconFilepath);
+  IconStatic({this.iconFilepath = ""});
 }
 
 class IconComponent extends EyuunComponent<int> {
@@ -39,9 +39,7 @@ class IconComponent extends EyuunComponent<int> {
   }
 
   @override
-  void reset() {
-
-  }
+  void reset() {}
 
   @override
   Map<String, dynamic> saveDynamicData() => <String, dynamic>{};

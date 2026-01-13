@@ -3,6 +3,7 @@ import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:oxygen/oxygen.dart';
 
+import '../core/assetLink.dart';
 import '../core/reflection/Reflecting.dart';
 import '../core/reflection/reflector.dart';
 import '../core/registerServices.dart';
@@ -12,35 +13,40 @@ part 'upgradable.mapper.dart';
 @MappableClass()
 @reflector
 class UpgradableStatic with UpgradableStaticMappable, ComponentReflectable {
-  List<String> defaultUpgrades;
+  List<AssetLink> defaultUpgrades;
 
-  UpgradableStatic(this.defaultUpgrades);
+  UpgradableStatic({List<AssetLink>? defaultUpgrades})
+    : defaultUpgrades = defaultUpgrades ?? [];
 }
 
 @MappableClass()
 class UpgradableDynamic with UpgradableDynamicMappable {
-  List<String> appliedUpgrades;
+  List<AssetLink> appliedUpgrades;
 
-  UpgradableDynamic(this.appliedUpgrades);
+  UpgradableDynamic({List<AssetLink>? appliedUpgrades})
+    : appliedUpgrades = appliedUpgrades ?? [];
 }
 
 class UpgradableComponent extends EyuunComponent<int> {
   static const String propertyName = "upgradable";
 
   /// The list of upgrades which are always applied to the entity.
-  List<String> defaultUpgrades = [];
+  List<AssetLink> defaultUpgrades = [];
+
   /// The list of upgrades which are dynamically applied to the entity.
-  List<String> appliedUpgrades = [];
+  List<AssetLink> appliedUpgrades = [];
 
-  List<String> get upgrades => defaultUpgrades + appliedUpgrades;
+  List<AssetLink> get upgrades => defaultUpgrades + appliedUpgrades;
 
-  void applyUpgrade(String upgradeTypeId) => appliedUpgrades.add(upgradeTypeId);
+  void applyUpgrade(String upgradeTypeId) =>
+      appliedUpgrades.add(AssetLink(upgradeTypeId));
 
-  void removeUpgrades(String upgradeTypeId) => appliedUpgrades.removeWhere((x) => x == upgradeTypeId);
+  void removeUpgrades(String upgradeTypeId) =>
+      appliedUpgrades.removeWhere((x) => x.id == upgradeTypeId);
 
   List<Entity> getAllUpgrades() {
     return upgrades
-        .map((e) => locator<GameObjectService>().getStatic(e))
+        .map((e) => e.getEntity())
         .where((e) => e != null)
         .map((e) => e as Entity)
         .toList();
@@ -61,7 +67,8 @@ class UpgradableComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => UpgradableDynamic(appliedUpgrades).toMap();
+  Map<String, dynamic> saveDynamicData() =>
+      UpgradableDynamic(appliedUpgrades: appliedUpgrades).toMap();
 
   @override
   void loadDynamicData(Map<String, dynamic> dynamicData) {
@@ -74,5 +81,4 @@ class UpgradableComponent extends EyuunComponent<int> {
     var stat = UpgradableStaticMapper.fromMap(staticData);
     defaultUpgrades = stat.defaultUpgrades;
   }
-
 }

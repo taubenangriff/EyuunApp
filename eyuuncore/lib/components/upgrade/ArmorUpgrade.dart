@@ -8,9 +8,10 @@ part 'ArmorUpgrade.mapper.dart';
 
 @MappableClass()
 @reflector
-class ArmorUpgradeStatDyn with ArmorUpgradeStatDynMappable, ComponentReflectable {
+class ArmorUpgradeStatDyn
+    with ArmorUpgradeStatDynMappable, ComponentReflectable {
   int armorToughnessBonus;
-  ArmorUpgradeStatDyn([this.armorToughnessBonus = 0]);
+  ArmorUpgradeStatDyn({this.armorToughnessBonus = 0});
 }
 
 class ArmorUpgradeComponent extends EyuunComponent<int> {
@@ -32,7 +33,8 @@ class ArmorUpgradeComponent extends EyuunComponent<int> {
   }
 
   @override
-  void loadDynamicData(Map<String, dynamic> dynamicData) => loadStaticData(dynamicData);
+  void loadDynamicData(Map<String, dynamic> dynamicData) =>
+      loadStaticData(dynamicData);
 
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
@@ -41,5 +43,6 @@ class ArmorUpgradeComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => ArmorUpgradeStatDyn(armorToughnessBonus).toMap();
+  Map<String, dynamic> saveDynamicData() =>
+      ArmorUpgradeStatDyn(armorToughnessBonus: armorToughnessBonus).toMap();
 }

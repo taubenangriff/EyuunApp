@@ -18,12 +18,14 @@ class DamageTypeStatic with DamageTypeStaticMappable, ComponentReflectable {
   bool useFreezingLogic;
   int pushback;
 
-  DamageTypeStatic(this.damageCalculation,
-      [this.degradeArmor = false,
-      this.applyStatusEffectOnHit,
-      this.applyStatusEffect,
-      this.useFreezingLogic = false,
-      this.pushback = 0]);
+  DamageTypeStatic({
+    this.damageCalculation = DamageCalculation.Normal,
+    this.degradeArmor = false,
+    this.applyStatusEffectOnHit,
+    this.applyStatusEffect,
+    this.useFreezingLogic = false,
+    this.pushback = 0,
+  });
 }
 
 class DamageTypeComponent extends EyuunComponent<int> {

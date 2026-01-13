@@ -12,7 +12,11 @@ class LanguageStatic with LanguageStaticMappable, ComponentReflectable {
   bool spoken;
   bool alternativeCommunicationStyle;
 
-  LanguageStatic(this.written, this.spoken, this.alternativeCommunicationStyle);
+  LanguageStatic({
+    this.written = false,
+    this.spoken = false,
+    this.alternativeCommunicationStyle = false,
+  });
 }
 
 class LanguageComponent extends EyuunComponent<int> {

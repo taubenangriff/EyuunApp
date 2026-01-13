@@ -13,7 +13,7 @@ class SkillEntry with SkillEntryMappable {
   AssetLink skill;
   int value;
 
-  SkillEntry(this.skill, this.value);
+  SkillEntry({skill, this.value = 0}) : skill = skill ?? AssetLink.invalid();
 }
 
 @MappableClass()
@@ -22,14 +22,18 @@ class SkillLearnerDynamic with SkillLearnerDynamicMappable {
   int skillCeiling;
   List<SkillEntry> skills;
 
-  SkillLearnerDynamic(this.skillpoints, this.skillCeiling, this.skills);
+  SkillLearnerDynamic({
+    this.skillpoints = 0,
+    this.skillCeiling = 0,
+    List<SkillEntry>? skills,
+  }) : skills = skills ?? [];
 }
 
 @MappableClass()
 @reflector
 class SkillLearnerStatic with SkillLearnerStaticMappable, ComponentReflectable {
   List<AssetLink> skills;
-  SkillLearnerStatic(this.skills);
+  SkillLearnerStatic(List<AssetLink>? skills) : skills = skills ?? [];
 }
 
 class SkillLearnerComponent extends EyuunComponent<int> {
@@ -45,7 +49,8 @@ class SkillLearnerComponent extends EyuunComponent<int> {
   List<SkillEntry> skills = [];
 
   /// returns the talentEntry for the Talent listed in key. returns null, if the talent does not exist.
-  SkillEntry? getSkill(String key) => skills.firstWhere((e) => e.skill.id == key, orElse: null);
+  SkillEntry? getSkill(String key) =>
+      skills.firstWhere((e) => e.skill.id == key, orElse: null);
 
   /// If the talent is present in talents, this function sets it's value to newVal.
   void setSkillValue(String key, int newVal) => getSkill(key)?.value = newVal;
@@ -75,7 +80,7 @@ class SkillLearnerComponent extends EyuunComponent<int> {
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = SkillLearnerStaticMapper.fromMap(staticData);
-    skills = stat.skills.map((e) => SkillEntry(e, 0)).toList();
+    skills = stat.skills.map((e) => SkillEntry(skill: e, value: 0)).toList();
   }
 
   @override
@@ -84,6 +89,9 @@ class SkillLearnerComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => SkillLearnerDynamic(skillpoints.base, skillCeiling.base, skills).toMap();
-
+  Map<String, dynamic> saveDynamicData() => SkillLearnerDynamic(
+    skillpoints: skillpoints.base,
+    skillCeiling: skillCeiling.base,
+    skills: skills,
+  ).toMap();
 }

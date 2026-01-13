@@ -21,24 +21,26 @@ class ProjectStatic with ProjectStaticMappable, ComponentReflectable {
   bool useItemCost;
   double useItemCostFactor;
 
-  ProjectStatic(
-      this.reachThreshold,
-      this.useInfiniteThreshold,
-      this.itemOnCompletion,
-      this.resourceOnCompletion,
-      this.resourceOnCompletionAmount,
-      this.moneyOnCompletion,
-      this.prerequisiteDescription,
-      this.onCompletedDescription,
-      this.useItemCost,
-      this.useItemCostFactor);
+  ProjectStatic({
+    this.reachThreshold = 0,
+    this.useInfiniteThreshold = false,
+    itemOnCompletion,
+    resourceOnCompletion,
+    this.resourceOnCompletionAmount = 0,
+    this.moneyOnCompletion = 0,
+    this.prerequisiteDescription = "",
+    this.onCompletedDescription = "",
+    this.useItemCost = false,
+    this.useItemCostFactor = 1,
+  }) : itemOnCompletion = itemOnCompletion ?? AssetLink.invalid(),
+       resourceOnCompletion = resourceOnCompletion ?? AssetLink.invalid();
 }
 
 @MappableClass()
 class ProjectDynamic with ProjectDynamicMappable {
   int currentProgress;
 
-  ProjectDynamic(this.currentProgress);
+  ProjectDynamic({this.currentProgress = 0});
 }
 
 class ProjectComponent extends EyuunComponent<int> {
@@ -103,5 +105,5 @@ class ProjectComponent extends EyuunComponent<int> {
 
   @override
   Map<String, dynamic> saveDynamicData() =>
-      ProjectDynamic(currentProgress).toMap();
+      ProjectDynamic(currentProgress: currentProgress).toMap();
 }

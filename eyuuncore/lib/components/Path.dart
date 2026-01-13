@@ -14,7 +14,11 @@ class PathStatic with PathStaticMappable, ComponentReflectable {
   List<AssetLink> pickableSteps;
   int complexity;
 
-  PathStatic(this.pathType, this.pickableSteps, [ this.complexity = 1 ]);
+  PathStatic({
+    this.pathType = PathType.Fighter,
+    List<AssetLink>? pickableSteps,
+    this.complexity = 0,
+  }) : pickableSteps = pickableSteps ?? [];
 }
 
 class PathComponent extends EyuunComponent<int> {

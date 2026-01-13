@@ -8,14 +8,16 @@ part 'HealthUpgrade.mapper.dart';
 
 @MappableClass()
 @reflector
-class HealthUpgradeStatDyn with HealthUpgradeStatDynMappable, ComponentReflectable {
+class HealthUpgradeStatDyn
+    with HealthUpgradeStatDynMappable, ComponentReflectable {
   int maxHitpointsUpgrade;
   int maxShieldUpgrade;
   int maxDeathThrowsUpgrade;
-  HealthUpgradeStatDyn(
-      [this.maxHitpointsUpgrade = 0,
-      this.maxShieldUpgrade = 0,
-      this.maxDeathThrowsUpgrade = 0]);
+  HealthUpgradeStatDyn({
+    this.maxHitpointsUpgrade = 0,
+    this.maxShieldUpgrade = 0,
+    this.maxDeathThrowsUpgrade = 0,
+  });
 }
 
 class HealthUpgradeComponent extends EyuunComponent<int> {
@@ -54,6 +56,8 @@ class HealthUpgradeComponent extends EyuunComponent<int> {
 
   @override
   Map<String, dynamic> saveDynamicData() => HealthUpgradeStatDyn(
-          maxHitpointsUpgrade, maxShieldUpgrade, maxDeathThrowsUpgrade)
-      .toMap();
+    maxHitpointsUpgrade: maxHitpointsUpgrade,
+    maxShieldUpgrade: maxShieldUpgrade,
+    maxDeathThrowsUpgrade: maxDeathThrowsUpgrade,
+  ).toMap();
 }

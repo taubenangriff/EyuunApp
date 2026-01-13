@@ -11,13 +11,15 @@ part 'Skillcheck.mapper.dart';
 class SkillcheckOption with SkillcheckOptionMappable {
   List<AssetLink> options;
   AssetLink selectedOption;
-  SkillcheckOption(this.options, this.selectedOption);
+  SkillcheckOption({List<AssetLink>? options, selectedOption})
+    : options = options ?? [],
+      selectedOption = selectedOption ?? AssetLink.invalid();
 }
 
 @MappableClass()
 class SkillcheckStaticOption with SkillcheckStaticOptionMappable {
   List<AssetLink> options;
-  SkillcheckStaticOption(this.options);
+  SkillcheckStaticOption({List<AssetLink>? options}) : options = options ?? [];
 }
 
 @MappableClass()
@@ -26,13 +28,18 @@ class SkillcheckStatic with SkillcheckStaticMappable, ComponentReflectable {
   AssetLink? overrideTalentValue;
   AssetLink? overrideSkillcheck;
   List<SkillcheckStaticOption> checkedAttributes;
-  SkillcheckStatic({List<SkillcheckStaticOption>? checkedAttributes, this.overrideTalentValue, this.overrideSkillcheck}) : checkedAttributes = checkedAttributes ?? [];
+  SkillcheckStatic({
+    List<SkillcheckStaticOption>? checkedAttributes,
+    this.overrideTalentValue,
+    this.overrideSkillcheck,
+  }) : checkedAttributes = checkedAttributes ?? [];
 }
 
 @MappableClass()
 class SkillcheckDynamic with SkillcheckDynamicMappable {
   List<SkillcheckOption> checkedAttributes;
-  SkillcheckDynamic(this.checkedAttributes);
+  SkillcheckDynamic({List<SkillcheckOption>? checkedAttributes})
+    : checkedAttributes = checkedAttributes ?? [];
 }
 
 class SkillcheckComponent extends EyuunComponent<int> {
@@ -40,7 +47,12 @@ class SkillcheckComponent extends EyuunComponent<int> {
   late AssetLink? overrideSkillcheck;
 
   List<SkillcheckOption> _checkedAttributes = [];
-  List<SkillcheckOption> get checkedAttributes => overrideSkillcheck?.getEntity()?.get<SkillcheckComponent>()?.checkedAttributes ?? _checkedAttributes;
+  List<SkillcheckOption> get checkedAttributes =>
+      overrideSkillcheck
+          ?.getEntity()
+          ?.get<SkillcheckComponent>()
+          ?.checkedAttributes ??
+      _checkedAttributes;
 
   static const String propertyName = "skillcheck";
   @override
@@ -60,7 +72,14 @@ class SkillcheckComponent extends EyuunComponent<int> {
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = SkillcheckStaticMapper.fromMap(staticData);
-    _checkedAttributes = stat.checkedAttributes.map((e) => SkillcheckOption(e.options, e.options.first)).toList();
+    _checkedAttributes = stat.checkedAttributes
+        .map(
+          (e) => SkillcheckOption(
+            options: e.options,
+            selectedOption: e.options.first,
+          ),
+        )
+        .toList();
     overrideSkillcheck = stat.overrideSkillcheck;
     overrideTalentValue = stat.overrideTalentValue;
   }
@@ -73,6 +92,6 @@ class SkillcheckComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => SkillcheckDynamic(_checkedAttributes).toMap();
-
+  Map<String, dynamic> saveDynamicData() =>
+      SkillcheckDynamic(checkedAttributes: _checkedAttributes).toMap();
 }

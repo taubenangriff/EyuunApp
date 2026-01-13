@@ -11,10 +11,12 @@ part 'Cost.mapper.dart';
 class CostEntry with CostEntryMappable {
   /// AssetLink to the resource needed to buy
   AssetLink resource;
+
   /// The amount of this resource needed
   int amount;
 
-  CostEntry(this.resource, this.amount);
+  CostEntry({AssetLink? resource, this.amount = 0})
+    : resource = resource ?? AssetLink.invalid();
 }
 
 @MappableClass()
@@ -23,14 +25,16 @@ class CostStatic with CostStaticMappable, ComponentReflectable {
   int money;
   List<CostEntry> resourceCosts;
 
-  CostStatic(this.money, this.resourceCosts);
+  CostStatic({this.money = 0, List<CostEntry>? resourceCosts})
+    : resourceCosts = resourceCosts ?? [];
 }
 
-class CostComponent extends EyuunComponent<int>{
+class CostComponent extends EyuunComponent<int> {
   static const String propertyName = "cost";
 
   /// The money cost
   int money = 0;
+
   /// A list of other resources that are needed to buy this item.
   List<CostEntry> resourceCosts = [];
 
@@ -41,7 +45,6 @@ class CostComponent extends EyuunComponent<int>{
   void init([int? data]) {
     reset();
   }
-
 
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
@@ -63,6 +66,4 @@ class CostComponent extends EyuunComponent<int>{
 
   @override
   Map<String, dynamic> saveDynamicData() => <String, dynamic>{};
-
-
 }

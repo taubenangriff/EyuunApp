@@ -10,15 +10,15 @@ part 'Projectile.mapper.dart';
 @MappableClass()
 @reflector
 class ProjectileStatic with ProjectileStaticMappable, ComponentReflectable {
-  AssetLink effectOnHit;
+  AssetLink? effectOnHit;
 
-  ProjectileStatic(this.effectOnHit);
+  ProjectileStatic({this.effectOnHit});
 }
 
 class ProjectileComponent extends EyuunComponent<int> {
   static const String propertyName = "projectile";
 
-  late AssetLink effectOnHit;
+  late AssetLink? effectOnHit;
 
   @override
   String getName() => propertyName;
@@ -46,6 +46,4 @@ class ProjectileComponent extends EyuunComponent<int> {
 
   @override
   Map<String, dynamic> saveDynamicData() => <String, dynamic>{};
-
-
 }

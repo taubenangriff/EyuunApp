@@ -8,9 +8,10 @@ part 'LanguageLearnerUpgrade.mapper.dart';
 
 @MappableClass()
 @reflector
-class LanguageLearnerUpgradeStatDyn with LanguageLearnerUpgradeStatDynMappable, ComponentReflectable {
+class LanguageLearnerUpgradeStatDyn
+    with LanguageLearnerUpgradeStatDynMappable, ComponentReflectable {
   int languageMaxPotentialUpgrade;
-  LanguageLearnerUpgradeStatDyn([this.languageMaxPotentialUpgrade = 0]);
+  LanguageLearnerUpgradeStatDyn({this.languageMaxPotentialUpgrade = 0});
 }
 
 class LanguageLearnerUpgradeComponent extends EyuunComponent<int> {
@@ -32,7 +33,8 @@ class LanguageLearnerUpgradeComponent extends EyuunComponent<int> {
   }
 
   @override
-  void loadDynamicData(Map<String, dynamic> dynamicData) => loadStaticData(dynamicData);
+  void loadDynamicData(Map<String, dynamic> dynamicData) =>
+      loadStaticData(dynamicData);
 
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
@@ -41,5 +43,7 @@ class LanguageLearnerUpgradeComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => LanguageLearnerUpgradeStatDyn(languageMaxPotentialUpgrade).toMap();
+  Map<String, dynamic> saveDynamicData() => LanguageLearnerUpgradeStatDyn(
+    languageMaxPotentialUpgrade: languageMaxPotentialUpgrade,
+  ).toMap();
 }

@@ -13,7 +13,10 @@ part 'PathFeature.mapper.dart';
 class PathAdditionalEntry with PathAdditionalEntryMappable {
   AssetLink additionalPathBundle;
   PathType unlockingPathType;
-  PathAdditionalEntry(this.additionalPathBundle, this.unlockingPathType);
+  PathAdditionalEntry({
+    AssetLink? additionalPathBundle,
+    this.unlockingPathType = PathType.Fighter,
+  }) : additionalPathBundle = additionalPathBundle ?? AssetLink.invalid();
 }
 
 @MappableClass()

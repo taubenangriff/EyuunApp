@@ -8,10 +8,14 @@ part 'TalentsUpgrade.mapper.dart';
 
 @MappableClass()
 @reflector
-class TalentsUpgradeStatDyn with TalentsUpgradeStatDynMappable, ComponentReflectable {
+class TalentsUpgradeStatDyn
+    with TalentsUpgradeStatDynMappable, ComponentReflectable {
   int addSkillpoints;
   int skillCeilingUpgrade;
-  TalentsUpgradeStatDyn([this.addSkillpoints = 0, this.skillCeilingUpgrade = 0]);
+  TalentsUpgradeStatDyn({
+    this.addSkillpoints = 0,
+    this.skillCeilingUpgrade = 0,
+  });
 }
 
 class TalentsUpgradeComponent extends EyuunComponent<int> {
@@ -35,7 +39,8 @@ class TalentsUpgradeComponent extends EyuunComponent<int> {
   }
 
   @override
-  void loadDynamicData(Map<String, dynamic> dynamicData) => loadStaticData(dynamicData);
+  void loadDynamicData(Map<String, dynamic> dynamicData) =>
+      loadStaticData(dynamicData);
 
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
@@ -45,5 +50,8 @@ class TalentsUpgradeComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => TalentsUpgradeStatDyn(addSkillpoints, skillCeilingUpgrade).toMap();
+  Map<String, dynamic> saveDynamicData() => TalentsUpgradeStatDyn(
+    addSkillpoints: addSkillpoints,
+    skillCeilingUpgrade: skillCeilingUpgrade,
+  ).toMap();
 }

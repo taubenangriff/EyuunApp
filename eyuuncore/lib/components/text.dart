@@ -15,7 +15,7 @@ class TextStatic with TextStaticMappable, ComponentReflectable {
   String? fluff;
   String? short;
 
-  TextStatic(this.textOverride, this.fluff, this.short);
+  TextStatic({this.textOverride, this.fluff, this.short});
 }
 
 class TextComponent extends EyuunComponent<String> {

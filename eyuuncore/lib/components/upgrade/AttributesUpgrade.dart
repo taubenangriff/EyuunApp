@@ -10,7 +10,7 @@ part 'AttributesUpgrade.mapper.dart';
 @reflector
 class AttributesUpgradeStatDyn with AttributesUpgradeStatDynMappable, ComponentReflectable {
   int maxDiceIncreasesUpgrade;
-  AttributesUpgradeStatDyn([this.maxDiceIncreasesUpgrade = 0]);
+  AttributesUpgradeStatDyn({this.maxDiceIncreasesUpgrade = 0});
 }
 
 class AttributesUpgradeComponent extends EyuunComponent<int> {
@@ -41,5 +41,5 @@ class AttributesUpgradeComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => AttributesUpgradeStatDyn(maxDiceIncreasesUpgrade).toMap();
+  Map<String, dynamic> saveDynamicData() => AttributesUpgradeStatDyn(maxDiceIncreasesUpgrade: maxDiceIncreasesUpgrade).toMap();
 }

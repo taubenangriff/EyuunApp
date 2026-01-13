@@ -12,7 +12,8 @@ part 'Attributes.mapper.dart';
 @MappableClass()
 class AttributesDynamic with AttributesDynamicMappable {
   List<AttributeEntry> statValues;
-  AttributesDynamic(this.statValues);
+  AttributesDynamic({List<AttributeEntry>? statValues})
+    : statValues = statValues ?? [];
 }
 
 @MappableClass()
@@ -20,7 +21,8 @@ class AttributesDynamic with AttributesDynamicMappable {
 class AttributesStatic with AttributesStaticMappable, ComponentReflectable {
   List<AssetLink> statValues;
   int defaultDiceIncreases;
-  AttributesStatic(this.statValues, this.defaultDiceIncreases);
+  AttributesStatic({List<AssetLink>? statValues, this.defaultDiceIncreases = 0})
+    : statValues = statValues ?? [];
 }
 
 @MappableClass()
@@ -44,8 +46,11 @@ class AttributesComponent extends EyuunComponent<int> {
   late UpgradableInt maxDiceIncreases;
 
   /// Gets the AttributeEntry for the attribute which's typeId matches attributeKey.
-  AttributeEntry? getStatEntry(String attributeKey){
-    return statValues.firstWhere((e) => e.stat.id == attributeKey, orElse: null);
+  AttributeEntry? getStatEntry(String attributeKey) {
+    return statValues.firstWhere(
+      (e) => e.stat.id == attributeKey,
+      orElse: null,
+    );
   }
 
   @override
@@ -63,7 +68,7 @@ class AttributesComponent extends EyuunComponent<int> {
 
   @override
   Map<String, dynamic> saveDynamicData() {
-    return AttributesDynamic(statValues).toMap();
+    return AttributesDynamic(statValues: statValues).toMap();
   }
 
   @override
@@ -75,8 +80,9 @@ class AttributesComponent extends EyuunComponent<int> {
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = AttributesStaticMapper.fromMap(staticData);
-    statValues = stat.statValues.map((e) => AttributeEntry(e, Dice.d4)).toList();
+    statValues = stat.statValues
+        .map((e) => AttributeEntry(e, Dice.d4))
+        .toList();
     maxDiceIncreases = stat.defaultDiceIncreases.upgradable;
   }
-
 }

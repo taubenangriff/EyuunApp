@@ -11,7 +11,11 @@ class LanguageLearnerDynamic with LanguageLearnerDynamicMappable {
   int languageMaxPotential;
   int languagesThroughProjects;
   List<AssetLink> languagesLearned;
-  LanguageLearnerDynamic(this.languageMaxPotential, this.languagesLearned, [this.languagesThroughProjects = 0]);
+  LanguageLearnerDynamic({
+    this.languageMaxPotential = 0,
+    List<AssetLink>? languagesLearned,
+    this.languagesThroughProjects = 0,
+  }) : languagesLearned = languagesLearned ?? [];
 }
 
 class LanguageLearnerComponent extends EyuunComponent<int> {
@@ -26,7 +30,9 @@ class LanguageLearnerComponent extends EyuunComponent<int> {
   late List<AssetLink> languagesLearned;
 
   /// Returns whether a character can learn a new language
-  bool canLearnNew() => languagesLearned.length - languagesThroughProjects < languageMaxPotential.current;
+  bool canLearnNew() =>
+      languagesLearned.length - languagesThroughProjects <
+      languageMaxPotential.current;
 
   /// Returns the amount of languages already learned.
   int totalLanguagesCount() => languagesLearned.length;
@@ -50,7 +56,10 @@ class LanguageLearnerComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => LanguageLearnerDynamic(languageMaxPotential.base, languagesLearned).toMap();
+  Map<String, dynamic> saveDynamicData() => LanguageLearnerDynamic(
+    languageMaxPotential: languageMaxPotential.base,
+    languagesLearned: languagesLearned,
+  ).toMap();
 
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
@@ -63,5 +72,4 @@ class LanguageLearnerComponent extends EyuunComponent<int> {
     languageMaxPotential = 0.upgradable;
     languagesThroughProjects = 0;
   }
-
 }

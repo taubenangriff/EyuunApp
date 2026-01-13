@@ -8,11 +8,17 @@ part 'CombatFeature.mapper.dart';
 
 @MappableClass()
 @reflector
-class CombatFeatureStatic with CombatFeatureStaticMappable, ComponentReflectable {
+class CombatFeatureStatic
+    with CombatFeatureStaticMappable, ComponentReflectable {
   List<AssetLink> damageTypes;
   List<AssetLink> healTypes;
   int damageTypesDefaultIndex;
-  CombatFeatureStatic(this.damageTypes, this.healTypes, this.damageTypesDefaultIndex);
+  CombatFeatureStatic({
+    List<AssetLink>? damageTypes,
+    List<AssetLink>? healTypes,
+    this.damageTypesDefaultIndex = 0,
+  }) : damageTypes = damageTypes ?? [],
+       healTypes = healTypes ?? [];
 }
 
 class CombatFeatureComponent extends EyuunComponent<int> {

@@ -9,7 +9,7 @@ part 'Buff.mapper.dart';
 @reflector
 class BuffStatic with BuffStaticMappable, ComponentReflectable {
   String textDescription;
-  BuffStatic([this.textDescription = ""]);
+  BuffStatic({this.textDescription = ""});
 }
 
 class BuffComponent extends EyuunComponent<int> {
@@ -26,8 +26,7 @@ class BuffComponent extends EyuunComponent<int> {
   }
 
   @override
-  void loadDynamicData(Map<String, dynamic> dynamicData) {
-  }
+  void loadDynamicData(Map<String, dynamic> dynamicData) {}
 
   @override
   void loadStaticData(Map<String, dynamic> staticData) {

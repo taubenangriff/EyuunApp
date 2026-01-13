@@ -8,18 +8,20 @@ part 'CombatUpgrade.mapper.dart';
 
 @MappableClass()
 @reflector
-class CombatUpgradeStatDyn with CombatUpgradeStatDynMappable, ComponentReflectable {
+class CombatUpgradeStatDyn
+    with CombatUpgradeStatDynMappable, ComponentReflectable {
   int speedUpgrade;
   int evasionUpgrade;
   int initiativeUpgrade;
   int actionsPerRoundUpgrade;
   int reactionsPerRoundUpgrade;
-  CombatUpgradeStatDyn(
-      [this.speedUpgrade = 0,
-      this.evasionUpgrade = 0,
-      this.initiativeUpgrade = 0,
-      this.actionsPerRoundUpgrade = 0,
-      this.reactionsPerRoundUpgrade = 0]);
+  CombatUpgradeStatDyn({
+    this.speedUpgrade = 0,
+    this.evasionUpgrade = 0,
+    this.initiativeUpgrade = 0,
+    this.actionsPerRoundUpgrade = 0,
+    this.reactionsPerRoundUpgrade = 0,
+  });
 }
 
 class CombatUpgradeComponent extends EyuunComponent<int> {
@@ -64,10 +66,10 @@ class CombatUpgradeComponent extends EyuunComponent<int> {
 
   @override
   Map<String, dynamic> saveDynamicData() => CombatUpgradeStatDyn(
-          speedUpgrade,
-          evasionUpgrade,
-          initiativeUpgrade,
-          actionsPerRoundUpgrade,
-          reactionsPerRoundUpgrade)
-      .toMap();
+    speedUpgrade: speedUpgrade,
+    evasionUpgrade: evasionUpgrade,
+    initiativeUpgrade: initiativeUpgrade,
+    actionsPerRoundUpgrade: actionsPerRoundUpgrade,
+    reactionsPerRoundUpgrade: reactionsPerRoundUpgrade,
+  ).toMap();
 }

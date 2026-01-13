@@ -11,7 +11,11 @@ class FluxDynamic with FluxDynamicMappable {
   int fluxCapacity;
   int fluxMaximum;
 
-  FluxDynamic(this.fluxSpent, this.fluxCapacity, this.fluxMaximum);
+  FluxDynamic({
+    this.fluxSpent = 0,
+    this.fluxCapacity = 0,
+    this.fluxMaximum = 0,
+  });
 }
 
 class FluxComponent extends EyuunComponent<int> {
@@ -42,7 +46,11 @@ class FluxComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => FluxDynamic(fluxSpent, fluxCapacity.base, fluxMaximum.base).toMap();
+  Map<String, dynamic> saveDynamicData() => FluxDynamic(
+    fluxSpent: fluxSpent,
+    fluxCapacity: fluxCapacity.base,
+    fluxMaximum: fluxMaximum.base,
+  ).toMap();
 
   @override
   void loadDynamicData(Map<String, dynamic> dynamicData) {
@@ -50,11 +58,10 @@ class FluxComponent extends EyuunComponent<int> {
     fluxSpent = dyn.fluxSpent;
     fluxMaximum = dyn.fluxMaximum.upgradable;
     fluxCapacity = dyn.fluxCapacity.upgradable;
-   }
+  }
 
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     // TODO: implement loadStaticData
   }
-
 }

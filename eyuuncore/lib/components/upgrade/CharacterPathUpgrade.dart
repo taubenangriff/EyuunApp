@@ -8,10 +8,14 @@ part 'CharacterPathUpgrade.mapper.dart';
 
 @MappableClass()
 @reflector
-class CharacterPathUpgradeStatDyn with CharacterPathUpgradeStatDynMappable, ComponentReflectable {
+class CharacterPathUpgradeStatDyn
+    with CharacterPathUpgradeStatDynMappable, ComponentReflectable {
   int pathCapacityUpgrade;
   int additionalPathCapacityUpgrade;
-  CharacterPathUpgradeStatDyn([this.pathCapacityUpgrade = 0, this.additionalPathCapacityUpgrade = 0]);
+  CharacterPathUpgradeStatDyn({
+    this.pathCapacityUpgrade = 0,
+    this.additionalPathCapacityUpgrade = 0,
+  });
 }
 
 class CharacterPathUpgradeComponent extends EyuunComponent<int> {
@@ -35,7 +39,8 @@ class CharacterPathUpgradeComponent extends EyuunComponent<int> {
   }
 
   @override
-  void loadDynamicData(Map<String, dynamic> dynamicData) => loadStaticData(dynamicData);
+  void loadDynamicData(Map<String, dynamic> dynamicData) =>
+      loadStaticData(dynamicData);
 
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
@@ -45,5 +50,7 @@ class CharacterPathUpgradeComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => CharacterPathUpgradeStatDyn(pathCapacityUpgrade).toMap();
+  Map<String, dynamic> saveDynamicData() => CharacterPathUpgradeStatDyn(
+    pathCapacityUpgrade: pathCapacityUpgrade,
+  ).toMap();
 }
