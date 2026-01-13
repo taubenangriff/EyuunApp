@@ -20,11 +20,14 @@ class _NotesPageState extends State<NotesPage> {
       body: Center(
         child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: desiredSize),
-            child: DecoratedBox(
-                decoration: EyuunDecoration(
-                    cornerSize: 20, paint: Brushes.goldSparkling()),
-                child: Padding(
-                    padding: const EdgeInsets.all(20),
+            child: Padding(
+                padding: EdgeInsets.all(20),
+                child: DecoratedBox(
+                    position: DecorationPosition.foreground,
+                    decoration: EyuunDecoration(
+                        cornerSize: 20,
+                        paintInnerLine: false,
+                        paint: Brushes.goldSparkling()),
                     child: HandwrittenNoteWidget()))),
       ),
     );

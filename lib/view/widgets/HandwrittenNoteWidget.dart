@@ -36,7 +36,7 @@ class _HandwrittenNoteWidgetState extends State<HandwrittenNoteWidget> {
     ));
     _drawingController.setStyle(
       color: Colors.black,
-      strokeWidth: 6.0,
+      strokeWidth: 4.0,
       strokeCap: StrokeCap.round,
       strokeJoin: StrokeJoin.round,
       blendMode: BlendMode.srcOver,
@@ -104,13 +104,28 @@ class _HandwrittenNoteWidgetState extends State<HandwrittenNoteWidget> {
                   ])))), // Drawing Board
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       body: Expanded(
+          child: Container(
+        decoration: const BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black87,
+            ),
+            BoxShadow(
+              color: Colors.white,
+              spreadRadius: -4.0,
+              blurRadius: 4.0,
+            ),
+          ],
+        ),
         child: DrawingBoard(
           controller: _drawingController,
           boardConstrained: true,
           boardScaleEnabled: false,
-          background: Container(color: Colors.white),
+          maxScale: 3,
+          minScale: 1,
+          background: Container(color: Colors.transparent),
         ),
-      ),
+      )),
     );
   }
 }
