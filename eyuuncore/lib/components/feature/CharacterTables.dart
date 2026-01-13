@@ -70,6 +70,10 @@ class CharacterTablesFeatureComponent extends EyuunComponent<int> {
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = CharacterTablesFeatureStaticMapper.fromMap(staticData);
     _languages = stat.languages;
+    _childhoods = stat.childhoods;
+    _upbringings = stat.upbringings;
+    _tricks = stat.tricks;
+    _spells = stat.spells;
   }
 
   @override
