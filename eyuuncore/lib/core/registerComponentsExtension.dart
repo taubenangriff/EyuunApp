@@ -19,7 +19,7 @@ import 'package:eyuuncore/components/PathStep.dart';
 import 'package:eyuuncore/components/Project.dart';
 import 'package:eyuuncore/components/Projectile.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
-import 'package:eyuuncore/components/Spell.dart';
+import 'package:eyuuncore/components/Casted.dart';
 import 'package:eyuuncore/components/Talent.dart';
 import 'package:eyuuncore/components/Weapon.dart';
 import 'package:eyuuncore/components/feature/CharacterTables.dart';
@@ -49,6 +49,7 @@ import '../components/Item.dart';
 import '../components/LanguageLearner.dart';
 import '../components/Path.dart';
 import '../components/Skillcheck.dart';
+import '../components/Spell.dart';
 import '../components/health.dart';
 import '../components/text.dart';
 import '../components/upgrade/ActionUserUpgrade.dart';
@@ -94,6 +95,7 @@ extension registerEditorComponentsExtension on ComponentRepository {
     registerComponent<ActionUserStatic>(ActionUserComponent.propertyName, (map) => ActionUserStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<CraftableStatic>(CraftableComponent.propertyName, (map) => CraftableStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<ParryStatic>(ParryComponent.propertyName, (map) => ParryStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<CastedStatic>(CastedComponent.propertyName, (map) => CastedStaticMapper.fromMap(map), (comp) => comp.toMap());
     //Upgrades
 
     registerComponent<ArmorUpgradeStatDyn>(ArmorUpgradeComponent.propertyName, (map) => ArmorUpgradeStatDynMapper.fromMap(map), (comp) => comp.toMap());
@@ -154,6 +156,7 @@ extension RegisterComponentsExtension on WorldManager {
     registerComponent<ActionUserComponent, int>(ActionUserComponent.propertyName, () => ActionUserComponent());
     registerComponent<CraftableComponent, int>(CraftableComponent.propertyName, () => CraftableComponent());
     registerComponent<ParryComponent, int>(ParryComponent.propertyName, () => ParryComponent());
+    registerComponent<CastedComponent, int>(CastedComponent.propertyName, () => CastedComponent());
 
     // register Upgrades
     registerComponent<ArmorUpgradeComponent, int>(ArmorUpgradeComponent.propertyName, () => ArmorUpgradeComponent());

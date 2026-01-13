@@ -1,50 +1,22 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:eyuuncore/core/components/EyuunComponent.dart';
-import 'package:eyuuncore/core/reflection/Reflecting.dart';
-import 'package:eyuuncore/core/reflection/reflector.dart';
-import 'package:eyuuncore/enums/CastScope.dart';
 
 import '../core/assetLink.dart';
+import '../core/components/EyuunComponent.dart';
+import '../core/reflection/Reflecting.dart';
+import '../core/reflection/reflector.dart';
 
 part 'Spell.mapper.dart';
 
 @MappableClass()
 @reflector
 class SpellStatic with SpellStaticMappable, ComponentReflectable {
-  CastScope castScope;
-  int castScopeX;
-  int castScopeY;
-  int castScopeZ;
   int tier;
   AssetLink spellSchool;
-
-  SpellStatic({
-    this.castScope = CastScope.Self,
-    this.tier = 0,
-    spellSchool,
-    this.castScopeX = 0,
-    this.castScopeY = 0,
-    this.castScopeZ = 0,
-  }) : spellSchool = spellSchool ?? AssetLink.invalid();
+  SpellStatic({this.tier = 0, spellSchool}) : spellSchool = spellSchool ?? AssetLink.invalid();
 }
 
 class SpellComponent extends EyuunComponent<int> {
   static const String propertyName = "spell";
-
-  /// Cast scope:
-  /// self: Cast onto yourself
-  /// Sight: Cast in range of your sight
-  /// SightRadius: Cast in range of your sight, limited to a maximum of [castScopeX].
-  /// Touch: You need to physically touch the target
-  /// Circle: Cast a 2D Aura circle with a radius of [castScopeX].
-  /// Rectangle: Cast a 2D aura rectangle with dimensions [castScopeX] * [castScopeY].
-  /// Cone: Cast a cone shape with radius [castScopeX] which starts at your position.
-  /// Cuboid: Cast a cube with dimensions [castScopeX] * [castScopeY] * [castScopeZ].
-  /// Variant: The casting scope is so complex that the skills description will tell you.
-  late CastScope castScope;
-  int castScopeX = 0;
-  int castScopeY = 0;
-  int castScopeZ = 0;
   int tier = 0;
   late AssetLink spellSchool;
 
@@ -64,21 +36,12 @@ class SpellComponent extends EyuunComponent<int> {
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = SpellStaticMapper.fromMap(staticData);
-
-    castScope = stat.castScope;
-    castScopeX = stat.castScopeX;
-    castScopeY = stat.castScopeY;
-    castScopeZ = stat.castScopeZ;
     tier = stat.tier;
     spellSchool = stat.spellSchool;
   }
 
   @override
   void reset() {
-    castScope = CastScope.Self;
-    castScopeX = 0;
-    castScopeY = 0;
-    castScopeZ = 0;
     tier = 0;
     spellSchool = AssetLink.invalid();
   }
