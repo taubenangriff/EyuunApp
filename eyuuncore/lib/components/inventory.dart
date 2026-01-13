@@ -24,7 +24,7 @@ class InventoryItemDynamic with InventoryItemDynamicMappable {
   int count;
   int slot;
 
-  InventoryItemDynamic({this.objectId, typeId, this.count = 0, this.slot = 0})
+  InventoryItemDynamic({this.objectId,AssetLink? typeId, this.count = 0, this.slot = 0})
     : typeId = typeId ?? AssetLink.invalid();
 }
 

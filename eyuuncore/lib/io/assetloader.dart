@@ -1,3 +1,4 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/repository/AssetDataRepository.dart';
 import 'package:eyuuncore/core/repository/StaticAssetRepository.dart';
 import 'package:oxygen/oxygen.dart';
@@ -30,7 +31,13 @@ class AssetLoader {
       Entity entity, String componentId, Map<String, dynamic> assetMap) {
     var component = worldManager.getComponentFromEntity(componentId, entity);
     var componentMap = assetMap[componentId];
-    component?.loadStaticData(componentMap);
+    try{
+      component?.loadStaticData(componentMap);
+    } on MapperException catch (e){
+      print(e.message);
+      print("component data:");
+      print(componentMap);
+    }
   }
 
   void applyDynamicData(Entity entity, Map<String, dynamic> entityMap) {

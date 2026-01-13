@@ -13,7 +13,7 @@ class SkillEntry with SkillEntryMappable {
   AssetLink skill;
   int value;
 
-  SkillEntry({skill, this.value = 0}) : skill = skill ?? AssetLink.invalid();
+  SkillEntry({AssetLink? skill, this.value = 0}) : skill = skill ?? AssetLink.invalid();
 }
 
 @MappableClass()

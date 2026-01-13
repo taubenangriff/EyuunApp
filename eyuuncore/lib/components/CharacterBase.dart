@@ -16,8 +16,8 @@ class CharacterBaseDynamic with CharacterBaseDynamicMappable {
   String origin;
 
   CharacterBaseDynamic({
-    upbringing,
-    childhood,
+    AssetLink? upbringing,
+    AssetLink? childhood,
     this.level = 0,
     this.origin = "",
     this.secondUpbringing,
