@@ -23,11 +23,8 @@ class TalentPage extends StatefulWidget {
 }
 
 class _TalentPageState extends State<TalentPage> {
-  late var talents = locator<CharacterService>()
-          .character
-          .get<SkillLearnerComponent>()
-          ?.skills ??
-      [];
+  late var skillLearner =
+      locator<CharacterService>().character.get<SkillLearnerComponent>();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +40,8 @@ class _TalentPageState extends State<TalentPage> {
               child: Column(children: [
                 DecoratedBox(
                     decoration: EyuunDecoration(
-                        paint: Brushes.goldSparkling(), cornerSize: 20,
+                        paint: Brushes.goldSparkling(),
+                        cornerSize: 20,
                         background: theme.canvasColor.withAlpha(120)),
                     child: Padding(
                         padding: EdgeInsets.all(20),
@@ -55,16 +53,18 @@ class _TalentPageState extends State<TalentPage> {
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                             SizedBox(height: 16),
-                            TalentsWidget(
-                              talents: talents,
-                              filter: const [TalentGroup.Basic],
-                            )
+                            if (skillLearner != null)
+                              TalentsWidget(
+                                skillLearner: skillLearner!,
+                                filter: const [TalentGroup.Basic],
+                              )
                           ],
                         ))),
                 SizedBox(height: 16),
                 DecoratedBox(
                     decoration: EyuunDecoration(
-                        paint: Brushes.goldSparkling(), cornerSize: 20,
+                        paint: Brushes.goldSparkling(),
+                        cornerSize: 20,
                         background: theme.canvasColor.withAlpha(120)),
                     child: Padding(
                         padding: EdgeInsets.all(20),
@@ -76,16 +76,18 @@ class _TalentPageState extends State<TalentPage> {
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                             SizedBox(height: 16),
-                            TalentsWidget(
-                              talents: talents,
-                              filter: const [TalentGroup.Advanced],
-                            )
+                            if (skillLearner != null)
+                              TalentsWidget(
+                                skillLearner: skillLearner!,
+                                filter: const [TalentGroup.Advanced],
+                              )
                           ],
                         ))),
                 SizedBox(height: 16),
                 DecoratedBox(
                     decoration: EyuunDecoration(
-                        paint: Brushes.goldSparkling(), cornerSize: 20,
+                        paint: Brushes.goldSparkling(),
+                        cornerSize: 20,
                         background: theme.canvasColor.withAlpha(120)),
                     child: Padding(
                         padding: EdgeInsets.all(20),
@@ -97,16 +99,18 @@ class _TalentPageState extends State<TalentPage> {
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                             SizedBox(height: 16),
-                            TalentsWidget(
-                              talents: talents,
-                              filter: const [TalentGroup.Spellschool],
-                            )
+                            if (skillLearner != null)
+                              TalentsWidget(
+                                skillLearner: skillLearner!,
+                                filter: const [TalentGroup.Spellschool],
+                              )
                           ],
                         ))),
                 SizedBox(height: 16),
                 DecoratedBox(
                     decoration: EyuunDecoration(
-                        paint: Brushes.goldSparkling(), cornerSize: 20,
+                        paint: Brushes.goldSparkling(),
+                        cornerSize: 20,
                         background: theme.canvasColor.withAlpha(120)),
                     child: Padding(
                         padding: EdgeInsets.all(20),
@@ -118,10 +122,11 @@ class _TalentPageState extends State<TalentPage> {
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                             SizedBox(height: 16),
-                            TalentsWidget(
-                              talents: talents,
-                              filter: const [TalentGroup.FightingStyle],
-                            )
+                            if (skillLearner != null)
+                              TalentsWidget(
+                                skillLearner: skillLearner!,
+                                filter: const [TalentGroup.FightingStyle],
+                              )
                           ],
                         ))),
               ]))),

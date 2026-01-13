@@ -58,6 +58,8 @@ class SkillLearnerComponent extends EyuunComponent<int> {
   /// get's a talents skill value or 0 if the talent does not exist in the talents list.
   int getSkillValue(String key) => getSkill(key)?.value ?? 0;
 
+  int getSpentSkillpoints() => skills.map((e) => e.value).reduce((val1, val2) => val1+val2);
+
   @override
   String getName() => propertyName;
 
