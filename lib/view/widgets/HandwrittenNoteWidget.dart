@@ -1,3 +1,5 @@
+import 'package:EyuunApp/view/widgets/eyuun/Brushes.dart';
+import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
 import 'package:flutter_drawing_board/flutter_drawing_board.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drawing_board/paint_contents.dart';
@@ -26,10 +28,11 @@ class _HandwrittenNoteWidgetState extends State<HandwrittenNoteWidget> {
   void initState() {
     super.initState();
     _drawingController.setPaintContent(SmoothLine(
-      brushPrecision: 0.8,   // Line smoothness factor (smaller = smoother, default: 0.8)
-      useBezierCurve: true,  // Enable Bezier curves (default: true)
+      brushPrecision:
+          0.8, // Line smoothness factor (smaller = smoother, default: 0.8)
+      useBezierCurve: true, // Enable Bezier curves (default: true)
       minPointDistance: 2.0, // Filter redundant points (default: 2.0)
-      smoothLevel: 1,        // 0: fast, 1: balanced, 2: ultra-smooth (default: 1)
+      smoothLevel: 1, // 0: fast, 1: balanced, 2: ultra-smooth (default: 1)
     ));
     _drawingController.setStyle(
       color: Colors.black,
@@ -43,42 +46,97 @@ class _HandwrittenNoteWidgetState extends State<HandwrittenNoteWidget> {
 
   @override
   Widget build(BuildContext context) {
-
-
-    return Column(
-      children: [
-        // Action Bar (slider, undo, redo, rotate, clear)
-        DrawingBar(
+    return Scaffold(
+      floatingActionButton: Padding(
+          padding: EdgeInsets.symmetric(vertical: 30),
+          child: Card(
+              elevation: 8,
+              child: Padding(
+                  padding: EdgeInsets.all(4),
+                  child: Column(mainAxisSize: MainAxisSize.min, children: [
+                    SizedBox(height: 12),
+                    // Action Bar (slider, undo, redo, rotate, clear)
+                    DrawingBar(
+                        style: const VerticalToolsBarStyle(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          spacing: 16,
+                        ),
+                        controller: _drawingController,
+                        tools: [
+                          DefaultToolItem.pen().adjustStyle(),
+                          DefaultToolItem.eraser().adjustStyle(),
+                          DefaultToolItem.rectangle().adjustStyle(),
+                          DefaultToolItem.circle().adjustStyle(),
+                          DefaultToolItem.straightLine().adjustStyle(),
+                          DefaultActionItem.undo().adjustStyle(
+                              (BuildContext context,
+                                  DrawingController controller) {
+                            return Icon(
+                              Icons.turn_left,
+                              color:
+                                  controller.canUndo() ? Colors.white70 : null,
+                              size: 24,
+                            );
+                          }),
+                          DefaultActionItem.redo().adjustStyle(
+                              (BuildContext context,
+                                  DrawingController controller) {
+                            return Icon(
+                              Icons.turn_right,
+                              color:
+                                  controller.canRedo() ? Colors.white70 : null,
+                              size: 24,
+                            );
+                          }),
+                          DefaultActionItem.clear().adjustStyle(
+                              (BuildContext context,
+                                  DrawingController controller) {
+                            return Icon(
+                              Icons.clear,
+                              color:
+                                  controller.canClear() ? Colors.white70 : null,
+                              size: 24,
+                            );
+                          }),
+                        ]),
+                    SizedBox(height: 12),
+                  ])))), // Drawing Board
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      body: Expanded(
+        child: DrawingBoard(
           controller: _drawingController,
-          tools: [
-            DefaultActionItem.slider(),
-            DefaultActionItem.undo(),
-            DefaultActionItem.redo(),
-            DefaultActionItem.clear(),
-          ],
+          boardConstrained: true,
+          boardScaleEnabled: false,
+          background: Container(color: Colors.white),
         ),
+      ),
+    );
+  }
+}
 
-        // Tool Bar (pen, brush, shapes, eraser)
-        DrawingBar(
-          controller: _drawingController,
-          tools: [
-            DefaultToolItem.pen(),
-            DefaultToolItem.eraser(),
-            DefaultToolItem.rectangle(),
-            DefaultToolItem.circle(),
-            DefaultToolItem.straightLine(),
-          ],
-        ),
-        // Drawing Board
-        Expanded(
-          child: DrawingBoard(
-            controller: _drawingController,
-            boardConstrained: true,
-            boardScaleEnabled: false,
-            background: Container(color: Colors.white),
-          ),
-        ),
-      ],
+extension DefaultToolChangeStyleExtension on DefaultToolItem {
+  DefaultToolItem adjustStyle() {
+    return DefaultToolItem(
+      icon: icon,
+      content: content,
+      onTap: onTap,
+      backgroundColor: Colors.transparent,
+      activeColor: Colors.orangeAccent,
+      color: Colors.white70,
+      iconSize: 24,
+    );
+  }
+}
+
+extension DefaultActionChangeStyleExtension on DefaultActionItem {
+  DefaultActionItem adjustStyle(
+      Widget Function(BuildContext context, DrawingController controller)
+          overrideChildBuilder) {
+    return DefaultActionItem(
+      childBuilder: overrideChildBuilder,
+      onTap: onTap,
+      backgroundColor: Colors.transparent,
     );
   }
 }
