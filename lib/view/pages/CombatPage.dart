@@ -19,8 +19,8 @@ import 'package:eyuuncore/enums/TalentGroup.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../main.dart';
-import 'controller/ChangeValueController.dart';
+import '../../main.dart';
+import '../controller/ChangeValueController.dart';
 
 class CombatPage extends StatefulWidget {
   const CombatPage({super.key});

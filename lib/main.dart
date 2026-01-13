@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:EyuunApp/view/pages/MainPage.dart';
 import 'package:eyuuncore/components/CharacterPath.dart';
 import 'package:eyuuncore/components/Combat.dart';
 import 'package:eyuuncore/components/Path.dart';
