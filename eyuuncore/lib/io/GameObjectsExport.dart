@@ -5,8 +5,9 @@ part 'GameObjectsExport.mapper.dart';
 @MappableClass()
 
 class GameObjectsExport with GameObjectsExportMappable {
+  String characterId;
   List<dynamic> gameObjects;
-  GameObjectsExport(this.gameObjects);
+  GameObjectsExport(this.characterId, this.gameObjects);
 
-  static GameObjectsExport empty() => GameObjectsExport([]);
+  static GameObjectsExport empty() => GameObjectsExport("",[]);
 }

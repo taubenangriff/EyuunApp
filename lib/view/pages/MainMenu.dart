@@ -1,0 +1,106 @@
+import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/core/services/GameObjectService.dart';
+import 'package:flutter/material.dart';
+
+import '../widgets/eyuun/EyuunWidgets.dart';
+import 'CreateCharacterPage.dart';
+import 'MainPage.dart';
+
+class MainMenu extends StatelessWidget {
+  const MainMenu({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('data/base/ui/bg/background.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child:
+              // ⬅ Left menu
+              Padding(
+            padding: const EdgeInsets.all(32),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                EyuunWidgets.floatingActionButton(
+                  text: 'Load Character',
+                  width: 300,
+                  height: 60,
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const MainPage(title: 'Eyuun App'),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 20),
+                EyuunWidgets.floatingActionButton(
+                  text: 'Create Character',
+                  width: 300,
+                  height: 60,
+                  onPressed: () {
+                    final character = locator<GameObjectService>()
+                        .createInstance("character");
+                    if (character == null) return;
+
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => CreateCharacterPage(
+                          title: 'Create a new Character',
+                          character: character,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _menuCard(
+    BuildContext context, {
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return SizedBox(
+      width: 240,
+      child: Card(
+        elevation: 12,
+        color: Colors.black.withOpacity(0.65),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 20,
+              horizontal: 24,
+            ),
+            child: Center(
+              child: Text(
+                label,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -21,6 +21,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../main.dart';
 import '../controller/ChangeValueController.dart';
+import '../widgets/eyuun/EyuunWidgets.dart';
 
 class CombatPage extends StatefulWidget {
   const CombatPage({super.key});
@@ -114,7 +115,7 @@ class _CombatPageState extends State<CombatPage> {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _buildLargeFab(
+          EyuunWidgets.floatingActionButton(
             onPressed: () {
               final healthController = HealthController();
               healthController.setDamageTarget(character);
@@ -132,7 +133,7 @@ class _CombatPageState extends State<CombatPage> {
             icon: Icons.heart_broken,
           ),
           const SizedBox(width: 16),
-          _buildLargeFab(
+          EyuunWidgets.floatingActionButton(
             onPressed: () {
               PopupUtil.popup(
                   context,
@@ -150,31 +151,5 @@ class _CombatPageState extends State<CombatPage> {
         ],
       ),
     );
-  }
-
-  Widget _buildLargeFab(
-      {required IconData icon,
-      required VoidCallback onPressed,
-      required String text,
-      String tooltip = ""}) {
-    var color = Color(0xccfdcc3a);
-    return SizedBox(
-        width: 130,
-        height: 90,
-        child: DecoratedBox(
-            decoration:
-                EyuunDecoration(cornerSize: 12, paint: Brushes.goldSparkling()),
-            position: DecorationPosition.foreground,
-            child: FloatingActionButton(
-                heroTag: text,
-                tooltip: tooltip,
-                onPressed: onPressed,
-                child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(icon, size: 36, color: color),
-                      Text(text, style: TextStyle(color: color))
-                    ]))));
   }
 }

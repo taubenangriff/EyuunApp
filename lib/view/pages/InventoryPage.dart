@@ -22,6 +22,8 @@ import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
+import '../widgets/eyuun/EyuunWidgets.dart';
+
 class InventoryPage extends StatefulWidget {
   const InventoryPage({super.key});
 
@@ -158,7 +160,7 @@ class _InventoryPageState extends State<InventoryPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (_inventory != null)
-            _buildLargeFab(
+            EyuunWidgets.floatingActionButton(
               onPressed: () {
                 final moneyController = ChangeValueController(_inventory!.money,
                     maxLimit: 99999,
@@ -177,7 +179,7 @@ class _InventoryPageState extends State<InventoryPage> {
               icon: Icons.money,
             ),
           const SizedBox(width: 16),
-          _buildLargeFab(
+          EyuunWidgets.floatingActionButton(
             onPressed: () {
               PopupUtil.popup(
                 context,
@@ -190,7 +192,7 @@ class _InventoryPageState extends State<InventoryPage> {
             icon: Icons.add,
           ),
           const SizedBox(width: 16),
-          _buildLargeFab(
+          EyuunWidgets.floatingActionButton(
             onPressed: () {
               PopupUtil.popup(
                 context,
@@ -332,32 +334,6 @@ class _InventoryPageState extends State<InventoryPage> {
         );
       },
     );
-  }
-
-  Widget _buildLargeFab(
-      {required IconData icon,
-      required VoidCallback onPressed,
-      required String text,
-      String tooltip = ""}) {
-    var color = Color(0xccfdcc3a);
-    return SizedBox(
-        width: 130,
-        height: 90,
-        child: DecoratedBox(
-            decoration:
-                EyuunDecoration(cornerSize: 12, paint: Brushes.goldSparkling()),
-            position: DecorationPosition.foreground,
-            child: FloatingActionButton(
-                heroTag: text,
-                tooltip: tooltip,
-                onPressed: onPressed,
-                child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(icon, size: 36, color: color),
-                      Text(text, style: TextStyle(color: color))
-                    ]))));
   }
 
   Widget _buildArmorSlot() => buildEquipmentSlot(

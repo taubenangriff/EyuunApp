@@ -18,6 +18,8 @@ import 'package:flutter/material.dart';
 import 'package:EyuunApp/view/popup/PopupUtil.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../widgets/eyuun/EyuunWidgets.dart';
+
 class CharacterPage extends StatefulWidget {
   const CharacterPage({super.key});
 
@@ -186,7 +188,7 @@ class _CharacterPageState extends State<CharacterPage> {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _buildLargeFab(
+          EyuunWidgets.floatingActionButton(
             onPressed: () {
               final healthController = HealthController();
               healthController.setDamageTarget(character);
@@ -204,7 +206,7 @@ class _CharacterPageState extends State<CharacterPage> {
             icon: Icons.heart_broken,
           ),
           const SizedBox(width: 16),
-          _buildLargeFab(
+          EyuunWidgets.floatingActionButton(
             onPressed: () {
               locator<WorldManager>().world.execute(1);
               PopupUtil.popup(
@@ -221,7 +223,7 @@ class _CharacterPageState extends State<CharacterPage> {
             icon: Icons.water,
           ),
           const SizedBox(width: 16),
-          _buildLargeFab(
+          EyuunWidgets.floatingActionButton(
             onPressed: () {
               PopupUtil.popup(
                   context, const Center(child: Text('Description of what a rest does')), maximumSize: const Size(350,200));
@@ -233,31 +235,5 @@ class _CharacterPageState extends State<CharacterPage> {
         ],
       ),
     );
-  }
-
-  Widget _buildLargeFab(
-      {required IconData icon,
-      required VoidCallback onPressed,
-      required String text,
-      String tooltip = ""}) {
-    var color = Color(0xccfdcc3a);
-    return SizedBox(
-        width: 130,
-        height: 90,
-        child: DecoratedBox(
-            decoration:
-                EyuunDecoration(cornerSize: 12, paint: Brushes.goldSparkling()),
-            position: DecorationPosition.foreground,
-            child: FloatingActionButton(
-                heroTag: text,
-                tooltip: tooltip,
-                onPressed: onPressed,
-                child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(icon, size: 36, color: color),
-                      Text(text, style: TextStyle(color: color))
-                    ]))));
   }
 }

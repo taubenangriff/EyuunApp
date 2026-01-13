@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:EyuunApp/view/pages/MainMenu.dart';
 import 'package:EyuunApp/view/pages/MainPage.dart';
 import 'package:eyuuncore/components/CharacterPath.dart';
 import 'package:eyuuncore/components/Combat.dart';
@@ -50,8 +51,7 @@ void main() async {
   final String response = await rootBundle.loadString("data/base/char.json");
   var gameObjects = GameObjectsExportMapper.fromJson(response);
   goService.loadEntities(gameObjects);
-
-  var character = goService.getObject("8c325009-b118-4872-9464-b2279e8e1307");
+  var character = goService.getObject(gameObjects.characterId);
 
   if(character == null){
     return;
@@ -115,7 +115,7 @@ class MyApp extends StatelessWidget {
         ),
         iconTheme: const IconThemeData(color: Color(0xFF90A4AE)),
       ),
-      home: const MainPage(title: 'Eyuun App ECS Demo'),
+      home: const MainMenu(),
     );
   }
 }

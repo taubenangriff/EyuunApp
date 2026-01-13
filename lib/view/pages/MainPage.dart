@@ -1,5 +1,7 @@
 import 'package:EyuunApp/view/pages/CharacterPage.dart';
+import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/io/GameObjectsSerializer.dart';
 import 'package:flutter/material.dart';
@@ -122,6 +124,7 @@ class _MainPageState extends State<MainPage> {
           setState(() {
             var objects = locator<GameObjectService>().getObjects();
             var gameData = locator<GameObjectsSerializer>().exportGameObjects(objects);
+            gameData.characterId = locator<CharacterService>().character.getObjectId();
             var gameDataJson = gameData.toJson();
             downloadConfig(gameDataJson);
           });
