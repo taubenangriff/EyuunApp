@@ -100,6 +100,8 @@
     "damage_lightning": "Blitzschaden",
     "weaponless_attack": "Albanische Rückhandschelle",
     "weaponless_attack_fluff": "Greift mit bloßen Händen an",
+    "action_hide": "Verstecken",
+    "action_hide_fluff": "Versteckt gegenüber jedem mit niedrigerer passiver Wahrnehmung als dem erwürfeltem EW.",
     "throw_melee": "Werfen (Athletik)",
     "throw_melee_fluff": "Werf mich!",
     "throw_range": "Werfen (Fernkampf)",

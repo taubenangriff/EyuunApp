@@ -11,7 +11,7 @@ part 'Skillcheck.mapper.dart';
 class SkillcheckOption with SkillcheckOptionMappable {
   List<AssetLink> options;
   AssetLink selectedOption;
-  SkillcheckOption({List<AssetLink>? options, selectedOption})
+  SkillcheckOption({List<AssetLink>? options, AssetLink? selectedOption})
     : options = options ?? [],
       selectedOption = selectedOption ?? AssetLink.invalid();
 }

@@ -10,6 +10,7 @@ import '../core/objectLink.dart';
 import '../core/reflection/Reflecting.dart';
 import '../core/reflection/reflector.dart';
 import '../core/upgrading/UpgradableList.dart';
+import '../enums/ActionTime.dart';
 
 part 'ActionUser.mapper.dart';
 
@@ -17,7 +18,15 @@ part 'ActionUser.mapper.dart';
 @reflector
 class ActionUserStatic with ActionUserStaticMappable, ComponentReflectable {
   List<AssetLink> defaultActions;
-  ActionUserStatic({List<AssetLink>? defaultActions}) : defaultActions = defaultActions ?? [];
+  ActionUserStatic({List<AssetLink>? defaultActions})
+    : defaultActions = defaultActions ?? [];
+}
+
+@MappableClass()
+class ActionUserDynamic with ActionUserDynamicMappable {
+  List<ActionTime> preferredActionTimes;
+  ActionUserDynamic({List<ActionTime>? preferredActionTimes})
+    : preferredActionTimes = preferredActionTimes ?? [];
 }
 
 class ActionLink {
@@ -33,6 +42,7 @@ class ActionUserComponent extends EyuunComponent<int> {
   static const String propertyName = "actionUser";
 
   late List<ActionLink> _defaultActions;
+  late List<ActionTime> preferredActionTimes;
 
   /// filled by ActionSystem.dart
   late UpgradableList<ActionLink> actionsThroughEntities;
@@ -40,7 +50,8 @@ class ActionUserComponent extends EyuunComponent<int> {
   List<ActionLink> getActionsWithSource() =>
       _defaultActions + actionsThroughEntities.current;
 
-  List<Entity> getActions() => getActionsWithSource().map((e) => e.action).toList();
+  List<Entity> getActions() =>
+      getActionsWithSource().map((e) => e.action).toList();
 
   void clearRegisteredActions() {
     actionsThroughEntities.baseList.clear();
@@ -72,7 +83,8 @@ class ActionUserComponent extends EyuunComponent<int> {
 
   @override
   void loadDynamicData(Map<String, dynamic> dynamicData) {
-    // nothing to load here
+    var dyn = ActionUserDynamicMapper.fromMap(dynamicData);
+    preferredActionTimes = dyn.preferredActionTimes;
   }
 
   @override
@@ -88,8 +100,9 @@ class ActionUserComponent extends EyuunComponent<int> {
   void reset() {
     _defaultActions = [];
     actionsThroughEntities = <ActionLink>[].upgradable;
+    preferredActionTimes = [];
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => <String, dynamic>{};
+  Map<String, dynamic> saveDynamicData() => ActionUserDynamic(preferredActionTimes: preferredActionTimes).toMap();
 }

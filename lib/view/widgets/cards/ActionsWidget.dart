@@ -48,11 +48,24 @@ class _ActionsWidgetState extends State<ActionsWidget> {
     Filter('uitext_actiontime_none', [ActionTime.None]),
   ];
 
-  late var filteredActionTimes = filters[0].filters;
-
   var selectedChoiceIndex = 0;
 
   final _textService = locator<TextService>();
+
+  @override
+  void initState() {
+    super.initState();
+
+    var preexistingFilterData = widget.actionUser.preferredActionTimes;
+    var selectedFilterIndex = filters.indexWhere((e) => e.filters.every((y) => preexistingFilterData.contains(y)));
+    if(selectedFilterIndex >= 0){
+      selectedChoiceIndex = selectedFilterIndex;
+      widget.actionUser.preferredActionTimes = filters[selectedFilterIndex].filters;
+    }
+    else {
+      widget.actionUser.preferredActionTimes = filters[0].filters;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +77,7 @@ class _ActionsWidgetState extends State<ActionsWidget> {
       if (actionTime == null) {
         return false;
       }
-      return filteredActionTimes.contains(actionTime);
+      return widget.actionUser.preferredActionTimes.contains(actionTime);
     }).toList();
 
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -82,9 +95,8 @@ class _ActionsWidgetState extends State<ActionsWidget> {
                 setState(() {
                   if (value) {
                     selectedChoiceIndex = index;
-                    filteredActionTimes = filter.filters;
+                    widget.actionUser.preferredActionTimes = filter.filters;
                   }
-                  filteredActionTimes = filter.filters;
                 });
               },
               selected: selectedChoiceIndex == index,

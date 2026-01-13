@@ -8,7 +8,7 @@
       "health": {
         "maxHitpoints": 0,
         "hitpoints": 62,
-        "shield": 0,
+        "temporaryHitpoints": 0,
         "deathThrows": 0,
         "naturalArmor": 0
       },
@@ -276,7 +276,11 @@
         "remainingActions": 0,
         "remainingReactions": 0,
         "equipmentSlotCount": 0,
-        "equippedItems": [],
+        "equippedItems": [
+          {
+            "objectId": "c812cac0-ff56-4f08-a5ec-48debabee4c5"
+          }
+        ],
         "armor": null
       },
       "languageLearner": {
@@ -317,6 +321,17 @@
         "secondUpbringing": {
           "id": "upbringing_undead"
         }
+      },
+      "actionUser": {
+        "preferredActionTimes": [
+          "None",
+          "Action",
+          "Reaction",
+          "Attack",
+          "Defend",
+          "Time",
+          "ActionAndReaction"
+        ]
       }
     },
     {
@@ -331,7 +346,8 @@
         "evasionImpact": 0,
         "athleticImpact": 0,
         "stealthImpact": 0
-      }
+      },
+      "icon": {}
     },
     {
       "standard": {
@@ -341,7 +357,68 @@
       "text": {},
       "item": {},
       "cost": {},
+      "icon": {},
       "holdable": {}
+    },
+    {
+      "standard": {
+        "objectId": "c812cac0-ff56-4f08-a5ec-48debabee4c5",
+        "typeId": "smite_weapon_axe"
+      },
+      "upgradable": {
+        "appliedUpgrades": []
+      },
+      "text": {},
+      "item": {},
+      "skillcheck": {
+        "checkedAttributes": [
+          {
+            "options": [
+              {
+                "id": "baseSkill_Courage"
+              }
+            ],
+            "selectedOption": {
+              "id": "baseSkill_Courage"
+            }
+          },
+          {
+            "options": [
+              {
+                "id": "baseSkill_Strength"
+              }
+            ],
+            "selectedOption": {
+              "id": "baseSkill_Strength"
+            }
+          },
+          {
+            "options": [
+              {
+                "id": "baseSkill_Constitution"
+              }
+            ],
+            "selectedOption": {
+              "id": "baseSkill_Constitution"
+            }
+          }
+        ]
+      },
+      "weapon": {
+        "fightingType": {
+          "id": "fightingstyle_melee"
+        },
+        "weaponType": {
+          "id": "noType"
+        },
+        "skillMultiplier": 1
+      },
+      "action": {},
+      "holdable": {},
+      "actionUser": {
+        "preferredActionTimes": []
+      },
+      "craftable": {}
     }
   ]
 }
