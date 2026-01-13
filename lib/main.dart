@@ -18,12 +18,9 @@ import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/core/services/LoadDataService.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';
 import 'package:eyuuncore/core/registerServices.dart';
-import 'package:EyuunApp/view/MainPage.dart';
 import 'package:eyuuncore/io/GameObjectsExport.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'dart:convert';
 
 String textFile = "data/base/text/de_de.json";
 
