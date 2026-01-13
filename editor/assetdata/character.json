@@ -40,11 +40,7 @@
     ]
   },
   "upgradable": {
-    "defaultUpgrades": [
-      "base_healthUpgrade",
-      "base_AnotherHealthUpgrade",
-      "master_upgrade"
-    ]
+    "defaultUpgrades": []
   },
   "boon": {
     "maxBoon": 5
