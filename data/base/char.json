@@ -6,7 +6,7 @@
         "typeId": "character"
       },
       "health": {
-        "maxHitpoints": 0,
+        "maxHitpoints": 69,
         "hitpoints": 62,
         "temporaryHitpoints": 0,
         "deathThrows": 0,
@@ -111,8 +111,8 @@
         "fluxMaximum": 15
       },
       "skillLearner": {
-        "skillpoints": 0,
-        "skillCeiling": 0,
+        "skillpoints": 50,
+        "skillCeiling": 5,
         "skills": [
           {
             "skill": {
@@ -160,13 +160,13 @@
             "skill": {
               "id": "talent_flux"
             },
-            "value": 0
+            "value": 4
           },
           {
             "skill": {
               "id": "talent_stories"
             },
-            "value": 0
+            "value": 5
           },
           {
             "skill": {
@@ -324,12 +324,6 @@
       },
       "actionUser": {
         "preferredActionTimes": [
-          "None",
-          "Action",
-          "Reaction",
-          "Attack",
-          "Defend",
-          "Time",
           "ActionAndReaction"
         ]
       }
