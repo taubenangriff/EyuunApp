@@ -6,8 +6,6 @@ import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/io/GameObjectsSerializer.dart';
 import 'package:flutter/material.dart';
 
-import 'dart:html' as html;
-
 import 'CombatPage.dart';
 import 'InventoryPage.dart';
 import 'NotesPage.dart';
@@ -144,11 +142,4 @@ class _MainPageState extends State<MainPage> {
 
 @Deprecated("This code is only ever placeholder to download the character!!")
 //Some code to just download the character as json
-void downloadConfig(String data) {
-  final blob = html.Blob([data]);
-  final url = html.Url.createObjectUrlFromBlob(blob);
-  final anchor = html.AnchorElement(href: url)
-    ..setAttribute('download', 'config.json')
-    ..click();
-  html.Url.revokeObjectUrl(url);
-}
+void downloadConfig(String data) {}
