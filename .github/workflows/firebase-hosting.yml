@@ -33,7 +33,7 @@ jobs:
           dart run build_runner build
 
       - name: Build Flutter Web
-        run: flutter build web --wasm
+        run: flutter build web
 
       - name: Set up Node.js
         uses: actions/setup-node@v6
