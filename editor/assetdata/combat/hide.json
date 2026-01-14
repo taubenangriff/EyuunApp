@@ -1,0 +1,23 @@
+{
+  "standard": {
+    "typeId": "action_hide"
+  },
+  "text": { },
+  "action": {
+    "actionDescription": "action_hide_fluff",
+    "actionTime": "Reaction"
+  },
+  "weapon": {
+    "fightingType": {
+      "id": "fightingstyle_melee"
+    }
+  },
+  "skillcheck": {
+    "overrideTalentValue": {
+      "id": "talent_sneaky"
+    },
+    "overrideSkillcheck": {
+      "id": "talent_sneaky"
+    }
+  }
+}
