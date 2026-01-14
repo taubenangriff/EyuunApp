@@ -40,16 +40,16 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
   late var pathController = PathController(widget.character);
 
   late var pages = [
-    UpbringingSelectionWidget(
+    _wrapWithLayoutBuilder(UpbringingSelectionWidget(
         characterBaseComponent:
-            widget.character.get<CharacterBaseComponent>()!),
-    PickNewPathWidget(pathController: pathController),
-    CharacterPortraitPicker(
+            widget.character.get<CharacterBaseComponent>()!)),
+    _wrapWithSizedBox(PickNewPathWidget(pathController: pathController)),
+    _wrapWithSizedBox(CharacterPortraitPicker(
       nameable: NameableComponent("Glup Shitto"),
-    ),
-    AttributeDiceSelector(
-        attributes: widget.character.get<AttributesComponent>()!),
-    Center(child: TalentPage()),
+    )),
+    _wrapWithLayoutBuilder(AttributeDiceSelector(
+        attributes: widget.character.get<AttributesComponent>()!)),
+    _wrapWithSizedBox(Center(child: TalentPage())),
     Center(
         child: Text(
             "A summary displaying your core choices and the create button"))
@@ -58,36 +58,17 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
   final ImageProvider placeholderImage = const NetworkImage(
       'https://tse3.mm.bing.net/th/id/OIP.cPOpHmPNSfuOjLHJxKOFzAHaGe?rs=1&pid=ImgDetMain&o=7&rm=3');
 
+  double desiredWidth = 1100;
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
-    double desiredWidth = 1100;
 
     return Scaffold(
       appBar: AppBar(
         title: Text("Create your character"),
       ),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: constraints.maxHeight
-              ),
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(maxWidth: desiredWidth),
-                    child: pages[currentStep],
-                  ),
-                ),
-              ),
-            ),
-          );
-        },
-      ),
+      body: pages[currentStep],
       bottomNavigationBar: EasyStepper(
         steps: steps,
         lineStyle: LineStyle(
@@ -107,6 +88,35 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
           });
         },
       ),
+    );
+  }
+
+  Widget _wrapWithSizedBox(Widget widget) {
+    return Center(
+        child: ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: desiredWidth),
+      child: widget,
+    ));
+  }
+
+  Widget _wrapWithLayoutBuilder(Widget widget) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: constraints.maxHeight),
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: desiredWidth),
+                  child: widget,
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
