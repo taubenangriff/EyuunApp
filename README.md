@@ -3,11 +3,20 @@
 ## Development 
 
 - clone the repo 
-- run `dart run build_runner build` to rebuild all the mapping classes that are used for data IO.
-- build 
+```shell 
+dart run build_runner build
+cd editor 
+dart run build_runner build
+cd ../eyuuncore
+dart run build_runner build
+
+```
+- run `dart run build_runner build` in root, as well as the `` and `eyuuncore` directory to rebuild all the mapping classes that are used for data IO.
+- build the project
 - to view documentation, use:
 
 ```Shell
+dart doc . 
 dart pub global activate dhttpd
 dart pub global run dhttpd --path doc/api
 ```

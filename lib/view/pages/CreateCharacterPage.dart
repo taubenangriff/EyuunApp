@@ -7,6 +7,7 @@ import 'package:eyuuncore/controller/PathController.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
+import '../widgets/CharacterPortraitPicker.dart';
 import 'TalentPage.dart';
 
 class CreateCharacterPage extends StatefulWidget {
@@ -24,10 +25,11 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
   int currentStep = 0;
 
   var steps = [
-    EasyStep(title: 'Name', customStep: Container()),
     EasyStep(title: 'Past', customStep: Container()),
     EasyStep(title: 'Path', customStep: Container()),
+    EasyStep(title: 'Name', customStep: Container()),
     EasyStep(title: 'Attributes', customStep: Container()),
+    EasyStep(title: 'Talents', customStep: Container()),
     EasyStep(title: 'Summary', customStep: Container()),
   ];
 
@@ -38,12 +40,12 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
         profileImage: placeholderImage,
         name: "Glup Shitto",
         character: widget.character),
-    CharacterInfoWidget(
-        profileImage: placeholderImage,
-        name: "Glup Shitto",
-        character: widget.character),
     PickNewPathWidget(pathController: pathController),
+    CharacterPortraitPicker(
+      nameable: NameableComponent("Glup Shitto"),
+    ),
     Center(child: AttributesWidget()),
+    Center(child: TalentPage()),
     Center(
         child: Text(
             "A summary displaying your core choices and the create button"))

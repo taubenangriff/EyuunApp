@@ -39,6 +39,7 @@ dependencies:
     path: ./eyuuncore
   flutter_drawing_board: ^1.0.1+1
   easy_stepper: ^1.0.1
+  flutter_dropzone: ^4.2.1
   firebase_core: ^4.3.0
 
 dev_dependencies:
