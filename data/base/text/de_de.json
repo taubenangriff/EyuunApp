@@ -164,6 +164,7 @@
     "uitext_rest": "Rasten",
     "uitext_restorpause": "Rasten oder Pause?",
     "uitext_initattributes_remaining_cap": "Verbleibende Würfelerhöhungen: ",
+    "uitext_initattributes_stat_calculate": "Die folgendenden Basiswerte werden aus den Eigenschaften errechnet:",
     "uitext_initattributes_explainer": "Jede Eigenschaft startet als W4 und darf während der Charaktererstellung maximal auf einen W8 erhöht werden.",
     "uitext_rest_description": "6-8h Schlaf, welche jeder Charakter 1 Mal am Tag benötigt, um nicht erschöpft zu werden.\nNach Abschluss einer Rast werden Leben, Fluss und Fluss/Pause wieder auf ihren jeweiligen Maximal-Wert gesetzt, es wird Gunst regeneriert und alle „pro Rast“ Fähigkeiten können wieder in voller Anzahl verwendet werden.",
     "uitext_pause_description": "1h Pause ohne Kämpfe, Fluss ausgeben oder andere anstrengende Aufgaben.\nNach Abschluss einer Pause wird der ausgegebene Fluss auf 0 gesetzt und alle „pro Pause“ Fähigkeiten können wieder in voller Anzahl verwendet werden.",

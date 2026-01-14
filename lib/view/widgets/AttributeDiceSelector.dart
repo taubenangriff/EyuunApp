@@ -54,7 +54,7 @@ class _AttributeDiceSelectorState extends State<AttributeDiceSelector> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    textService.getText(entry.stat.id),
+                    "${textService.getText(entry.stat.id)} (${textService.getShort(entry.stat.id)})" ,
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium
@@ -85,44 +85,41 @@ class _AttributeDiceSelectorState extends State<AttributeDiceSelector> {
       }),
       Divider(),
       SizedBox(height: 16),
-      Text("Your stat lineup will result in the following stats:"),
+      Text(locator<TextService>().getText('uitext_initattributes_stat_calculate')),
       SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      Wrap(
+        runSpacing: 24,
+        spacing: 32,
+        alignment: WrapAlignment.spaceEvenly,
         children: [
           StatItem(
             icon: Icons.health_and_safety,
-            label: 'Health',
+            label: 'Health (15 + 2*MU + 2*KO + 2*KK):',
             value: characterGenerateStatsController.getHealth(),
           ),
           StatItem(
             icon: Icons.water,
-            label: 'Flux',
+            label: 'Flux (KL/2 + IN/2 + CH/2):',
             value: characterGenerateStatsController.getFlux(),
           ),
           StatItem(
             icon: Icons.shield,
-            label: 'Natural Armor',
+            label: 'Natural Armor (KK / 2):',
+            value: characterGenerateStatsController.getEvasion(),
+          ),
+          StatItem(
+            icon: Icons.speaker_notes,
+            label: 'Language Potential (KL / 2):',
+            value: characterGenerateStatsController.getLanguagePotential(),
+          ),
+          StatItem(
+            icon: Icons.shield_outlined,
+            label: 'Evasion (GE / 2):',
             value: characterGenerateStatsController.getEvasion(),
           ),
         ],
       ),
       SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          StatItem(
-            icon: Icons.speaker_notes,
-            label: 'Language Potential',
-            value: characterGenerateStatsController.getLanguagePotential(),
-          ),
-          StatItem(
-            icon: Icons.shield_outlined,
-            label: 'Evasion',
-            value: characterGenerateStatsController.getEvasion(),
-          ),
-        ],
-      ),
     ]);
   }
 }

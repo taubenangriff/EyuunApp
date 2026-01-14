@@ -73,7 +73,7 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
           return SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(
-                minHeight: constraints.maxHeight,
+                minHeight: constraints.maxHeight
               ),
               child: Center(
                 child: Padding(
