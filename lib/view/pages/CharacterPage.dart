@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:EyuunApp/view/popup/PopupUtil.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../popup/PauseRestPopup.dart';
 import '../widgets/eyuun/EyuunWidgets.dart';
 
 class CharacterPage extends StatefulWidget {
@@ -226,7 +227,7 @@ class _CharacterPageState extends State<CharacterPage> {
           EyuunWidgets.floatingActionButton(
             onPressed: () {
               PopupUtil.popup(
-                  context, const Center(child: Text('Description of what a rest does')), maximumSize: const Size(350,200));
+                  context, PauseRestPopup(), maximumSize: const Size(700,470));
             },
             text: 'Rest',
             tooltip: 'Conduct a rest',
