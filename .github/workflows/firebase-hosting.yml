@@ -23,7 +23,7 @@ jobs:
         run: flutter pub get
 
       - name: Build Flutter Web
-        run: flutter build web --release
+        run: flutter build web
 
       - name: Set up Node.js
         uses: actions/setup-node@v6
