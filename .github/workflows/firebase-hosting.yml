@@ -22,8 +22,18 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
+      - name: Build eyuuncore
+        run: |
+          cd eyuuncore
+          dart run build_runner build
+          cd ..
+
+      - name: Build app
+        run: |
+          dart run build_runner build
+
       - name: Build Flutter Web
-        run: flutter build web
+        run: flutter build web --wasm
 
       - name: Set up Node.js
         uses: actions/setup-node@v6
