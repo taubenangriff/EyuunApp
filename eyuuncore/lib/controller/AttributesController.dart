@@ -20,8 +20,13 @@ class AttributesController{
   /// Increases the dice of [statId]. Throws an [Exception] if that is against the rules.
   void increaseOneStep(String statId) => throw UnimplementedError();
 
-  /// Gets the list of dices that it is possible to set [statId] to while adhering to all rules.
-  List<Dice> getPossibleDices(String statId) => throw UnimplementedError();
+  /// Gets the list of dices that it is possible to set [statId] to while adhering to character creation rules.
+  List<Dice> getPossibleDicesAtCharCreation(String statId) => [Dice.d4, Dice.d6, Dice.d8];
+
+  /// Gets whether the stat can be currently set to [dice].
+  bool canSet(String statId, Dice dice) => true;
+
+  int getRemainingDiceUpgrades() => 0;
 
   /// returns whether it is possible to upgrade the Attribute [statId].
   bool upgradesPossible(String statId) => true; //throw UnimplementedError();

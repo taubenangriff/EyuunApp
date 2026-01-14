@@ -3,11 +3,13 @@ import 'package:eyuunapp/view/widgets/Cards/AttributesWidget.dart';
 import 'package:eyuunapp/view/widgets/Cards/CharacterInfoWidget.dart';
 import 'package:eyuunapp/view/widgets/PickNewPathWidget.dart';
 import 'package:easy_stepper/easy_stepper.dart';
+import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/CharacterBase.dart';
 import 'package:eyuuncore/controller/PathController.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
+import '../widgets/AttributeDiceSelector.dart';
 import '../widgets/CharacterPortraitPicker.dart';
 import '../widgets/UpbringingSelectionWidget.dart';
 import 'TalentPage.dart';
@@ -38,12 +40,15 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
   late var pathController = PathController(widget.character);
 
   late var pages = [
-    UpbringingSelectionWidget(characterBaseComponent: widget.character.get<CharacterBaseComponent>()!),
+    UpbringingSelectionWidget(
+        characterBaseComponent:
+            widget.character.get<CharacterBaseComponent>()!),
     PickNewPathWidget(pathController: pathController),
     CharacterPortraitPicker(
       nameable: NameableComponent("Glup Shitto"),
     ),
-    Center(child: AttributesWidget()),
+    AttributeDiceSelector(
+        attributes: widget.character.get<AttributesComponent>()!),
     Center(child: TalentPage()),
     Center(
         child: Text(
@@ -63,10 +68,26 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
       appBar: AppBar(
         title: Text("Create your character"),
       ),
-      body: Center(
-          child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: desiredWidth),
-              child: pages[currentStep])),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: constraints.maxHeight,
+              ),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: desiredWidth),
+                    child: pages[currentStep],
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
       bottomNavigationBar: EasyStepper(
         steps: steps,
         lineStyle: LineStyle(

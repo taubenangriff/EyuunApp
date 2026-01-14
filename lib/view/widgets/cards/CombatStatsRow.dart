@@ -5,6 +5,8 @@ import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:flutter/material.dart';
 
+import '../StatItem.dart';
+
 class CombatStatsRow extends StatelessWidget {
   final CombatComponent combat;
   final SkillLearnerComponent skillLearner;
@@ -31,17 +33,17 @@ class CombatStatsRow extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _StatItem(
+            StatItem(
               icon: Icons.directions_run,
               label: 'Speed',
               value: combat.speed.current,
             ),
-            _StatItem(
+            StatItem(
               icon: Icons.shield_outlined,
               label: 'Evasion',
               value: combat.evasion.current,
             ),
-            _StatItem(
+            StatItem(
               icon: Icons.flash_on,
               label: 'Initiative',
               value: combat.initiative.current,
@@ -53,12 +55,12 @@ class CombatStatsRow extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             if (combatMelee != null)
-              _StatItem(
+              StatItem(
                   icon: Icons.rice_bowl,
                   label: 'Melee attack',
                   value: controller.getActiveTalentSkill(combatMelee)),
             if (combatRange != null)
-              _StatItem(
+              StatItem(
                   icon: Icons.tap_and_play_rounded,
                   label: 'Range attack',
                   value: controller.getActiveTalentSkill(combatRange)),
@@ -69,44 +71,3 @@ class CombatStatsRow extends StatelessWidget {
   }
 }
 
-class _StatItem extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final int value;
-
-  const _StatItem({
-    required this.icon,
-    required this.label,
-    required this.value,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(
-          icon,
-          size: 32,
-          color: Theme.of(context).colorScheme.primary,
-        ),
-        const SizedBox(width: 12),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.grey.shade400,
-          ),
-        ),
-        const SizedBox(width: 12),
-        Text(
-          value.toString(),
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ],
-    );
-  }
-}
