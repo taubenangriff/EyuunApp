@@ -1,4 +1,4 @@
-import 'package:EyuunApp/view/controller/ChangeValueController.dart';
+import 'package:eyuunapp/view/controller/ChangeValueController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

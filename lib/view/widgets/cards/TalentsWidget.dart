@@ -1,7 +1,7 @@
-import 'package:EyuunApp/view/controller/ChangeValueController.dart';
-import 'package:EyuunApp/view/popup/ChangeValuePopup.dart';
-import 'package:EyuunApp/view/popup/PopupUtil.dart';
-import 'package:EyuunApp/view/widgets/SkillCheckWidget.dart';
+import 'package:eyuunapp/view/controller/ChangeValueController.dart';
+import 'package:eyuunapp/view/popup/ChangeValuePopup.dart';
+import 'package:eyuunapp/view/popup/PopupUtil.dart';
+import 'package:eyuunapp/view/widgets/SkillCheckWidget.dart';
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/components/Skillcheck.dart';

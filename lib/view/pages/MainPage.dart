@@ -1,4 +1,4 @@
-import 'package:EyuunApp/view/pages/CharacterPage.dart';
+import 'package:eyuunapp/view/pages/CharacterPage.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';

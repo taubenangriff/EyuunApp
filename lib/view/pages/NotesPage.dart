@@ -1,6 +1,6 @@
-import 'package:EyuunApp/view/widgets/HandwrittenNoteWidget.dart';
-import 'package:EyuunApp/view/widgets/eyuun/Brushes.dart';
-import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
+import 'package:eyuunapp/view/widgets/HandwrittenNoteWidget.dart';
+import 'package:eyuunapp/view/widgets/eyuun/Brushes.dart';
+import 'package:eyuunapp/view/widgets/eyuun/EyuunDecoration.dart';
 import 'package:flutter/material.dart';
 
 class NotesPage extends StatefulWidget {

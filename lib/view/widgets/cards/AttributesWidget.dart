@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/controller/AttributesController.dart';
-import 'package:EyuunApp/view/widgets/DiceIcon.dart';
+import 'package:eyuunapp/view/widgets/DiceIcon.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';

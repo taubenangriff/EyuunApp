@@ -1,10 +1,10 @@
 import 'package:eyuuncore/components/LanguageLearner.dart';
 import 'package:eyuuncore/controller/LanguagesController.dart';
 import 'package:eyuuncore/core/assetLink.dart';
-import 'package:EyuunApp/view/popup/LanguageDetailPopup.dart';
-import 'package:EyuunApp/view/popup/PopupUtil.dart';
-import 'package:EyuunApp/view/popup/SelectLanguagePopup.dart';
-import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
+import 'package:eyuunapp/view/popup/LanguageDetailPopup.dart';
+import 'package:eyuunapp/view/popup/PopupUtil.dart';
+import 'package:eyuunapp/view/popup/SelectLanguagePopup.dart';
+import 'package:eyuunapp/view/widgets/eyuun/EyuunDecoration.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import 'package:EyuunApp/view/widgets/BuffDisplay.dart';
+import 'package:eyuunapp/view/widgets/BuffDisplay.dart';
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/Skillcheck.dart';
 import 'package:eyuuncore/components/Weapon.dart';

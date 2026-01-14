@@ -1,13 +1,13 @@
-import 'package:EyuunApp/view/widgets/cards/TalentsWidget.dart';
-import 'package:EyuunApp/view/widgets/eyuun/Brushes.dart';
-import 'package:EyuunApp/view/widgets/eyuun/EyuunDecoration.dart';
+import 'package:eyuunapp/view/widgets/cards/TalentsWidget.dart';
+import 'package:eyuunapp/view/widgets/eyuun/Brushes.dart';
+import 'package:eyuunapp/view/widgets/eyuun/EyuunDecoration.dart';
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/Skillcheck.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/components/Talent.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
-import 'package:EyuunApp/view/widgets/DiceIcon.dart';
+import 'package:eyuunapp/view/widgets/DiceIcon.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/enums/TalentGroup.dart';

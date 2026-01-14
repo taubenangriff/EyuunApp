@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import 'package:EyuunApp/view/controller/ChangeValueController.dart';
-import 'package:EyuunApp/view/popup/ChangeValuePopup.dart';
-import 'package:EyuunApp/view/popup/PopupUtil.dart';
+import 'package:eyuunapp/view/controller/ChangeValueController.dart';
+import 'package:eyuunapp/view/popup/ChangeValuePopup.dart';
+import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuuncore/components/AssetBundle.dart';
 import 'package:eyuuncore/components/Icon.dart';
 import 'package:eyuuncore/components/inventory.dart';

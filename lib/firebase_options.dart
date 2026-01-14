@@ -54,11 +54,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyAOltakP0JKa2rLgedkCW9DFI35aGs-vBI',
-    appId: '1:810324195553:web:9cd4065f5b6707f42b5fa0',
+    appId: '1:810324195553:web:a0a5984513e763522b5fa0',
     messagingSenderId: '810324195553',
     projectId: 'eyuunapp',
     authDomain: 'eyuunapp.firebaseapp.com',
     storageBucket: 'eyuunapp.firebasestorage.app',
-    measurementId: 'G-QH95NC3W5Q',
+    measurementId: 'G-064Q7TKLSR',
   );
+
 }

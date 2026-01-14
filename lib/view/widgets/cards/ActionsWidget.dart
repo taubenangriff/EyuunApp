@@ -1,5 +1,5 @@
-import 'package:EyuunApp/view/popup/PopupUtil.dart';
-import 'package:EyuunApp/view/widgets/SkillCheckWidget.dart';
+import 'package:eyuunapp/view/popup/PopupUtil.dart';
+import 'package:eyuunapp/view/widgets/SkillCheckWidget.dart';
 import 'package:eyuuncore/components/Action.dart';
 import 'package:eyuuncore/components/ActionUser.dart';
 import 'package:eyuuncore/components/Attributes.dart';
