@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:eyuunapp/view/widgets/eyuun/EyuunUiImageProvider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -36,6 +37,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   setupGetIt();
+
+  locator.registerLazySingleton(() => EyuunUiImagerProvider());
+  await locator<EyuunUiImagerProvider>().preloadImage("data/base/ui/bg/artdecocorner.png");
 
   var worldManager = locator<WorldManager>();
 
