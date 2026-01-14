@@ -19,14 +19,14 @@ class TextService {
 
   String getTextFromEntity(Entity? entity) {
     if(entity == null){
-      return "!No Entity";
+      return "";
     }
     return getText(entity.getTextKey());
   }
 
   String getActionDescriptionFromEntity(Entity? entity){
     if(entity == null){
-      return "!No Entity";
+      return "";
     }
     var key = entity.get<ActionComponent>()?.actionDescription;
     if(key == null){
@@ -38,7 +38,7 @@ class TextService {
 
   String getFluffFromEntity(Entity? entity) {
     if(entity == null){
-      return "!No Entity";
+      return "";
     }
     var fluff = entity.getFluff();
     if(fluff == null){

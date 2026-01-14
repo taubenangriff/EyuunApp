@@ -45,6 +45,7 @@ class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
           child: SelectionCard(
             title: textService.getText('uitext_upbringing') + (upbringing != null ? textService.getTextFromEntity(upbringing) : ""),
             buff: upbringing,
+            fallbackText: textService.getText('uitext_pick_upbringing'),
             onTap: () => _openPicker(
               context,
               locator<CharacterTablesFeatureComponent>().upbringings,
@@ -62,6 +63,7 @@ class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
           child: SelectionCard(
             title: textService.getText('uitext_secondary_upbringing_select') + (secondUpbringing != null ? textService.getTextFromEntity(secondUpbringing) : ""),
             buff: secondUpbringing,
+            fallbackText: textService.getText('uitext_pick_secondUpbringing'),
             onTap: () => _openPicker(
               context,
               locator<CharacterTablesFeatureComponent>().secondaryUpbringings,
@@ -79,6 +81,7 @@ class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
           child: SelectionCard(
             title: textService.getText('uitext_childhood') + (childhood != null ? textService.getTextFromEntity(childhood) : ""),
             buff: childhood,
+            fallbackText: textService.getText('uitext_pick_childhood'),
             onTap: () => _openPicker(
               context,
               locator<CharacterTablesFeatureComponent>().childhoods,
