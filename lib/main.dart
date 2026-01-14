@@ -1,5 +1,9 @@
 import 'dart:math';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+
 import 'package:EyuunApp/view/pages/MainMenu.dart';
 import 'package:EyuunApp/view/pages/MainPage.dart';
 import 'package:eyuuncore/components/CharacterPath.dart';
@@ -27,6 +31,8 @@ String textFile = "data/base/text/de_de.json";
 
 
 void main() async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
+
   WidgetsFlutterBinding.ensureInitialized();
 
   setupGetIt();
