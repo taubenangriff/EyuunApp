@@ -16,6 +16,7 @@ class CharacterTablesFeatureStatic
   AssetLink languages;
   AssetLink childhoods;
   AssetLink upbringings;
+  AssetLink secondaryUpbringings;
   AssetLink spells;
   AssetLink tricks;
 
@@ -23,11 +24,13 @@ class CharacterTablesFeatureStatic
     AssetLink? languages,
     AssetLink? childhoods,
     AssetLink? upbringings,
+    AssetLink? secondaryUpbringings,
     AssetLink? spells,
     AssetLink? tricks,
   }) : languages = languages ?? AssetLink.invalid(),
        childhoods = childhoods ?? AssetLink.invalid(),
        upbringings = upbringings ?? AssetLink.invalid(),
+       secondaryUpbringings = secondaryUpbringings ?? AssetLink.invalid(),
        spells = spells ?? AssetLink.invalid(),
        tricks = tricks ?? AssetLink.invalid();
 }
@@ -39,6 +42,7 @@ class CharacterTablesFeatureComponent extends EyuunComponent<int> {
   late AssetLink _languages;
   late AssetLink _childhoods;
   late AssetLink _upbringings;
+  late AssetLink _secondaryUpbringings;
   late AssetLink _spells;
   late AssetLink _tricks;
 
@@ -48,6 +52,8 @@ class CharacterTablesFeatureComponent extends EyuunComponent<int> {
       _childhoods.getEntity()?.get<AssetBundleComponent>()?.getAssets() ?? [];
   List<Entity> get upbringings =>
       _upbringings.getEntity()?.get<AssetBundleComponent>()?.getAssets() ?? [];
+  List<Entity> get secondaryUpbringings =>
+      _secondaryUpbringings.getEntity()?.get<AssetBundleComponent>()?.getAssets() ?? [];
   List<Entity> get spells =>
       _spells.getEntity()?.get<AssetBundleComponent>()?.getAssets() ?? [];
   List<Entity> get tricks =>
@@ -72,6 +78,7 @@ class CharacterTablesFeatureComponent extends EyuunComponent<int> {
     _languages = stat.languages;
     _childhoods = stat.childhoods;
     _upbringings = stat.upbringings;
+    _secondaryUpbringings = stat.secondaryUpbringings;
     _tricks = stat.tricks;
     _spells = stat.spells;
   }
@@ -79,6 +86,11 @@ class CharacterTablesFeatureComponent extends EyuunComponent<int> {
   @override
   void reset() {
     _languages = AssetLink.invalid();
+    _childhoods = AssetLink.invalid();
+    _upbringings = AssetLink.invalid();
+    _secondaryUpbringings = AssetLink.invalid();
+    _tricks = AssetLink.invalid();
+    _spells = AssetLink.invalid();
   }
 
   @override

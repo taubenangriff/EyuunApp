@@ -1,0 +1,28 @@
+{
+  "standard": {
+    "typeId": "all_upbringings_pool"
+  },
+  "text": { },
+  "assetBundle": {
+    "assets": [
+      {
+        "id": "upbringing_human"
+      },
+      {
+        "id": "upbringing_undead"
+      },
+      {
+        "id": "upbringing_human"
+      },
+      {
+        "id": "upbringing_undead"
+      },
+      {
+        "id": "upbringing_human"
+      },
+      {
+        "id": "upbringing_undead"
+      }
+    ]
+  }
+}

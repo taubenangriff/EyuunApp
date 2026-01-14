@@ -1,0 +1,28 @@
+{
+  "standard": {
+    "typeId": "all_childhoods_pool"
+  },
+  "text": { },
+  "assetBundle": {
+    "assets": [
+      {
+        "id": "childhood_homeless"
+      },
+      {
+        "id": "childhood_homeless"
+      },
+      {
+        "id": "childhood_homeless"
+      },
+      {
+        "id": "childhood_homeless"
+      },
+      {
+        "id": "childhood_homeless"
+      },
+      {
+        "id": "childhood_homeless"
+      }
+    ]
+  }
+}

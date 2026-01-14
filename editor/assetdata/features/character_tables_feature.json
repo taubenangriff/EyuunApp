@@ -5,6 +5,15 @@
   "characterTablesFeature": {
     "languages": {
       "id": "all_languages_pool"
+    },
+    "upbringings": {
+      "id": "all_upbringings_pool"
+    },
+    "secondaryUpbringings": {
+      "id": "all_upbringings_pool"
+    },
+    "childhoods": {
+      "id": "all_childhoods_pool"
     }
   }
 }

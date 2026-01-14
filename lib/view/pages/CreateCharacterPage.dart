@@ -3,11 +3,13 @@ import 'package:eyuunapp/view/widgets/Cards/AttributesWidget.dart';
 import 'package:eyuunapp/view/widgets/Cards/CharacterInfoWidget.dart';
 import 'package:eyuunapp/view/widgets/PickNewPathWidget.dart';
 import 'package:easy_stepper/easy_stepper.dart';
+import 'package:eyuuncore/components/CharacterBase.dart';
 import 'package:eyuuncore/controller/PathController.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../widgets/CharacterPortraitPicker.dart';
+import '../widgets/UpbringingSelectionWidget.dart';
 import 'TalentPage.dart';
 
 class CreateCharacterPage extends StatefulWidget {
@@ -36,10 +38,7 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
   late var pathController = PathController(widget.character);
 
   late var pages = [
-    CharacterInfoWidget(
-        profileImage: placeholderImage,
-        name: "Glup Shitto",
-        character: widget.character),
+    UpbringingSelectionWidget(characterBaseComponent: widget.character.get<CharacterBaseComponent>()!),
     PickNewPathWidget(pathController: pathController),
     CharacterPortraitPicker(
       nameable: NameableComponent("Glup Shitto"),
