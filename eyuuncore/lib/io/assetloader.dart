@@ -66,7 +66,7 @@ class AssetLoader {
   }
 
   String? getInheritFromAssetMap(Map<String, dynamic> assetMap) {
-    return assetMap['inherit']['from'] as String?;
+    return assetMap['inherit']?['from'] as String?;
   }
 
 }
