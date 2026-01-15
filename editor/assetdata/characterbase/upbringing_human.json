@@ -9,5 +9,10 @@
     "buff": { },
     "talentsUpgrade": {
         "addSkillpoints": 3
+    },
+    "upbringing": {
+        "possibleSizes": [
+            "Normal"
+        ]
     }
 }

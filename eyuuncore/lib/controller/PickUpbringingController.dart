@@ -1,5 +1,7 @@
 import 'package:eyuuncore/components/CharacterBase.dart';
+import 'package:eyuuncore/components/Upbringing.dart';
 import 'package:eyuuncore/components/feature/CharacterTables.dart';
+import 'package:eyuuncore/enums/PersonSize.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../core/assetLink.dart';
@@ -14,6 +16,14 @@ class PickUpbringingController {
   CharacterBaseComponent characterBase;
 
   PickUpbringingController(this.characterBase);
+
+  List<PersonSize> getPossibleSizes() {
+    var fromUpbringing = selectedUpbringing?.get<UpbringingComponent>()?.possibleSizes ?? [];
+    var fromAdditional = selectedAdditionalUpbringing?.get<UpbringingComponent>()?.possibleSizes ?? [];
+    var combined = fromAdditional + fromUpbringing;
+    combined = combined.toSet().toList();
+    return combined;
+  }
 
   List<Entity> getCurrentlySelectableUpbringings() {
     return locator<CharacterTablesFeatureComponent>().upbringings.where((e) => e != selectedAdditionalUpbringing).toList();

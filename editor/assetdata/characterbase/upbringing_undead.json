@@ -8,5 +8,10 @@
     },
     "buff": {
         "textDescription": "upbringing_undead_effectdesc"
+    },
+    "upbringing": {
+        "possibleSizes": [
+            "Normal"
+        ]
     }
 }

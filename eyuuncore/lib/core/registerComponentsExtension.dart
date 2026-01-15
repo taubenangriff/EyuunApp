@@ -21,6 +21,7 @@ import 'package:eyuuncore/components/Projectile.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/components/Casted.dart';
 import 'package:eyuuncore/components/Talent.dart';
+import 'package:eyuuncore/components/Upbringing.dart';
 import 'package:eyuuncore/components/Weapon.dart';
 import 'package:eyuuncore/components/feature/CharacterTables.dart';
 import 'package:eyuuncore/components/feature/CombatFeature.dart';
@@ -99,6 +100,7 @@ extension registerEditorComponentsExtension on ComponentRepository {
     registerComponent<CraftableStatic>(CraftableComponent.propertyName, (map) => CraftableStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<ParryStatic>(ParryComponent.propertyName, (map) => ParryStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<CastedStatic>(CastedComponent.propertyName, (map) => CastedStaticMapper.fromMap(map), (comp) => comp.toMap());
+    registerComponent<UpbringingStatic>(UpbringingComponent.propertyName, (map) => UpbringingStaticMapper.fromMap(map), (comp) => comp.toMap());
     //Upgrades
 
     registerComponent<ArmorUpgradeStatDyn>(ArmorUpgradeComponent.propertyName, (map) => ArmorUpgradeStatDynMapper.fromMap(map), (comp) => comp.toMap());
@@ -160,6 +162,7 @@ extension RegisterComponentsExtension on WorldManager {
     registerComponent<CraftableComponent, int>(CraftableComponent.propertyName, () => CraftableComponent());
     registerComponent<ParryComponent, int>(ParryComponent.propertyName, () => ParryComponent());
     registerComponent<CastedComponent, int>(CastedComponent.propertyName, () => CastedComponent());
+    registerComponent<UpbringingComponent, int>(UpbringingComponent.propertyName, () => UpbringingComponent());
 
     // register Upgrades
     registerComponent<ArmorUpgradeComponent, int>(ArmorUpgradeComponent.propertyName, () => ArmorUpgradeComponent());
