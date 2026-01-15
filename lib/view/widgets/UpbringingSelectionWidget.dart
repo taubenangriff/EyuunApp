@@ -25,6 +25,8 @@ class UpbringingSelectionWidget extends StatefulWidget {
 
 class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
   final TextService textService = locator<TextService>();
+  Entity? upbringing;
+  Entity? additionalUpbringing;
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +34,8 @@ class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
 
     double cardHeight = 140;
 
-    var upbringing = character.upbringing.getEntity();
-    var secondUpbringing = character.secondUpbringing?.getEntity();
     var childhood = character.childhood.getEntity();
+
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -51,7 +52,7 @@ class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
               locator<CharacterTablesFeatureComponent>().upbringings,
               (buff) {
                 setState(() {
-                  character.upbringing = AssetLink.fromEntity(buff);
+                  upbringing = buff;
                 });
               },
             ),
@@ -61,15 +62,15 @@ class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
         ConstrainedBox(
           constraints: BoxConstraints(minHeight: cardHeight),
           child: SelectionCard(
-            title: textService.getText('uitext_secondary_upbringing_select') + (secondUpbringing != null ? textService.getTextFromEntity(secondUpbringing) : ""),
-            buff: secondUpbringing,
+            title: textService.getText('uitext_secondary_upbringing_select') + (additionalUpbringing != null ? textService.getTextFromEntity(additionalUpbringing) : ""),
+            buff: additionalUpbringing,
             fallbackText: textService.getText('uitext_pick_secondUpbringing'),
             onTap: () => _openPicker(
               context,
               locator<CharacterTablesFeatureComponent>().secondaryUpbringings,
               (buff) {
                 setState(() {
-                  character.secondUpbringing = AssetLink.fromEntity(buff);
+                  additionalUpbringing = buff;
                 });
               },
             ),

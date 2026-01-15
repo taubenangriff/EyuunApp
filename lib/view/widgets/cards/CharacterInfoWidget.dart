@@ -55,7 +55,7 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
     var characterComponent = widget.character.get<CharacterBaseComponent>();
 
     var upbringingBuff = characterComponent?.upbringing.getEntity();
-    var secondUpbringingBuff = characterComponent?.secondUpbringing?.getEntity();
+    var secondUpbringingBuff = null;
     var childhoodBuff = characterComponent?.childhood.getEntity();
 
     var textService = locator<TextService>();    
