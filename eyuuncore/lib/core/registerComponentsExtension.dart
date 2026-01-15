@@ -38,6 +38,7 @@ import 'package:eyuuncore/components/upgrade/FluxUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/HealthUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/LanguageLearnerUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/TalentsUpgrade.dart';
+import 'package:eyuuncore/core/components/Inherit.dart';
 import 'package:eyuuncore/core/reflection/EmptyData.dart';
 import 'package:eyuuncore/core/repository/ComponentRepository.dart';
 
@@ -58,6 +59,8 @@ import 'services/WorldManager.dart';
 
 extension registerEditorComponentsExtension on ComponentRepository {
   void registerComponents() {
+    //inherit is an editor-only component!
+    registerComponent<InheritStatic>(InheritStatic.propertyName, (map) => InheritStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<StandardStatic>(StandardComponent.propertyName, (map) => StandardStatic.fromMap(map), (comp) => comp.toMap());
     registerComponent<HealthStatic>(HealthComponent.propertyName, (map) => HealthStaticMapper.fromMap(map), (comp) => comp.toMap());
     registerComponent<AttributesStatic>(AttributesComponent.propertyName, (map) => AttributesStaticMapper.fromMap(map), (comp) => comp.toMap());

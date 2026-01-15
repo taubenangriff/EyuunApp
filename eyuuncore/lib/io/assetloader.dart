@@ -18,6 +18,11 @@ class AssetLoader {
           "typeId is not valid and doesn't point to an asset definition. This should be checked beforehand!");
     }
 
+    var inherit = getInheritFromAssetMap(asset);
+    if(inherit != null && assetRepository.isValidDefinition(inherit)){
+      applyStaticData(entity, inherit);
+    }
+
     for (var key in asset.keys) {
       if (!worldManager.isValidComponentName(key)) {
         continue;
@@ -58,6 +63,10 @@ class AssetLoader {
 
   String? getTypeIdFromAssetMap(Map<String, dynamic> assetMap) {
     return assetMap['standard']['typeId'] as String?;
+  }
+
+  String? getInheritFromAssetMap(Map<String, dynamic> assetMap) {
+    return assetMap['inherit']['from'] as String?;
   }
 
 }
