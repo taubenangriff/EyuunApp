@@ -6,6 +6,7 @@ import 'package:easy_stepper/easy_stepper.dart';
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/CharacterBase.dart';
 import 'package:eyuuncore/controller/PathController.dart';
+import 'package:eyuuncore/controller/PickUpbringingController.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
@@ -38,11 +39,15 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
   ];
 
   late var pathController = PathController(widget.character);
+  late var characterBaseComponent =
+      widget.character.get<CharacterBaseComponent>()!;
+  late var upbringingController =
+      PickUpbringingController(characterBaseComponent);
 
   late var pages = [
     _wrapWithLayoutBuilder(UpbringingSelectionWidget(
-        characterBaseComponent:
-            widget.character.get<CharacterBaseComponent>()!)),
+        characterBaseComponent: characterBaseComponent,
+        upbringingController: upbringingController)),
     _wrapWithSizedBox(PickNewPathWidget(pathController: pathController)),
     _wrapWithSizedBox(CharacterPortraitPicker(
       nameable: NameableComponent("Glup Shitto"),

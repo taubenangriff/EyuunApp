@@ -14,11 +14,13 @@ class SelectionCard extends StatelessWidget {
 
   final Entity? buff;
   final String fallbackText;
+  final bool showBuff;
 
   const SelectionCard(
       {required this.title,
       required this.onTap,
       required this.buff,
+      this.showBuff = true,
       fallbackText})
       : fallbackText = fallbackText ?? "";
 
@@ -50,14 +52,17 @@ class SelectionCard extends StatelessWidget {
                     ?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 12),
-              buff != null ? BuffDisplay(buff: buff) : Text(fallbackText),
+              if (showBuff)
+                buff != null ? BuffDisplay(buff: buff) : Text(fallbackText),
               if (fluff.isNotEmpty) ...[
-                const SizedBox(height: 16),
-                Divider(
-                  thickness: 2,
-                  color: Colors.grey.withAlpha(100),
-                ),
-                const SizedBox(height: 12),
+                if (showBuff)...{
+                  const SizedBox(height: 16),
+                  Divider(
+                    thickness: 2,
+                    color: Colors.grey.withAlpha(100),
+                  ),
+                  const SizedBox(height: 12),
+                },
                 Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: Text(

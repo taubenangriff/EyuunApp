@@ -1,4 +1,6 @@
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
+import 'package:eyuunapp/view/widgets/BuffDisplay.dart';
+import 'package:eyuuncore/controller/PickUpbringingController.dart';
 import 'package:eyuuncore/components/CharacterBase.dart';
 import 'package:eyuuncore/components/feature/CharacterTables.dart';
 import 'package:eyuuncore/core/assetLink.dart';
@@ -12,10 +14,12 @@ import 'SelectionCard.dart';
 
 class UpbringingSelectionWidget extends StatefulWidget {
   final CharacterBaseComponent characterBaseComponent;
+  final PickUpbringingController upbringingController;
 
   const UpbringingSelectionWidget({
     super.key,
     required this.characterBaseComponent,
+    required this.upbringingController
   });
 
   @override
@@ -25,17 +29,15 @@ class UpbringingSelectionWidget extends StatefulWidget {
 
 class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
   final TextService textService = locator<TextService>();
-  Entity? upbringing;
-  Entity? additionalUpbringing;
+  late final PickUpbringingController upbringingController = widget.upbringingController;
 
   @override
   Widget build(BuildContext context) {
     final character = widget.characterBaseComponent;
 
-    double cardHeight = 140;
+    double cardHeight = 130;
 
     var childhood = character.childhood.getEntity();
-
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -44,15 +46,19 @@ class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
         ConstrainedBox(
           constraints: BoxConstraints(minHeight: cardHeight),
           child: SelectionCard(
-            title: textService.getText('uitext_upbringing') + (upbringing != null ? textService.getTextFromEntity(upbringing) : ""),
-            buff: upbringing,
+            title: textService.getText('uitext_upbringing') +
+                (upbringingController.hasUpbringing() != null
+                    ? textService.getTextFromEntity(upbringingController.selectedUpbringing)
+                    : ""),
+            buff: upbringingController.selectedUpbringing,
+            showBuff: !upbringingController.pickedBoth(),
             fallbackText: textService.getText('uitext_pick_upbringing'),
             onTap: () => _openPicker(
               context,
-              locator<CharacterTablesFeatureComponent>().upbringings,
+              upbringingController.getCurrentlySelectableUpbringings(),
               (buff) {
                 setState(() {
-                  upbringing = buff;
+                  upbringingController.pickUpbringing(buff);
                 });
               },
             ),
@@ -61,26 +67,62 @@ class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
         const SizedBox(height: 16),
         ConstrainedBox(
           constraints: BoxConstraints(minHeight: cardHeight),
-          child: SelectionCard(
-            title: textService.getText('uitext_secondary_upbringing_select') + (additionalUpbringing != null ? textService.getTextFromEntity(additionalUpbringing) : ""),
-            buff: additionalUpbringing,
-            fallbackText: textService.getText('uitext_pick_secondUpbringing'),
-            onTap: () => _openPicker(
-              context,
-              locator<CharacterTablesFeatureComponent>().secondaryUpbringings,
-              (buff) {
-                setState(() {
-                  additionalUpbringing = buff;
-                });
-              },
-            ),
+          child:
+          Stack(
+            fit: StackFit.passthrough,
+            children: [
+              SelectionCard(
+                title: textService.getText('uitext_secondary_upbringing_select') +
+                    (upbringingController.hasAdditionalUpbringing()
+                        ? textService.getTextFromEntity(upbringingController.selectedAdditionalUpbringing)
+                        : ""),
+                buff: upbringingController.selectedAdditionalUpbringing,
+                showBuff: !upbringingController.pickedBoth(),
+                fallbackText: textService.getText('uitext_pick_secondUpbringing'),
+                onTap: () => _openPicker(
+                  context,
+                  upbringingController.getCurrentlySelectableAdditionalUpbringings(),
+                      (buff) {
+                    setState(() {
+                      upbringingController.pickAdditionalUpbringing(buff);
+                    });
+                  },
+                ),
+              ),
+              if (upbringingController.hasAdditionalUpbringing())
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(16),
+                      onTap: () {
+                        setState(() {
+                          upbringingController.clearAdditional();
+                        });
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.all(4),
+                        child: Icon(
+                          Icons.close,
+                          size: 32,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+            ],
           ),
         ),
         const SizedBox(height: 16),
         ConstrainedBox(
           constraints: BoxConstraints(minHeight: cardHeight),
           child: SelectionCard(
-            title: textService.getText('uitext_childhood') + (childhood != null ? textService.getTextFromEntity(childhood) : ""),
+            title: textService.getText('uitext_childhood') +
+                (childhood != null
+                    ? textService.getTextFromEntity(childhood)
+                    : ""),
             buff: childhood,
             fallbackText: textService.getText('uitext_pick_childhood'),
             onTap: () => _openPicker(
@@ -94,6 +136,46 @@ class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
             ),
           ),
         ),
+        const SizedBox(height: 16),
+        if (upbringingController.pickedBoth()) ...{
+          Divider(),
+          const SizedBox(height: 16),
+          Column(children: [
+            Text(
+              locator<TextService>().getText('uitext_selectupbringingbuff_header'),
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 16),
+            ConstrainedBox(constraints: BoxConstraints(maxWidth: 800), child: Center(child: Text(
+              locator<TextService>().getText('uitext_selectupbringingbuff_explainer'),
+              textAlign: TextAlign.center,
+            ))),
+            const SizedBox(height: 32),
+            SegmentedButton<Entity?>(
+              multiSelectionEnabled: false,
+              emptySelectionAllowed: true,
+              segments: upbringingController.getPossibleUpbringingBuffsFromPreselection()
+                  .map((buff) => ButtonSegment(
+                  value: buff,
+                  label: Text(
+                      locator<TextService>().getTextFromEntity(buff))))
+                  .toList(),
+              selected:
+              upbringingController.hasAnyUpbringing() ? {upbringingController.buffProvidingUpbringing} : {},
+              onSelectionChanged: (newSelection) {
+                setState(() {
+                  upbringingController.setBuffProvidingUpbringing(newSelection.first!);
+                });
+              },
+            ),
+            const SizedBox(height: 16),
+            ConstrainedBox(constraints: BoxConstraints(maxWidth: 700, minHeight: 200), child: BuffDisplay(buff: upbringingController.buffProvidingUpbringing))
+
+          ])
+        }
       ],
     );
   }
