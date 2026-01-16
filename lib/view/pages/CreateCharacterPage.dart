@@ -32,7 +32,7 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
   var steps = [
     EasyStep(title: 'Past', customStep: Container()),
     EasyStep(title: 'Path', customStep: Container()),
-    EasyStep(title: 'Name', customStep: Container()),
+    EasyStep(title: 'Appearance', customStep: Container()),
     EasyStep(title: 'Attributes', customStep: Container()),
     EasyStep(title: 'Talents', customStep: Container()),
     EasyStep(title: 'Summary', customStep: Container()),
@@ -51,6 +51,7 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
     _wrapWithSizedBox(PickNewPathWidget(pathController: pathController)),
     _wrapWithSizedBox(CharacterPortraitPicker(
       nameable: NameableComponent("Glup Shitto"),
+      upbringingController: upbringingController,
     )),
     _wrapWithLayoutBuilder(AttributeDiceSelector(
         attributes: widget.character.get<AttributesComponent>()!)),

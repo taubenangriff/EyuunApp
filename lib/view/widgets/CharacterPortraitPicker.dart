@@ -1,3 +1,7 @@
+import 'package:eyuuncore/controller/PickUpbringingController.dart';
+import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/core/services/TextService.dart';
+import 'package:eyuuncore/enums/PersonSize.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
@@ -12,11 +16,10 @@ class NameableComponent {
 
 class CharacterPortraitPicker extends StatefulWidget {
   final NameableComponent nameable;
+  final PickUpbringingController upbringingController;
 
-  const CharacterPortraitPicker({
-    super.key,
-    required this.nameable,
-  });
+  const CharacterPortraitPicker(
+      {super.key, required this.nameable, required this.upbringingController});
 
   @override
   State<CharacterPortraitPicker> createState() =>
@@ -62,9 +65,11 @@ class _CharacterPortraitPickerState extends State<CharacterPortraitPicker> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
+    var sizes = widget.upbringingController.getPossibleSizes();
+    var textService = locator<TextService>();
+
     return Focus(
       autofocus: true,
       child: Center(
@@ -155,6 +160,45 @@ class _CharacterPortraitPickerState extends State<CharacterPortraitPicker> {
                 ),
               ),
             ),
+            SizedBox(height: 32),
+            if (sizes.length > 0) ... {
+              Divider(),
+              SizedBox(height: 16),
+              Text(
+                textService.getText(sizes.length > 1
+                      ? 'uitext_varsize_header'
+                      : 'uitext_fixedsize_header') +
+                  (sizes.length > 1 ? "" : textService.getText(sizes.first.getTextKey())),
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            )
+            },
+            if (sizes.length > 1) ...{
+              SizedBox(height: 16),
+              Text(locator<TextService>().getText('uitext_picksize_header')),
+              SizedBox(height: 16),
+              SegmentedButton<PersonSize>(
+                multiSelectionEnabled: false,
+                emptySelectionAllowed: true,
+                segments: sizes
+                    .map((size) =>
+                        ButtonSegment(value: size, label: Text(textService.getText(size.getTextKey()))))
+                    .toList(),
+                selected: widget.upbringingController.selectedSize != null
+                    ? {widget.upbringingController.selectedSize!}
+                    : {},
+                onSelectionChanged: (newSelection) {
+                  setState(() {
+                    if (newSelection.isNotEmpty) {
+                      widget.upbringingController.selectedSize =
+                          newSelection.first;
+                    }
+                  });
+                },
+              )
+            }
           ],
         ),
       ),

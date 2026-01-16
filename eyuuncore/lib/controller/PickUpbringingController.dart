@@ -15,6 +15,8 @@ class PickUpbringingController {
 
   CharacterBaseComponent characterBase;
 
+  PersonSize? selectedSize;
+
   PickUpbringingController(this.characterBase);
 
   List<PersonSize> getPossibleSizes() {
@@ -31,7 +33,6 @@ class PickUpbringingController {
 
   List<Entity> getCurrentlySelectableAdditionalUpbringings() {
     return locator<CharacterTablesFeatureComponent>().secondaryUpbringings.where((e) => e != selectedUpbringing).toList();
-
   }
 
   clearAdditional(){
