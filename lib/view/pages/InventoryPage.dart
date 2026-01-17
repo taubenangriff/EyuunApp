@@ -19,6 +19,7 @@ import 'package:eyuuncore/controller/InventoryController.dart';
 import 'package:eyuuncore/controller/CombatController.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
+import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
@@ -350,7 +351,7 @@ class _InventoryPageState extends State<InventoryPage> {
   }
 
   Widget _buildArmorSlot() => _buildTypedEquipmentSlot(
-        label: "Armor",
+        icon: Icons.shield_moon,
         getItem: () => armor,
         assignVisual: (x) => armor = x,
         acceptsEntity: (e) => e.has<ArmorComponent>(),
@@ -365,7 +366,7 @@ class _InventoryPageState extends State<InventoryPage> {
       );
 
   Widget _buildHoldableSlot(int index) => _buildTypedEquipmentSlot(
-        label: "Holdable",
+        icon: Icons.back_hand,
         getItem: () => holdables[index],
         assignVisual: (x) => holdables[index] = x,
         acceptsEntity: (e) => e.has<HoldableComponent>(),
@@ -380,7 +381,7 @@ class _InventoryPageState extends State<InventoryPage> {
       );
 
   Widget _buildAddHoldableSlot() => _buildTypedEquipmentSlot(
-        label: "+",
+        icon: Icons.back_hand,
         getItem: () => null,
         assignVisual: (x) {
           if (x != null) holdables.add(x);
@@ -393,7 +394,7 @@ class _InventoryPageState extends State<InventoryPage> {
       );
 
   Widget _buildTypedEquipmentSlot({
-    required String label,
+    required IconData icon,
     required InventoryItem? Function() getItem,
     required void Function(InventoryItem?) assignVisual,
     required bool Function(Entity entity) acceptsEntity,
@@ -403,7 +404,7 @@ class _InventoryPageState extends State<InventoryPage> {
     required VoidCallback onTap,
   }) {
     return buildEquipmentSlot(
-      label: label,
+      icon: icon,
       getItem: getItem,
       setItem: (item) {
         // clear slot
@@ -433,12 +434,13 @@ class _InventoryPageState extends State<InventoryPage> {
   }
 
   Widget buildEquipmentSlot({
-    required String label,
+    required IconData icon,
     required InventoryItem? Function() getItem,
     required void Function(InventoryItem?) setItem,
     required ValueChanged<InventoryItem?> onItemChanged,
     required VoidCallback onTap,
   }) {
+    var item = getItem();
     return SizedBox(
         height: 108,
         width: 108,
@@ -448,9 +450,9 @@ class _InventoryPageState extends State<InventoryPage> {
             DragTarget<InventoryItem>(
               builder: (context, candidateData, rejectedData) =>
                   InventoryItemWidget(
-                item: getItem(),
+                item: item,
                 onTap: () => setState(() {
-                  selectedItem = getItem();
+                  selectedItem = item;
                 }),
               ),
               onAcceptWithDetails: (details) {
@@ -460,15 +462,16 @@ class _InventoryPageState extends State<InventoryPage> {
                 });
               },
             ),
-            if (getItem() == null) Center(child: Text(label)),
-            if (getItem() != null)
+            if (item == null)
+              IgnorePointer(child: Center(child: Icon(icon))),
+            if (item != null)
               // The info button in the top right corner
               Positioned(
                 top: 4,
                 right: 4,
                 child: IconButton(
                   icon: const Icon(Icons.remove_circle),
-                  tooltip: 'Unequip $label',
+                  tooltip: 'Unequip ${locator<TextService>().getTextFromEntity(item.object?.getEntity())}',
                   onPressed: () {
                     setState(() {
                       if (selectedItem == armor) selectedItem = null;

@@ -1,3 +1,4 @@
+import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
 import 'package:eyuuncore/components/CharacterBase.dart';
 import 'package:eyuuncore/components/feature/LevelFeature.dart';
 import 'package:eyuunapp/view/popup/BuffDisplayPopup.dart';
@@ -61,6 +62,8 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
     var textService = locator<TextService>();    
     var levelFeature = locator<LevelFeatureComponent>();
 
+    var theme = Theme.of(context);
+
     return LayoutBuilder(
       builder: (context, constraints) {
         return Row(
@@ -78,7 +81,7 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                 ),
               ),
             ),
-            const SizedBox(width: 12),
+            EyuunWidgets.spacerHorizontal(),
 
             // 📜 Right side info
             Expanded(
@@ -104,8 +107,7 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                       ),
                     ),
                   ),
-
-                  const SizedBox(height: 4),
+                  EyuunWidgets.spacerVertical(),
 
                   // 2️⃣ Upbringing & Childhood (NEW split row)
                   SizedBox(
@@ -125,14 +127,13 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                             child: Container(
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.surfaceVariant,
+                                color: theme.cardColor,
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: Text(
                                 '${textService.getText('uitext_upbringing')}${textService.getTextFromEntity(upbringingBuff)}${secondUpbringingBuff != null ? ", ${textService.getTextFromEntity(secondUpbringingBuff)}" : ""}',
                                 style: TextStyle(
                                   fontSize: fontSize - 2,
-                                  color: Theme.of(context).colorScheme.primary,
                                 ),
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.center,
@@ -140,7 +141,7 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                             ),
                           ),
                         ),
-                        const SizedBox(width: 4),
+                        EyuunWidgets.spacerHorizontal(),
                         Expanded(
                           child: InkWell(
                             borderRadius: BorderRadius.circular(6),
@@ -153,14 +154,13 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                             child: Container(
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.surfaceVariant,
+                                color: theme.cardColor,
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: Text(
                                 '${textService.getText('uitext_childhood')}${textService.getTextFromEntity(childhoodBuff)}',
                                 style: TextStyle(
                                   fontSize: fontSize - 2,
-                                  color: Theme.of(context).colorScheme.primary,
                                 ),
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.center,
@@ -171,9 +171,7 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                       ],
                     ),
                   ),
-
-                  const SizedBox(height: 4),
-
+                  EyuunWidgets.spacerVertical(),
                   // 3️⃣ Level & Origin (Ability → Origin)
                   SizedBox(
                     height: textHeight,
@@ -212,10 +210,7 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                             child: Container(
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .surfaceContainerHighest
-                                    .withAlpha(150),
+                                color: theme.cardColor,
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: Text(
@@ -228,15 +223,12 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                             ),
                           ),
                         ),
-                        const SizedBox(width: 4),
+                        EyuunWidgets.spacerHorizontal(),
                         Expanded(
                           child: Container(
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .surfaceContainerHighest
-                                  .withAlpha(150),
+                              color: theme.cardColor,
                               borderRadius: BorderRadius.circular(6),
                             ),
                             child: Text(

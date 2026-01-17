@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
 import 'package:eyuuncore/components/CharacterPath.dart';
 import 'package:eyuuncore/components/Path.dart';
 import 'package:eyuuncore/components/PathStep.dart';
@@ -148,7 +149,7 @@ class _PathsWidgetState extends State<PathsWidget> {
           'Paths',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
-        const SizedBox(height: 16),
+        EyuunWidgets.spacerVertical(),
 
         // Progress bars
         ...pathController.getChosenPaths().map((path) {
@@ -167,7 +168,7 @@ class _PathsWidgetState extends State<PathsWidget> {
           return Padding(
               padding: const EdgeInsets.all(8),
               child: Container(
-                padding: EdgeInsets.all(8),
+                padding: EdgeInsets.all(4),
                   decoration: EyuunDecoration(
                       paint: Brushes.silverSparkling(),
                       fillCorners: false,
