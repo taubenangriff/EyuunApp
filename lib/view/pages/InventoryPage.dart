@@ -99,10 +99,10 @@ class _InventoryPageState extends State<InventoryPage> {
           constraints: BoxConstraints(maxWidth: desiredSize),
           child: LayoutBuilder(
             builder: (context, constraints) {
-              final isTablet = constraints.maxWidth >=
-                  900; // adjust breakpoint if needed
+              final isTablet =
+                  constraints.maxWidth >= 900; // adjust breakpoint if needed
 
-                  {
+              {
                 // 📱 PHONE LAYOUT (vertical)
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -143,8 +143,7 @@ class _InventoryPageState extends State<InventoryPage> {
                               child: Wrap(
                                 spacing: 12,
                                 runSpacing: 12,
-                                crossAxisAlignment:
-                                WrapCrossAlignment.center,
+                                crossAxisAlignment: WrapCrossAlignment.center,
                                 alignment: WrapAlignment.center,
                                 children: slotWidgets,
                               ),
@@ -194,7 +193,8 @@ class _InventoryPageState extends State<InventoryPage> {
                       setState(() {
                         moneyController.change(change);
                       });
-                    }),maximumSize: Size(400, 800));
+                    }),
+                    maximumSize: Size(400, 800));
               },
               text: '${_inventory!.money} €',
               tooltip: 'Yuun',
@@ -345,128 +345,88 @@ class _InventoryPageState extends State<InventoryPage> {
     );
   }
 
-  Widget _buildArmorSlot() => buildEquipmentSlot(
+  Widget _buildArmorSlot() => _buildTypedEquipmentSlot(
         label: "Armor",
         getItem: () => armor,
-        setItem: (x) {
-          //clearing slot
-          if (x == null) {
-            _combatController.unequipArmor();
-            armor = null;
-            return;
-          }
-          //adding armor if x isn't null
-          var armorEntity = x.object?.getEntity();
-          if (armorEntity == null) {
-            return;
-          }
-          if (!armorEntity.has<ArmorComponent>()) {
-            return;
-          }
-          if (!_combatController.canEquipArmor(armorEntity)) {
-            return;
-          }
-          _combatController.equipArmor(armorEntity);
-          _inventoryController.deleteItem(x);
-
-          //update visual armor
-          armor = x;
-        },
+        assignVisual: (x) => armor = x,
+        acceptsEntity: (e) => e.has<ArmorComponent>(),
+        canEquip: _combatController.canEquipArmor,
+        equip: _combatController.equipArmor,
+        unequip: _combatController.unequipArmor,
         onTap: () {
-          if (armor == null) {
-            return;
+          if (armor != null) {
+            setState(() => selectedItem = armor);
           }
-          setState(() {
-            selectedItem = armor;
-          });
         },
-        onItemChanged: (newItem) => setState(() {
-          if (newItem == null && selectedItem == armor) {
-            selectedItem = null;
-          }
-          armor = newItem;
-        }),
       );
 
-  Widget _buildHoldableSlot(int index) => buildEquipmentSlot(
+  Widget _buildHoldableSlot(int index) => _buildTypedEquipmentSlot(
         label: "Holdable",
         getItem: () => holdables[index],
-        setItem: (x) {
-          //clearing slot
-          if (x == null) {
-            _combatController.unequipHoldable(index);
-            holdables[index] = null;
-            return;
-          }
-          //adding holdable if x isn't null
-          var holdableEntity = x.object?.getEntity();
-          if (holdableEntity == null) {
-            return;
-          }
-          if (!holdableEntity.has<HoldableComponent>()) {
-            return;
-          }
-          if (!_combatController.canEquipHoldable(holdableEntity)) {
-            return;
-          }
-          _combatController.equipHoldable(holdableEntity);
-          _inventoryController.deleteItem(x);
-
-          //update visual armor
-          holdables[index] = x;
-        },
+        assignVisual: (x) => holdables[index] = x,
+        acceptsEntity: (e) => e.has<HoldableComponent>(),
+        canEquip: _combatController.canEquipHoldable,
+        equip: (e) => _combatController.equipHoldable(e),
+        unequip: () => _combatController.unequipHoldable(index),
         onTap: () {
-          if (holdables[index] == null) {
-            return;
+          if (holdables[index] != null) {
+            setState(() => selectedItem = holdables[index]);
           }
-          setState(() {
-            selectedItem = weapon;
-          });
         },
-        onItemChanged: (newItem) => setState(() {
-          if (newItem == null && selectedItem == holdables[index]) {
-            selectedItem = null;
-          }
-          holdables[index] = newItem;
-        }),
       );
 
-  Widget _buildAddHoldableSlot() => buildEquipmentSlot(
+  Widget _buildAddHoldableSlot() => _buildTypedEquipmentSlot(
         label: "+",
         getItem: () => null,
-        setItem: (x) {
-          //clearing slot
-          if (x == null) {
-            _combatController.unequipArmor();
-            armor = null;
-            return;
-          }
-          //adding holdable if x isn't null
-          var holdableEntity = x.object?.getEntity();
-          if (holdableEntity == null) {
-            return;
-          }
-          if (!holdableEntity.has<HoldableComponent>()) {
-            return;
-          }
-          if (!_combatController.canEquipHoldable(holdableEntity)) {
-            return;
-          }
-          _combatController.equipHoldable(holdableEntity);
-
-          //update visual armor
-          holdables.add(x);
+        assignVisual: (x) {
+          if (x != null) holdables.add(x);
         },
-        onTap: () => setState(() {
-          selectedItem = weapon;
-        }),
-        onItemChanged: (newItem) => setState(() {
-          if (newItem == null && selectedItem == weapon) {
-            selectedItem = null;
-          }
-          weapon = newItem;
-        }),
+        acceptsEntity: (e) => e.has<HoldableComponent>(),
+        canEquip: _combatController.canEquipHoldable,
+        equip: (e) => _combatController.equipHoldable(e),
+        unequip: () {},
+        onTap: () => setState(() => selectedItem = null),
       );
+
+  Widget _buildTypedEquipmentSlot({
+    required String label,
+    required InventoryItem? Function() getItem,
+    required void Function(InventoryItem?) assignVisual,
+    required bool Function(Entity entity) acceptsEntity,
+    required bool Function(Entity entity) canEquip,
+    required void Function(Entity entity) equip,
+    required void Function() unequip,
+    required VoidCallback onTap,
+  }) {
+    return buildEquipmentSlot(
+      label: label,
+      getItem: getItem,
+      setItem: (item) {
+        // clear slot
+        if (item == null) {
+          unequip();
+          assignVisual(null);
+          return;
+        }
+
+        final entity = item.object?.getEntity();
+        if (entity == null) return;
+        if (!acceptsEntity(entity)) return;
+        if (!canEquip(entity)) return;
+
+        equip(entity);
+        _inventoryController.deleteItem(item);
+        assignVisual(item);
+      },
+      onTap: onTap,
+      onItemChanged: (newItem) => setState(() {
+        if (newItem == null && selectedItem == getItem()) {
+          selectedItem = null;
+        }
+        assignVisual(newItem);
+      }),
+    );
+  }
 
   Widget buildEquipmentSlot({
     required String label,

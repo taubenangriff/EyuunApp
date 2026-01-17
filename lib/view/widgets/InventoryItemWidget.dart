@@ -19,7 +19,11 @@ class InventoryItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Draggable<InventoryItem>(
+    if(item == null){
+      return _buildItemTile(context, isSelected: isSelected);
+    }
+    return LongPressDraggable<InventoryItem>(
+      delay: const Duration(milliseconds: 100),
       data: item,
       feedback: _buildItemTile(context, isDragging: true),
       childWhenDragging: _buildEmptySlot(),
