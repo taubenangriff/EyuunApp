@@ -42,7 +42,7 @@ class _InventoryWidgetState extends State<InventoryWidget> {
     return GridView.builder(
       padding: const EdgeInsets.all(8),
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-      maxCrossAxisExtent: 128, // 👈 desired item width
+      maxCrossAxisExtent: 108, // 👈 desired item width
       crossAxisSpacing: 8,
       mainAxisSpacing: 8,
       childAspectRatio: 1, // tweak if needed

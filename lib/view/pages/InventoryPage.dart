@@ -85,9 +85,9 @@ class _InventoryPageState extends State<InventoryPage> {
         [];
 
     List<Widget> slotWidgets = [
-      _buildArmorSlot(),
       for (var (index, _) in holdables.indexed) _buildHoldableSlot(index),
-      if (_combatController.getFreeHands() > 0) _buildAddHoldableSlot()
+      if (_combatController.getFreeHands() > 0) _buildAddHoldableSlot(),
+      _buildArmorSlot(),
     ];
 
     List<Entity> shopItems = locator<ItemShopFeatureComponent>().getShopItems();
@@ -98,61 +98,86 @@ class _InventoryPageState extends State<InventoryPage> {
           Center(
             child: ConstrainedBox(
               constraints: BoxConstraints(maxWidth: desiredSize),
-              child: Row(
-                children: [
-                  // Left side: Inventory grid
-                  Expanded(
-                    flex: 2,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: InventoryWidget(
-                        inventory: _inventory!,
-                        onItemSelected: _onItemSelected,
-                      ),
-                    ),
-                  ),
-                  // Right side: Details panel
-                  Expanded(
-                    flex: 1,
-                    child: Column(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final isTablet = constraints.maxWidth >=
+                      900; // adjust breakpoint if needed
+
+                  {
+                    // 📱 PHONE LAYOUT (vertical)
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Container(
+                        if (!isTablet) ...{
+                          SizedBox(
+                            height: 220,
+                            child: ItemDisplayWidget(item: selectedItem),
+                          ),
+                          const SizedBox(height: 8),
+                          Padding(
                             padding: const EdgeInsets.all(8),
-                            child: GridView.builder(
-                              shrinkWrap: true,
-                              gridDelegate:
-                                  const SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent:
-                                    128, // 👈 desired item width
-                                crossAxisSpacing: 12,
-                                mainAxisSpacing: 12,
-                                childAspectRatio: 1, // tweak if needed
+                            child: Wrap(
+                              spacing: 12,
+                              runSpacing: 12,
+                              alignment: WrapAlignment.center,
+                              children: slotWidgets,
+                            ),
+                          )
+                        } else
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              // 🧾 Item display (left)
+                              Expanded(
+                                flex: 3,
+                                child: SizedBox(
+                                  height: 310,
+                                  child: ItemDisplayWidget(item: selectedItem),
+                                ),
                               ),
-                              itemCount: slotWidgets.length,
-                              itemBuilder: (context, index) {
-                                return slotWidgets[index];
-                              },
-                            )),
-                        Expanded(child: ItemDisplayWidget(item: selectedItem)),
+                              const SizedBox(width: 12),
+                              // 🛡 Armor slots (right)
+                              Expanded(
+                                flex: 1,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Wrap(
+                                    spacing: 12,
+                                    runSpacing: 12,
+                                    crossAxisAlignment:
+                                        WrapCrossAlignment.center,
+                                    alignment: WrapAlignment.center,
+                                    children: slotWidgets,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        const SizedBox(height: 8),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: InventoryWidget(
+                              inventory: _inventory!,
+                              onItemSelected: _onItemSelected,
+                            ),
+                          ),
+                        ),
+                        Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Flexible(child: _buildRemoveDragTarget()),
+                              const SizedBox(width: 300),
+                              Flexible(child: _buildGroupDragTarget())
+                            ])
                       ],
-                    ),
-                  ),
-                ],
+                    );
+                  }
+                },
               ),
             ),
-          ),
-          Positioned(
-            top: 0,
-            bottom: 0,
-            left: 0,
-            child: _buildRemoveDragTarget(),
-          ),
-          Positioned(
-            top: 0,
-            bottom: 0,
-            right: 0,
-            child: _buildGroupDragTarget(),
-          ),
+          )
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -191,19 +216,21 @@ class _InventoryPageState extends State<InventoryPage> {
             tooltip: 'Add an Item',
             icon: Icons.add,
           ),
-          const SizedBox(width: 16),
-          EyuunWidgets.floatingActionButton(
-            onPressed: () {
-              PopupUtil.popup(
-                context,
-                WeaponCraftingScreen(),
-                maximumSize: const Size(1100, 800),
-              );
-            },
-            text: 'Crafting',
-            tooltip: 'Add an Item',
-            icon: Icons.waving_hand_rounded,
-          ),
+          if (false) ...{
+            const SizedBox(width: 16),
+            EyuunWidgets.floatingActionButton(
+              onPressed: () {
+                PopupUtil.popup(
+                  context,
+                  WeaponCraftingScreen(),
+                  maximumSize: const Size(1100, 800),
+                );
+              },
+              text: 'Crafting',
+              tooltip: 'Add an Item',
+              icon: Icons.waving_hand_rounded,
+            ),
+          }
         ],
       ),
     );
@@ -223,7 +250,7 @@ class _InventoryPageState extends State<InventoryPage> {
 
         return AnimatedContainer(
           duration: const Duration(milliseconds: 250),
-          width: 200,
+          height: 120,
           decoration: BoxDecoration(
             gradient: hovering
                 ? LinearGradient(
@@ -231,8 +258,8 @@ class _InventoryPageState extends State<InventoryPage> {
                       Colors.red.withAlpha(100), // deep red
                       Colors.transparent, // light pink-red tint
                     ],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
                   )
                 : const LinearGradient(
                     colors: [
@@ -244,7 +271,7 @@ class _InventoryPageState extends State<InventoryPage> {
           child: Center(
             child: AnimatedOpacity(
               duration: const Duration(milliseconds: 200),
-              opacity: hovering ? 1.0 : 0.0,
+              opacity: hovering ? 1.0 : 0.3,
               child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -292,7 +319,7 @@ class _InventoryPageState extends State<InventoryPage> {
 
         return AnimatedContainer(
           duration: const Duration(milliseconds: 250),
-          width: 200,
+          height: 120,
           decoration: BoxDecoration(
             gradient: hovering
                 ? LinearGradient(
@@ -300,8 +327,8 @@ class _InventoryPageState extends State<InventoryPage> {
                       Colors.transparent, // light pink-red tint
                       Colors.blue.withAlpha(100), // deep red
                     ],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
                   )
                 : const LinearGradient(
                     colors: [
@@ -313,7 +340,7 @@ class _InventoryPageState extends State<InventoryPage> {
           child: Center(
             child: AnimatedOpacity(
               duration: const Duration(milliseconds: 200),
-              opacity: hovering ? 1.0 : 0.0,
+              opacity: hovering ? 1.0 : 0.3,
               child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -321,7 +348,7 @@ class _InventoryPageState extends State<InventoryPage> {
                       size: 48, color: Colors.white),
                   SizedBox(height: 8),
                   Text(
-                    'Access Group Items',
+                    'Group',
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -466,8 +493,9 @@ class _InventoryPageState extends State<InventoryPage> {
     required ValueChanged<InventoryItem?> onItemChanged,
     required VoidCallback onTap,
   }) {
-    return AspectRatio(
-        aspectRatio: 1,
+    return SizedBox(
+        height: 108,
+        width: 108,
         child: Stack(
           children: [
             Center(child: Text(label)),

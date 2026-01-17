@@ -11,9 +11,9 @@ import '../../popup/ChangeItemCountPopup.dart';
 import '../../popup/PopupUtil.dart';
 import '../eyuun/Brushes.dart';
 import '../eyuun/EyuunDecoration.dart';
+import '../eyuun/EyuunWidgets.dart';
 
 class ItemDisplayWidget extends StatefulWidget {
-
   final InventoryItem? item;
   const ItemDisplayWidget({super.key, required this.item});
 
@@ -22,24 +22,21 @@ class ItemDisplayWidget extends StatefulWidget {
 }
 
 class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
-
   final _textService = locator<TextService>();
   final _gameObjectService = locator<GameObjectService>();
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       margin: const EdgeInsets.all(8),
       padding: const EdgeInsets.all(16),
       decoration:
-      EyuunDecoration(cornerSize: 20, paint: Brushes.goldSparkling()),
+          EyuunDecoration(cornerSize: 20, paint: Brushes.goldSparkling()),
       child: widget.item == null
           ? _buildPlaceholder(context)
           : _buildItemDetails(context),
     );
   }
-
 
   Widget _buildPlaceholder(BuildContext context) {
     final theme = Theme.of(context);
@@ -84,12 +81,12 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
             Expanded(
                 child: SingleChildScrollView(
                     child: Column(children: [
-                      Text(
-                        _textService.getFluffFromLink(item.type),
-                        style: theme.textTheme.bodyMedium,
-                        textAlign: TextAlign.justify,
-                      )
-                    ]))),
+              Text(
+                _textService.getFluffFromLink(item.type),
+                style: theme.textTheme.bodyMedium,
+                textAlign: TextAlign.justify,
+              )
+            ]))),
             SizedBox(height: 100)
           ],
         ),
@@ -111,25 +108,20 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
                         context,
                         ChangeItemCountPopup(amountController,
                             valueChanged: (change, useMoney) {
-                              setState(() {
-                                amountController.change(change);
-                              });
-                            }));
+                          setState(() {
+                            amountController.change(change);
+                          });
+                        }));
                   });
                 }))
       ]),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: ConstrainedBox(
-          constraints: BoxConstraints(minHeight: 60, minWidth: 110),
-          child: FloatingActionButton(
-              child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.hardware_outlined),
-                    SizedBox(width: 4),
-                    Text('Use')
-                  ]),
-              onPressed: () => setState(() {}))),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: EyuunWidgets.floatingActionButton(
+          icon: Icons.hardware_outlined,
+          text: 'Use',
+          onPressed: () => setState(() {}),
+          height: 60,
+          width: 110),
     );
   }
 }

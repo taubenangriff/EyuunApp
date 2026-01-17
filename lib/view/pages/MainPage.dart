@@ -117,19 +117,6 @@ class _MainPageState extends State<MainPage> {
                 )
               ],
             ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            var objects = locator<GameObjectService>().getObjects();
-            var gameData = locator<GameObjectsSerializer>().exportGameObjects(objects);
-            gameData.characterId = locator<CharacterService>().character.getObjectId();
-            var gameDataJson = gameData.toJson();
-            downloadConfig(gameDataJson);
-          });
-        },
-        tooltip: 'Download',
-        child: const Icon(Icons.download),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
