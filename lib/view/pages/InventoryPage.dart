@@ -109,7 +109,7 @@ class _InventoryPageState extends State<InventoryPage> {
                   children: [
                     if (!isTablet) ...{
                       SizedBox(
-                        height: 220,
+                        height: 310,
                         child: ItemDisplayWidget(item: selectedItem),
                       ),
                       const SizedBox(height: 8),

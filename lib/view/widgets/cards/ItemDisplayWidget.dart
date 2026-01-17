@@ -1,4 +1,6 @@
+import 'package:eyuuncore/components/Armor.dart';
 import 'package:eyuuncore/components/Item.dart';
+import 'package:eyuuncore/components/Weapon.dart';
 import 'package:eyuuncore/components/inventory.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
@@ -60,68 +62,83 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
         ?.categoryText;
 
     return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Stack(children: [
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              _textService.getTextFromLink(item.type),
-              style: theme.textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              _textService.getText(itemText ?? ""),
-              style: theme.textTheme.bodyMedium,
-            ),
-            const Divider(height: 24),
-            Expanded(
-                child: SingleChildScrollView(
-                    child: Column(children: [
+        backgroundColor: Colors.transparent,
+        body: Stack(children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               Text(
-                _textService.getFluffFromLink(item.type),
+                _textService.getTextFromLink(item.type),
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                _textService.getText(itemText ?? ""),
                 style: theme.textTheme.bodyMedium,
-                textAlign: TextAlign.justify,
-              )
-            ]))),
-            SizedBox(height: 100)
-          ],
-        ),
-        Positioned(
-            top: 0,
-            right: 0,
-            child: ElevatedButton(
-                child: Text('x${item.count}',
-                    style: theme.textTheme.bodyLarge
-                        ?.copyWith(fontWeight: FontWeight.bold, fontSize: 22)),
-                onPressed: () {
-                  var amountController = ChangeValueController(item.count,
-                      name: "Item Count",
-                      maxLimit: 64,
-                      minLimit: 0,
-                      onValUpdated: (val) => item.count = val);
-                  setState(() {
-                    PopupUtil.popup(
-                        context,
-                        ChangeItemCountPopup(amountController,
-                            valueChanged: (change, useMoney) {
-                          setState(() {
-                            amountController.change(change);
-                          });
-                        }));
-                  });
-                }))
-      ]),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: EyuunWidgets.floatingActionButton(
-          icon: Icons.hardware_outlined,
-          text: 'Use',
-          onPressed: () => setState(() {}),
-          height: 60,
-          width: 110),
-    );
+              ),
+              const Divider(height: 24),
+              Expanded(
+                  child: SingleChildScrollView(
+                      child: Column(children: [
+                Text(
+                  _textService.getFluffFromLink(item.type),
+                  style: theme.textTheme.bodyMedium,
+                  textAlign: TextAlign.justify,
+                )
+              ]))),
+              SizedBox(height: 100)
+            ],
+          ),
+          Positioned(
+              top: 0,
+              right: 0,
+              child: ElevatedButton(
+                  child: Text('x${item.count}',
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.bold, fontSize: 22)),
+                  onPressed: () {
+                    var amountController = ChangeValueController(item.count,
+                        name: "Item Count",
+                        maxLimit: 64,
+                        minLimit: 0,
+                        onValUpdated: (val) => item.count = val);
+                    setState(() {
+                      PopupUtil.popup(
+                          context,
+                          ChangeItemCountPopup(amountController,
+                              valueChanged: (change, useMoney) {
+                            setState(() {
+                              amountController.change(change);
+                            });
+                          }));
+                    });
+                  }))
+        ]),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+        floatingActionButton: Column(mainAxisSize: MainAxisSize.min, children: [
+          if (widget.item?.object?.getEntity().has<ArmorComponent>() ??
+              false) ...{
+            const SizedBox(height: 16),
+            EyuunWidgets.floatingActionButton(
+                icon: Icons.shield,
+                text: 'Equip',
+                onPressed: () => setState(() {}),
+                height: 60,
+                width: 130),
+          },
+          if (widget.item?.object?.getEntity().has<WeaponComponent>() ??
+              false) ...{
+            const SizedBox(height: 16),
+            EyuunWidgets.floatingActionButton(
+                icon: Icons.abc,
+                text: 'Equip',
+                onPressed: () => setState(() {}),
+                height: 60,
+                width: 130),
+          }
+        ]));
   }
 }

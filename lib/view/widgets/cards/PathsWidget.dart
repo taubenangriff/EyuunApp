@@ -97,8 +97,7 @@ class _PathsWidgetState extends State<PathsWidget> {
               ),
               onPressed: () => setState(() {
                 PopupUtil.popup(
-                    context,
-                    BuffDisplayPopup(buff: additionalPathItem));
+                    context, BuffDisplayPopup(buff: additionalPathItem));
               }),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -264,23 +263,28 @@ class _PathsWidgetState extends State<PathsWidget> {
               child: ElevatedButton(
                   onPressed: () {
                     setState(() {
-                      PopupUtil.popup(
-                          context,
+                      PopupUtil.popup(context,
                           PickPathPopup(pathController: pathController),
                           maximumSize: Size(900, 700));
                     });
                   },
                   child: Text('+ Add new Path'))),
         const SizedBox(height: 16),
-        GridView.count(
-            shrinkWrap: true, // so it fits inside other scrollables
-            physics:
-                const NeverScrollableScrollPhysics(), // avoid nested scrolling
-            crossAxisCount: 7, // ✅ 7 buttons per row
-            mainAxisSpacing: 16,
-            crossAxisSpacing: 16,
-            childAspectRatio: 1, // square buttons
-            children: additionalPathWidgets)
+        GridView.builder(
+          shrinkWrap: true, // so it fits inside other scrollables
+          physics:
+              const NeverScrollableScrollPhysics(), // avoid nested scrolling
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 120, // 👈 desired item width
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 1, // tweak if needed
+          ),
+          itemCount: additionalPathWidgets.length,
+          itemBuilder: (context, index) {
+            return additionalPathWidgets[index];
+          },
+        )
       ],
     );
   }
