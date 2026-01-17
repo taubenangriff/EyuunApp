@@ -22,6 +22,7 @@ import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
+import '../popup/MoneyChangePopup.dart';
 import '../widgets/eyuun/EyuunWidgets.dart';
 
 class InventoryPage extends StatefulWidget {
@@ -189,11 +190,11 @@ class _InventoryPageState extends State<InventoryPage> {
                     onValUpdated: (val) => _inventory!.money = val);
                 PopupUtil.popup(
                     context,
-                    ChangeValuePopup(moneyController, valueChanged: (change) {
+                    MoneyChangePopup(moneyController, valueChanged: (change) {
                       setState(() {
                         moneyController.change(change);
                       });
-                    }));
+                    }),maximumSize: Size(400, 800));
               },
               text: '${_inventory!.money} €',
               tooltip: 'Yuun',
@@ -212,21 +213,6 @@ class _InventoryPageState extends State<InventoryPage> {
             tooltip: 'Add an Item',
             icon: Icons.add,
           ),
-          if (false) ...{
-            const SizedBox(width: 16),
-            EyuunWidgets.floatingActionButton(
-              onPressed: () {
-                PopupUtil.popup(
-                  context,
-                  WeaponCraftingScreen(),
-                  maximumSize: const Size(1100, 800),
-                );
-              },
-              text: 'Crafting',
-              tooltip: 'Add an Item',
-              icon: Icons.waving_hand_rounded,
-            ),
-          }
         ],
       ),
     );
