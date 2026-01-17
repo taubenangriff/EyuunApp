@@ -24,10 +24,10 @@ class AttributesController{
   List<Dice> getPossibleDicesAtCharCreation(String statId) => [Dice.d4, Dice.d6, Dice.d8];
 
   /// Gets whether the stat can be currently set to [dice].
-  bool canSet(String statId, Dice dice) => true;
+  bool canSet(String statId, Dice dice) => false;
 
   int getRemainingDiceUpgrades() => 0;
 
   /// returns whether it is possible to upgrade the Attribute [statId].
-  bool upgradesPossible(String statId) => true; //throw UnimplementedError();
+  bool upgradesPossible(String statId) => false; //throw UnimplementedError();
 }

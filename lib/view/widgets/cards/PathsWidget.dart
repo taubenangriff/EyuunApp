@@ -281,7 +281,7 @@ class _PathsWidgetState extends State<PathsWidget> {
                   child: Text('+ Add new Path'))),
         const SizedBox(height: 16),
         GridView.builder(
-          shrinkWrap: true, // so it fits inside other scrollables
+          shrinkWrap: true,
           physics:
               const NeverScrollableScrollPhysics(), // avoid nested scrolling
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(

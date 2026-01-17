@@ -8,6 +8,7 @@ import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 
+import '../eyuun/EyuunWidgets.dart';
 
 class AttributesWidget extends StatefulWidget {
   const AttributesWidget({super.key});
@@ -30,62 +31,55 @@ class _AttributesWidgetState extends State<AttributesWidget> {
           AttributesComponent());
 
   Widget _buildBaseStatButton(BuildContext context, AttributeEntry item) {
-    return Stack(
-      alignment: Alignment.center,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        // Main row (never shifts)
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(child: DiceIcon(type: item.dice)),
-            const SizedBox(width: 12),
-            SizedBox(
-              width: 100,
-              child: Text(_textService.getText(item.stat.id)),
-            ),
-          ],
-        ),
-
-        // Floating button (does not affect layout)
+        InkWell(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(child: DiceIcon(type: item.dice)),
+                EyuunWidgets.spacerHorizontal(),
+                SizedBox(
+                  width: 150,
+                  child: Text(_textService.getText(item.stat.id)),
+                ),
+              ],
+            )),
+        EyuunWidgets.spacerHorizontal(),
         if (_controller.upgradesPossible(item.stat.id))
-          Positioned(
-            right: 10,
-            child: ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  _controller.increaseOneStep(item.stat.id);
-                });
-              },
-              child: const Icon(Icons.upgrade),
-            ),
-          ),
+          SizedBox(
+              width: 70,
+              child: ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    _controller.increaseOneStep(item.stat.id);
+                  });
+                },
+                child: const Icon(Icons.upgrade),
+              ))
+        else
+          SizedBox(width: 70),
       ],
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
-    final double buttonHeight = 50;
-    final double crossAxisSpacing = 8;
-    final int crossAxisCount = 2;
-
-    var height = (attributes.length / crossAxisCount) * buttonHeight +
-        3 * crossAxisSpacing;
-
     return Column(children: [
       Text(
         _textService.getText('text_attributes'),
         style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
       SizedBox(
-        height: height, // or any height you want
         child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: crossAxisCount,
-            mainAxisSpacing: 8,
-            crossAxisSpacing: crossAxisSpacing,
-            mainAxisExtent: buttonHeight,
+          shrinkWrap: true, // so it fits inside other scrollables
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 600, // 👈 desired item width
+            mainAxisExtent: 50,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
           ),
           itemCount: attributes.length,
           itemBuilder: (context, index) =>
