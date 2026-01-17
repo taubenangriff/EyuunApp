@@ -23,6 +23,7 @@ class InventoryItemWidget extends StatelessWidget {
       return _buildItemTile(context, isSelected: isSelected);
     }
     return LongPressDraggable<InventoryItem>(
+      hapticFeedbackOnStart: true,
       delay: const Duration(milliseconds: 100),
       data: item,
       feedback: _buildItemTile(context, isDragging: true),
