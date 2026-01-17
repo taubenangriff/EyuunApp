@@ -19,6 +19,7 @@ import 'package:oxygen/oxygen.dart';
 import '../enum/PathTypeColorExtension.dart';
 import '../popup/PickPathPopup.dart';
 import '../widgets/eyuun/Brushes.dart';
+import '../widgets/eyuun/EyuunWidgets.dart';
 
 class BuffDisplayPopup extends StatelessWidget {
   final Entity? buff;
@@ -47,7 +48,7 @@ class BuffDisplayPopup extends StatelessWidget {
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 )),
-            SizedBox(height: 16),
+            EyuunWidgets.spacerVertical(),
             BuffDisplay(buff: buff)
           ],
         )): const SizedBox(width:300, height:200));

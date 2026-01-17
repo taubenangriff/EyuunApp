@@ -17,6 +17,7 @@ class _NotesPageState extends State<NotesPage> {
     final size = MediaQuery.of(context).size;
     late double desiredSize = 1100;
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Center(
         child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: desiredSize),

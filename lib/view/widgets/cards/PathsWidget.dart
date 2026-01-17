@@ -139,6 +139,8 @@ class _PathsWidgetState extends State<PathsWidget> {
               })));
     }
 
+    final theme = Theme.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -163,8 +165,15 @@ class _PathsWidgetState extends State<PathsWidget> {
           var pathType = pathComponent.pathType;
 
           return Padding(
-              padding: const EdgeInsets.all(2),
-              child: InkWell(
+              padding: const EdgeInsets.all(8),
+              child: Container(
+                padding: EdgeInsets.all(8),
+                  decoration: EyuunDecoration(
+                      paint: Brushes.silverSparkling(),
+                      fillCorners: false,
+                      paintInnerLine: false,
+                      cornerSize: 8),
+                  child: InkWell(
                   onTap: () {
                     PopupUtil.popup(
                         context,
@@ -203,16 +212,16 @@ class _PathsWidgetState extends State<PathsWidget> {
                                   children: [
                                     // Base bar
                                     Container(
-                                      height: 24,
+                                      height: 28,
                                       decoration: BoxDecoration(
-                                        color: Colors.grey.shade800,
+                                        color: theme.splashColor,
                                         borderRadius: BorderRadius.circular(12),
                                       ),
                                     ),
                                     // Filled progress
                                     Container(
                                       width: position,
-                                      height: 24,
+                                      height: 28,
                                       decoration: BoxDecoration(
                                         color: pathType.color,
                                         borderRadius: BorderRadius.circular(12),
@@ -253,7 +262,7 @@ class _PathsWidgetState extends State<PathsWidget> {
                         ],
                       ))
                   // replace with your widget
-                  ));
+                  )));
         }),
         if (pathController.canPickNewPath()) const SizedBox(height: 16),
         if (pathController.canPickNewPath())

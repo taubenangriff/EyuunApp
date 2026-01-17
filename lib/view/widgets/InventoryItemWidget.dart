@@ -27,7 +27,7 @@ class InventoryItemWidget extends StatelessWidget {
       delay: const Duration(milliseconds: 100),
       data: item,
       feedback: _buildItemTile(context, isDragging: true),
-      childWhenDragging: _buildEmptySlot(),
+      childWhenDragging: _buildEmptySlot(context),
       child: GestureDetector(
         onTap: onTap,
         child: _buildItemTile(context, isSelected: isSelected),
@@ -38,7 +38,7 @@ class InventoryItemWidget extends StatelessWidget {
   Widget _buildItemTile(BuildContext context,
       {bool isSelected = false, bool isDragging = false}) {
     if (item == null) {
-      return _buildEmptySlot();
+      return _buildEmptySlot(context);
     }
 
     var entity = item?.object?.getEntity();
@@ -81,9 +81,11 @@ class InventoryItemWidget extends StatelessWidget {
         ));
   }
 
-  Widget _buildEmptySlot() {
+  Widget _buildEmptySlot(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       decoration: EyuunDecoration(
+        background: theme.cardColor,
           paint: Paint()
             ..color = Colors.blueGrey
             ..style = PaintingStyle.stroke,

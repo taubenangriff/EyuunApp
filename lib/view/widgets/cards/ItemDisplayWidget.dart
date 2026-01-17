@@ -29,15 +29,9 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(8),
-      padding: const EdgeInsets.all(16),
-      decoration:
-          EyuunDecoration(cornerSize: 20, paint: Brushes.goldSparkling()),
-      child: widget.item == null
-          ? _buildPlaceholder(context)
-          : _buildItemDetails(context),
-    );
+    return widget.item == null
+        ? _buildPlaceholder(context)
+        : _buildItemDetails(context);
   }
 
   Widget _buildPlaceholder(BuildContext context) {

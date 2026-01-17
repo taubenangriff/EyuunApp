@@ -36,7 +36,6 @@ class _MainPageState extends State<MainPage> {
     final size = MediaQuery.of(context).size;
     final isWide = size.width >= 750;
 
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Eyuun App"),
@@ -77,12 +76,19 @@ class _MainPageState extends State<MainPage> {
                 )
               ],
             ),
-          if(isWide)
-            const VerticalDivider(width: 1, thickness: 1),
-          Expanded(child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-              child:_pages[_selectedIndex]
-          )),
+          if (isWide) const VerticalDivider(width: 1, thickness: 1),
+          Expanded(
+              child: Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('data/base/ui/bg/background.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4, horizontal: 4),
+                      child: _pages[_selectedIndex]))),
         ],
       ),
       bottomNavigationBar: isWide

@@ -49,6 +49,7 @@ class _CharacterPageState extends State<CharacterPage> {
         'https://tse3.mm.bing.net/th/id/OIP.cPOpHmPNSfuOjLHJxKOFzAHaGe?rs=1&pid=ImgDetMain&o=7&rm=3');
 
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Center(
@@ -56,131 +57,35 @@ class _CharacterPageState extends State<CharacterPage> {
                 constraints: BoxConstraints(maxWidth: desiredSize),
                 child: Column(
                   children: [
-                    Stack(children: [
-                      DecoratedBox(
-                        decoration: EyuunDecoration(
-                            cornerSize: 20, paint: Brushes.goldSparkling(),
-                            background: theme.canvasColor.withAlpha(120)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: CharacterInfoWidget(
-                            profileImage: placeholderImage,
-                            name: "Glup Shitto",
-                            character: character,
-                          ),
-                        ),
-                      ),
-                      // The info button in the top right corner
-                      Positioned(
-                        top: 12,
-                        right: 12,
-                        child: IconButton(
-                          icon: const Icon(Icons.info_outline),
-                          tooltip: 'More info on Character Background',
-                          onPressed: () async {
-                            const url =
-                                'https://eyuun.de/charaktererstellung#vergangenheit';
-                            if (await canLaunchUrl(Uri.parse(url))) {
-                              await launchUrl(Uri.parse(url));
-                            }
-                          },
-                        ),
-                      ),
-                    ]),
-                    SizedBox(height: 16),
-                    Stack(
-                      children: [
-                        // The decorated box with your content
-                        DecoratedBox(
-                          decoration: EyuunDecoration(
-                              cornerSize: 20,
-                              paint: Brushes.goldSparkling(),
-                              background: theme.canvasColor.withAlpha(120)),
-                          child: const Padding(
-                            padding: EdgeInsets.all(20),
-                            child: AttributesWidget(),
-                          ),
-                        ),
-                        // The info button in the top right corner
-                        Positioned(
-                          top: 12,
-                          right: 12,
-                          child: IconButton(
-                            icon: const Icon(Icons.info_outline),
-                            tooltip: 'More info on Attributes',
-                            onPressed: () async {
-                              const url =
-                                  'https://eyuun.de/proben-projekte#eigenschaftenwuerfe--proben';
-                              if (await canLaunchUrl(Uri.parse(url))) {
-                                await launchUrl(Uri.parse(url));
-                              }
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 16),
-                    Stack(
-                      children: [
-                        // The decorated box with your content
-                        DecoratedBox(
-                          decoration: EyuunDecoration(
-                              cornerSize: 20, paint: Brushes.goldSparkling(),
-                              background: theme.canvasColor.withAlpha(120)),
-                          child: const Padding(
-                            padding: EdgeInsets.all(20),
-                            child: PathsWidget(),
-                          ),
-                        ),
-                        // The info button in the top right corner
-                        Positioned(
-                          top: 12,
-                          right: 12,
-                          child: IconButton(
-                            icon: const Icon(Icons.info_outline),
-                            tooltip: 'More info on Paths',
-                            onPressed: () async {
-                              const url =
-                                  'https://eyuun.de/charaktere-level#pfade';
-                              if (await canLaunchUrl(Uri.parse(url))) {
-                                await launchUrl(Uri.parse(url));
-                              }
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    if (languageLearner != null) SizedBox(height: 16),
+                    EyuunWidgets.informationBox(
+                        child: EyuunWidgets.eyuunBox(
+                            child: CharacterInfoWidget(
+                              profileImage: placeholderImage,
+                              name: "Glup Shitto",
+                              character: character,
+                            ),
+                            theme: theme),
+                        link:
+                            'https://eyuun.de/charaktererstellung#vergangenheit'),
+                    EyuunWidgets.spacerVertical(),
+                    EyuunWidgets.informationBox(
+                        child: EyuunWidgets.eyuunBox(
+                            child: AttributesWidget(), theme: theme),
+                        link:
+                            'https://eyuun.de/proben-projekte#eigenschaftenwuerfe--proben'),
+                    EyuunWidgets.spacerVertical(),
+                    EyuunWidgets.informationBox(
+                        child: EyuunWidgets.eyuunBox(
+                            child: PathsWidget(), theme: theme),
+                        link: 'https://eyuun.de/charaktere-level#pfade'),
                     if (languageLearner != null)
-                      Stack(
-                        children: [
-                          // The decorated box with your content
-                          DecoratedBox(
-                            decoration: EyuunDecoration(
-                                cornerSize: 20, paint: Brushes.goldSparkling()),
-                            child: Padding(
-                              padding: const EdgeInsets.all(20),
+                      EyuunWidgets.spacerVertical(),
+                    if (languageLearner != null)
+                      EyuunWidgets.informationBox(
+                          child: EyuunWidgets.eyuunBox(
                               child: LanguageGrid(learner: languageLearner),
-                            ),
-                          ),
-                          // The info button in the top right corner
-                          Positioned(
-                            top: 12,
-                            right: 12,
-                            child: IconButton(
-                              icon: const Icon(Icons.info_outline),
-                              tooltip: 'More info on Languages',
-                              onPressed: () async {
-                                const url =
-                                    'https://eyuun.de/charaktere-level#sprachen';
-                                if (await canLaunchUrl(Uri.parse(url))) {
-                                  await launchUrl(Uri.parse(url));
-                                }
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
+                              theme: theme),
+                          link: 'https://eyuun.de/charaktere-level#sprachen'),
                     SizedBox(height: 200)
                   ],
                 ))),
@@ -226,8 +131,8 @@ class _CharacterPageState extends State<CharacterPage> {
           const SizedBox(width: 16),
           EyuunWidgets.floatingActionButton(
             onPressed: () {
-              PopupUtil.popup(
-                  context, PauseRestPopup(), maximumSize: const Size(700,470));
+              PopupUtil.popup(context, PauseRestPopup(),
+                  maximumSize: const Size(700, 470));
             },
             text: 'Rest',
             tooltip: 'Conduct a rest',

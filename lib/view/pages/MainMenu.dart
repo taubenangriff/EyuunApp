@@ -1,3 +1,4 @@
+import 'package:eyuunapp/view/pages/CharacterSelectionPage.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:flutter/material.dart';
@@ -29,9 +30,9 @@ class MainMenu extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 EyuunWidgets.floatingActionButton(
-                  text: 'Load Character',
+                  text: 'Load <Last Character>',
                   width: 300,
-                  height: 60,
+                  height: 50,
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
@@ -40,11 +41,24 @@ class MainMenu extends StatelessWidget {
                     );
                   },
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 64),
+                EyuunWidgets.floatingActionButton(
+                  text: 'Load Character',
+                  width: 300,
+                  height: 50,
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const CharacterSelectionPage(),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 16),
                 EyuunWidgets.floatingActionButton(
                   text: 'Create Character',
                   width: 300,
-                  height: 60,
+                  height: 50,
                   onPressed: () {
                     final character = locator<GameObjectService>()
                         .createInstance("character");
@@ -59,6 +73,20 @@ class MainMenu extends StatelessWidget {
                       ),
                     );
                   },
+                ),
+                const SizedBox(height: 16),
+                EyuunWidgets.floatingActionButton(
+                  text: 'Groups',
+                  width: 300,
+                  height: 50,
+                  onPressed: () { },
+                ),
+                const SizedBox(height: 16),
+                EyuunWidgets.floatingActionButton(
+                  text: 'Options',
+                  width: 300,
+                  height: 50,
+                  onPressed: () { },
                 ),
               ],
             ),

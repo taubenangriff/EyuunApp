@@ -12,6 +12,7 @@ import 'PathHeaderTile.dart';
 import 'PathStepTile.dart';
 import 'eyuun/Brushes.dart';
 import 'eyuun/EyuunDecoration.dart';
+import 'eyuun/EyuunWidgets.dart';
 
 class PickNewPathWidget extends StatefulWidget {
   final PathController pathController;
@@ -63,7 +64,7 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
         child: Column(
           children: [
             _buildSearchBar(),
-            const SizedBox(height: 16),
+            EyuunWidgets.spacerVertical(),
             Expanded(
               child: _buildContent(filteredPaths, selectedPath, selectedSteps),
             ),
@@ -110,7 +111,7 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
             },
           ),
         ),
-        const SizedBox(width: 16),
+        EyuunWidgets.spacerVertical(),
         Expanded(
           flex: 3,
           child: selectedPath == null

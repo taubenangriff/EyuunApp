@@ -8,6 +8,8 @@ import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
+import 'eyuun/EyuunWidgets.dart';
+
 
 class PathStepTile extends StatelessWidget {
   final Entity pathStep;
@@ -73,8 +75,7 @@ class PathStepTile extends StatelessWidget {
                         : Colors.grey.shade700),
                   ),
                 ),
-
-                const SizedBox(height: 12),
+                EyuunWidgets.spacerVertical(),
 
                 // 🔹 Buff display
                 Center(

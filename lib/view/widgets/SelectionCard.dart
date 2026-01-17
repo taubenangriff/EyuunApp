@@ -7,6 +7,7 @@ import '../popup/UpbringingPickerPopup.dart';
 import '../widgets/eyuun/EyuunDecoration.dart';
 import '../widgets/eyuun/Brushes.dart';
 import '../widgets/BuffDisplay.dart';
+import 'eyuun/EyuunWidgets.dart';
 
 class SelectionCard extends StatelessWidget {
   final String title;
@@ -51,17 +52,17 @@ class SelectionCard extends StatelessWidget {
                     .titleMedium
                     ?.copyWith(fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 12),
+              EyuunWidgets.spacerVertical(),
               if (showBuff)
                 buff != null ? BuffDisplay(buff: buff) : Text(fallbackText),
               if (fluff.isNotEmpty) ...[
                 if (showBuff)...{
-                  const SizedBox(height: 16),
+                  EyuunWidgets.spacerVertical(),
                   Divider(
                     thickness: 2,
                     color: Colors.grey.withAlpha(100),
                   ),
-                  const SizedBox(height: 12),
+                  EyuunWidgets.spacerVertical(),
                 },
                 Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12),

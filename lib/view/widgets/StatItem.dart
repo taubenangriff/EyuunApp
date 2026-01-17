@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'eyuun/EyuunWidgets.dart';
+
 class StatItem extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -21,7 +23,7 @@ class StatItem extends StatelessWidget {
           size: 32,
           color: Theme.of(context).colorScheme.primary,
         ),
-        const SizedBox(width: 12),
+        EyuunWidgets.spacerHorizontal(),
         Text(
           label,
           style: TextStyle(
@@ -29,7 +31,7 @@ class StatItem extends StatelessWidget {
             color: Colors.grey.shade400,
           ),
         ),
-        const SizedBox(width: 12),
+        EyuunWidgets.spacerHorizontal(),
         Text(
           value.toString(),
           style: const TextStyle(

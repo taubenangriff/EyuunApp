@@ -94,6 +94,7 @@ class _InventoryPageState extends State<InventoryPage> {
     List<Entity> shopItems = locator<ItemShopFeatureComponent>().getShopItems();
 
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Center(
         child: ConstrainedBox(
           constraints: BoxConstraints(maxWidth: desiredSize),
@@ -101,18 +102,20 @@ class _InventoryPageState extends State<InventoryPage> {
             builder: (context, constraints) {
               final isTablet =
                   constraints.maxWidth >= 900; // adjust breakpoint if needed
-
               {
                 // 📱 PHONE LAYOUT (vertical)
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    EyuunWidgets.spacerVertical(),
                     if (!isTablet) ...{
                       SizedBox(
                         height: 310,
-                        child: ItemDisplayWidget(item: selectedItem),
+                        child: EyuunWidgets.eyuunBox(
+                            child: ItemDisplayWidget(item: selectedItem),
+                            theme: theme),
                       ),
-                      const SizedBox(height: 8),
+                      EyuunWidgets.spacerVertical(),
                       Padding(
                         padding: const EdgeInsets.all(8),
                         child: Wrap(
@@ -131,10 +134,12 @@ class _InventoryPageState extends State<InventoryPage> {
                             flex: 3,
                             child: SizedBox(
                               height: 310,
-                              child: ItemDisplayWidget(item: selectedItem),
+                              child: EyuunWidgets.eyuunBox(
+                                  child: ItemDisplayWidget(item: selectedItem),
+                                  theme: theme),
                             ),
                           ),
-                          const SizedBox(width: 12),
+                          EyuunWidgets.spacerHorizontal(),
                           // 🛡 Armor slots (right)
                           Expanded(
                             flex: 1,
@@ -151,15 +156,14 @@ class _InventoryPageState extends State<InventoryPage> {
                           ),
                         ],
                       ),
-                    const SizedBox(height: 8),
+                    EyuunWidgets.spacerVertical(),
                     Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: InventoryWidget(
-                          inventory: _inventory!,
-                          onItemSelected: _onItemSelected,
-                        ),
-                      ),
+                      child: EyuunWidgets.eyuunBox(
+                          child: InventoryWidget(
+                            inventory: _inventory!,
+                            onItemSelected: _onItemSelected,
+                          ),
+                          theme: theme),
                     ),
                     Row(
                         mainAxisSize: MainAxisSize.max,
@@ -440,7 +444,6 @@ class _InventoryPageState extends State<InventoryPage> {
         width: 108,
         child: Stack(
           children: [
-            Center(child: Text(label)),
             // The decorated box with your content
             DragTarget<InventoryItem>(
               builder: (context, candidateData, rejectedData) =>
@@ -457,6 +460,7 @@ class _InventoryPageState extends State<InventoryPage> {
                 });
               },
             ),
+            if (getItem() == null) Center(child: Text(label)),
             if (getItem() != null)
               // The info button in the top right corner
               Positioned(

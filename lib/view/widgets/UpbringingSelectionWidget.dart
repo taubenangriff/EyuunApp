@@ -11,16 +11,16 @@ import 'package:oxygen/oxygen.dart';
 
 import '../popup/UpbringingPickerPopup.dart';
 import 'SelectionCard.dart';
+import 'eyuun/EyuunWidgets.dart';
 
 class UpbringingSelectionWidget extends StatefulWidget {
   final CharacterBaseComponent characterBaseComponent;
   final PickUpbringingController upbringingController;
 
-  const UpbringingSelectionWidget({
-    super.key,
-    required this.characterBaseComponent,
-    required this.upbringingController
-  });
+  const UpbringingSelectionWidget(
+      {super.key,
+      required this.characterBaseComponent,
+      required this.upbringingController});
 
   @override
   State<UpbringingSelectionWidget> createState() =>
@@ -29,7 +29,8 @@ class UpbringingSelectionWidget extends StatefulWidget {
 
 class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
   final TextService textService = locator<TextService>();
-  late final PickUpbringingController upbringingController = widget.upbringingController;
+  late final PickUpbringingController upbringingController =
+      widget.upbringingController;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +49,8 @@ class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
           child: SelectionCard(
             title: textService.getText('uitext_upbringing') +
                 (upbringingController.hasUpbringing() != null
-                    ? textService.getTextFromEntity(upbringingController.selectedUpbringing)
+                    ? textService.getTextFromEntity(
+                        upbringingController.selectedUpbringing)
                     : ""),
             buff: upbringingController.selectedUpbringing,
             showBuff: !upbringingController.pickedBoth(),
@@ -67,22 +69,25 @@ class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
         const SizedBox(height: 16),
         ConstrainedBox(
           constraints: BoxConstraints(minHeight: cardHeight),
-          child:
-          Stack(
+          child: Stack(
             fit: StackFit.passthrough,
             children: [
               SelectionCard(
-                title: textService.getText('uitext_secondary_upbringing_select') +
+                title: textService
+                        .getText('uitext_secondary_upbringing_select') +
                     (upbringingController.hasAdditionalUpbringing()
-                        ? textService.getTextFromEntity(upbringingController.selectedAdditionalUpbringing)
+                        ? textService.getTextFromEntity(
+                            upbringingController.selectedAdditionalUpbringing)
                         : ""),
                 buff: upbringingController.selectedAdditionalUpbringing,
                 showBuff: !upbringingController.pickedBoth(),
-                fallbackText: textService.getText('uitext_pick_secondUpbringing'),
+                fallbackText:
+                    textService.getText('uitext_pick_secondUpbringing'),
                 onTap: () => _openPicker(
                   context,
-                  upbringingController.getCurrentlySelectableAdditionalUpbringings(),
-                      (buff) {
+                  upbringingController
+                      .getCurrentlySelectableAdditionalUpbringings(),
+                  (buff) {
                     setState(() {
                       upbringingController.pickAdditionalUpbringing(buff);
                     });
@@ -142,38 +147,48 @@ class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
           const SizedBox(height: 16),
           Column(children: [
             Text(
-              locator<TextService>().getText('uitext_selectupbringingbuff_header'),
+              locator<TextService>()
+                  .getText('uitext_selectupbringingbuff_header'),
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 16),
-            ConstrainedBox(constraints: BoxConstraints(maxWidth: 800), child: Center(child: Text(
-              locator<TextService>().getText('uitext_selectupbringingbuff_explainer'),
-              textAlign: TextAlign.center,
-            ))),
-            const SizedBox(height: 32),
+            EyuunWidgets.spacerVertical(),
+            ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: 800),
+                child: Center(
+                    child: Text(
+                  locator<TextService>()
+                      .getText('uitext_selectupbringingbuff_explainer'),
+                  textAlign: TextAlign.center,
+                ))),
+            EyuunWidgets.spacerVertical(),
             SegmentedButton<Entity?>(
               multiSelectionEnabled: false,
               emptySelectionAllowed: true,
-              segments: upbringingController.getPossibleUpbringingBuffsFromPreselection()
+              segments: upbringingController
+                  .getPossibleUpbringingBuffsFromPreselection()
                   .map((buff) => ButtonSegment(
-                  value: buff,
-                  label: Text(
-                      locator<TextService>().getTextFromEntity(buff))))
+                      value: buff,
+                      label:
+                          Text(locator<TextService>().getTextFromEntity(buff))))
                   .toList(),
-              selected:
-              upbringingController.hasAnyUpbringing() ? {upbringingController.buffProvidingUpbringing} : {},
+              selected: upbringingController.hasAnyUpbringing()
+                  ? {upbringingController.buffProvidingUpbringing}
+                  : {},
               onSelectionChanged: (newSelection) {
                 setState(() {
-                  upbringingController.setBuffProvidingUpbringing(newSelection.first!);
+                  upbringingController
+                      .setBuffProvidingUpbringing(newSelection.first!);
                 });
               },
             ),
-            const SizedBox(height: 16),
-            ConstrainedBox(constraints: BoxConstraints(maxWidth: 700, minHeight: 200), child: BuffDisplay(buff: upbringingController.buffProvidingUpbringing))
-
+            EyuunWidgets.spacerVertical(),
+            ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: 700, minHeight: 200),
+                child: BuffDisplay(
+                    buff: upbringingController.buffProvidingUpbringing))
           ])
         }
       ],

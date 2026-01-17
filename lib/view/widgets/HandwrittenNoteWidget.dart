@@ -4,6 +4,8 @@ import 'package:flutter_drawing_board/flutter_drawing_board.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drawing_board/paint_contents.dart';
 
+import 'eyuun/EyuunWidgets.dart';
+
 class HandwrittenNoteWidget extends StatefulWidget {
   @override
   State<HandwrittenNoteWidget> createState() => _HandwrittenNoteWidgetState();
@@ -54,7 +56,7 @@ class _HandwrittenNoteWidgetState extends State<HandwrittenNoteWidget> {
               child: Padding(
                   padding: EdgeInsets.all(4),
                   child: Column(mainAxisSize: MainAxisSize.min, children: [
-                    SizedBox(height: 12),
+                    EyuunWidgets.spacerVertical(),
                     // Action Bar (slider, undo, redo, rotate, clear)
                     DrawingBar(
                         style: const VerticalToolsBarStyle(
@@ -100,7 +102,7 @@ class _HandwrittenNoteWidgetState extends State<HandwrittenNoteWidget> {
                             );
                           }),
                         ]),
-                    SizedBox(height: 12),
+                    EyuunWidgets.spacerVertical(),
                   ])))), // Drawing Board
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       body: Expanded(

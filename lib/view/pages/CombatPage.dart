@@ -54,7 +54,10 @@ class _CombatPageState extends State<CombatPage> {
     var actionUser = character.get<ActionUserComponent>();
     var attributes = character.get<AttributesComponent>();
 
+    final theme = Theme.of(context);
+
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
           child: Center(
@@ -62,53 +65,22 @@ class _CombatPageState extends State<CombatPage> {
                 constraints: BoxConstraints(maxWidth: desiredSize),
                 child: Column(children: [
                   if (combat != null)
-                    Stack(
-                      children: [
-                        DecoratedBox(
-                          decoration: EyuunDecoration(
-                              cornerSize: 20,
-                              paint: Brushes
-                                  .goldSparkling()), // intentionally empty
-                          child: Padding(
-                              padding: const EdgeInsets.all(20),
-                              child: CombatStatsRow(
-                                  combat: combat, skillLearner: skillLearner!)),
-                        ),
-                        // The info button in the top right corner
-                        Positioned(
-                          top: 12,
-                          right: 12,
-                          child: IconButton(
-                            icon: const Icon(Icons.info_outline),
-                            tooltip: 'More info on Combat',
-                            onPressed: () async {
-                              const url = 'https://eyuun.de/kaempfe';
-                              if (await canLaunchUrl(Uri.parse(url))) {
-                                await launchUrl(Uri.parse(url));
-                              }
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  SizedBox(height: 16),
-                  if(actionUser != null && attributes != null && skillLearner != null)
-                    DecoratedBox(
-                        decoration: EyuunDecoration(
-                            paint: Brushes.goldSparkling(), cornerSize: 20),
-                        child: Padding(
-                            padding: EdgeInsets.all(20),
-                            child: Column(
-                              children: [
-                                const Text(
-                                  'Actions',
-                                  style: TextStyle(
-                                      fontSize: 20, fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(height: 16),
-                                ActionsWidget(actionUser: actionUser, attributes: attributes, skillLearner: skillLearner)
-                              ],
-                            ))),
+                    EyuunWidgets.informationBox(
+                        child: EyuunWidgets.eyuunBox(
+                            child: CombatStatsRow(
+                                combat: combat, skillLearner: skillLearner!),
+                            theme: theme),
+                        link: 'https://eyuun.de/kaempfe'),
+                  EyuunWidgets.spacerVertical(),
+                  if (actionUser != null &&
+                      attributes != null &&
+                      skillLearner != null)
+                    EyuunWidgets.eyuunBox(
+                        child: ActionsWidget(
+                            actionUser: actionUser,
+                            attributes: attributes,
+                            skillLearner: skillLearner),
+                        theme: theme)
                 ])),
           )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -132,7 +104,7 @@ class _CombatPageState extends State<CombatPage> {
             tooltip: 'Health',
             icon: Icons.heart_broken,
           ),
-          const SizedBox(width: 16),
+          EyuunWidgets.spacerHorizontal(),
           EyuunWidgets.floatingActionButton(
             onPressed: () {
               PopupUtil.popup(

@@ -13,6 +13,8 @@ import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/enums/TalentGroup.dart';
 import 'package:flutter/material.dart';
 
+import '../widgets/eyuun/EyuunWidgets.dart';
+
 class TalentPage extends StatefulWidget {
   final double desiredSize;
 
@@ -31,105 +33,90 @@ class _TalentPageState extends State<TalentPage> {
     final theme = Theme.of(context);
 
     return Scaffold(
+        backgroundColor: Colors.transparent,
         body: SingleChildScrollView(
             child: Center(
-      child: Padding(
-          padding: EdgeInsets.all(20),
-          child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: widget.desiredSize),
-              child: Column(children: [
-                DecoratedBox(
-                    decoration: EyuunDecoration(
-                        paint: Brushes.goldSparkling(),
-                        cornerSize: 20,
-                        background: theme.canvasColor.withAlpha(120)),
-                    child: Padding(
-                        padding: EdgeInsets.all(20),
+          child: Padding(
+              padding: EdgeInsets.all(20),
+              child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: widget.desiredSize),
+                  child: Column(children: [
+                    EyuunWidgets.eyuunBox(
                         child: Column(
                           children: [
                             const Text(
                               'Basic',
                               style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(height: 16),
+                            EyuunWidgets.spacerVertical(),
                             if (skillLearner != null)
                               TalentsWidget(
                                 skillLearner: skillLearner!,
                                 filter: const [TalentGroup.Basic],
                               )
                           ],
-                        ))),
-                SizedBox(height: 16),
-                DecoratedBox(
-                    decoration: EyuunDecoration(
-                        paint: Brushes.goldSparkling(),
-                        cornerSize: 20,
-                        background: theme.canvasColor.withAlpha(120)),
-                    child: Padding(
-                        padding: EdgeInsets.all(20),
+                        ),
+                        theme: theme),
+                    EyuunWidgets.spacerVertical(),
+                    EyuunWidgets.eyuunBox(
                         child: Column(
                           children: [
                             const Text(
                               'Advanced',
                               style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(height: 16),
+                            EyuunWidgets.spacerVertical(),
                             if (skillLearner != null)
                               TalentsWidget(
                                 skillLearner: skillLearner!,
                                 filter: const [TalentGroup.Advanced],
                               )
                           ],
-                        ))),
-                SizedBox(height: 16),
-                DecoratedBox(
-                    decoration: EyuunDecoration(
-                        paint: Brushes.goldSparkling(),
-                        cornerSize: 20,
-                        background: theme.canvasColor.withAlpha(120)),
-                    child: Padding(
-                        padding: EdgeInsets.all(20),
+                        ),
+                        theme: theme),
+                    EyuunWidgets.spacerVertical(),
+                    EyuunWidgets.eyuunBox(
                         child: Column(
                           children: [
                             const Text(
                               'Spellschools',
                               style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(height: 16),
+                            EyuunWidgets.spacerVertical(),
                             if (skillLearner != null)
                               TalentsWidget(
                                 skillLearner: skillLearner!,
                                 filter: const [TalentGroup.Spellschool],
                               )
                           ],
-                        ))),
-                SizedBox(height: 16),
-                DecoratedBox(
-                    decoration: EyuunDecoration(
-                        paint: Brushes.goldSparkling(),
-                        cornerSize: 20,
-                        background: theme.canvasColor.withAlpha(120)),
-                    child: Padding(
-                        padding: EdgeInsets.all(20),
+                        ),
+                        theme: theme),
+                    EyuunWidgets.spacerVertical(),
+                    EyuunWidgets.eyuunBox(
                         child: Column(
                           children: [
                             const Text(
                               'Fighting Styles:',
                               style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(height: 16),
+                            EyuunWidgets.spacerVertical(),
                             if (skillLearner != null)
                               TalentsWidget(
                                 skillLearner: skillLearner!,
                                 filter: const [TalentGroup.FightingStyle],
                               )
                           ],
-                        ))),
-              ]))),
-    )));
+                        ),
+                        theme: theme),
+                  ]))),
+        )));
   }
 }
