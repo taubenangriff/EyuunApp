@@ -93,92 +93,88 @@ class _InventoryPageState extends State<InventoryPage> {
     List<Entity> shopItems = locator<ItemShopFeatureComponent>().getShopItems();
 
     return Scaffold(
-      body: Stack(
-        children: [
-          Center(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: desiredSize),
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  final isTablet = constraints.maxWidth >=
-                      900; // adjust breakpoint if needed
+      body: Center(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: desiredSize),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final isTablet = constraints.maxWidth >=
+                  900; // adjust breakpoint if needed
 
                   {
-                    // 📱 PHONE LAYOUT (vertical)
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        if (!isTablet) ...{
-                          SizedBox(
-                            height: 220,
-                            child: ItemDisplayWidget(item: selectedItem),
-                          ),
-                          const SizedBox(height: 8),
-                          Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Wrap(
-                              spacing: 12,
-                              runSpacing: 12,
-                              alignment: WrapAlignment.center,
-                              children: slotWidgets,
-                            ),
-                          )
-                        } else
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              // 🧾 Item display (left)
-                              Expanded(
-                                flex: 3,
-                                child: SizedBox(
-                                  height: 310,
-                                  child: ItemDisplayWidget(item: selectedItem),
-                                ),
-                              ),
-                              const SizedBox(width: 12),
-                              // 🛡 Armor slots (right)
-                              Expanded(
-                                flex: 1,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Wrap(
-                                    spacing: 12,
-                                    runSpacing: 12,
-                                    crossAxisAlignment:
-                                        WrapCrossAlignment.center,
-                                    alignment: WrapAlignment.center,
-                                    children: slotWidgets,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        const SizedBox(height: 8),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: InventoryWidget(
-                              inventory: _inventory!,
-                              onItemSelected: _onItemSelected,
-                            ),
-                          ),
+                // 📱 PHONE LAYOUT (vertical)
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    if (!isTablet) ...{
+                      SizedBox(
+                        height: 220,
+                        child: ItemDisplayWidget(item: selectedItem),
+                      ),
+                      const SizedBox(height: 8),
+                      Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Wrap(
+                          spacing: 12,
+                          runSpacing: 12,
+                          alignment: WrapAlignment.center,
+                          children: slotWidgets,
                         ),
-                        Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Flexible(child: _buildRemoveDragTarget()),
-                              const SizedBox(width: 300),
-                              Flexible(child: _buildGroupDragTarget())
-                            ])
-                      ],
-                    );
-                  }
-                },
-              ),
-            ),
-          )
-        ],
+                      )
+                    } else
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          // 🧾 Item display (left)
+                          Expanded(
+                            flex: 3,
+                            child: SizedBox(
+                              height: 310,
+                              child: ItemDisplayWidget(item: selectedItem),
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          // 🛡 Armor slots (right)
+                          Expanded(
+                            flex: 1,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: Wrap(
+                                spacing: 12,
+                                runSpacing: 12,
+                                crossAxisAlignment:
+                                WrapCrossAlignment.center,
+                                alignment: WrapAlignment.center,
+                                children: slotWidgets,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    const SizedBox(height: 8),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: InventoryWidget(
+                          inventory: _inventory!,
+                          onItemSelected: _onItemSelected,
+                        ),
+                      ),
+                    ),
+                    Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Flexible(child: _buildRemoveDragTarget()),
+                          const SizedBox(width: 300),
+                          Flexible(child: _buildGroupDragTarget())
+                        ])
+                  ],
+                );
+              }
+            },
+          ),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Row(

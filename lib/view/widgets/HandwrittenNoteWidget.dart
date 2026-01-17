@@ -123,7 +123,7 @@ class _HandwrittenNoteWidgetState extends State<HandwrittenNoteWidget> {
           boardScaleEnabled: false,
           maxScale: 3,
           minScale: 1,
-          background: Container(color: Colors.transparent),
+          background: Container(color: Colors.white),
         ),
       )),
     );
