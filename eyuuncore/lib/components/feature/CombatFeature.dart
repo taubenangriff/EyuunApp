@@ -3,6 +3,7 @@ import 'package:eyuuncore/core/assetLink.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:eyuuncore/core/reflection/Reflecting.dart';
 import 'package:eyuuncore/core/reflection/reflector.dart';
+import 'package:oxygen/oxygen.dart';
 
 part 'CombatFeature.mapper.dart';
 
@@ -24,8 +25,8 @@ class CombatFeatureStatic
 class CombatFeatureComponent extends EyuunComponent<int> {
   static const String propertyName = "combatFeature";
 
-  List<AssetLink> damageTypes = [];
-  List<AssetLink> healTypes = [];
+  List<Entity> damageTypes = [];
+  List<Entity> healTypes = [];
   int damageTypesDefaultIndex = 0;
 
   @override
@@ -44,8 +45,8 @@ class CombatFeatureComponent extends EyuunComponent<int> {
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = CombatFeatureStaticMapper.fromMap(staticData);
-    damageTypes = stat.damageTypes;
-    healTypes = stat.healTypes;
+    damageTypes = stat.damageTypes.getAssets();
+    healTypes = stat.healTypes.getAssets();
     damageTypesDefaultIndex = stat.damageTypesDefaultIndex;
   }
 

@@ -37,7 +37,7 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final allPaths = pathFeature.paths.getAssets()
+    final allPaths = pathFeature.paths
       ..sort((a, b) =>
           (a.get<PathComponent>()?.pathType.index ?? 0) -
           (b.get<PathComponent>()?.pathType.index ?? 0));

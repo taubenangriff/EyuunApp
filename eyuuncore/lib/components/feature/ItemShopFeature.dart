@@ -22,10 +22,10 @@ class ItemShopFeatureComponent extends EyuunComponent<int> {
   static const String propertyName = "itemShopFeature";
 
   /// link to the Asset with [AssetBundleComponent] that contains all the language assets.
-  late AssetLink topLevelBundle;
+  late Entity? topLevelBundle;
 
   List<Entity> getShopItems() =>
-      topLevelBundle.getEntity()?.get<AssetBundleComponent>()?.getAssets() ??
+      topLevelBundle?.get<AssetBundleComponent>()?.getAssets() ??
       [];
 
   @override
@@ -44,12 +44,12 @@ class ItemShopFeatureComponent extends EyuunComponent<int> {
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = ItemShopFeatureStaticMapper.fromMap(staticData);
-    topLevelBundle = stat.topLevelBundle;
+    topLevelBundle = stat.topLevelBundle.getEntity();
   }
 
   @override
   void reset() {
-    topLevelBundle = AssetLink.invalid();
+    topLevelBundle = null;
   }
 
   @override

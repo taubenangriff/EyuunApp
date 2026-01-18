@@ -29,9 +29,9 @@ class ChangeHealthPopup extends StatefulWidget {
 
 class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
   List<Entity> damageTypes =
-      locator<CombatFeatureComponent>().damageTypes.getAssets();
+      locator<CombatFeatureComponent>().damageTypes;
   List<Entity> healTypes =
-      locator<CombatFeatureComponent>().healTypes.getAssets();
+      locator<CombatFeatureComponent>().healTypes;
 
   final resistances = [0, 0.5, 1, 1.5];
 

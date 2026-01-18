@@ -105,7 +105,7 @@ class HealthController {
 
   HealthController() {
     combatFeature = locator<CombatFeatureComponent>();
-    setDamageType(combatFeature.healTypes[0].getEntity()!);
+    setDamageType(combatFeature.healTypes[0]);
   }
 
   void _reset() {

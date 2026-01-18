@@ -39,25 +39,25 @@ class CharacterTablesFeatureComponent extends EyuunComponent<int> {
   static const String propertyName = "characterTablesFeature";
 
   /// link to the Asset with [AssetBundleComponent] that contains all the language assets.
-  late AssetLink _languages;
-  late AssetLink _childhoods;
-  late AssetLink _upbringings;
-  late AssetLink _secondaryUpbringings;
-  late AssetLink _spells;
-  late AssetLink _tricks;
+  late Entity? _languages;
+  late Entity? _childhoods;
+  late Entity? _upbringings;
+  late Entity? _secondaryUpbringings;
+  late Entity? _spells;
+  late Entity? _tricks;
 
   List<Entity> get languages =>
-      _languages.getEntity()?.get<AssetBundleComponent>()?.getAssets() ?? [];
+      _languages?.get<AssetBundleComponent>()?.getAssets() ?? [];
   List<Entity> get childhoods =>
-      _childhoods.getEntity()?.get<AssetBundleComponent>()?.getAssets() ?? [];
+      _childhoods?.get<AssetBundleComponent>()?.getAssets() ?? [];
   List<Entity> get upbringings =>
-      _upbringings.getEntity()?.get<AssetBundleComponent>()?.getAssets() ?? [];
+      _upbringings?.get<AssetBundleComponent>()?.getAssets() ?? [];
   List<Entity> get secondaryUpbringings =>
-      _secondaryUpbringings.getEntity()?.get<AssetBundleComponent>()?.getAssets() ?? [];
+      _secondaryUpbringings?.get<AssetBundleComponent>()?.getAssets() ?? [];
   List<Entity> get spells =>
-      _spells.getEntity()?.get<AssetBundleComponent>()?.getAssets() ?? [];
+      _spells?.get<AssetBundleComponent>()?.getAssets() ?? [];
   List<Entity> get tricks =>
-      _tricks.getEntity()?.get<AssetBundleComponent>()?.getAssets() ?? [];
+      _tricks?.get<AssetBundleComponent>()?.getAssets() ?? [];
 
   @override
   String getName() => propertyName;
@@ -75,22 +75,22 @@ class CharacterTablesFeatureComponent extends EyuunComponent<int> {
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = CharacterTablesFeatureStaticMapper.fromMap(staticData);
-    _languages = stat.languages;
-    _childhoods = stat.childhoods;
-    _upbringings = stat.upbringings;
-    _secondaryUpbringings = stat.secondaryUpbringings;
-    _tricks = stat.tricks;
-    _spells = stat.spells;
+    _languages = stat.languages.getEntity();
+    _childhoods = stat.childhoods.getEntity();
+    _upbringings = stat.upbringings.getEntity();
+    _secondaryUpbringings = stat.secondaryUpbringings.getEntity();
+    _tricks = stat.tricks.getEntity();
+    _spells = stat.spells.getEntity();
   }
 
   @override
   void reset() {
-    _languages = AssetLink.invalid();
-    _childhoods = AssetLink.invalid();
-    _upbringings = AssetLink.invalid();
-    _secondaryUpbringings = AssetLink.invalid();
-    _tricks = AssetLink.invalid();
-    _spells = AssetLink.invalid();
+    _languages = null;
+    _childhoods = null;
+    _upbringings = null;
+    _secondaryUpbringings = null;
+    _tricks = null;
+    _spells = null;
   }
 
   @override

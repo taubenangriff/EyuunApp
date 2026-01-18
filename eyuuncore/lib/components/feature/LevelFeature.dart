@@ -18,7 +18,7 @@ class LevelFeatureStatic with LevelFeatureStaticMappable, ComponentReflectable {
 class LevelFeatureComponent extends EyuunComponent<int> {
   static const String propertyName = "levelFeature";
 
-  List<AssetLink> levels = [];
+  List<Entity> levels = [];
 
   @override
   String getName() => propertyName;
@@ -36,7 +36,7 @@ class LevelFeatureComponent extends EyuunComponent<int> {
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = LevelFeatureStaticMapper.fromMap(staticData);
-    levels = stat.levels;
+    levels = stat.levels.getAssets();
   }
 
   /// returns the asset corresponding to the entered level. Levels are 1-based.
@@ -45,7 +45,7 @@ class LevelFeatureComponent extends EyuunComponent<int> {
     if (level < 0 || level >= levels.length) {
       return null;
     }
-    return levels[level].getEntity();
+    return levels[level];
   }
 
   bool isMaxLevel(int level) => level >= levels.length;
