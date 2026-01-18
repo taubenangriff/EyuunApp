@@ -34,19 +34,6 @@ class _AttributesWidgetState extends State<AttributesWidget> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        InkWell(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Center(child: DiceIcon(type: item.dice)),
-                EyuunWidgets.spacerHorizontal(),
-                SizedBox(
-                  width: 150,
-                  child: Text(_textService.getText(item.stat.id)),
-                ),
-              ],
-            )),
-        EyuunWidgets.spacerHorizontal(),
         if (_controller.upgradesPossible(item.stat.id))
           SizedBox(
               width: 70,
@@ -60,6 +47,19 @@ class _AttributesWidgetState extends State<AttributesWidget> {
               ))
         else
           SizedBox(width: 70),
+        EyuunWidgets.spacerHorizontal(),
+        InkWell(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(child: DiceIcon(type: item.dice)),
+                EyuunWidgets.spacerHorizontal(),
+                SizedBox(
+                  width: 150,
+                  child: Text(_textService.getText(item.stat.id)),
+                ),
+              ],
+            )),
       ],
     );
   }
