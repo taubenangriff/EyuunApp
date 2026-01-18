@@ -4,8 +4,8 @@ class PopupUtil {
   static const Size defaultSize = Size(300, 500);
   static const Size largeDefaultSize = Size(1100, 900);
 
-  static Future<E?> _sizedPopup<E>(BuildContext context, Widget content,
-      Size maximumSize) async {
+  static Future<E?> _sizedPopup<E>(
+      BuildContext context, Widget content, Size maximumSize) async {
     return showDialog(
         context: context,
         builder: (context) {
@@ -39,6 +39,6 @@ class PopupUtil {
 
   static Future<E?> popup<E>(BuildContext context, Widget content,
       {Size maximumSize = defaultSize}) async {
-    return _sizedPopup(context, content, defaultSize);
+    return _sizedPopup(context, content, maximumSize);
   }
 }
