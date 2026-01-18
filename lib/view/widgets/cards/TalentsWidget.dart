@@ -15,13 +15,15 @@ import 'package:eyuuncore/enums/TalentGroup.dart';
 import 'package:flutter/material.dart';
 
 import '../DiceIcon.dart';
+import '../eyuun/EyuunWidgets.dart';
 
 class TalentsWidget extends StatefulWidget {
   final List<TalentGroup> filter;
-  final SkillLearnerComponent skillLearner;
+  SkillLearnerController skillLearnerController;
   late final List<SkillEntry> display;
-  TalentsWidget({super.key, required this.skillLearner, required this.filter}) {
-    display = skillLearner.skills
+  final VoidCallback? onTalentChanged;
+  TalentsWidget({super.key, required this.skillLearnerController, required this.filter, this.onTalentChanged}) {
+    display = skillLearnerController.skillLearner.skills
         .where((x) => filter
             .contains(x.skill.getEntity()?.get<TalentComponent>()?.skillGroup))
         .toList();
@@ -33,8 +35,6 @@ class TalentsWidget extends StatefulWidget {
 
 class _TalentsWidgetState extends State<TalentsWidget> {
   final _textService = locator<TextService>();
-  late final skillvalueController =
-      SkillLearnerController(skillLearner: widget.skillLearner);
 
   @override
   Widget build(BuildContext context) {
@@ -54,48 +54,47 @@ class _TalentsWidgetState extends State<TalentsWidget> {
     final attributes =
         locator<CharacterService>().character.get<AttributesComponent>()!;
 
-    return Padding(
-        padding: EdgeInsets.all(8),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Name
-            Expanded(
-              flex: 2,
-              child: Text(
-                _textService.getText(talent.skill.id),
-                style: theme.textTheme.titleMedium,
+    return LayoutBuilder(builder: (context, constraints) {
+
+      var hasEnaughWidth = constraints.maxWidth > 600;
+      var useLong = constraints.maxWidth > 800;
+
+      return Padding(
+          padding: EdgeInsets.all(8),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Name
+              SizedBox(
+                width: 150,
+                child: Text(
+                  _textService.getText(talent.skill.id),
+                  style: theme.textTheme.titleMedium,
+                ),
               ),
-            ),
-            if (skillcheck != null)
-              Expanded(
-                flex: 4,
-                child: SkillCheckWidget(
-                    skillcheck: skillcheck, attributes: attributes),
-              ),
-            // Value
-            Expanded(
-              flex: 1,
-              child: ElevatedButton(
-                onPressed: skillvalueController.canSkill()
+              EyuunWidgets.spacerHorizontal(),
+              // Value
+              ElevatedButton(
+                onPressed: widget.skillLearnerController.canSkill()
                     ? () {
-                        ChangeValueController changeValController =
-                            ChangeValueController(talent.value,
-                                maxLimit: skillvalueController.getMax(),
-                                minLimit: talent.value);
-                        PopupUtil.popup(
-                            context,
-                            ChangeValuePopup(
-                              changeValController,
-                              valueChanged: (add) {
-                                setState(() {
-                                  skillvalueController.addSkillvalue(
-                                      talentAsset, add);
-                                });
-                              },
-                            ));
-                        // handle tap
-                      }
+                  ChangeValueController changeValController =
+                  ChangeValueController(talent.value,
+                      maxLimit: widget.skillLearnerController.getMax(),
+                      minLimit: widget.skillLearnerController.getMin(talentAsset));
+                  PopupUtil.popup(
+                      context,
+                      ChangeValuePopup(
+                        changeValController,
+                        valueChanged: (add) {
+                          setState(() {
+                            widget.skillLearnerController.addSkillvalue(
+                                talentAsset, add);
+                            widget.onTalentChanged?.call();
+                          });
+                        },
+                      ));
+                  // handle tap
+                }
                     : null,
                 child: Text(
                   "${talent.value}",
@@ -105,8 +104,20 @@ class _TalentsWidgetState extends State<TalentsWidget> {
                   ),
                 ),
               ),
-            ),
-          ],
-        ));
+              Spacer(),
+              if (skillcheck != null)
+                SkillCheckWidget(
+                    useWrap: true,
+                    spacing: hasEnaughWidth ? 24 : 8,
+                    iconSize: hasEnaughWidth ? 42 : 32,
+                    showText: hasEnaughWidth,
+                    useLongText: useLong,
+                    skillcheck: skillcheck, attributes: attributes),
+              Spacer(),
+            ],
+          ));
+    });
+
+
   }
 }

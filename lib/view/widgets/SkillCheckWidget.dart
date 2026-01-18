@@ -13,8 +13,18 @@ class SkillCheckWidget extends StatefulWidget {
   final bool useWrap;
   final double iconSize;
   final double spacing;
+  final bool showText;
+  final bool useLongText;
 
-  const SkillCheckWidget({super.key, required this.skillcheck, required this.attributes, this.useWrap = false, this.iconSize = 40, this.spacing = 46});
+  const SkillCheckWidget(
+      {super.key,
+      required this.skillcheck,
+      required this.attributes,
+      this.useWrap = false,
+      this.iconSize = 40,
+      this.spacing = 46,
+      this.showText = true,
+      this.useLongText = false});
 
   @override
   State<SkillCheckWidget> createState() => _SkillCheckWidgetState();
@@ -27,34 +37,11 @@ class _SkillCheckWidgetState extends State<SkillCheckWidget> {
   Widget build(BuildContext context) {
     var children = [
       for (var attributeOption in widget.skillcheck.checkedAttributes)
-        attributeOption.options.length > 1
-            ? SegmentedButton<String>(
-          multiSelectionEnabled: false,
-          emptySelectionAllowed: true,
-          segments: attributeOption.options
-              .map((opt) => ButtonSegment(
-            value: opt.id,
-            label: _displayAttribute(
-                opt.id),
-          ))
-              .toList(),
-          selected: {attributeOption.selectedOption.id},
-          onSelectionChanged: (newSelection) {
-            setState(() {
-              attributeOption.selectedOption =
-                  attributeOption.options
-                      .where(
-                          (e) => e.id == newSelection.first)
-                      .first;
-            });
-          },
-        )
-            : _displayAttribute(
-            attributeOption.options.first.id)
+        _displayAttribute(attributeOption),
     ];
 
-    if(widget.useWrap){
-      return Wrap(children: children, runSpacing: 8);
+    if (widget.useWrap) {
+      return Wrap(children: children, runSpacing: 8, spacing: widget.spacing);
     }
 
     return Row(
@@ -64,15 +51,24 @@ class _SkillCheckWidgetState extends State<SkillCheckWidget> {
     );
   }
 
-  Widget _displayAttribute(String attribute) {
+  Widget _displayAttribute(SkillcheckOption attribute) {
     return Row(
       children: [
-        DiceIcon(type: widget.attributes.getStatEntry(attribute)!.dice, size: widget.iconSize),
-        SizedBox(width: 4),
-        ConstrainedBox(
-            constraints: BoxConstraints(minWidth: 20),
-            child: Text(_textService.getShort(attribute))),
-        SizedBox(width: 4),
+        ...attribute.options
+            .map((e) => [
+                  Text(' / '),
+                  DiceIcon(
+                      type: widget.attributes.getStatEntry(e.id)!.dice,
+                      size: widget.iconSize),
+                  if(widget.showText)... {
+                    SizedBox(width: 4),
+                    ConstrainedBox(
+                        constraints: BoxConstraints(minWidth: widget.useLongText ? 80 : 20),
+                        child: Text(widget.useLongText ? _textService.getText(e.id) : _textService.getShort(e.id))),
+                  }
+                ])
+            .expand((e) => e)
+            .skip(1)
       ],
     );
   }

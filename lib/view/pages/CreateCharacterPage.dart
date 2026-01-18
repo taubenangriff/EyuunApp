@@ -13,6 +13,7 @@ import 'package:oxygen/oxygen.dart';
 import '../widgets/AttributeDiceSelector.dart';
 import '../widgets/CharacterPortraitPicker.dart';
 import '../widgets/UpbringingSelectionWidget.dart';
+import '../widgets/eyuun/EyuunWidgets.dart';
 import 'TalentPage.dart';
 
 class CreateCharacterPage extends StatefulWidget {
@@ -86,6 +87,7 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
           ),
           child: Column(children: [
             Expanded(child: pages[currentStep]),
+            EyuunWidgets.spacerVertical(),
             EasyStepper(
               steps: steps,
               lineStyle: LineStyle(

@@ -260,7 +260,7 @@ class _InventoryPageState extends State<InventoryPage> {
           child: Center(
             child: AnimatedOpacity(
               duration: const Duration(milliseconds: 200),
-              opacity: hovering ? 1.0 : 0.3,
+              opacity: hovering ? 1.0 : 0.8,
               child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -329,7 +329,7 @@ class _InventoryPageState extends State<InventoryPage> {
           child: Center(
             child: AnimatedOpacity(
               duration: const Duration(milliseconds: 200),
-              opacity: hovering ? 1.0 : 0.3,
+              opacity: hovering ? 1.0 : 0.8,
               child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

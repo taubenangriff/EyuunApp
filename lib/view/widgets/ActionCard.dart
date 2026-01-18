@@ -75,11 +75,12 @@ class ActionCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     // 📖 Description
-                    Text(
+                    Flexible(child: Text(
                       _textService.getActionDescriptionFromEntity(actionEntity),
                       style: Theme.of(context).textTheme.bodyMedium,
                       textAlign: TextAlign.justify,
-                    ),
+                      overflow: TextOverflow.fade,
+                    )),
 
                     const SizedBox(height: 16),
                   ],

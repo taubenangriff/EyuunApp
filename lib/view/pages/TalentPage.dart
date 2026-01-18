@@ -5,6 +5,7 @@ import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/Skillcheck.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/components/Talent.dart';
+import 'package:eyuuncore/controller/SkilllearnerController.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuunapp/view/widgets/DiceIcon.dart';
@@ -27,6 +28,8 @@ class TalentPage extends StatefulWidget {
 class _TalentPageState extends State<TalentPage> {
   late var skillLearner =
       locator<CharacterService>().character.get<SkillLearnerComponent>();
+
+  late var controller = SkillLearnerController(skillLearner: skillLearner!);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +56,10 @@ class _TalentPageState extends State<TalentPage> {
                             EyuunWidgets.spacerVertical(),
                             if (skillLearner != null)
                               TalentsWidget(
-                                skillLearner: skillLearner!,
+                                onTalentChanged: () {
+                                  setState(() { });
+                                },
+                                skillLearnerController: controller,
                                 filter: const [TalentGroup.Basic],
                               )
                           ],
@@ -72,7 +78,10 @@ class _TalentPageState extends State<TalentPage> {
                             EyuunWidgets.spacerVertical(),
                             if (skillLearner != null)
                               TalentsWidget(
-                                skillLearner: skillLearner!,
+                                onTalentChanged: () {
+                                  setState(() { });
+                                },
+                                skillLearnerController: controller,
                                 filter: const [TalentGroup.Advanced],
                               )
                           ],
@@ -91,7 +100,10 @@ class _TalentPageState extends State<TalentPage> {
                             EyuunWidgets.spacerVertical(),
                             if (skillLearner != null)
                               TalentsWidget(
-                                skillLearner: skillLearner!,
+                                onTalentChanged: () {
+                                  setState(() { });
+                                },
+                                skillLearnerController: controller,
                                 filter: const [TalentGroup.Spellschool],
                               )
                           ],
@@ -110,7 +122,10 @@ class _TalentPageState extends State<TalentPage> {
                             EyuunWidgets.spacerVertical(),
                             if (skillLearner != null)
                               TalentsWidget(
-                                skillLearner: skillLearner!,
+                                onTalentChanged: () {
+                                  setState(() { });
+                                },
+                                skillLearnerController: controller,
                                 filter: const [TalentGroup.FightingStyle],
                               )
                           ],
