@@ -17,43 +17,37 @@ class UpbringingPickerPopup extends StatelessWidget {
   Widget build(BuildContext context) {
     final textService = locator<TextService>();
 
-    return DecoratedBox(
-      decoration: EyuunDecoration(
-        paint: Brushes.silverSparkling(),
-        cornerSize: 16,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(children: [
-          Text(
-            'Select',
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
+    return Padding(
+      padding: const EdgeInsets.all(24),
+      child: Column(children: [
+        Text(
+          'Select',
+          style: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
           ),
-          SizedBox(height: 16),
-          Expanded(
-              child: SingleChildScrollView(
-                  child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: possibleBuffs.map((buff) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: SelectionCard(
-                  title: textService.getTextFromEntity(buff),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    selectedBuffCallback.call(buff);
-                  },
-                  buff: buff,
-                ),
-              );
-            }).toList(),
-          )))
-        ]),
-      ),
+        ),
+        SizedBox(height: 16),
+        Expanded(
+            child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: possibleBuffs.map((buff) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: SelectionCard(
+                        title: textService.getTextFromEntity(buff),
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          selectedBuffCallback.call(buff);
+                        },
+                        buff: buff,
+                      ),
+                    );
+                  }).toList(),
+                )))
+      ]),
     );
   }
 }

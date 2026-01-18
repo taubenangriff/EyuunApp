@@ -46,39 +46,33 @@ class _PathPopupState extends State<PathPopup> {
     var pathSteps =
         pathAsset?.get<PathComponent>()?.pickableSteps.getAssets() ?? [];
 
-    return DecoratedBox(
-      decoration: EyuunDecoration(
-        paint: Brushes.silverSparkling(),
-        cornerSize: 12,
-      ),
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
-          child: Column(
-            children: [
-              Text(
-                locator<TextService>().getTextFromEntity(pathAsset!),
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+        child: Column(
+          children: [
+            Text(
+              locator<TextService>().getTextFromEntity(pathAsset!),
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
               ),
+            ),
 
-              const SizedBox(height: 16),
+            const SizedBox(height: 16),
 
-              for (final step in pathSteps) ...[
-                PathStepTile(
-                  pathStep: step,
-                  pathController: widget.pathController,
-                  onTap: widget.pathController.canPickNewPath() &&
-                      widget.pathController.canPickStep(step.getTypeId())
-                      ? _increasePath
-                      : null,
-                ),
-                const SizedBox(height: 12),
-              ],
+            for (final step in pathSteps) ...[
+              PathStepTile(
+                pathStep: step,
+                pathController: widget.pathController,
+                onTap: widget.pathController.canPickNewPath() &&
+                    widget.pathController.canPickStep(step.getTypeId())
+                    ? _increasePath
+                    : null,
+              ),
+              const SizedBox(height: 12),
             ],
-          ),
+          ],
         ),
       ),
     );

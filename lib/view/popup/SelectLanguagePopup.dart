@@ -27,137 +27,131 @@ class _SelectLanguagePopupState extends State<SelectLanguagePopup> {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: EyuunDecoration(
-        cornerSize: 12,
-        paint: Brushes.silverSparkling(),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            Text(
-              textService.getText("uitext_picklanguage"),
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          Text(
+            textService.getText("uitext_picklanguage"),
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
             ),
-            SizedBox(height: 16),
-            // 🌐 Grid of languages
-            Expanded(
-                child: GridView.builder(
-              shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 300, // 👈 desired item width
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
-                childAspectRatio: 1.2, // tweak if needed
-              ),
-              itemCount: widget.languagesController.learnableLanguages.length,
-              itemBuilder: (context, index) {
-                final language =
-                    widget.languagesController.learnableLanguages[index];
-                final isSelected = selectedLanguage == language;
-
-                return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedLanguage = language;
-                      });
-                    },
-                    child: Container(
-                      decoration: EyuunDecoration(
-                          paint: isSelected
-                              ? Brushes.goldSparkling()
-                              : Brushes.silverSparkling(),
-                          cornerSize: isSelected ? 16 : 12,
-                          paintInnerLine: false,
-                          fillCorners: isSelected),
-                      child: Padding(
-                        padding: EdgeInsets.all(12),
-                        child: Column(
-                          children: [
-                            Text(
-                              locator<TextService>()
-                                  .getTextFromEntity(language),
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: 8),
-                            LanguageDetailWidget(languageEntity: language)
-                          ],
-                        ),
-                      ),
-                    ));
-              },
-            )),
-
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                    "${textService.getText("uitext_spendlangpotential")} ${widget.languagesController.getRemainingPotential()}"),
-                const SizedBox(width: 12),
-                Switch(
-                  value: spendLangPotential,
-                  onChanged: (bool value) {
-                    // This is called when the user toggles the switch.
-                    setState(() {
-                      spendLangPotential = value;
-                    });
-                  },
+          ),
+          SizedBox(height: 16),
+          // 🌐 Grid of languages
+          Expanded(
+              child: GridView.builder(
+                shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 300, // 👈 desired item width
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                  childAspectRatio: 1.2, // tweak if needed
                 ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Center(
-                child: DecoratedBox(
-                    position: DecorationPosition.foreground,
-                    decoration: EyuunDecoration(
-                        paint: Brushes.goldSparkling(), cornerSize: 12),
-                    child: SizedBox(
-                        width: 250,
-                        child: ElevatedButton(
-                          onPressed: selectedLanguage != null
-                              ? () {
-                                  setState(() {
-                                    widget.languagesController.learnLanguage(
-                                        selectedLanguage!,
-                                        throughProject: !spendLangPotential);
+                itemCount: widget.languagesController.learnableLanguages.length,
+                itemBuilder: (context, index) {
+                  final language =
+                  widget.languagesController.learnableLanguages[index];
+                  final isSelected = selectedLanguage == language;
 
-                                    Navigator.of(context).pop();
-                                    setState(() {
-                                      widget.onAccept?.call();
-                                    });
-                                  });
-                                }
-                              : null,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 24,
-                              vertical: 12,
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: selectedLanguage != null
-                                  ? [
-                                      Icon(Icons.add),
-                                      Text(
-                                          '${textService.getText('uitext_addlang')}')
-                                    ]
-                                  : [
-                                      Text(textService
-                                          .getText('uitext_addlang_02'))
-                                    ],
-                            ),
+                  return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedLanguage = language;
+                        });
+                      },
+                      child: Container(
+                        decoration: EyuunDecoration(
+                            paint: isSelected
+                                ? Brushes.goldSparkling()
+                                : Brushes.silverSparkling(),
+                            cornerSize: isSelected ? 16 : 12,
+                            paintInnerLine: false,
+                            fillCorners: isSelected),
+                        child: Padding(
+                          padding: EdgeInsets.all(12),
+                          child: Column(
+                            children: [
+                              Text(
+                                locator<TextService>()
+                                    .getTextFromEntity(language),
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              LanguageDetailWidget(languageEntity: language)
+                            ],
                           ),
-                        )))),
-          ],
-        ),
+                        ),
+                      ));
+                },
+              )),
+
+          const SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                  "${textService.getText("uitext_spendlangpotential")} ${widget.languagesController.getRemainingPotential()}"),
+              const SizedBox(width: 12),
+              Switch(
+                value: spendLangPotential,
+                onChanged: (bool value) {
+                  // This is called when the user toggles the switch.
+                  setState(() {
+                    spendLangPotential = value;
+                  });
+                },
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Center(
+              child: DecoratedBox(
+                  position: DecorationPosition.foreground,
+                  decoration: EyuunDecoration(
+                      paint: Brushes.goldSparkling(), cornerSize: 12),
+                  child: SizedBox(
+                      width: 250,
+                      child: ElevatedButton(
+                        onPressed: selectedLanguage != null
+                            ? () {
+                          setState(() {
+                            widget.languagesController.learnLanguage(
+                                selectedLanguage!,
+                                throughProject: !spendLangPotential);
+
+                            Navigator.of(context).pop();
+                            setState(() {
+                              widget.onAccept?.call();
+                            });
+                          });
+                        }
+                            : null,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 24,
+                            vertical: 12,
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: selectedLanguage != null
+                                ? [
+                              Icon(Icons.add),
+                              Text(
+                                  '${textService.getText('uitext_addlang')}')
+                            ]
+                                : [
+                              Text(textService
+                                  .getText('uitext_addlang_02'))
+                            ],
+                          ),
+                        ),
+                      )))),
+        ],
       ),
     );
   }

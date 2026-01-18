@@ -16,12 +16,7 @@ class LanguageDetailPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: EyuunDecoration(
-        paint: Brushes.silverSparkling(),
-        cornerSize: 12,
-      ),
-      child: Padding(
+    return Padding(
         padding: const EdgeInsets.all(24),
         child:
         Column(
@@ -38,7 +33,6 @@ class LanguageDetailPopup extends StatelessWidget {
             LanguageDetailWidget(languageEntity: languageEntity),
           ],
         )
-      ),
-    );
+      );
   }
 }

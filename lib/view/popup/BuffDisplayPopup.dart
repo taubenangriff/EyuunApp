@@ -30,27 +30,23 @@ class BuffDisplayPopup extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context){
-    return DecoratedBox(
-      decoration: EyuunDecoration(paint: Brushes.silverSparkling(), cornerSize: 12),
-      child:
-      buff != null ? Padding(
-        padding: const EdgeInsets.symmetric(
-            vertical: 30, horizontal: 30),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-                locator<TextService>()
-                    .getTextFromEntity(buff!),
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                )),
-            EyuunWidgets.spacerVertical(),
-            BuffDisplay(buff: buff)
-          ],
-        )): const SizedBox(width:300, height:200));
+  Widget build(BuildContext context) {
+    return buff != null
+        ? Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(locator<TextService>().getTextFromEntity(buff!),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    )),
+                EyuunWidgets.spacerVertical(),
+                BuffDisplay(buff: buff)
+              ],
+            ))
+        : const SizedBox(width: 300, height: 200);
   }
 }

@@ -17,15 +17,9 @@ class PickPathPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: EyuunDecoration(
-        paint: Brushes.silverSparkling(),
-        cornerSize: 12,
-      ),
-      child: PickNewPathWidget(
-        pathController: pathController,
-        onPathPicked: onPathPicked,
-      ),
+    return PickNewPathWidget(
+      pathController: pathController,
+      onPathPicked: onPathPicked,
     );
   }
 }

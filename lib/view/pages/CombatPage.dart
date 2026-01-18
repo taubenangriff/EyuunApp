@@ -1,3 +1,4 @@
+import 'package:eyuunapp/view/popup/DecideActionCategoryPopup.dart';
 import 'package:eyuunapp/view/widgets/PickActionWidget.dart';
 import 'package:eyuunapp/view/widgets/cards/ActionsWidget.dart';
 import 'package:eyuunapp/view/widgets/cards/TalentsWidget.dart';
@@ -126,9 +127,9 @@ class _CombatPageState extends State<CombatPage> {
           EyuunWidgets.spacerHorizontal(),
           EyuunWidgets.floatingActionButton(
             onPressed: () {
-              PopupUtil.largePopup(
+              PopupUtil.popup(
                   context,
-                  PickActionPopup(actions: locator<CharacterTablesFeatureComponent>().tricks, headerKey: 'uitext_picknewtrick'));
+                  const DecideActionCategoryPopup());
             },
             text:
             'Add',

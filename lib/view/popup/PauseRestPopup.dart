@@ -11,48 +11,42 @@ class PauseRestPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: EyuunDecoration(
-        paint: Brushes.silverSparkling(),
-        cornerSize: 16,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(children: [
-          Text(
-            locator<TextService>().getText('uitext_restorpause'),
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
+    return Padding(
+      padding: const EdgeInsets.all(32),
+      child: Column(children: [
+        Text(
+          locator<TextService>().getText('uitext_restorpause'),
+          style: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
           ),
-          SizedBox(height: 16),
-          Expanded(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Flexible(
-                child: _ChoiceCard(
-                  title: textService.getText('uitext_pause'),
-                  description: textService.getText('uitext_pause_description'),
-                  icon: Icons.pause,
-                  onTap: () => Navigator.of(context).pop(),
+        ),
+        SizedBox(height: 16),
+        Expanded(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Flexible(
+                  child: _ChoiceCard(
+                    title: textService.getText('uitext_pause'),
+                    description: textService.getText('uitext_pause_description'),
+                    icon: Icons.pause,
+                    onTap: () => Navigator.of(context).pop(),
+                  ),
                 ),
-              ),
-              const SizedBox(width: 24),
-              Flexible(
-                child: _ChoiceCard(
-                  title: textService.getText('uitext_rest'),
-                  description: textService.getText('uitext_rest_description'),
-                  icon: Icons.hotel,
-                  onTap: () => Navigator.of(context).pop(),
+                const SizedBox(width: 24),
+                Flexible(
+                  child: _ChoiceCard(
+                    title: textService.getText('uitext_rest'),
+                    description: textService.getText('uitext_rest_description'),
+                    icon: Icons.hotel,
+                    onTap: () => Navigator.of(context).pop(),
+                  ),
                 ),
-              ),
-            ],
-          ))
-        ]),
-      ),
+              ],
+            ))
+      ]),
     );
   }
 }

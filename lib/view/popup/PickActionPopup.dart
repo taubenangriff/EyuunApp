@@ -25,25 +25,20 @@ class PickActionPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-        decoration: EyuunDecoration(
-          paint: Brushes.silverSparkling(),
-          cornerSize: 12,
-        ),
-        child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-            child: Column(children: [
-              Text(
-                locator<TextService>().getText(headerKey),
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              EyuunWidgets.spacerVertical(),
-              Expanded(
-                  child: PickActionWidget(
-                      actions: actions))
-            ])));
+    return Padding(
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+        child: Column(children: [
+          Text(
+            locator<TextService>().getText(headerKey),
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          EyuunWidgets.spacerVertical(),
+          Expanded(
+              child: PickActionWidget(
+                  actions: actions))
+        ]));
   }
 }

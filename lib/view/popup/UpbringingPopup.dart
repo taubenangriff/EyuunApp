@@ -19,32 +19,26 @@ class UpbringingPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: EyuunDecoration(
-        paint: Brushes.silverSparkling(),
-        cornerSize: 12,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(30),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+    return Padding(
+      padding: const EdgeInsets.all(30),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: _UpbringingColumn(
+              title: locator<TextService>().getText("uitext_primary_upbringing"),
+              entity: primary,
+            ),
+          ),
+          if (secondary != null) const SizedBox(width: 24),
+          if (secondary != null)
             Expanded(
               child: _UpbringingColumn(
-                title: locator<TextService>().getText("uitext_primary_upbringing"),
-                entity: primary,
+                title: locator<TextService>().getText("uitext_secondary_upbringing"),
+                entity: secondary,
               ),
             ),
-            if (secondary != null) const SizedBox(width: 24),
-            if (secondary != null)
-              Expanded(
-                child: _UpbringingColumn(
-                  title: locator<TextService>().getText("uitext_secondary_upbringing"),
-                  entity: secondary,
-                ),
-              ),
-          ],
-        ),
+        ],
       ),
     );
   }

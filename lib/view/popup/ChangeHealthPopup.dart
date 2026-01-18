@@ -42,7 +42,7 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
   late int hpChange = 0;
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(decoration: EyuunDecoration(paint: Brushes.silverSparkling(), cornerSize: 12), child: Column(
+    return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(
@@ -234,6 +234,6 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
                         child: Text('Apply', style: TextStyle(color: Color(0xccfdcc3a)))))))
       , const SizedBox(height: 12)
       ],
-    ));
+    );
   }
 }

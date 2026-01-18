@@ -44,105 +44,99 @@ class _MoneyChangePopupState extends State<MoneyChangePopup> {
     var sortedSelection = selectedNotes.entries.toList();
     sortedSelection.sort((x, y) => x.key.compareTo(y.key));
 
-    return DecoratedBox(
-      decoration: EyuunDecoration(
-        paint: Brushes.silverSparkling(),
-        cornerSize: 12,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: 12),
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(height: 12),
 
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                    child: GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: sortedSelection.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent:
-                              140, // roughly matches your banknote width
-                          mainAxisSpacing: 6,
-                          crossAxisSpacing: 6,
-                          mainAxisExtent: 50,
-                        ),
-                        itemBuilder: (context, index) {
-                          final entry = sortedSelection[index];
-                          return _BanknoteDisplay(
-                            showCount: true,
-                            value: entry.key,
-                            count: entry.value,
-                            onTap: () => _removeNote(entry.key),
-                          );
-                        })),
-                SizedBox(
-                    width: 120,
-                    child: Center(
-                      child:
-                          // 💰 Total amount
-                          Text(
-                        '= $totalSelected¥',
-                        style: const TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Expanded(
+                  child: GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: sortedSelection.length,
+                      gridDelegate:
+                      const SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent:
+                        140, // roughly matches your banknote width
+                        mainAxisSpacing: 6,
+                        crossAxisSpacing: 6,
+                        mainAxisExtent: 50,
                       ),
-                    )),
-              ],
-            )
+                      itemBuilder: (context, index) {
+                        final entry = sortedSelection[index];
+                        return _BanknoteDisplay(
+                          showCount: true,
+                          value: entry.key,
+                          count: entry.value,
+                          onTap: () => _removeNote(entry.key),
+                        );
+                      })),
+              SizedBox(
+                  width: 120,
+                  child: Center(
+                    child:
+                    // 💰 Total amount
+                    Text(
+                      '= $totalSelected¥',
+                      style: const TextStyle(
+                          fontSize: 30, fontWeight: FontWeight.bold),
+                    ),
+                  )),
+            ],
+          )
 
-            // 🧾 Selected banknotes (aggregated)
-            ,
+          // 🧾 Selected banknotes (aggregated)
+          ,
 
-            const SizedBox(height: 16),
-            Divider(),
-            const SizedBox(height: 16),
-            Text('Select banknotes to add them to the counter'),
-            const SizedBox(height: 16),
+          const SizedBox(height: 16),
+          Divider(),
+          const SizedBox(height: 16),
+          Text('Select banknotes to add them to the counter'),
+          const SizedBox(height: 16),
 
-            // ➕ Banknote buttons
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              alignment: WrapAlignment.center,
-              children: banknotes.map((value) {
-                return _BanknoteDisplay(
-                  value: value,
-                  onTap: () => _addNote(value),
-                );
-              }).toList(),
+          // ➕ Banknote buttons
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            alignment: WrapAlignment.center,
+            children: banknotes.map((value) {
+              return _BanknoteDisplay(
+                value: value,
+                onTap: () => _addNote(value),
+              );
+            }).toList(),
+          ),
+
+          const SizedBox(height: 20),
+
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            EyuunWidgets.floatingActionButton(
+              height: 60,
+              text: 'Spend',
+              onPressed: totalSelected < widget.changeVal.maxLosable()
+                  ? () {
+                widget.valueChanged?.call(-totalSelected);
+                Navigator.of(context).pop();
+              }
+                  : null,
             ),
-
-            const SizedBox(height: 20),
-
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              EyuunWidgets.floatingActionButton(
-                height: 60,
-                text: 'Spend',
-                onPressed: totalSelected < widget.changeVal.maxLosable()
-                    ? () {
-                        widget.valueChanged?.call(-totalSelected);
-                        Navigator.of(context).pop();
-                      }
-                    : null,
-              ),
-              SizedBox(width: 16),
-              EyuunWidgets.floatingActionButton(
-                height: 60,
-                text: 'Receive',
-                onPressed: () {
-                  widget.valueChanged?.call(totalSelected);
-                  Navigator.of(context).pop();
-                },
-              ),
-            ])
-          ],
-        ),
+            SizedBox(width: 16),
+            EyuunWidgets.floatingActionButton(
+              height: 60,
+              text: 'Receive',
+              onPressed: () {
+                widget.valueChanged?.call(totalSelected);
+                Navigator.of(context).pop();
+              },
+            ),
+          ])
+        ],
       ),
     );
   }
