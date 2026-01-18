@@ -82,7 +82,7 @@ class _InventoryPageState extends State<InventoryPage> {
     _combatController = CombatController(_combatComponent!);
 
     holdables = _combatComponent?.equippedItems
-            .map((e) => InventoryItem.fromEntity(e.getEntity()))
+            .map((item) => InventoryItem.fromEntity(item))
             .toList() ??
         [];
 
@@ -415,8 +415,7 @@ class _InventoryPageState extends State<InventoryPage> {
           return;
         }
 
-        final entity = item.object?.getEntity();
-        if (entity == null) return;
+        final entity = item.object;
         if (!acceptsEntity(entity)) return;
         if (!canEquip(entity)) return;
 
@@ -472,7 +471,7 @@ class _InventoryPageState extends State<InventoryPage> {
                 right: 4,
                 child: IconButton(
                   icon: const Icon(Icons.remove_circle),
-                  tooltip: 'Unequip ${locator<TextService>().getTextFromEntity(item.object?.getEntity())}',
+                  tooltip: 'Unequip ${locator<TextService>().getTextFromEntity(item.object)}',
                   onPressed: () {
                     setState(() {
                       if (selectedItem == armor) selectedItem = null;

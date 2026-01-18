@@ -1,5 +1,6 @@
 import 'package:eyuuncore/controller/AttributesController.dart';
 import 'package:eyuuncore/controller/CharacterGenerateStatsController.dart';
+import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/enums/dice.dart';
 import 'package:flutter/material.dart';
 import 'package:eyuuncore/components/Attributes.dart';
@@ -44,7 +45,7 @@ class _AttributeDiceSelectorState extends State<AttributeDiceSelector> {
 
       ...widget.attributes.statValues.map((entry) {
         var dices =
-            attributesController.getPossibleDicesAtCharCreation(entry.stat.id);
+            attributesController.getPossibleDicesAtCharCreation(entry.stat.getTypeId());
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: ConstrainedBox(
@@ -54,7 +55,7 @@ class _AttributeDiceSelectorState extends State<AttributeDiceSelector> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    "${textService.getText(entry.stat.id)} (${textService.getShort(entry.stat.id)})" ,
+                    "${textService.getTextFromEntity(entry.stat)} (${textService.getShortFromEntity(entry.stat)})" ,
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium
@@ -67,7 +68,7 @@ class _AttributeDiceSelectorState extends State<AttributeDiceSelector> {
                     segments: dices
                         .map((opt) => ButtonSegment(
                               enabled: attributesController.canSet(
-                                  entry.stat.id, entry.dice),
+                                  entry.stat.getTypeId(), entry.dice),
                               value: opt,
                               label: DiceIcon(type: opt),
                             ))

@@ -31,7 +31,7 @@ class LanguageGrid extends StatefulWidget {
 class _LanguageGridState extends State<LanguageGrid> {
   @override
   Widget build(BuildContext context) {
-    final languages = widget.learner.languagesLearned.getAssets();
+    final languages = widget.learner.languagesLearned;
     final languageController = LanguagesController(widget.learner);
     final textService = locator<TextService>();
 

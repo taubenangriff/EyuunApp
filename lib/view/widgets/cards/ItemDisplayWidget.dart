@@ -50,9 +50,8 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
 
     var item = widget.item!;
 
-    final itemText = _gameObjectService
-        .getStatic(item.type.id)
-        ?.get<ItemComponent>()
+    final itemText = item.object
+        .get<ItemComponent>()
         ?.categoryText;
 
     return Scaffold(
@@ -63,7 +62,7 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                _textService.getTextFromLink(item.type),
+                _textService.getTextFromEntity(item.object),
                 style: theme.textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -78,7 +77,7 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
                   child: SingleChildScrollView(
                       child: Column(children: [
                 Text(
-                  _textService.getFluffFromLink(item.type),
+                  _textService.getFluffFromEntity(item.object),
                   style: theme.textTheme.bodyMedium,
                   textAlign: TextAlign.justify,
                 )
@@ -113,7 +112,7 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
         ]),
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         floatingActionButton: Column(mainAxisSize: MainAxisSize.min, children: [
-          if (widget.item?.object?.getEntity().has<ArmorComponent>() ??
+          if (widget.item?.object.has<ArmorComponent>() ??
               false) ...{
             const SizedBox(height: 16),
             EyuunWidgets.floatingActionButton(
@@ -123,7 +122,7 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
                 height: 60,
                 width: 130),
           },
-          if (widget.item?.object?.getEntity().has<WeaponComponent>() ??
+          if (widget.item?.object.has<WeaponComponent>() ??
               false) ...{
             const SizedBox(height: 16),
             EyuunWidgets.floatingActionButton(

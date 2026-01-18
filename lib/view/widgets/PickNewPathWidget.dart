@@ -55,7 +55,7 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
           );
 
     final selectedSteps =
-        selectedPath?.get<PathComponent>()?.pickableSteps.getAssets() ?? [];
+        selectedPath?.get<PathComponent>()?.pickableSteps ?? [];
 
     return Scaffold(
       backgroundColor: Colors.transparent,

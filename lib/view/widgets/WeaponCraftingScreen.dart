@@ -92,7 +92,7 @@ class _WeaponCraftingScreenState extends State<WeaponCraftingScreen> {
   @override
   Widget build(BuildContext context) {
     weapon.get<WeaponComponent>()?.weaponType =
-        AssetLink("weapontype_smiteweapon");
+        AssetLink("weapontype_smiteweapon").getEntity();
 
     return DefaultTabController(
       length: 4,

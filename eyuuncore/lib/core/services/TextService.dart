@@ -71,6 +71,17 @@ class TextService {
     return _textRepository.getText(getShortKey(typeId));
   }
 
+  String getShortFromEntity(Entity? entity)  {
+    if(entity == null){
+      return "";
+    }
+    var short = entity.getShort();
+    if(short == null){
+      return "";
+    }
+    return getText(short);
+  }
+
   String getShortFromLink(AssetLink textLink) => getFluff(textLink.id);
 
   String getTextKey(String typeId) {

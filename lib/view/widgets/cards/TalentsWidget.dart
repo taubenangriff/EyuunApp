@@ -21,8 +21,8 @@ import '../eyuun/EyuunWidgets.dart';
 
 class TalentsWidget extends StatefulWidget {
   final List<TalentGroup> filter;
-  SkillLearnerController skillLearnerController;
-  late final List<SkillEntryDynamic> display;
+  final SkillLearnerController skillLearnerController;
+  late final List<SkillEntry> display;
   final VoidCallback? onTalentChanged;
   TalentsWidget(
       {super.key,
@@ -31,7 +31,7 @@ class TalentsWidget extends StatefulWidget {
       this.onTalentChanged}) {
     display = skillLearnerController.skillLearner.skills
         .where((x) => filter
-            .contains(x.skill.getEntity()?.get<TalentComponent>()?.skillGroup))
+            .contains(x.skill.get<TalentComponent>()?.skillGroup))
         .toList();
   }
 
@@ -51,11 +51,11 @@ class _TalentsWidgetState extends State<TalentsWidget> {
     );
   }
 
-  Widget _buildTalentDisplay(SkillEntryDynamic talent, BuildContext context) {
+  Widget _buildTalentDisplay(SkillEntry talent, BuildContext context) {
     final theme = Theme.of(context);
 
-    var talentAsset = locator<GameObjectService>().getStatic(talent.skill.id);
-    final skillcheck = talentAsset?.get<SkillcheckComponent>();
+    var talentAsset = talent.skill;
+    final skillcheck = talentAsset.get<SkillcheckComponent>();
 
     final attributes =
         locator<CharacterService>().character.get<AttributesComponent>()!;
@@ -80,7 +80,7 @@ class _TalentsWidgetState extends State<TalentsWidget> {
                 child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      _textService.getText(talent.skill.id),
+                      _textService.getTextFromEntity(talent.skill),
                       style: theme.textTheme.titleMedium,
                     )),
               ),
@@ -97,7 +97,7 @@ class _TalentsWidgetState extends State<TalentsWidget> {
                                     .getMin(talentAsset),
                                 onValUpdated: (val) =>
                                     widget.skillLearnerController.setSkillvalue(
-                                        talent.skill.getEntity(), val));
+                                        talent.skill, val));
                         PopupUtil.popup(
                             context,
                             ChangeValuePopup(

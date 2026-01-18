@@ -41,7 +41,7 @@ class InventoryItemWidget extends StatelessWidget {
       return _buildEmptySlot(context);
     }
 
-    var entity = item?.object?.getEntity();
+    var entity = item?.object;
     var icon = entity?.get<IconComponent>()?.iconFilepath;
 
     final theme = Theme.of(context);

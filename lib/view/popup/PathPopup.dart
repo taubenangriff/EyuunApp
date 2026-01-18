@@ -44,7 +44,7 @@ class _PathPopupState extends State<PathPopup> {
   Widget build(BuildContext context) {
     var pathAsset = locator<GameObjectService>().getStatic(widget.pathId);
     var pathSteps =
-        pathAsset?.get<PathComponent>()?.pickableSteps.getAssets() ?? [];
+        pathAsset?.get<PathComponent>()?.pickableSteps ?? [];
 
     return SingleChildScrollView(
       child: Padding(

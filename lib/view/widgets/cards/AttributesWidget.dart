@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/controller/AttributesController.dart';
 import 'package:eyuunapp/view/widgets/DiceIcon.dart';
+import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
@@ -20,7 +21,7 @@ class AttributesWidget extends StatefulWidget {
 class _AttributesWidgetState extends State<AttributesWidget> {
   final _textService = locator<TextService>();
 
-  List<AttributeEntryStatic> attributes = locator<CharacterService>()
+  List<AttributeEntry> attributes = locator<CharacterService>()
           .character
           .get<AttributesComponent>()
           ?.statValues ??
@@ -30,17 +31,17 @@ class _AttributesWidgetState extends State<AttributesWidget> {
       locator<CharacterService>().character.get<AttributesComponent>() ??
           AttributesComponent());
 
-  Widget _buildBaseStatButton(BuildContext context, AttributeEntryStatic item) {
+  Widget _buildBaseStatButton(BuildContext context, AttributeEntry item) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        if (_controller.upgradesPossible(item.stat.id))
+        if (_controller.upgradesPossible(item.stat.getTypeId()))
           SizedBox(
               width: 70,
               child: ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    _controller.increaseOneStep(item.stat.id);
+                    _controller.increaseOneStep(item.stat.getTypeId());
                   });
                 },
                 child: const Icon(Icons.upgrade),
@@ -56,7 +57,7 @@ class _AttributesWidgetState extends State<AttributesWidget> {
                 EyuunWidgets.spacerHorizontal(),
                 SizedBox(
                   width: 150,
-                  child: Text(_textService.getText(item.stat.id)),
+                  child: Text(_textService.getTextFromEntity(item.stat)),
                 ),
               ],
             )),

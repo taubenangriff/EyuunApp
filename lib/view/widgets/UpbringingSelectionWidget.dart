@@ -38,7 +38,7 @@ class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
 
     double cardHeight = 130;
 
-    var childhood = character.childhood.getEntity();
+    var childhood = character.childhood;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -135,7 +135,7 @@ class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
               locator<CharacterTablesFeatureComponent>().childhoods,
               (buff) {
                 setState(() {
-                  character.childhood = AssetLink.fromEntity(buff);
+                  character.childhood = buff;
                 });
               },
             ),
