@@ -105,8 +105,7 @@ class _HandwrittenNoteWidgetState extends State<HandwrittenNoteWidget> {
                     EyuunWidgets.spacerVertical(),
                   ])))), // Drawing Board
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-      body: Expanded(
-          child: Container(
+      body: Container(
         decoration: const BoxDecoration(
           boxShadow: [
             BoxShadow(
@@ -127,7 +126,7 @@ class _HandwrittenNoteWidgetState extends State<HandwrittenNoteWidget> {
           minScale: 1,
           background: Container(color: Colors.white),
         ),
-      )),
+      ),
     );
   }
 }
