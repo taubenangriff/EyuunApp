@@ -31,10 +31,10 @@ class _HandwrittenNoteWidgetState extends State<HandwrittenNoteWidget> {
     super.initState();
     _drawingController.setPaintContent(SmoothLine(
       brushPrecision:
-          0.8, // Line smoothness factor (smaller = smoother, default: 0.8)
+          0.9, // Line smoothness factor (smaller = smoother, default: 0.8)
       useBezierCurve: true, // Enable Bezier curves (default: true)
-      minPointDistance: 2.0, // Filter redundant points (default: 2.0)
-      smoothLevel: 1, // 0: fast, 1: balanced, 2: ultra-smooth (default: 1)
+      minPointDistance: 0.5, // Filter redundant points (default: 2.0)
+      smoothLevel: 0, // 0: fast, 1: balanced, 2: ultra-smooth (default: 1)
     ));
     _drawingController.setStyle(
       color: Colors.black,
@@ -121,6 +121,8 @@ class _HandwrittenNoteWidgetState extends State<HandwrittenNoteWidget> {
         child: DrawingBoard(
           controller: _drawingController,
           boardConstrained: true,
+          boardPanEnabled: false,
+          enablePalmRejection: true,
           boardScaleEnabled: false,
           maxScale: 3,
           minScale: 1,
