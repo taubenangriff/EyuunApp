@@ -83,6 +83,7 @@ flutter:
     - data/base/icons/weapon/
     - data/base/icons/
     - data/base/asset/items/
+    - data/base/asset/actions/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

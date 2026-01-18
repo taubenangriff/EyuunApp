@@ -1,0 +1,11 @@
+{
+  "standard": {
+    "typeId": "trick_03_defensive_posture"
+  },
+  "text": { },
+  "action": {
+    "actionDescription": "trick_03_defensive_posture_desc",
+    "actionTime": "Action",
+    "fluxCost": 1
+  }
+}

@@ -7,6 +7,12 @@
     "assets": [
       {
         "id": "trick_01_hasty_action"
+      },
+      {
+        "id": "trick_02_wallrider"
+      },
+      {
+        "id": "trick_03_defensive_posture"
       }
     ]
   }

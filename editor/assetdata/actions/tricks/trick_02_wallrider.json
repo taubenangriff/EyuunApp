@@ -1,0 +1,11 @@
+{
+  "standard": {
+    "typeId": "trick_02_wallrider"
+  },
+  "text": { },
+  "action": {
+    "actionDescription": "trick_02_wallrider_desc",
+    "actionTime": "None",
+    "fluxCost": 1
+  }
+}

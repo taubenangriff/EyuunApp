@@ -1,14 +1,10 @@
-import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuunapp/view/widgets/SkillCheckWidget.dart';
 import 'package:eyuuncore/components/Action.dart';
-import 'package:eyuuncore/components/ActionUser.dart';
 import 'package:eyuuncore/components/Attributes.dart';
-import 'package:eyuuncore/components/Combat.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/components/Skillcheck.dart';
 import 'package:eyuuncore/components/Weapon.dart';
 import 'package:eyuuncore/controller/SkillcheckController.dart';
-import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/enums/ActionTime.dart';
@@ -21,6 +17,7 @@ class ActionCard extends StatelessWidget {
     required this.skillLearner,
     required this.attributes,
     required this.actionEntity,
+    this.onTap,
     this.sourceEntity
   });
 
@@ -28,6 +25,7 @@ class ActionCard extends StatelessWidget {
   final AttributesComponent attributes;
   final Entity actionEntity;
   final Entity? sourceEntity;
+  final VoidCallback? onTap;
 
   final TextService _textService = locator<TextService>();
 
@@ -38,12 +36,13 @@ class ActionCard extends StatelessWidget {
     SkillcheckController skillcheckController =
     SkillcheckController(skillLearner);
 
+    var theme = Theme.of(context);
+
     return GestureDetector(
-        onTap: () {
-          PopupUtil.popup(context, const Center(child: Text("Popup showing the action in full and a button to cast it.")), maximumSize: Size(600, 400));
-        },
+        onTap: onTap,
         child: Card(
             elevation: 4,
+            surfaceTintColor: theme.colorScheme.secondary,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),

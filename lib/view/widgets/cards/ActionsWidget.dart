@@ -120,7 +120,7 @@ class _ActionsWidgetState extends State<ActionsWidget> {
         physics: const NeverScrollableScrollPhysics(), // avoid nested scrolling
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 320, // 👈 desired item width
-          mainAxisExtent: 250,
+          mainAxisExtent: 270,
           crossAxisSpacing: 12,
           mainAxisSpacing: 12,
         ),
@@ -128,10 +128,19 @@ class _ActionsWidgetState extends State<ActionsWidget> {
         itemBuilder: (BuildContext context, int index) {
           var actionLink = actions[index];
           return ActionCard(
+              onTap: () {
+                PopupUtil.popup(
+                    context,
+                    const Center(
+                        child: Text(
+                            "Popup showing the action in full and a button to cast it.")),
+                    maximumSize: Size(600, 400));
+              },
               skillLearner: widget.skillLearner,
               attributes: widget.attributes,
               actionEntity: actionLink.action,
-              sourceEntity: actionLink.hasExternalSource() ? actionLink.source : null);
+              sourceEntity:
+                  actionLink.hasExternalSource() ? actionLink.source : null);
         },
       )
     ]);

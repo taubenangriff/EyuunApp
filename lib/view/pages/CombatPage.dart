@@ -1,3 +1,4 @@
+import 'package:eyuunapp/view/widgets/PickActionWidget.dart';
 import 'package:eyuunapp/view/widgets/cards/ActionsWidget.dart';
 import 'package:eyuunapp/view/widgets/cards/TalentsWidget.dart';
 import 'package:eyuuncore/components/ActionUser.dart';
@@ -11,6 +12,7 @@ import 'package:eyuunapp/view/widgets/eyuun/Brushes.dart';
 import 'package:eyuunapp/view/widgets/eyuun/EyuunDecoration.dart';
 import 'package:eyuuncore/components/Flux.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
+import 'package:eyuuncore/components/feature/CharacterTables.dart';
 import 'package:eyuuncore/components/health.dart';
 import 'package:eyuuncore/controller/HealthController.dart';
 import 'package:eyuuncore/core/registerServices.dart';
@@ -21,6 +23,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../main.dart';
 import '../controller/ChangeValueController.dart';
+import '../popup/PickActionPopup.dart';
 import '../widgets/eyuun/EyuunWidgets.dart';
 
 class CombatPage extends StatefulWidget {
@@ -123,6 +126,9 @@ class _CombatPageState extends State<CombatPage> {
           EyuunWidgets.spacerHorizontal(),
           EyuunWidgets.floatingActionButton(
             onPressed: () {
+              PopupUtil.largePopup(
+                  context,
+                  PickActionPopup(actions: locator<CharacterTablesFeatureComponent>().tricks, headerKey: 'uitext_picknewtrick'));
             },
             text:
             'Add',
