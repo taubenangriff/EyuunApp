@@ -4,6 +4,10 @@ import 'package:oxygen/oxygen.dart';
 class GameObjectRepository {
   Map<String, Entity> _entities = {};
 
+  void preregisterEntity(Entity e, String objectId){
+    _entities[objectId] = e;
+  }
+
   void registerEntity(Entity e) {
     var objectId = e.getObjectId();
     _entities[objectId] = e;

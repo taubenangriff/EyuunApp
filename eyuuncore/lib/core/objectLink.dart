@@ -12,13 +12,13 @@ class ObjectLink with ObjectLinkMappable {
 
   ObjectLink(this.objectId);
 
-  Entity getEntity() => locator<GameObjectService>().getObject(objectId)!;
+  Entity? getEntity() => locator<GameObjectService>().getObject(objectId);
 
   static ObjectLink fromEntity(Entity e) => ObjectLink(e.getObjectId());
 }
 
 extension GetObjectLinkListObjects on Iterable<ObjectLink> {
-  List<Entity> getObjects() => map((ObjectLink e) => e.getEntity()).where((e) => e != null).toList();
+  List<Entity> getObjects() => map((ObjectLink e) => e.getEntity()).where((e) => e != null).map((e) => e!).toList();
 }
 
 extension GetEntityListLinks on Iterable<Entity> {

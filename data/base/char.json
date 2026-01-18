@@ -76,19 +76,8 @@
       "inventory": {
         "items": [
           {
-            "objectId": null,
-            "typeId": {
-              "id": "item_dummy1"
-            },
-            "count": 6,
-            "slot": 0
-          },
-          {
             "objectId": {
               "objectId": "e8842450-6d35-4f8b-88ee-37ce33639178"
-            },
-            "typeId": {
-              "id": "armor_01"
             },
             "count": 1,
             "slot": 15
@@ -97,14 +86,11 @@
             "objectId": {
               "objectId": "84a2a8f4-1172-480b-9f36-97fcf387f432"
             },
-            "typeId": {
-              "id": "holdable_01"
-            },
             "count": 1,
             "slot": 16
           }
         ],
-        "money": 0
+        "money": 250
       },
       "flux": {
         "fluxSpent": 2,

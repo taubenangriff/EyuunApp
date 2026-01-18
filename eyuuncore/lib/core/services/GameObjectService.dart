@@ -27,10 +27,6 @@ class GameObjectService {
 
   var uuid = const Uuid();
 
-  Entity getDummy() {
-    return Entity(EntityManager(World()));
-  }
-
   Entity? getStatic(String typeId) {
     if(!_assetDataRepository.isValidDefinition(typeId)){
       return null;
@@ -93,12 +89,12 @@ class GameObjectService {
     return entity;
   }
 
-  Entity? loadEntity(Map<String, dynamic> entityMap) {
-    var typeId = _assetLoader.getTypeIdFromAssetMap(entityMap);
-    if (typeId == null) {
+  Entity? _loadEntityData(Map<String, dynamic> entityMap) {
+    var objectId = _assetLoader.getObjectIdFromObjectMap(entityMap);
+    if(objectId == null){
       return null;
     }
-    var entity = _createEntity(typeId);
+    var entity = _gameObjectRepository.getEntity(objectId);
     if(entity == null){
       return null;
     }
@@ -113,11 +109,36 @@ class GameObjectService {
 
   List<Entity> getObjects() => _gameObjectRepository.getEntities();
 
-  void loadEntities(GameObjectsExport export){
+  void registerEntities(GameObjectsExport export){
     for(var entry in export.gameObjects){
       if(entry is Map<String, dynamic>){
-        loadEntity(entry);
+        _preloadEntity(entry);
       }
     }
+  }
+
+  /// Loads Entity Data. In order for all objectLinks to be resolved correctly, all [GameObjectsExport] that contain data to load must be registered using [registerEntities] before any call to [loadEntitiesData] is made.
+  void loadEntitiesData(GameObjectsExport export){
+    for(var entry in export.gameObjects){
+      if(entry is Map<String, dynamic>){
+        _loadEntityData(entry);
+      }
+    }
+  }
+
+  void _preloadEntity(Map<String, dynamic> entityMap){
+    var typeId = _assetLoader.getTypeIdFromAssetMap(entityMap);
+    if (typeId == null) {
+      return;
+    }
+    var objectId = _assetLoader.getObjectIdFromObjectMap(entityMap);
+    if(objectId == null){
+      return;
+    }
+    var entity = _createEntity(typeId);
+    if(entity == null){
+      return;
+    }
+    _gameObjectRepository.preregisterEntity(entity, objectId);
   }
 }

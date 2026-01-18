@@ -3,7 +3,6 @@ import 'package:eyuuncore/components/Combat.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:eyuuncore/core/reflection/Reflecting.dart';
 import 'package:eyuuncore/core/reflection/reflector.dart';
-import 'package:eyuuncore/core/EntityExtension.dart';
 import 'package:eyuuncore/enums/PersonSize.dart';
 import 'package:oxygen/oxygen.dart';
 

@@ -3,8 +3,6 @@ import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:eyuuncore/core/reflection/Reflecting.dart';
 import 'package:eyuuncore/core/reflection/reflector.dart';
 import 'package:oxygen/oxygen.dart';
-
-import '../core/EntityExtension.dart';
 import '../core/assetLink.dart';
 
 part 'Cost.mapper.dart';

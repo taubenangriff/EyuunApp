@@ -69,4 +69,8 @@ class AssetLoader {
     return assetMap['inherit']?['from'] as String?;
   }
 
+  String? getObjectIdFromObjectMap(Map<String, dynamic> entityMap){
+    return entityMap['standard']?['objectId'] as String;
+  }
+
 }

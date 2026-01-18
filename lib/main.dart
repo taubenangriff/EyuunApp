@@ -60,7 +60,8 @@ void main() async {
 
   final String response = await rootBundle.loadString("data/base/char.json");
   var gameObjects = GameObjectsExportMapper.fromJson(response);
-  goService.loadEntities(gameObjects);
+  goService.registerEntities(gameObjects);
+  goService.loadEntitiesData(gameObjects);
   var character = goService.getObject(gameObjects.characterId);
 
   if(character == null){
