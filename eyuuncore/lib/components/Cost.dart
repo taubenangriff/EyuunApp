@@ -10,7 +10,7 @@ import '../core/assetLink.dart';
 part 'Cost.mapper.dart';
 
 @MappableClass()
-class CostEntryStatic with CostEntryMappable {
+class CostEntryStatic with CostEntryStaticMappable {
   /// AssetLink to the resource needed to buy
   AssetLink resource;
 

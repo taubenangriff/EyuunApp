@@ -25,7 +25,7 @@ class SkillEntry {
 }
 
 @MappableClass()
-class SkillEntryDynamic with SkillEntryMappable {
+class SkillEntryDynamic with SkillEntryDynamicMappable {
   AssetLink skill;
   int value;
 

@@ -28,7 +28,7 @@ class AttributesStatic with AttributesStaticMappable, ComponentReflectable {
 }
 
 @MappableClass()
-class AttributeEntryStatic with AttributeEntryMappable {
+class AttributeEntryStatic with AttributeEntryStaticMappable {
   /// Link to the attribute Asset
   AssetLink stat;
 
