@@ -48,8 +48,7 @@ class CollectActionsSystem extends System {
     var combatComponent = actionUser.get<CombatComponent>()!;
     var actionUserComponent = actionUser.get<ActionUserComponent>()!;
 
-    for (var heldItemLink in combatComponent.equippedItems) {
-      var heldItem = heldItemLink.getEntity();
+    for (var heldItem in combatComponent.equippedItems) {
       if (heldItem.has<WeaponComponent>()) {
         actionUserComponent.addAction(heldItem);
       }
