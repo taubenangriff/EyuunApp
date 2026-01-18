@@ -288,7 +288,7 @@ class _InventoryPageState extends State<InventoryPage> {
       onAcceptWithDetails: (details) {
         final draggedItem = details.data;
         setState(() {
-          PopupUtil.popup(
+          PopupUtil.largePopup(
               context,
               Padding(
                 padding: EdgeInsets.all(32),
@@ -299,8 +299,7 @@ class _InventoryPageState extends State<InventoryPage> {
                   Expanded(
                       child: InventoryWidget(inventory: InventoryComponent()))
                 ]),
-              ),
-              maximumSize: Size(900, 700));
+              ));
         });
       },
       builder: (context, candidateData, rejectedData) {

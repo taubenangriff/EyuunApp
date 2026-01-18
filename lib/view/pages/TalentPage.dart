@@ -30,6 +30,7 @@ class _TalentPageState extends State<TalentPage> {
       locator<CharacterService>().character.get<SkillLearnerComponent>();
 
   late var controller = SkillLearnerController(skillLearner: skillLearner!);
+  late var textService = locator<TextService>();
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +48,14 @@ class _TalentPageState extends State<TalentPage> {
                     EyuunWidgets.eyuunBox(
                         child: Column(
                           children: [
-                            const Text(
-                              'Basic',
+                            Text(
+                              textService.getText('uitext_basictalents'),
                               style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold),
                             ),
+                            EyuunWidgets.spacerVertical(),
+                            Text(textService.getText('uitext_basictalents_sub'), textAlign: TextAlign.center),
                             EyuunWidgets.spacerVertical(),
                             if (skillLearner != null)
                               TalentsWidget(
@@ -69,12 +72,14 @@ class _TalentPageState extends State<TalentPage> {
                     EyuunWidgets.eyuunBox(
                         child: Column(
                           children: [
-                            const Text(
-                              'Advanced',
+                            Text(
+                              textService.getText('uitext_advancedtalents'),
                               style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold),
                             ),
+                            EyuunWidgets.spacerVertical(),
+                            Text(textService.getText('uitext_advancedtalents_sub'), textAlign: TextAlign.center),
                             EyuunWidgets.spacerVertical(),
                             if (skillLearner != null)
                               TalentsWidget(
@@ -91,12 +96,14 @@ class _TalentPageState extends State<TalentPage> {
                     EyuunWidgets.eyuunBox(
                         child: Column(
                           children: [
-                            const Text(
-                              'Spellschools',
+                            Text(
+                              textService.getText('uitext_spellschools'),
                               style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold),
                             ),
+                            EyuunWidgets.spacerVertical(),
+                            Text(textService.getText('uitext_spellschools_sub'), textAlign: TextAlign.center),
                             EyuunWidgets.spacerVertical(),
                             if (skillLearner != null)
                               TalentsWidget(
@@ -105,7 +112,14 @@ class _TalentPageState extends State<TalentPage> {
                                 },
                                 skillLearnerController: controller,
                                 filter: const [TalentGroup.Spellschool],
-                              )
+                              ),
+                            EyuunWidgets.spacerVertical(),
+                            Text(
+                              textService.getText('uitext_spellschools_thresholds'),
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ],
                         ),
                         theme: theme),
@@ -113,12 +127,14 @@ class _TalentPageState extends State<TalentPage> {
                     EyuunWidgets.eyuunBox(
                         child: Column(
                           children: [
-                            const Text(
-                              'Fighting Styles:',
+                            Text(
+                              textService.getText('uitext_fightingstyles'),
                               style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold),
                             ),
+                            EyuunWidgets.spacerVertical(),
+                            Text(textService.getText('uitext_fightingstyles_sub'), textAlign: TextAlign.center),
                             EyuunWidgets.spacerVertical(),
                             if (skillLearner != null)
                               TalentsWidget(
