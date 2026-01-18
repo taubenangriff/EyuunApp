@@ -14,7 +14,7 @@ class SkillcheckController {
 
   int getWeaponSkill(Entity weapon){
     var weaponComp = weapon.get<WeaponComponent>();
-    var fightingTypeId = weaponComp?.fightingType.id;
+    var fightingTypeId = weaponComp?.fightingType?.getTypeId();
     var skillMultiplier = weaponComp?.skillMultiplier ?? 0;
 
     num skillValue = fightingTypeId != null ? skillLearner.getSkillValue(fightingTypeId) : 0;
@@ -24,7 +24,7 @@ class SkillcheckController {
 
   int getActiveTalentSkill(Entity talentEntity){
     var skillcheck = talentEntity.get<SkillcheckComponent>();
-    var id = skillcheck?.overrideSkillcheck?.getEntity()?.getTypeId() ?? talentEntity.getTypeId();
+    var id = skillcheck?.overrideSkillcheck?.getTypeId() ?? talentEntity.getTypeId();
     return skillLearner.getSkillValue(id);
   }
 }

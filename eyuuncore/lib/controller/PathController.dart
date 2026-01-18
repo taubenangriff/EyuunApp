@@ -53,7 +53,7 @@ class PathController {
   /// gets the maximum possible progress of the path under [id]. returns 0 if [id] does not have [PathComponent].
   int getPathMaximum(String id) => 0;
 
-  List<Entity> getChosenPaths() => _characterPathComponent.chosenPaths.getAssets();
-  List<Entity> getChosenPathSteps() => _characterPathComponent.chosenPathSteps.getAssets();
-  List<Entity> getChosenAdditionalPaths() => _characterPathComponent.chosenPathSteps.getAssets().where((e) => e.get<PathStepComponent>()?.isAdditional ?? false).toList();
+  List<Entity> getChosenPaths() => _characterPathComponent.chosenPaths;
+  List<Entity> getChosenPathSteps() => _characterPathComponent.chosenPathSteps;
+  List<Entity> getChosenAdditionalPaths() => _characterPathComponent.chosenPathSteps.where((e) => e.get<PathStepComponent>()?.isAdditional ?? false).toList();
 }

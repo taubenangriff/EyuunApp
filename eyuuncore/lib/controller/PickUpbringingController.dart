@@ -85,10 +85,10 @@ class PickUpbringingController {
     }
     characterBase.visualUpbringings.clear();
 
-    characterBase.upbringing = AssetLink.fromEntity(buffProvidingUpbringing!);
+    characterBase.upbringing = buffProvidingUpbringing!;
     var visualUpbringing = buffProvidingUpbringing == selectedUpbringing ? selectedAdditionalUpbringing : selectedUpbringing;
     if(visualUpbringing != null){
-      characterBase.visualUpbringings.add(AssetLink.fromEntity(visualUpbringing));
+      characterBase.visualUpbringings.add(visualUpbringing);
     }
   }
 }

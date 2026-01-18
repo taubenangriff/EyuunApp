@@ -151,8 +151,7 @@ class HealthController {
   int _getWornArmor() {
     return _targetCombatComponent
         ?.armor
-        ?.getEntity()
-        .get<ArmorComponent>()
+        ?.get<ArmorComponent>()
         ?.armorToughness
         .current ??
         0;
@@ -189,11 +188,11 @@ class HealthController {
     }
 
     if(damageTypeComponent.applyStatusEffect != null) {
-      damageTarget.get<UpgradableComponent>()?.applyUpgrade(damageTypeComponent.applyStatusEffect!.id);
+      damageTarget.get<UpgradableComponent>()?.applyUpgrade(damageTypeComponent.applyStatusEffect!);
     }
 
     if(hitpointChange < 0 && damageTypeComponent.applyStatusEffectOnHit != null) {
-      damageTarget.get<UpgradableComponent>()?.applyUpgrade(damageTypeComponent.applyStatusEffectOnHit!.id);
+      damageTarget.get<UpgradableComponent>()?.applyUpgrade(damageTypeComponent.applyStatusEffectOnHit!);
     }
   }
 }

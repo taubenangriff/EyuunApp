@@ -34,7 +34,7 @@ class LanguagesController {
   }
 
   void learnLanguage(Entity language, {bool throughProject = false}) {
-    targetLearner.languagesLearned.add(AssetLink(language.getTypeId()));
+    targetLearner.languagesLearned.add(language);
     if (throughProject) {
       targetLearner.languagesThroughProjects += 1;
     }

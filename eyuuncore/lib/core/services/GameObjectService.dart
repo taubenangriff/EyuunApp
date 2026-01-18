@@ -27,6 +27,10 @@ class GameObjectService {
 
   var uuid = const Uuid();
 
+  Entity getDummy() {
+    return Entity(EntityManager(World()));
+  }
+
   Entity? getStatic(String typeId) {
     if(!_assetDataRepository.isValidDefinition(typeId)){
       return null;
