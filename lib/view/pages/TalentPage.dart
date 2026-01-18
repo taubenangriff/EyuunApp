@@ -18,8 +18,9 @@ import '../widgets/eyuun/EyuunWidgets.dart';
 
 class TalentPage extends StatefulWidget {
   final double desiredSize;
+  final SkillLearnerController? controller;
 
-  const TalentPage({super.key, this.desiredSize = 1100});
+  const TalentPage({super.key, this.desiredSize = 1100, this.controller});
 
   @override
   State<TalentPage> createState() => _TalentPageState();
@@ -29,7 +30,7 @@ class _TalentPageState extends State<TalentPage> {
   late var skillLearner =
       locator<CharacterService>().character.get<SkillLearnerComponent>();
 
-  late var controller = SkillLearnerController(skillLearner: skillLearner!);
+  late var controller = widget.controller ?? SkillLearnerController(skillLearner: skillLearner!);
   late var textService = locator<TextService>();
 
   @override

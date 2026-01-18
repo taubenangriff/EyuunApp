@@ -5,8 +5,10 @@ import 'package:eyuunapp/view/widgets/PickNewPathWidget.dart';
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/CharacterBase.dart';
+import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/controller/PathController.dart';
 import 'package:eyuuncore/controller/PickUpbringingController.dart';
+import 'package:eyuuncore/controller/SkilllearnerController.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
@@ -44,6 +46,10 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
       widget.character.get<CharacterBaseComponent>()!;
   late var upbringingController =
       PickUpbringingController(characterBaseComponent);
+  late var skillLearnerComponent =
+      widget.character.get<SkillLearnerComponent>();
+  late var skillLearnerController = SkillLearnerController(
+      skillLearner: skillLearnerComponent!, allowDowngrades: true);
 
   late var pages = [
     _wrapWithLayoutBuilder(UpbringingSelectionWidget(
@@ -56,7 +62,7 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
     )),
     _wrapWithLayoutBuilder(AttributeDiceSelector(
         attributes: widget.character.get<AttributesComponent>()!)),
-    _wrapWithSizedBox(Center(child: TalentPage())),
+    _wrapWithSizedBox(Center(child: TalentPage(controller: skillLearnerController))),
     Center(
         child: Text(
             "A summary displaying your core choices and the create button"))
@@ -79,11 +85,10 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
       body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage('data/base/ui/bg/background.jpg'),
-              fit: BoxFit.cover,
+                image: const AssetImage('data/base/ui/bg/background.jpg'),
+                fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
-                    theme.canvasColor.withAlpha(180), BlendMode.srcOver)
-            ),
+                    theme.canvasColor.withAlpha(180), BlendMode.srcOver)),
           ),
           child: Column(children: [
             Expanded(child: pages[currentStep]),
