@@ -33,11 +33,10 @@ class SkillLearnerController {
     return skillLearner.getSpentSkillpoints() < skillLearner.skillpoints.current;
   }
 
-  void addSkillvalue(Entity? skillEntity, int value){
+  void setSkillvalue(Entity? skillEntity, int value){
     if(skillEntity == null){
       return;
     }
-    var prev = skillLearner.getSkillValue(skillEntity.getTypeId());
-    skillLearner.setSkillValue(skillEntity.getTypeId(), prev+value);
+    skillLearner.setSkillValue(skillEntity.getTypeId(), value);
   }
 }

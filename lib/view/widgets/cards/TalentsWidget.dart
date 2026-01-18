@@ -77,10 +77,12 @@ class _TalentsWidgetState extends State<TalentsWidget> {
               SizedBox(
                 height: 60,
                 width: hasEnaughWidth ? 150 : 140,
-                child: Align(alignment: Alignment.centerLeft, child: Text(
-                  _textService.getText(talent.skill.id),
-                  style: theme.textTheme.titleMedium,
-                )),
+                child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      _textService.getText(talent.skill.id),
+                      style: theme.textTheme.titleMedium,
+                    )),
               ),
               EyuunWidgets.spacerHorizontal(),
               // Value
@@ -92,17 +94,19 @@ class _TalentsWidgetState extends State<TalentsWidget> {
                                 maxLimit:
                                     widget.skillLearnerController.getMax(),
                                 minLimit: widget.skillLearnerController
-                                    .getMin(talentAsset));
+                                    .getMin(talentAsset),
+                                onValUpdated: (val) =>
+                                    widget.skillLearnerController.setSkillvalue(
+                                        talent.skill.getEntity(), val));
                         PopupUtil.popup(
                             context,
                             ChangeValuePopup(
                               changeValController,
                               valueChanged: (add) {
                                 setState(() {
-                                  widget.skillLearnerController
-                                      .addSkillvalue(talentAsset, add);
-                                  widget.onTalentChanged?.call();
+                                  changeValController.change(add);
                                 });
+                                widget.onTalentChanged?.call();
                               },
                             ));
                         // handle tap
@@ -120,20 +124,21 @@ class _TalentsWidgetState extends State<TalentsWidget> {
               if (skillcheck != null)
                 Expanded(
                     child: InkWell(
-                      splashColor: Colors.red,
+                        splashColor: Colors.red,
                         onTap: () {},
                         child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: useLong ? 6 : 10),
+                            padding: EdgeInsets.symmetric(
+                                vertical: useLong ? 6 : 10),
                             child: Center(
-                          child: SkillCheckWidget(
-                              useWrap: false,
-                              spacing: hasEnaughWidth ? 24 : 8,
-                              iconSize: hasEnaughWidth ? 42 : 32,
-                              showText: hasEnaughWidth,
-                              useLongText: useLong,
-                              skillcheck: skillcheck,
-                              attributes: attributes),
-                        )))),
+                              child: SkillCheckWidget(
+                                  useWrap: false,
+                                  spacing: hasEnaughWidth ? 24 : 8,
+                                  iconSize: hasEnaughWidth ? 42 : 32,
+                                  showText: hasEnaughWidth,
+                                  useLongText: useLong,
+                                  skillcheck: skillcheck,
+                                  attributes: attributes),
+                            )))),
             ],
           ));
     });
