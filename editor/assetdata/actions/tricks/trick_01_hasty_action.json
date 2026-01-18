@@ -1,0 +1,11 @@
+{
+  "standard": {
+    "typeId": "trick_01_hasty_action"
+  },
+  "text": { },
+  "action": {
+    "actionDescription": "trick_01_hasty_action_desc",
+    "actionTime": "None",
+    "fluxCost": 1
+  }
+}

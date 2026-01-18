@@ -14,6 +14,9 @@
     },
     "childhoods": {
       "id": "all_childhoods_pool"
+    },
+    "tricks": {
+      "id": "all_tricks_pool"
     }
   }
 }

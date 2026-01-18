@@ -1,0 +1,13 @@
+{
+  "standard": {
+    "typeId": "all_tricks_pool"
+  },
+  "text": { },
+  "assetBundle": {
+    "assets": [
+      {
+        "id": "trick_01_hasty_action"
+      }
+    ]
+  }
+}
