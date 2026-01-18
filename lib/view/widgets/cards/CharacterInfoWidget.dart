@@ -59,7 +59,7 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
     var secondUpbringingBuff = null;
     var childhoodBuff = characterComponent?.childhood.getEntity();
 
-    var textService = locator<TextService>();    
+    var textService = locator<TextService>();
     var levelFeature = locator<LevelFeatureComponent>();
 
     var theme = Theme.of(context);
@@ -70,17 +70,20 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // 🖼️ Profile image
-            Container(
-              width: height,
-              height: height,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                image: DecorationImage(
-                  image: widget.profileImage,
-                  fit: BoxFit.cover,
+            SizedBox(
+              width: 200,
+                child: AspectRatio(
+              aspectRatio: 1, // 1:1
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  image: DecorationImage(
+                    image: widget.profileImage,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
+            )),
             EyuunWidgets.spacerHorizontal(),
 
             // 📜 Right side info
@@ -119,10 +122,17 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                             borderRadius: BorderRadius.circular(6),
                             onTap: () {
                               PopupUtil.popup(
-                                context,
-                                UpbringingPopup(primary: upbringingBuff, secondary: secondUpbringingBuff),
-                                maximumSize: Size(characterComponent?.hasSecondaryUpbringing() ?? true ? 1000 : 500, 600)
-                              );
+                                  context,
+                                  UpbringingPopup(
+                                      primary: upbringingBuff,
+                                      secondary: secondUpbringingBuff),
+                                  maximumSize: Size(
+                                      characterComponent
+                                                  ?.hasSecondaryUpbringing() ??
+                                              true
+                                          ? 1000
+                                          : 500,
+                                      600));
                             },
                             child: Container(
                               alignment: Alignment.center,
@@ -146,10 +156,8 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                           child: InkWell(
                             borderRadius: BorderRadius.circular(6),
                             onTap: () {
-                              PopupUtil.popup(
-                                context,
-                                BuffDisplayPopup(buff: childhoodBuff)
-                              );
+                              PopupUtil.popup(context,
+                                  BuffDisplayPopup(buff: childhoodBuff));
                             },
                             child: Container(
                               alignment: Alignment.center,
@@ -181,13 +189,14 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                           child: InkWell(
                             borderRadius: BorderRadius.circular(6),
                             onTap: () {
-                              if(characterComponent == null){
+                              if (characterComponent == null) {
                                 return;
                               }
-                              
-                              var isMax = levelFeature.isMaxLevel(characterComponent.level);
 
-                              if(isMax) {
+                              var isMax = levelFeature
+                                  .isMaxLevel(characterComponent.level);
+
+                              if (isMax) {
                                 PopupUtil.popup(
                                   context,
                                   const Center(
@@ -200,12 +209,11 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                                 return;
                               }
 
-                              var nextLevel = levelFeature.getLevelAsset(characterComponent.level + 1);
+                              var nextLevel = levelFeature
+                                  .getLevelAsset(characterComponent.level + 1);
 
                               PopupUtil.popup(
-                                context,
-                                LevelupPopup(buff: nextLevel)
-                              );
+                                  context, LevelupPopup(buff: nextLevel));
                             },
                             child: Container(
                               alignment: Alignment.center,
@@ -251,6 +259,5 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
         );
       },
     );
-
   }
 }

@@ -69,31 +69,43 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    var theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text("Create your character"),
       ),
-      body: pages[currentStep],
-      bottomNavigationBar: EasyStepper(
-        steps: steps,
-        lineStyle: LineStyle(
-            lineThickness: 3,
-            unreachedLineType: LineType.dashed,
-            lineLength: 90,
-            lineType: LineType.normal,
-            activeLineColor: Colors.grey,
-            unreachedLineColor: Colors.grey,
-            defaultLineColor: Colors.orangeAccent),
-        activeStepTextColor: Colors.black87,
-        finishedStepTextColor: Colors.black87,
-        activeStep: currentStep,
-        onStepReached: (value) {
-          setState(() {
-            currentStep = value;
-          });
-        },
-      ),
+      body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: const AssetImage('data/base/ui/bg/background.jpg'),
+              fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                    theme.canvasColor.withAlpha(180), BlendMode.srcOver)
+            ),
+          ),
+          child: Column(children: [
+            Expanded(child: pages[currentStep]),
+            EasyStepper(
+              steps: steps,
+              lineStyle: LineStyle(
+                  lineThickness: 3,
+                  unreachedLineType: LineType.dashed,
+                  lineLength: 90,
+                  lineType: LineType.normal,
+                  activeLineColor: Colors.grey,
+                  unreachedLineColor: Colors.grey,
+                  defaultLineColor: Colors.orangeAccent),
+              activeStepTextColor: Colors.black87,
+              finishedStepTextColor: Colors.black87,
+              activeStep: currentStep,
+              onStepReached: (value) {
+                setState(() {
+                  currentStep = value;
+                });
+              },
+            )
+          ])),
     );
   }
 

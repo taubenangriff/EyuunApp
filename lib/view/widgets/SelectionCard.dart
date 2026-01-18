@@ -29,12 +29,15 @@ class SelectionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final fluff = locator<TextService>().getFluffFromEntity(buff);
 
+    var theme = Theme.of(context);
+
     return DecoratedBox(
       decoration: EyuunDecoration(
         paint: Brushes.silverSparkling(),
         fillCorners: false,
         paintInnerLine: false,
         cornerSize: 14,
+        background: theme.cardColor.withAlpha(220)
       ),
       child: Material(
         color: Colors.transparent,

@@ -36,64 +36,68 @@ class _MainPageState extends State<MainPage> {
     final size = MediaQuery.of(context).size;
     final isWide = size.width >= 750;
 
+    var theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Eyuun App"),
       ),
-      body: Row(
-        children: [
-          if (isWide)
-            NavigationRail(
-              extended: true,
-              minExtendedWidth: 180,
-              selectedIndex: _selectedIndex,
-              onDestinationSelected: _changeDestination,
-              destinations: const [
-                NavigationRailDestination(
-                  icon: Icon(Icons.person_2_outlined),
-                  selectedIcon: Icon(Icons.person_2),
-                  label: Text('Character'),
-                ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.abc_outlined),
-                  selectedIcon: Icon(Icons.abc),
-                  label: Text('Combat'),
-                ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.star_outline),
-                  selectedIcon: Icon(Icons.star),
-                  label: Text('Talents'),
-                ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.shopping_bag_outlined),
-                  selectedIcon: Icon(Icons.shopping_bag),
-                  label: Text('Inventory'),
-                ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.speaker_notes_outlined),
-                  selectedIcon: Icon(Icons.speaker_notes),
-                  label: Text('Notes'),
-                )
-              ],
+      body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('data/base/ui/bg/background.jpg'),
+              fit: BoxFit.cover,
             ),
-          if (isWide) const VerticalDivider(width: 1, thickness: 1),
-          Expanded(
-              child: Container(
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('data/base/ui/bg/background.jpg'),
-                      fit: BoxFit.cover,
+          ),
+          child: Row(
+            children: [
+              if (isWide)
+                NavigationRail(
+                  backgroundColor: theme.primaryColor.withAlpha(200),
+                  extended: true,
+                  minExtendedWidth: 180,
+                  selectedIndex: _selectedIndex,
+                  onDestinationSelected: _changeDestination,
+                  destinations: const [
+                    NavigationRailDestination(
+                      icon: Icon(Icons.person_2_outlined),
+                      selectedIcon: Icon(Icons.person_2),
+                      label: Text('Character'),
                     ),
-                  ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.abc_outlined),
+                      selectedIcon: Icon(Icons.abc),
+                      label: Text('Combat'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.star_outline),
+                      selectedIcon: Icon(Icons.star),
+                      label: Text('Talents'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.shopping_bag_outlined),
+                      selectedIcon: Icon(Icons.shopping_bag),
+                      label: Text('Inventory'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.speaker_notes_outlined),
+                      selectedIcon: Icon(Icons.speaker_notes),
+                      label: Text('Notes'),
+                    )
+                  ],
+                ),
+              if (isWide) const VerticalDivider(width: 1, thickness: 1),
+              Expanded(
                   child: Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 4, horizontal: 4),
-                      child: _pages[_selectedIndex]))),
-        ],
-      ),
+                      child: _pages[_selectedIndex])),
+            ],
+          )),
       bottomNavigationBar: isWide
           ? null
           : NavigationBar(
+              backgroundColor: theme.primaryColor.withAlpha(200),
               selectedIndex: _selectedIndex,
               onDestinationSelected: _changeDestination,
               destinations: const [

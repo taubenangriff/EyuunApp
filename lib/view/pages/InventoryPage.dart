@@ -205,13 +205,15 @@ class _InventoryPageState extends State<InventoryPage> {
               tooltip: 'Yuun',
               icon: Icons.money,
             ),
-          const SizedBox(width: 16),
+          EyuunWidgets.spacerHorizontal(),
           EyuunWidgets.floatingActionButton(
             onPressed: () {
-              PopupUtil.popup(
+              PopupUtil.largePopup(
                 context,
                 ItemGridNavigator(rootItems: shopItems, inventory: _inventory!),
-                maximumSize: const Size(900, 700),
+                header: locator<TextService>().getText('uitext_shop'),
+                background:
+                  AssetImage('data/base/ui/bg/background.jpg')
               );
             },
             text: 'Add Item',
