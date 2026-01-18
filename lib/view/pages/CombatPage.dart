@@ -120,6 +120,15 @@ class _CombatPageState extends State<CombatPage> {
             tooltip: 'flux',
             icon: Icons.water,
           ),
+          EyuunWidgets.spacerHorizontal(),
+          EyuunWidgets.floatingActionButton(
+            onPressed: () {
+            },
+            text:
+            'Add',
+            tooltip: 'Add trick or Spell',
+            icon: Icons.add,
+          ),
         ],
       ),
     );
