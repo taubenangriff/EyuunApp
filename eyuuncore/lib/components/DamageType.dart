@@ -3,6 +3,7 @@ import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:eyuuncore/core/reflection/Reflecting.dart';
 import 'package:eyuuncore/core/reflection/reflector.dart';
 import 'package:eyuuncore/enums/DamageCalculation.dart';
+import 'package:oxygen/oxygen.dart';
 
 import '../core/assetLink.dart';
 
@@ -33,8 +34,8 @@ class DamageTypeComponent extends EyuunComponent<int> {
 
   late DamageCalculation damageCalculation;
   late bool degradeArmor;
-  late AssetLink? applyStatusEffectOnHit;
-  late AssetLink? applyStatusEffect;
+  late Entity? applyStatusEffectOnHit;
+  late Entity? applyStatusEffect;
   late bool useFreezingLogic;
   late int pushback;
 
@@ -56,8 +57,8 @@ class DamageTypeComponent extends EyuunComponent<int> {
     var stat = DamageTypeStaticMapper.fromMap(staticData);
     damageCalculation = stat.damageCalculation;
     degradeArmor = stat.degradeArmor;
-    applyStatusEffectOnHit = stat.applyStatusEffectOnHit;
-    applyStatusEffect = stat.applyStatusEffect;
+    applyStatusEffectOnHit = stat.applyStatusEffectOnHit?.getEntity();
+    applyStatusEffect = stat.applyStatusEffect?.getEntity();
     useFreezingLogic = stat.useFreezingLogic;
     pushback = stat.pushback;
   }

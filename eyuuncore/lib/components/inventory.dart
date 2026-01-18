@@ -1,5 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
+import 'package:eyuuncore/core/components/standard.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../core/assetLink.dart';
@@ -10,9 +11,7 @@ part 'inventory.mapper.dart';
 @MappableClass()
 class InventoryDynamic with InventoryDynamicMappable {
   List<InventoryItemDynamic> items;
-
   int money;
-
   InventoryDynamic({List<InventoryItemDynamic>? items, this.money = 0})
     : items = items ?? [];
 }
@@ -20,38 +19,34 @@ class InventoryDynamic with InventoryDynamicMappable {
 @MappableClass()
 class InventoryItemDynamic with InventoryItemDynamicMappable {
   ObjectLink? objectId;
-  AssetLink typeId;
   int count;
   int slot;
-
-  InventoryItemDynamic({this.objectId,AssetLink? typeId, this.count = 0, this.slot = 0})
-    : typeId = typeId ?? AssetLink.invalid();
+  InventoryItemDynamic({this.objectId, this.count = 0, this.slot = 0});
 }
 
 class InventoryItem {
-  /// If the inventory item links to a specific object, it is linked here
-  ObjectLink? object;
-
   /// The asset key of the asset in inventory. Always stored regardless of specific object (weapon) or just a reusable asset (i.e. drugs etc.)
-  AssetLink type;
+  Entity object;
 
   /// Amount of this object stored in this inventory Slot.
   int count;
-  InventoryItem(this.type, {this.count = 1});
+  InventoryItem(this.object, {this.count = 1});
 
   /// Some items, i.e. weapons, are a specific entity, not just an asset, because they are dynamically put together. This function returns whether a slot stores such a specific object.
-  bool isCustomItem() => object != null;
+  bool isCustomItem() => object.get<StandardComponent>()?.isStatic ?? false;
 
   static InventoryItem fromEntity(Entity entity) {
-    var item = InventoryItem(AssetLink.fromEntity(entity));
-    item.object = ObjectLink.fromEntity(entity);
+    var item = InventoryItem(entity);
     item.count = 1;
     return item;
   }
 
-  static InventoryItem fromDynamic(InventoryItemDynamic dyn) {
-    var item = InventoryItem(dyn.typeId, count: dyn.count);
-    item.object = dyn.objectId;
+  static InventoryItem? fromDynamic(InventoryItemDynamic dyn) {
+    var entity = dyn.objectId?.getEntity();
+    if(entity == null){
+      return null;
+    }
+    var item = InventoryItem(entity, count: dyn.count);
     return item;
   }
 }
@@ -135,6 +130,9 @@ class InventoryComponent extends EyuunComponent<int> {
     var dyn = InventoryDynamicMapper.fromMap(dynamicData);
     for (var item in dyn.items) {
       var addItem = InventoryItem.fromDynamic(item);
+      if(addItem == null){
+        continue;
+      }
       items[item.slot] = addItem;
     }
     money = dyn.money;
@@ -152,8 +150,7 @@ class InventoryComponent extends EyuunComponent<int> {
           (index, item) => MapEntry(
             index,
             InventoryItemDynamic(
-              objectId: item.object,
-              typeId: item.type,
+              objectId: item.object.asObjectLink(),
               count: item.count,
               slot: index,
             ),

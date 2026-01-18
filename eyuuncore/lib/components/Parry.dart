@@ -1,5 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/enums/FightingType.dart';
+import 'package:oxygen/oxygen.dart';
 
 import '../core/assetLink.dart';
 import '../core/components/EyuunComponent.dart';
@@ -26,7 +27,7 @@ class ParryComponent extends EyuunComponent<int> {
 
   late List<AttackScope> parriableAttackScopes;
   late bool useMaxSkillInsteadOfTalent;
-  late AssetLink? parryTalent;
+  late Entity? parryTalent;
 
   @override
   String getName() => propertyName;
@@ -46,7 +47,7 @@ class ParryComponent extends EyuunComponent<int> {
     var stat = ParryStaticMapper.fromMap(staticData);
     parriableAttackScopes = stat.parriableAttackScopes;
     useMaxSkillInsteadOfTalent = stat.useMaxSkillInsteadOfTalent;
-    parryTalent = stat.parryTalent;
+    parryTalent = stat.parryTalent?.getEntity();
   }
 
   @override

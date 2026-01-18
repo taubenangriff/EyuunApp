@@ -1,6 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/upgrading/UpgradableInt.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
+import 'package:oxygen/oxygen.dart';
 
 import '../core/assetLink.dart';
 
@@ -27,7 +28,7 @@ class LanguageLearnerComponent extends EyuunComponent<int> {
   late int languagesThroughProjects;
 
   /// The list of languages learned.
-  late List<AssetLink> languagesLearned;
+  late List<Entity> languagesLearned;
 
   /// Returns whether a character can learn a new language
   bool canLearnNew() =>
@@ -51,14 +52,14 @@ class LanguageLearnerComponent extends EyuunComponent<int> {
   void loadDynamicData(Map<String, dynamic> dynamicData) {
     var dyn = LanguageLearnerDynamicMapper.fromMap(dynamicData);
     languageMaxPotential = dyn.languageMaxPotential.upgradable;
-    languagesLearned = dyn.languagesLearned;
+    languagesLearned = dyn.languagesLearned.getAssets();
     languagesThroughProjects = dyn.languagesThroughProjects;
   }
 
   @override
   Map<String, dynamic> saveDynamicData() => LanguageLearnerDynamic(
     languageMaxPotential: languageMaxPotential.base,
-    languagesLearned: languagesLearned,
+    languagesLearned: languagesLearned.asAssetLinks(),
   ).toMap();
 
   @override

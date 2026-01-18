@@ -1,6 +1,8 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:eyuuncore/core/reflection/reflector.dart';
+import 'package:oxygen/oxygen.dart';
 
 import '../core/upgrading/UpgradableInt.dart';
 import '../core/assetLink.dart';
@@ -11,8 +13,8 @@ part 'Attributes.mapper.dart';
 
 @MappableClass()
 class AttributesDynamic with AttributesDynamicMappable {
-  List<AttributeEntry> statValues;
-  AttributesDynamic({List<AttributeEntry>? statValues})
+  List<AttributeEntryStatic> statValues;
+  AttributesDynamic({List<AttributeEntryStatic>? statValues})
     : statValues = statValues ?? [];
 }
 
@@ -26,14 +28,32 @@ class AttributesStatic with AttributesStaticMappable, ComponentReflectable {
 }
 
 @MappableClass()
-class AttributeEntry with AttributeEntryMappable {
+class AttributeEntryStatic with AttributeEntryMappable {
   /// Link to the attribute Asset
   AssetLink stat;
 
   /// the Dice used to roll on this attribute
   Dice dice;
 
+  AttributeEntryStatic(this.stat, this.dice);
+
+  static AttributeEntryStatic from(AttributeEntry e) {
+    return AttributeEntryStatic(AssetLink.fromEntity(e.stat), e.dice);
+  }
+}
+
+class AttributeEntry {
+  Entity stat;
+  Dice dice;
   AttributeEntry(this.stat, this.dice);
+
+  static AttributeEntry? fromStatic(AttributeEntryStatic e) {
+    var entity = e.stat.getEntity();
+    if (entity == null) {
+      return null;
+    }
+    return AttributeEntry(entity, e.dice);
+  }
 }
 
 class AttributesComponent extends EyuunComponent<int> {
@@ -48,7 +68,7 @@ class AttributesComponent extends EyuunComponent<int> {
   /// Gets the AttributeEntry for the attribute which's typeId matches attributeKey.
   AttributeEntry? getStatEntry(String attributeKey) {
     return statValues.firstWhere(
-      (e) => e.stat.id == attributeKey,
+      (e) => e.stat.getTypeId() == attributeKey,
       orElse: null,
     );
   }
@@ -68,20 +88,28 @@ class AttributesComponent extends EyuunComponent<int> {
 
   @override
   Map<String, dynamic> saveDynamicData() {
-    return AttributesDynamic(statValues: statValues).toMap();
+    return AttributesDynamic(
+      statValues: statValues.map((e) => AttributeEntryStatic.from(e)).toList(),
+    ).toMap();
   }
 
   @override
   void loadDynamicData(Map<String, dynamic> dynamicData) {
     var dyn = AttributesDynamicMapper.fromMap(dynamicData);
-    statValues = dyn.statValues;
+    statValues = dyn.statValues
+        .map((e) => AttributeEntry.fromStatic(e))
+        .where((e) => e != null)
+        .map((e) => e!)
+        .toList();
   }
 
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = AttributesStaticMapper.fromMap(staticData);
     statValues = stat.statValues
-        .map((e) => AttributeEntry(e, Dice.d4))
+        .map((e) => e.getEntity())
+        .where((e) => e != null)
+        .map((e) => AttributeEntry(e!, Dice.d4))
         .toList();
     maxDiceIncreases = stat.defaultDiceIncreases.upgradable;
   }

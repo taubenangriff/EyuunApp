@@ -1,6 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/reflection/Reflecting.dart';
 import 'package:eyuuncore/core/reflection/reflector.dart';
+import 'package:oxygen/oxygen.dart';
 
 import '../core/assetLink.dart';
 import '../core/components/EyuunComponent.dart';
@@ -43,13 +44,12 @@ class SkillcheckDynamic with SkillcheckDynamicMappable {
 }
 
 class SkillcheckComponent extends EyuunComponent<int> {
-  late AssetLink? overrideTalentValue;
-  late AssetLink? overrideSkillcheck;
+  late Entity? overrideTalentValue;
+  late Entity? overrideSkillcheck;
 
   List<SkillcheckOption> _checkedAttributes = [];
   List<SkillcheckOption> get checkedAttributes =>
       overrideSkillcheck
-          ?.getEntity()
           ?.get<SkillcheckComponent>()
           ?.checkedAttributes ??
       _checkedAttributes;
@@ -80,15 +80,15 @@ class SkillcheckComponent extends EyuunComponent<int> {
           ),
         )
         .toList();
-    overrideSkillcheck = stat.overrideSkillcheck;
-    overrideTalentValue = stat.overrideTalentValue;
+    overrideSkillcheck = stat.overrideSkillcheck?.getEntity();
+    overrideTalentValue = stat.overrideTalentValue?.getEntity();
   }
 
   @override
   void reset() {
     _checkedAttributes = [];
-    overrideSkillcheck = AssetLink.invalid();
-    overrideTalentValue = AssetLink.invalid();
+    overrideSkillcheck = null;
+    overrideTalentValue = null;
   }
 
   @override

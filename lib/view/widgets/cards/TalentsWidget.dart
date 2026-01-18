@@ -22,7 +22,7 @@ import '../eyuun/EyuunWidgets.dart';
 class TalentsWidget extends StatefulWidget {
   final List<TalentGroup> filter;
   SkillLearnerController skillLearnerController;
-  late final List<SkillEntry> display;
+  late final List<SkillEntryDynamic> display;
   final VoidCallback? onTalentChanged;
   TalentsWidget(
       {super.key,
@@ -51,7 +51,7 @@ class _TalentsWidgetState extends State<TalentsWidget> {
     );
   }
 
-  Widget _buildTalentDisplay(SkillEntry talent, BuildContext context) {
+  Widget _buildTalentDisplay(SkillEntryDynamic talent, BuildContext context) {
     final theme = Theme.of(context);
 
     var talentAsset = locator<GameObjectService>().getStatic(talent.skill.id);

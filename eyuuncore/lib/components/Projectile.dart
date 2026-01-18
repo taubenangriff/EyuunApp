@@ -2,6 +2,7 @@ import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:eyuuncore/core/reflection/Reflecting.dart';
 import 'package:eyuuncore/core/reflection/reflector.dart';
+import 'package:oxygen/oxygen.dart';
 
 import '../core/assetLink.dart';
 
@@ -18,7 +19,7 @@ class ProjectileStatic with ProjectileStaticMappable, ComponentReflectable {
 class ProjectileComponent extends EyuunComponent<int> {
   static const String propertyName = "projectile";
 
-  late AssetLink? effectOnHit;
+  late Entity? effectOnHit;
 
   @override
   String getName() => propertyName;
@@ -36,12 +37,12 @@ class ProjectileComponent extends EyuunComponent<int> {
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = ProjectileStaticMapper.fromMap(staticData);
-    effectOnHit = stat.effectOnHit;
+    effectOnHit = stat.effectOnHit?.getEntity();
   }
 
   @override
   void reset() {
-    effectOnHit = AssetLink.invalid();
+    effectOnHit = null;
   }
 
   @override

@@ -3,7 +3,9 @@ import 'package:eyuuncore/components/Combat.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:eyuuncore/core/reflection/Reflecting.dart';
 import 'package:eyuuncore/core/reflection/reflector.dart';
+import 'package:eyuuncore/core/EntityExtension.dart';
 import 'package:eyuuncore/enums/PersonSize.dart';
+import 'package:oxygen/oxygen.dart';
 
 import '../core/assetLink.dart';
 
@@ -40,9 +42,9 @@ class CharacterBaseStatic
 class CharacterBaseComponent extends EyuunComponent<int> {
   static const String propertyName = "characterBase";
 
-  late AssetLink upbringing;
-  late List<AssetLink> visualUpbringings;
-  late AssetLink childhood;
+  late Entity? upbringing;
+  late List<Entity> visualUpbringings;
+  late Entity? childhood;
   late int level;
   late String origin;
 
@@ -60,9 +62,9 @@ class CharacterBaseComponent extends EyuunComponent<int> {
   @override
   void loadDynamicData(Map<String, dynamic> dynamicData) {
     var dyn = CharacterBaseDynamicMapper.fromMap(dynamicData);
-    upbringing = dyn.upbringing;
-    visualUpbringings = dyn.visualUpbringings;
-    childhood = dyn.childhood;
+    upbringing = dyn.upbringing.getEntity();
+    visualUpbringings = dyn.visualUpbringings.getAssets();
+    childhood = dyn.childhood.getEntity();
     level = dyn.level;
     origin = dyn.origin;
     personSize = dyn.personSize;
@@ -75,9 +77,9 @@ class CharacterBaseComponent extends EyuunComponent<int> {
 
   @override
   void reset() {
-    upbringing = AssetLink.invalid();
+    upbringing = null;
     visualUpbringings = [];
-    childhood = AssetLink.invalid();
+    childhood = null;
     level = 0;
     origin = "";
     personSize = PersonSize.Normal;
@@ -85,11 +87,11 @@ class CharacterBaseComponent extends EyuunComponent<int> {
 
   @override
   Map<String, dynamic> saveDynamicData() => CharacterBaseDynamic(
-    upbringing: upbringing,
-    childhood: childhood,
+    upbringing: upbringing?.asAssetLink(),
+    childhood: childhood?.asAssetLink(),
     level: level,
     origin: origin,
-    visualUpbringings: visualUpbringings,
-    personSize: personSize
+    visualUpbringings: visualUpbringings.asAssetLinks(),
+    personSize: personSize,
   ).toMap();
 }

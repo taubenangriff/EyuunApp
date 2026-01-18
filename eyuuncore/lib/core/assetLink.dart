@@ -26,3 +26,11 @@ extension GetObjectLinkListObjects on Iterable<AssetLink> {
   List<Entity> getAssets() => map((AssetLink e) => e.getEntity()).where((e) => e != null).map((e) => e!).toList();
   List<Entity> createNewInstances() => map((AssetLink e) => e.createNewInstance()).where((e) => e != null).map((e) => e!).toList();
 }
+
+extension getLinkFromEntity on Entity {
+  AssetLink asAssetLink() => AssetLink.fromEntity(this);
+}
+
+extension GetEntityListLinks on Iterable<Entity> {
+  List<AssetLink> asAssetLinks() => map((Entity e) => AssetLink.fromEntity(e)).toList();
+}

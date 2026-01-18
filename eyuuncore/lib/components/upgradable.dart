@@ -1,4 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:oxygen/oxygen.dart';
@@ -31,25 +32,21 @@ class UpgradableComponent extends EyuunComponent<int> {
   static const String propertyName = "upgradable";
 
   /// The list of upgrades which are always applied to the entity.
-  List<AssetLink> defaultUpgrades = [];
+  List<Entity> defaultUpgrades = [];
 
   /// The list of upgrades which are dynamically applied to the entity.
-  List<AssetLink> appliedUpgrades = [];
+  List<Entity> appliedUpgrades = [];
 
-  List<AssetLink> get upgrades => defaultUpgrades + appliedUpgrades;
+  List<Entity> get upgrades => defaultUpgrades + appliedUpgrades;
 
-  void applyUpgrade(String upgradeTypeId) =>
-      appliedUpgrades.add(AssetLink(upgradeTypeId));
+  void applyUpgrade(Entity entity) =>
+      appliedUpgrades.add(entity);
 
   void removeUpgrades(String upgradeTypeId) =>
-      appliedUpgrades.removeWhere((x) => x.id == upgradeTypeId);
+      appliedUpgrades.removeWhere((x) => x.getTypeId() == upgradeTypeId);
 
   List<Entity> getAllUpgrades() {
-    return upgrades
-        .map((e) => e.getEntity())
-        .where((e) => e != null)
-        .map((e) => e as Entity)
-        .toList();
+    return upgrades;
   }
 
   @override
@@ -68,17 +65,17 @@ class UpgradableComponent extends EyuunComponent<int> {
 
   @override
   Map<String, dynamic> saveDynamicData() =>
-      UpgradableDynamic(appliedUpgrades: appliedUpgrades).toMap();
+      UpgradableDynamic(appliedUpgrades: appliedUpgrades.asAssetLinks()).toMap();
 
   @override
   void loadDynamicData(Map<String, dynamic> dynamicData) {
     var dyn = UpgradableDynamicMapper.fromMap(dynamicData);
-    appliedUpgrades = dyn.appliedUpgrades;
+    appliedUpgrades = dyn.appliedUpgrades.getAssets();
   }
 
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = UpgradableStaticMapper.fromMap(staticData);
-    defaultUpgrades = stat.defaultUpgrades;
+    defaultUpgrades = stat.defaultUpgrades.getAssets();
   }
 }

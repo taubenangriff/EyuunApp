@@ -1,5 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/components/Armor.dart';
+import 'package:eyuuncore/core/assetLink.dart';
 import 'package:eyuuncore/core/upgrading/UpgradableInt.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:oxygen/oxygen.dart';
@@ -70,13 +71,12 @@ class CombatComponent extends EyuunComponent<int> {
   late int remainingReactions;
 
   /// The list of items held in your hands.
-  List<ObjectLink> equippedItems = [];
-
-  ObjectLink? armor;
+  List<Entity> equippedItems = [];
+  Entity? armor;
 
   void equipArmor(Entity entity) {
     assert(entity.has<ArmorComponent>());
-    armor = ObjectLink.fromEntity(entity);
+    armor = entity;
   }
 
   void unequipArmor() {
@@ -89,8 +89,7 @@ class CombatComponent extends EyuunComponent<int> {
   int getOccupiedEquipmentSlotCount() {
     var total = 0;
     for (var item in equippedItems) {
-      total +=
-          item.getEntity().get<HoldableComponent>()?.equipmentSlotsNeeded ?? 0;
+      total += item.get<HoldableComponent>()?.equipmentSlotsNeeded ?? 0;
     }
     return total;
   }
@@ -122,8 +121,8 @@ class CombatComponent extends EyuunComponent<int> {
     remainingActions = dyn.remainingActions;
     remainingReactions = dyn.remainingReactions;
     equipmentSlotCount = dyn.equipmentSlotCount;
-    equippedItems = dyn.equippedItems;
-    armor = dyn.armor;
+    equippedItems = dyn.equippedItems.getObjects();
+    armor = dyn.armor?.getEntity();
   }
 
   @override
@@ -144,6 +143,7 @@ class CombatComponent extends EyuunComponent<int> {
     remainingReactions = 0;
     remainingActions = 0;
     equippedItems = [];
+    armor = null;
   }
 
   @override
@@ -157,7 +157,7 @@ class CombatComponent extends EyuunComponent<int> {
     remainingActions: remainingActions,
     remainingReactions: remainingReactions,
     equipmentSlotCount: equipmentSlotCount,
-    equippedItems: equippedItems,
-    armor: armor,
+    equippedItems: equippedItems.asObjectLinks(),
+    armor: armor?.asObjectLink(),
   ).toMap();
 }

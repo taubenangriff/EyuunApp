@@ -4,6 +4,7 @@ import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:eyuuncore/core/reflection/Reflecting.dart';
 import 'package:eyuuncore/core/reflection/reflector.dart';
 import 'package:eyuuncore/enums/PathType.dart';
+import 'package:oxygen/oxygen.dart';
 
 part 'Path.mapper.dart';
 
@@ -25,7 +26,7 @@ class PathComponent extends EyuunComponent<int> {
   static const String propertyName = "path";
 
   PathType pathType = PathType.Fighter;
-  late List<AssetLink> pickableSteps;
+  late List<Entity> pickableSteps;
   int complexity = 0;
 
   @override
@@ -45,7 +46,7 @@ class PathComponent extends EyuunComponent<int> {
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = PathStaticMapper.fromMap(staticData);
     pathType = stat.pathType;
-    pickableSteps = stat.pickableSteps;
+    pickableSteps = stat.pickableSteps.getAssets();
     complexity = stat.complexity;
   }
 

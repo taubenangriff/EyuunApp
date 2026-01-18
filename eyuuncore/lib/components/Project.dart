@@ -2,6 +2,7 @@ import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:eyuuncore/core/reflection/Reflecting.dart';
 import 'package:eyuuncore/core/reflection/reflector.dart';
+import 'package:oxygen/oxygen.dart';
 
 import '../core/assetLink.dart';
 
@@ -48,8 +49,8 @@ class ProjectComponent extends EyuunComponent<int> {
 
   late int reachThreshold;
   late bool useInfiniteThreshold;
-  late AssetLink itemOnCompletion;
-  late AssetLink resourceOnCompletion;
+  late Entity? itemOnCompletion;
+  late Entity? resourceOnCompletion;
   late int resourceOnCompletionAmount;
   late int moneyOnCompletion;
   late String prerequisiteDescription;
@@ -78,8 +79,8 @@ class ProjectComponent extends EyuunComponent<int> {
     var stat = ProjectStaticMapper.fromMap(staticData);
     reachThreshold = stat.reachThreshold;
     useInfiniteThreshold = stat.useInfiniteThreshold;
-    itemOnCompletion = stat.itemOnCompletion;
-    resourceOnCompletion = stat.resourceOnCompletion;
+    itemOnCompletion = stat.itemOnCompletion.getEntity();
+    resourceOnCompletion = stat.resourceOnCompletion.getEntity();
     resourceOnCompletionAmount = stat.resourceOnCompletionAmount;
     moneyOnCompletion = stat.moneyOnCompletion;
     prerequisiteDescription = stat.prerequisiteDescription;
@@ -92,8 +93,8 @@ class ProjectComponent extends EyuunComponent<int> {
   void reset() {
     reachThreshold = 0;
     useInfiniteThreshold = false;
-    itemOnCompletion = AssetLink.invalid();
-    resourceOnCompletion = AssetLink.invalid();
+    itemOnCompletion = null;
+    resourceOnCompletion = null;
     resourceOnCompletionAmount = 0;
     moneyOnCompletion = 0;
     prerequisiteDescription = "";

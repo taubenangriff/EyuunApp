@@ -2,6 +2,7 @@ import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/assetLink.dart';
 import 'package:eyuuncore/core/reflection/Reflecting.dart';
 import 'package:eyuuncore/core/reflection/reflector.dart';
+import 'package:oxygen/oxygen.dart';
 
 import '../core/components/EyuunComponent.dart';
 
@@ -21,13 +22,13 @@ class CraftMethodComponent extends EyuunComponent<int> {
   static const String propertyName = "craftMethod";
 
   /// [AssetLink] to the effect that is applied to a weapon when it is crafted using this craft method.
-  late AssetLink appliedEffect;
+  late Entity? appliedEffect;
 
   /// How much the skillcheck threshold is increased by this craft method
   int increaseSuccessThreshold = 0;
 
   /// Whether this craftMethod applies an effect on construction.
-  bool appliesEffect() => appliedEffect.isValidLink() ?? false;
+  bool appliesEffect() => appliedEffect != null;
 
   @override
   String getName() => propertyName;
@@ -45,14 +46,14 @@ class CraftMethodComponent extends EyuunComponent<int> {
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = CraftMethodStaticMapper.fromMap(staticData);
-    appliedEffect = stat.appliedEffect;
+    appliedEffect = stat.appliedEffect.getEntity();
     increaseSuccessThreshold = stat.increaseSuccessThreshold;
   }
 
   @override
   void reset() {
     increaseSuccessThreshold = 0;
-    appliedEffect = AssetLink.invalid();
+    appliedEffect = null;
   }
 
   @override

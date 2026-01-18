@@ -1,4 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:oxygen/oxygen.dart';
 
 import '../core/assetLink.dart';
 import '../core/components/EyuunComponent.dart';
@@ -18,7 +19,7 @@ class SpellStatic with SpellStaticMappable, ComponentReflectable {
 class SpellComponent extends EyuunComponent<int> {
   static const String propertyName = "spell";
   int tier = 0;
-  late AssetLink spellSchool;
+  late Entity? spellSchool;
 
   @override
   String getName() => propertyName;
@@ -37,13 +38,13 @@ class SpellComponent extends EyuunComponent<int> {
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = SpellStaticMapper.fromMap(staticData);
     tier = stat.tier;
-    spellSchool = stat.spellSchool;
+    spellSchool = stat.spellSchool.getEntity();
   }
 
   @override
   void reset() {
     tier = 0;
-    spellSchool = AssetLink.invalid();
+    spellSchool = null;
   }
 
   @override

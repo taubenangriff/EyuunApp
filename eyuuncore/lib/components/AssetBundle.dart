@@ -18,9 +18,9 @@ class AssetBundleStatic with AssetBundleStaticMappable, ComponentReflectable {
 class AssetBundleComponent extends EyuunComponent<int> {
   static const String propertyName = "assetBundle";
 
-  List<AssetLink> assets = [];
+  List<Entity> assets = [];
 
-  List<Entity> getAssets() => assets.getAssets();
+  List<Entity> getAssets() => assets;
 
   @override
   String getName() => propertyName;
@@ -33,13 +33,13 @@ class AssetBundleComponent extends EyuunComponent<int> {
   @override
   void loadDynamicData(Map<String, dynamic> dynamicData) {
     var dyn = AssetBundleStaticMapper.fromMap(dynamicData);
-    assets = dyn.assets;
+    assets = dyn.assets.getAssets();
   }
 
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = AssetBundleStaticMapper.fromMap(staticData);
-    assets = stat.assets;
+    assets = stat.assets.getAssets();
   }
 
   @override
@@ -48,5 +48,5 @@ class AssetBundleComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => AssetBundleStatic(assets: assets).toMap();
+  Map<String, dynamic> saveDynamicData() => AssetBundleStatic(assets: assets.asAssetLinks()).toMap();
 }

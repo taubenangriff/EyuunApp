@@ -20,7 +20,7 @@ class AttributesWidget extends StatefulWidget {
 class _AttributesWidgetState extends State<AttributesWidget> {
   final _textService = locator<TextService>();
 
-  List<AttributeEntry> attributes = locator<CharacterService>()
+  List<AttributeEntryStatic> attributes = locator<CharacterService>()
           .character
           .get<AttributesComponent>()
           ?.statValues ??
@@ -30,7 +30,7 @@ class _AttributesWidgetState extends State<AttributesWidget> {
       locator<CharacterService>().character.get<AttributesComponent>() ??
           AttributesComponent());
 
-  Widget _buildBaseStatButton(BuildContext context, AttributeEntry item) {
+  Widget _buildBaseStatButton(BuildContext context, AttributeEntryStatic item) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

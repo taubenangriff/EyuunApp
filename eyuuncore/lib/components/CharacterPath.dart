@@ -3,6 +3,7 @@ import 'package:eyuuncore/core/upgrading/UpgradableInt.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:eyuuncore/core/reflection/Reflecting.dart';
 import 'package:eyuuncore/core/reflection/reflector.dart';
+import 'package:oxygen/oxygen.dart';
 
 import '../core/assetLink.dart';
 
@@ -32,10 +33,10 @@ class CharacterPathComponent extends EyuunComponent<int> {
   static const String propertyName = "characterPath";
 
   /// list of [AssetLink] to all paths that this character has already chosen paths from.
-  List<AssetLink> chosenPaths = [];
+  List<Entity> chosenPaths = [];
 
   /// list of [AssetLink] of all pathSteps this character has chosen.
-  List<AssetLink> chosenPathSteps = [];
+  List<Entity> chosenPathSteps = [];
 
   /// the maximum amount of paths a character can pick.
   UpgradableInt pathCapacity = 0.upgradable;
@@ -53,8 +54,8 @@ class CharacterPathComponent extends EyuunComponent<int> {
   @override
   void loadDynamicData(Map<String, dynamic> dynamicData) {
     var dyn = CharacterPathDynamicMapper.fromMap(dynamicData);
-    chosenPaths = dyn.chosenPaths;
-    chosenPathSteps = dyn.chosenPathSteps;
+    chosenPaths = dyn.chosenPaths.getAssets();
+    chosenPathSteps = dyn.chosenPathSteps.getAssets();
   }
 
   @override
@@ -74,7 +75,7 @@ class CharacterPathComponent extends EyuunComponent<int> {
 
   @override
   Map<String, dynamic> saveDynamicData() => CharacterPathDynamic(
-    chosenPaths: chosenPaths,
-    chosenPathSteps: chosenPathSteps,
+    chosenPaths: chosenPaths.asAssetLinks(),
+    chosenPathSteps: chosenPathSteps.asAssetLinks(),
   ).toMap();
 }
