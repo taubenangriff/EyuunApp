@@ -171,7 +171,7 @@ class _InventoryPageState extends State<InventoryPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Flexible(child: _buildRemoveDragTarget()),
-                          const SizedBox(width: 300),
+                          const SizedBox(width: 232),
                           Flexible(child: _buildGroupDragTarget())
                         ])
                   ],
@@ -186,7 +186,7 @@ class _InventoryPageState extends State<InventoryPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (_inventory != null)
-            EyuunWidgets.floatingActionButton(
+            EyuunWidgets.circularFloatingActionButton(
               onPressed: () {
                 final moneyController = ChangeValueController(_inventory!.money,
                     maxLimit: 99999,
@@ -206,7 +206,7 @@ class _InventoryPageState extends State<InventoryPage> {
               icon: Icons.money,
             ),
           EyuunWidgets.spacerHorizontal(),
-          EyuunWidgets.floatingActionButton(
+          EyuunWidgets.circularFloatingActionButton(
             onPressed: () {
               PopupUtil.largePopup(
                 context,

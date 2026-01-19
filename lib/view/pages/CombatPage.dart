@@ -60,6 +60,9 @@ class _CombatPageState extends State<CombatPage> {
 
     final theme = Theme.of(context);
 
+    var healthProgress = health.hitpoints / health.maxHitpoints.current;
+    var fluxProgress = flux.fluxSpent / flux.fluxMaximum.current;
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: SingleChildScrollView(
@@ -91,7 +94,7 @@ class _CombatPageState extends State<CombatPage> {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          EyuunWidgets.floatingActionButton(
+          EyuunWidgets.circularProgressButton(
             onPressed: () {
               final healthController = HealthController();
               healthController.setDamageTarget(character);
@@ -103,13 +106,15 @@ class _CombatPageState extends State<CombatPage> {
                   }),
                   maximumSize: Size(350, 800));
             },
+            progressColor: Colors.green.shade600,
+            progress: healthProgress,
             text:
                 "${health.temporaryHitpoints > 0 ? "${health.hitpoints}+${health.temporaryHitpoints}" : "${health.hitpoints}"} / ${health.maxHitpoints.current}",
             tooltip: 'Health',
             icon: Icons.heart_broken,
           ),
           EyuunWidgets.spacerHorizontal(),
-          EyuunWidgets.floatingActionButton(
+          EyuunWidgets.circularProgressButton(
             onPressed: () {
               PopupUtil.popup(
                   context,
@@ -119,13 +124,15 @@ class _CombatPageState extends State<CombatPage> {
                     });
                   }));
             },
+            progressColor: Colors.blue.shade700,
+            progress: fluxProgress,
             text:
                 '${flux.fluxSpent}/${flux.fluxCapacity.current} (${flux.fluxMaximum.current})',
             tooltip: 'flux',
             icon: Icons.water,
           ),
           EyuunWidgets.spacerHorizontal(),
-          EyuunWidgets.floatingActionButton(
+          EyuunWidgets.circularFloatingActionButton(
             onPressed: () {
               PopupUtil.popup(
                   context,

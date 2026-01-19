@@ -48,6 +48,9 @@ class _CharacterPageState extends State<CharacterPage> {
     final ImageProvider placeholderImage = const NetworkImage(
         'https://tse3.mm.bing.net/th/id/OIP.cPOpHmPNSfuOjLHJxKOFzAHaGe?rs=1&pid=ImgDetMain&o=7&rm=3');
 
+    var healthProgress = health.hitpoints / health.maxHitpoints.current;
+    var fluxProgress = flux.fluxSpent / flux.fluxMaximum.current;
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: SingleChildScrollView(
@@ -94,7 +97,7 @@ class _CharacterPageState extends State<CharacterPage> {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          EyuunWidgets.floatingActionButton(
+          EyuunWidgets.circularProgressButton(
             onPressed: () {
               final healthController = HealthController();
               healthController.setDamageTarget(character);
@@ -106,13 +109,15 @@ class _CharacterPageState extends State<CharacterPage> {
                   }),
                   maximumSize: Size(350, 800));
             },
+            progressColor: Colors.green.shade600,
+            progress: healthProgress,
             text:
                 "${health.temporaryHitpoints > 0 ? "${health.hitpoints}+${health.temporaryHitpoints}" : "${health.hitpoints}"} / ${health.maxHitpoints.current}",
             tooltip: 'Health',
             icon: Icons.heart_broken,
           ),
           const SizedBox(width: 16),
-          EyuunWidgets.floatingActionButton(
+          EyuunWidgets.circularProgressButton(
             onPressed: () {
               locator<WorldManager>().world.execute(1);
               PopupUtil.popup(
@@ -123,13 +128,15 @@ class _CharacterPageState extends State<CharacterPage> {
                     });
                   }));
             },
+            progressColor: Colors.blue.shade700,
+            progress: fluxProgress,
             text:
                 '${flux.fluxSpent}/${flux.fluxCapacity.current} (${flux.fluxMaximum.current})',
             tooltip: 'flux',
             icon: Icons.water,
           ),
           const SizedBox(width: 16),
-          EyuunWidgets.floatingActionButton(
+          EyuunWidgets.circularFloatingActionButton(
             onPressed: () {
               PopupUtil.popup(context, PauseRestPopup(),
                   maximumSize: const Size(700, 470));

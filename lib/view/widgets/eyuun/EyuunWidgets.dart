@@ -1,3 +1,4 @@
+import 'package:eyuunapp/view/widgets/eyuun/CircleProgressDecoration.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -5,8 +6,8 @@ import 'Brushes.dart';
 import 'EyuunDecoration.dart';
 
 class EyuunWidgets {
-
-  static Widget informationBox({required Widget child, required String link, String tooltip = ""}){
+  static Widget informationBox(
+      {required Widget child, required String link, String tooltip = ""}) {
     return Stack(children: [
       child,
       // The info button in the top right corner
@@ -43,7 +44,7 @@ class EyuunWidgets {
       IconData? icon,
       VoidCallback? onPressed,
       String tooltip = "",
-      width = 130,
+      width = 90,
       height = 90}) {
     var color = Color(0xccfdcc3a);
     return SizedBox(
@@ -63,5 +64,77 @@ class EyuunWidgets {
                       if (icon != null) Icon(icon, size: 36, color: color),
                       Text(text, style: TextStyle(color: color))
                     ]))));
+  }
+
+  static Widget circularFloatingActionButton(
+      {String text = "",
+      IconData? icon,
+      VoidCallback? onPressed,
+      String tooltip = "",
+      radius = 100}) {
+    var color = const Color(0xccfdcc3a);
+    return SizedBox(
+        width: radius,
+        height: radius,
+        child: DecoratedBox(
+            decoration: CircleProgressDecoration(
+                linePaint: Brushes.goldSparkling(stepping: 20),
+                lineWidth: 2.5,
+                segments: 8,
+                thickness: 12),
+            position: DecorationPosition.foreground,
+            child: FloatingActionButton(
+                shape: const CircleBorder(),
+                tooltip: tooltip,
+                onPressed: onPressed,
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      if (icon != null) Icon(icon, size: 32, color: color),
+                      Text(text, style: TextStyle(color: color))
+                    ]))));
+  }
+
+  static Widget circularProgressButton(
+      {String text = "",
+      IconData? icon,
+      VoidCallback? onPressed,
+      String tooltip = "",
+      double radius = 100,
+      int segments = 8,
+      double thickness = 12,
+      double progress = 0.3,
+      Color? progressColor}) {
+    var color = const Color(0xccfdcc3a);
+    return SizedBox(
+        width: radius,
+        height: radius,
+        child: DecoratedBox(
+            decoration: CircleProgressDecoration(
+                linePaint: Brushes.goldSparkling(stepping: 20),
+                lineWidth: 2.5,
+                segments: segments,
+                thickness: thickness),
+            position: DecorationPosition.foreground,
+            child: Stack(fit: StackFit.expand, children: [
+              FloatingActionButton(
+                  shape: const CircleBorder(),
+                  tooltip: tooltip,
+                  onPressed: onPressed,
+                  child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (icon != null) Icon(icon, size: 28, color: color),
+                        Text(text, style: TextStyle(color: color, fontSize: 16))
+                      ])),
+              IgnorePointer(
+                  child: Padding(
+                      padding: EdgeInsetsGeometry.all(thickness / 2),
+                      child: CircularProgressIndicator(
+                        color: progressColor,
+                          strokeWidth: thickness, value: progress))),
+            ])));
   }
 }

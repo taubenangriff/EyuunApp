@@ -85,7 +85,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        fontFamily: GoogleFonts.eagleLake().fontFamily,
+        fontFamily: GoogleFonts.federo().fontFamily,
         brightness: Brightness.dark,
         colorScheme: ColorScheme(
           brightness: Brightness.dark,
@@ -123,7 +123,7 @@ class MyApp extends StatelessWidget {
         ),
         textTheme: const TextTheme(
           bodyLarge: TextStyle(color: Colors.white),
-          bodyMedium: TextStyle(color: Colors.white70, fontSize: 12),
+          bodyMedium: TextStyle(color: Colors.white70, fontSize: 14),
           titleLarge: TextStyle(color: Colors.white, fontSize: 20),
         ),
         iconTheme: const IconThemeData(color: Color(0xFF90A4AE)),
