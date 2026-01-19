@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:eyuunapp/view/widgets/eyuun/EyuunUiImageProvider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'firebase_options.dart';
 
 
@@ -84,6 +85,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        fontFamily: GoogleFonts.eagleLake().fontFamily,
         brightness: Brightness.dark,
         colorScheme: ColorScheme(
           brightness: Brightness.dark,
@@ -121,8 +123,8 @@ class MyApp extends StatelessWidget {
         ),
         textTheme: const TextTheme(
           bodyLarge: TextStyle(color: Colors.white),
-          bodyMedium: TextStyle(color: Colors.white70),
-          titleLarge: TextStyle(color: Colors.white),
+          bodyMedium: TextStyle(color: Colors.white70, fontSize: 12),
+          titleLarge: TextStyle(color: Colors.white, fontSize: 20),
         ),
         iconTheme: const IconThemeData(color: Color(0xFF90A4AE)),
       ),
