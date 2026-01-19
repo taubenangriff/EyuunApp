@@ -50,9 +50,7 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
 
     var item = widget.item!;
 
-    final itemText = item.object
-        .get<ItemComponent>()
-        ?.categoryText;
+    final itemText = item.object.get<ItemComponent>()?.categoryText;
 
     return Scaffold(
         backgroundColor: Colors.transparent,
@@ -88,10 +86,9 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
           Positioned(
               top: 0,
               right: 0,
-              child: ElevatedButton(
-                  child: Text('x${item.count}',
-                      style: theme.textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.bold, fontSize: 22)),
+              child: EyuunWidgets.circularFloatingActionButton(
+                  radius: 52,
+                  text: 'x${item.count}',
                   onPressed: () {
                     var amountController = ChangeValueController(item.count,
                         name: "Item Count",
@@ -112,8 +109,7 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
         ]),
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         floatingActionButton: Column(mainAxisSize: MainAxisSize.min, children: [
-          if (widget.item?.object.has<ArmorComponent>() ??
-              false) ...{
+          if (widget.item?.object.has<ArmorComponent>() ?? false) ...{
             const SizedBox(height: 16),
             EyuunWidgets.floatingActionButton(
                 icon: Icons.shield,
@@ -122,8 +118,7 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
                 height: 60,
                 width: 130),
           },
-          if (widget.item?.object.has<WeaponComponent>() ??
-              false) ...{
+          if (widget.item?.object.has<WeaponComponent>() ?? false) ...{
             const SizedBox(height: 16),
             EyuunWidgets.floatingActionButton(
                 icon: Icons.abc,

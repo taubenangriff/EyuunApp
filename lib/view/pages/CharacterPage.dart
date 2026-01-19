@@ -50,6 +50,10 @@ class _CharacterPageState extends State<CharacterPage> {
 
     var healthProgress = health.hitpoints / health.maxHitpoints.current;
     var fluxProgress = flux.fluxSpent / flux.fluxMaximum.current;
+    int healthSegments = (health.maxHitpoints.current / 10 + 1).floor();
+    int fluxSegments = (flux.fluxMaximum.current / 10 + 1).floor();
+
+    var isDying = health.isInDyingState();
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -109,8 +113,9 @@ class _CharacterPageState extends State<CharacterPage> {
                   }),
                   maximumSize: Size(350, 800));
             },
-            progressColor: Colors.green.shade600,
-            progress: healthProgress,
+            segments: healthSegments,
+            progressColor: isDying ? Colors.red : Colors.green.shade600,
+            progress: isDying ? 1 : healthProgress,
             text:
                 "${health.temporaryHitpoints > 0 ? "${health.hitpoints}+${health.temporaryHitpoints}" : "${health.hitpoints}"} / ${health.maxHitpoints.current}",
             tooltip: 'Health',
@@ -128,6 +133,7 @@ class _CharacterPageState extends State<CharacterPage> {
                     });
                   }));
             },
+            segments: fluxSegments,
             progressColor: Colors.blue.shade700,
             progress: fluxProgress,
             text:

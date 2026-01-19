@@ -72,6 +72,7 @@ class _TalentsWidgetState extends State<TalentsWidget> {
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Name
               SizedBox(
@@ -115,7 +116,7 @@ class _TalentsWidgetState extends State<TalentsWidget> {
                 radius: 42,
               ),
               SizedBox(width: boxWidth),
-              if (skillcheck != null)
+              if (skillcheck != null && skillcheck.checkedAttributes.isNotEmpty)
                 Expanded(
                     child: InkWell(
                         splashColor: Colors.red,

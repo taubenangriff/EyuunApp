@@ -1,3 +1,4 @@
+import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
 import 'package:eyuuncore/components/Combat.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/controller/SkillcheckController.dart';
@@ -22,16 +23,18 @@ class CombatStatsRow extends StatelessWidget {
     var combatRange =
         locator<GameObjectService>().getStatic("fightingstyle_range");
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+    return Expanded(child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const Text(
           'Combat Stats',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 16),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        Wrap(
+          alignment: WrapAlignment.center,
+          spacing: 64,
+          runSpacing: 32,
           children: [
             StatItem(
               icon: Icons.directions_run,
@@ -48,26 +51,43 @@ class CombatStatsRow extends StatelessWidget {
               label: 'Initiative',
               value: combat.initiative.current,
             ),
-          ],
-        ),
-        const SizedBox(height: 16),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
             if (combatMelee != null)
-              StatItem(
-                  icon: Icons.rice_bowl,
-                  label: 'Melee attack',
-                  value: controller.getActiveTalentSkill(combatMelee)),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Melee attack',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey.shade400,
+                    ),
+                  ),
+                  EyuunWidgets.spacerHorizontal(),
+                  EyuunWidgets.circularFloatingActionButton(
+                      radius: 32,
+                      text: "${controller.getActiveTalentSkill(combatMelee)}")
+                ],
+              ),
             if (combatRange != null)
-              StatItem(
-                  icon: Icons.tap_and_play_rounded,
-                  label: 'Range attack',
-                  value: controller.getActiveTalentSkill(combatRange)),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Range attack',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey.shade400,
+                    ),
+                  ),
+                  EyuunWidgets.spacerHorizontal(),
+                  EyuunWidgets.circularFloatingActionButton(
+                      radius: 32,
+                      text: "${controller.getActiveTalentSkill(combatRange)}")
+                ],
+              )
           ],
         )
       ],
-    );
+    ));
   }
 }
-
