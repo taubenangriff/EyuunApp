@@ -85,40 +85,34 @@ class _TalentsWidgetState extends State<TalentsWidget> {
                     )),
               ),
               EyuunWidgets.spacerHorizontal(),
-              // Value
-              ElevatedButton(
+              EyuunWidgets.circularFloatingActionButton(
+                backgroundColor: widget.skillLearnerController.canSkill() ? Colors.blueGrey : theme.floatingActionButtonTheme.backgroundColor,
+                text: "${talent.value}",
                 onPressed: widget.skillLearnerController.canSkill()
                     ? () {
-                        ChangeValueController changeValController =
-                            ChangeValueController(talent.value,
-                                maxLimit:
-                                    widget.skillLearnerController.getMax(),
-                                minLimit: widget.skillLearnerController
-                                    .getMin(talentAsset),
-                                onValUpdated: (val) =>
-                                    widget.skillLearnerController.setSkillvalue(
-                                        talent.skill, val));
-                        PopupUtil.popup(
-                            context,
-                            ChangeValuePopup(
-                              changeValController,
-                              valueChanged: (add) {
-                                setState(() {
-                                  changeValController.change(add);
-                                });
-                                widget.onTalentChanged?.call();
-                              },
-                            ));
-                        // handle tap
-                      }
-                    : null,
-                child: Text(
-                  "${talent.value}",
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                  ChangeValueController changeValController =
+                  ChangeValueController(talent.value,
+                      maxLimit:
+                      widget.skillLearnerController.getMax(),
+                      minLimit: widget.skillLearnerController
+                          .getMin(talentAsset),
+                      onValUpdated: (val) =>
+                          widget.skillLearnerController.setSkillvalue(
+                              talent.skill, val));
+                  PopupUtil.popup(
+                      context,
+                      ChangeValuePopup(
+                        changeValController,
+                        valueChanged: (add) {
+                          setState(() {
+                            changeValController.change(add);
+                          });
+                          widget.onTalentChanged?.call();
+                        },
+                      ));
+                  // handle tap
+                } : null,
+                radius: 42,
               ),
               SizedBox(width: boxWidth),
               if (skillcheck != null)

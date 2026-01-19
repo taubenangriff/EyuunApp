@@ -71,19 +71,18 @@ class EyuunWidgets {
       IconData? icon,
       VoidCallback? onPressed,
       String tooltip = "",
+      Color? backgroundColor,
       radius = 100}) {
     var color = const Color(0xccfdcc3a);
     return SizedBox(
         width: radius,
         height: radius,
         child: DecoratedBox(
-            decoration: CircleProgressDecoration(
-                linePaint: Brushes.goldSparkling(stepping: 20),
-                lineWidth: 2.5,
-                segments: 8,
-                thickness: 12),
+            decoration: CircleDecoration(
+                linePaint: Brushes.goldSparkling(stepping: 20), lineWidth: 3),
             position: DecorationPosition.foreground,
             child: FloatingActionButton(
+                backgroundColor: backgroundColor,
                 shape: const CircleBorder(),
                 tooltip: tooltip,
                 onPressed: onPressed,
@@ -92,7 +91,7 @@ class EyuunWidgets {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       if (icon != null) Icon(icon, size: 32, color: color),
-                      Text(text, style: TextStyle(color: color))
+                      Text(text, style: TextStyle(color: color, fontSize: 20))
                     ]))));
   }
 

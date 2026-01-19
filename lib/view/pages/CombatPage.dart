@@ -62,6 +62,8 @@ class _CombatPageState extends State<CombatPage> {
 
     var healthProgress = health.hitpoints / health.maxHitpoints.current;
     var fluxProgress = flux.fluxSpent / flux.fluxMaximum.current;
+    int healthSegments = (health.maxHitpoints.current / 10 + 1).floor();
+    int fluxSegments = (flux.fluxMaximum.current / 10 + 1).floor();
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -106,6 +108,7 @@ class _CombatPageState extends State<CombatPage> {
                   }),
                   maximumSize: Size(350, 800));
             },
+            segments: healthSegments,
             progressColor: Colors.green.shade600,
             progress: healthProgress,
             text:
@@ -124,6 +127,7 @@ class _CombatPageState extends State<CombatPage> {
                     });
                   }));
             },
+            segments: fluxSegments,
             progressColor: Colors.blue.shade700,
             progress: fluxProgress,
             text:
