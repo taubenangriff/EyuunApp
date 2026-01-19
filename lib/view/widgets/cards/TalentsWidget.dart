@@ -60,16 +60,18 @@ class _TalentsWidgetState extends State<TalentsWidget> {
     final attributes =
         locator<CharacterService>().character.get<AttributesComponent>()!;
 
+    const minimalWidth = 450;
     const hideTextWidth = 600;
     const longTextWidth = 900;
 
     return LayoutBuilder(builder: (context, constraints) {
       var hasEnaughWidth = constraints.maxWidth > hideTextWidth;
+      var aboveMinimal = constraints.maxWidth > minimalWidth;
       double boxWidth = max(10, min(constraints.maxWidth - hideTextWidth, 50));
       var useLong = constraints.maxWidth > longTextWidth;
 
       return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
+          padding: EdgeInsets.symmetric(horizontal: aboveMinimal ? 8 : 2),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -77,7 +79,7 @@ class _TalentsWidgetState extends State<TalentsWidget> {
               // Name
               SizedBox(
                 height: 60,
-                width: hasEnaughWidth ? 150 : 140,
+                width: hasEnaughWidth ? 150 : aboveMinimal ? 120 : 100,
                 child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -117,7 +119,7 @@ class _TalentsWidgetState extends State<TalentsWidget> {
                         // handle tap
                       }
                     : null,
-                radius: 42,
+                radius: aboveMinimal ? 42 : 32,
               ),
               SizedBox(width: boxWidth),
               if (skillcheck != null && skillcheck.checkedAttributes.isNotEmpty)
@@ -131,8 +133,8 @@ class _TalentsWidgetState extends State<TalentsWidget> {
                             child: Center(
                               child: SkillCheckWidget(
                                   useWrap: false,
-                                  spacing: hasEnaughWidth ? 24 : 8,
-                                  iconSize: hasEnaughWidth ? 42 : 32,
+                                  spacing: hasEnaughWidth ? 24 : aboveMinimal ? 8 : 2,
+                                  iconSize: hasEnaughWidth ? 42 : aboveMinimal ? 32 : 26,
                                   showText: hasEnaughWidth,
                                   useLongText: useLong,
                                   skillcheck: skillcheck,

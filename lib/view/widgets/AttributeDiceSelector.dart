@@ -46,43 +46,50 @@ class _AttributeDiceSelectorState extends State<AttributeDiceSelector> {
       ...widget.attributes.statValues.map((entry) {
         var dices =
             attributesController.getPossibleDicesAtCharCreation(entry.stat.getTypeId());
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 700),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "${textService.getTextFromEntity(entry.stat)} (${textService.getShortFromEntity(entry.stat)})" ,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  Spacer(),
-                  SegmentedButton<Dice>(
-                    multiSelectionEnabled: false,
-                    emptySelectionAllowed: false,
-                    segments: dices
-                        .map((opt) => ButtonSegment(
-                              enabled: attributesController.canSet(
-                                  entry.stat.getTypeId(), entry.dice),
-                              value: opt,
-                              label: DiceIcon(type: opt),
-                            ))
-                        .toList(),
-                    selected: {entry.dice},
-                    onSelectionChanged: (newSelection) {
-                      setState(() {
-                        entry.dice = newSelection.first;
-                      });
-                    },
-                  ),
-                ],
-              )),
-        );
+
+        return LayoutBuilder(builder: (context, constraints) {
+          var aboveMinimal = constraints.maxWidth > 450;
+
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: 700),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth:aboveMinimal ? 200 : 90),
+                      child: Text(
+                      "${textService.getTextFromEntity(entry.stat)}" ,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    )),
+                    Spacer(),
+                    SegmentedButton<Dice>(
+                      multiSelectionEnabled: false,
+                      emptySelectionAllowed: false,
+                      segments: dices
+                          .map((opt) => ButtonSegment(
+                        enabled: attributesController.canSet(
+                            entry.stat.getTypeId(), entry.dice),
+                        value: opt,
+                        label: DiceIcon(type: opt, size: aboveMinimal ? 46 : 26),
+                      ))
+                          .toList(),
+                      selected: {entry.dice},
+                      onSelectionChanged: (newSelection) {
+                        setState(() {
+                          entry.dice = newSelection.first;
+                        });
+                      },
+                    ),
+                  ],
+                )),
+          );
+        });
       }),
       Divider(),
       SizedBox(height: 16),

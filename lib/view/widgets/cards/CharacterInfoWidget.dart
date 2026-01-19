@@ -151,61 +151,67 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        return Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          // 🖼️ Profile image
-          SizedBox(
-              width: 200,
-              child: AspectRatio(
-                aspectRatio: 1, // 1:1
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    image: DecorationImage(
-                      image: widget.profileImage,
-                      fit: BoxFit.cover,
+        return Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // 🖼️ Profile image
+              ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: 180),
+                  child: AspectRatio(
+                    aspectRatio: 1, // 1:1
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        image: DecorationImage(
+                          image: widget.profileImage,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              )),
-          EyuunWidgets.spacerHorizontal(),
+                  )),
+              EyuunWidgets.spacerHorizontal(),
 
-          // 📜 Right side info
-          Expanded(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                Container(
-                  alignment: Alignment.center,
-                  child: TextField(
-                    controller: _nameController,
-                    readOnly: true,
-                    textAlign: TextAlign.center,
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      isDense: true,
-                    ),
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                EyuunWidgets.spacerVertical(),
-                GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent:
-                                420, // controls when it becomes 1 vs 2 columns
-                            mainAxisSpacing: 12,
-                            crossAxisSpacing: 12,
-                            mainAxisExtent: 60),
-                    itemCount: characterWidgets.length,
-                    itemBuilder: (context, index) => characterWidgets[index])
-              ]))
-        ]);
+              // 📜 Right side info
+              Expanded(
+                  flex: 2,
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          child: TextField(
+                            controller: _nameController,
+                            readOnly: true,
+                            textAlign: TextAlign.center,
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              isDense: true,
+                            ),
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        EyuunWidgets.spacerVertical(),
+                        GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                                const SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent:
+                                        420, // controls when it becomes 1 vs 2 columns
+                                    mainAxisSpacing: 12,
+                                    crossAxisSpacing: 12,
+                                    mainAxisExtent: 60),
+                            itemCount: characterWidgets.length,
+                            itemBuilder: (context, index) =>
+                                characterWidgets[index])
+                      ]))
+            ]);
       },
     );
   }
