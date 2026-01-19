@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:eyuuncore/components/Flux.dart';
 import 'package:eyuuncore/components/LanguageLearner.dart';
 import 'package:eyuuncore/components/health.dart';
@@ -50,8 +52,8 @@ class _CharacterPageState extends State<CharacterPage> {
 
     var healthProgress = health.hitpoints / health.maxHitpoints.current;
     var fluxProgress = flux.fluxSpent / flux.fluxMaximum.current;
-    int healthSegments = (health.maxHitpoints.current / 10 + 1).floor();
-    int fluxSegments = (flux.fluxMaximum.current / 10 + 1).floor();
+    int healthSegments = max((((health.maxHitpoints.current / 40)).round() * 4), 4);
+    int fluxSegments = max((((flux.fluxMaximum.current / 40)).round() * 4), 4);
 
     var isDying = health.isInDyingState();
 

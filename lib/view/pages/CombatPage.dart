@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:eyuunapp/view/popup/DecideActionCategoryPopup.dart';
 import 'package:eyuunapp/view/widgets/PickActionWidget.dart';
 import 'package:eyuunapp/view/widgets/cards/ActionsWidget.dart';
@@ -62,8 +64,10 @@ class _CombatPageState extends State<CombatPage> {
 
     var healthProgress = health.hitpoints / health.maxHitpoints.current;
     var fluxProgress = flux.fluxSpent / flux.fluxMaximum.current;
-    int healthSegments = (health.maxHitpoints.current / 10 + 1).floor();
-    int fluxSegments = (flux.fluxMaximum.current / 10 + 1).floor();
+    int healthSegments = max((((health.maxHitpoints.current / 40)).round() * 4), 4);
+    int fluxSegments = max((((flux.fluxMaximum.current / 40)).round() * 4), 4);
+
+    var isDying = health.isInDyingState();
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -109,8 +113,8 @@ class _CombatPageState extends State<CombatPage> {
                   maximumSize: Size(350, 800));
             },
             segments: healthSegments,
-            progressColor: Colors.green.shade600,
-            progress: healthProgress,
+            progressColor: isDying ? Colors.red : Colors.green.shade600,
+            progress: isDying ? 1 : healthProgress,
             text:
                 "${health.temporaryHitpoints > 0 ? "${health.hitpoints}+${health.temporaryHitpoints}" : "${health.hitpoints}"} / ${health.maxHitpoints.current}",
             tooltip: 'Health',
