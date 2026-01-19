@@ -95,7 +95,7 @@ class EyuunWidgets {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       if (icon != null) Icon(icon, size: 32, color: color),
-                      Text(text, style: TextStyle(color: color, fontSize: 20))
+                      if(text.isNotEmpty) Text(text, style: TextStyle(color: color, fontSize: 20))
                     ]))));
   }
 

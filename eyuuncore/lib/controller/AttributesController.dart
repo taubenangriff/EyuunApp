@@ -29,5 +29,5 @@ class AttributesController{
   int getRemainingDiceUpgrades() => 0;
 
   /// returns whether it is possible to upgrade the Attribute [statId].
-  bool upgradesPossible(String statId) => false; //throw UnimplementedError();
+  bool upgradesPossible(String statId) => true; //throw UnimplementedError();
 }

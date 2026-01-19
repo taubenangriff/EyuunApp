@@ -40,7 +40,7 @@ class ActionCard extends StatelessWidget {
     return GestureDetector(
         onTap: onTap,
         child: LayoutBuilder(builder: (context, constraints) {
-          var enaughWidth = constraints.maxWidth > 250;
+          var enaughWidth = constraints.maxWidth > 240;
 
           return Card(
               borderOnForeground: true,

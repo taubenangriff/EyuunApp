@@ -3,6 +3,7 @@ import 'package:eyuunapp/view/widgets/cards/AttributesWidget.dart';
 import 'package:eyuunapp/view/widgets/cards/CharacterInfoWidget.dart';
 import 'package:eyuunapp/view/widgets/PickNewPathWidget.dart';
 import 'package:easy_stepper/easy_stepper.dart';
+import 'package:eyuunapp/view/widgets/eyuun/CircleDecoration.dart';
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/CharacterBase.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
@@ -15,6 +16,7 @@ import 'package:oxygen/oxygen.dart';
 import '../widgets/AttributeDiceSelector.dart';
 import '../widgets/CharacterPortraitPicker.dart';
 import '../widgets/UpbringingSelectionWidget.dart';
+import '../widgets/eyuun/Brushes.dart';
 import '../widgets/eyuun/EyuunWidgets.dart';
 import 'TalentPage.dart';
 
@@ -32,13 +34,13 @@ class CreateCharacterPage extends StatefulWidget {
 class _CreateCharacterPageState extends State<CreateCharacterPage> {
   int currentStep = 0;
 
-  var steps = [
-    EasyStep(title: 'Past', customStep: Container()),
-    EasyStep(title: 'Path', customStep: Container()),
-    EasyStep(title: 'Appearance', customStep: Container()),
-    EasyStep(title: 'Attributes', customStep: Container()),
-    EasyStep(title: 'Talents', customStep: Container()),
-    EasyStep(title: 'Summary', customStep: Container()),
+  late var steps = [
+    EasyStep(title: 'Past', customStep: _buildStep(context)),
+    EasyStep(title: 'Path', customStep: _buildStep(context)),
+    EasyStep(title: 'Appearance', customStep: _buildStep(context)),
+    EasyStep(title: 'Attributes', customStep: _buildStep(context)),
+    EasyStep(title: 'Talents', customStep: _buildStep(context)),
+    EasyStep(title: 'Summary', customStep: _buildStep(context)),
   ];
 
   late var pathController = PathController(widget.character);
@@ -62,7 +64,8 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
     )),
     _wrapWithLayoutBuilder(AttributeDiceSelector(
         attributes: widget.character.get<AttributesComponent>()!)),
-    _wrapWithSizedBox(Center(child: TalentPage(controller: skillLearnerController))),
+    _wrapWithSizedBox(
+        Center(child: TalentPage(controller: skillLearnerController))),
     Center(
         child: Text(
             "A summary displaying your core choices and the create button"))
@@ -95,7 +98,7 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
             EyuunWidgets.spacerVertical(),
             EasyStepper(
               steps: steps,
-              lineStyle: LineStyle(
+              lineStyle: const LineStyle(
                   lineThickness: 3,
                   unreachedLineType: LineType.dashed,
                   lineLength: 90,
@@ -106,6 +109,13 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
               activeStepTextColor: Colors.black87,
               finishedStepTextColor: Colors.black87,
               activeStep: currentStep,
+              titleTextStyle: theme.textTheme.headlineSmall,
+              activeStepBackgroundColor: theme.secondaryHeaderColor,
+              activeStepBorderType: BorderType.normal,
+              activeStepBorderColor: Colors.white70,
+              finishedStepBackgroundColor: theme.primaryColorLight,
+              unreachedStepBackgroundColor: theme.canvasColor,
+              borderThickness: 5,
               onStepReached: (value) {
                 setState(() {
                   currentStep = value;
@@ -114,6 +124,11 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
             )
           ])),
     );
+  }
+
+  Widget _buildStep(BuildContext context) {
+    return Container(
+        decoration: CircleDecoration(linePaint: Brushes.silverSparkling()));
   }
 
   Widget _wrapWithSizedBox(Widget widget) {

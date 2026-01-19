@@ -36,16 +36,16 @@ class _AttributesWidgetState extends State<AttributesWidget> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         if (_controller.upgradesPossible(item.stat.getTypeId()))
-          SizedBox(
-              width: 70,
-              child: ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _controller.increaseOneStep(item.stat.getTypeId());
-                  });
-                },
-                child: const Icon(Icons.upgrade),
-              ))
+          SizedBox(width: 70, child: EyuunWidgets.circularFloatingActionButton(
+            addDeco: true,
+            onPressed: () {
+              setState(() {
+                _controller.increaseOneStep(item.stat.getTypeId());
+              });
+            },
+            radius: 42,
+            icon: Icons.upgrade
+          ))
         else
           SizedBox(width: 70),
         EyuunWidgets.spacerHorizontal(),
