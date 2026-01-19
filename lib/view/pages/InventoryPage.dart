@@ -115,7 +115,7 @@ class _InventoryPageState extends State<InventoryPage> {
                   children: [
                     if (!isTablet) ...{
                       Flexible(
-                        flex: 2,
+                        flex: 3,
                         child: EyuunWidgets.eyuunBox(
                             child: ItemDisplayWidget(item: selectedItem),
                             theme: theme),
@@ -160,7 +160,7 @@ class _InventoryPageState extends State<InventoryPage> {
                       ),
                     EyuunWidgets.spacerVertical(),
                     Flexible(
-                      flex: 2,
+                      flex: 3,
                       child: EyuunWidgets.eyuunBox(
                           child: InventoryWidget(
                             inventory: _inventory!,

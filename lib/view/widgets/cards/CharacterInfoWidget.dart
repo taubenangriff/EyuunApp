@@ -64,199 +64,148 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
 
     var theme = Theme.of(context);
 
+    Widget _infoTile({
+      required String text,
+      bool bold = false,
+    }) {
+      return Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: theme.cardColor,
+          borderRadius: BorderRadius.circular(6),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            fontSize: fontSize - 2,
+            fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+          ),
+        ),
+      );
+    }
+
+    List<Widget> characterWidgets = [
+      InkWell(
+          borderRadius: BorderRadius.circular(6),
+          onTap: () {
+            PopupUtil.popup(
+              context,
+              UpbringingPopup(
+                primary: upbringingBuff,
+                secondary: secondUpbringingBuff,
+              ),
+            );
+          },
+          child: _infoTile(
+            text:
+                '${textService.getText('uitext_upbringing')}${textService.getTextFromEntity(upbringingBuff)}'
+                '${secondUpbringingBuff != null ? ", ${textService.getTextFromEntity(secondUpbringingBuff)}" : ""}',
+          )),
+      InkWell(
+          borderRadius: BorderRadius.circular(6),
+          onTap: () {
+            PopupUtil.popup(
+              context,
+              BuffDisplayPopup(buff: childhoodBuff),
+            );
+          },
+          child: _infoTile(
+            text:
+                '${textService.getText('uitext_childhood')}${textService.getTextFromEntity(childhoodBuff)}',
+          )),
+      InkWell(
+        borderRadius: BorderRadius.circular(6),
+        onTap: () {
+          if (characterComponent == null) return;
+
+          if (levelFeature.isMaxLevel(characterComponent.level)) {
+            PopupUtil.popup(
+              context,
+              const Center(child: Text('You have reached the maximum level!')),
+              maximumSize: const Size(300, 200),
+            );
+            return;
+          }
+
+          final nextLevel =
+              levelFeature.getLevelAsset(characterComponent.level + 1);
+
+          PopupUtil.popup(
+            context,
+            LevelupPopup(buff: nextLevel),
+          );
+        },
+        child: _infoTile(
+          text: 'Level: ${characterComponent?.level}',
+          bold: true,
+        ),
+      ),
+      _infoTile(
+        text: 'Origin: ${characterComponent?.origin}',
+        bold: true,
+      )
+    ];
+
     return LayoutBuilder(
       builder: (context, constraints) {
-        return Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // 🖼️ Profile image
-            SizedBox(
+        return Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+          // 🖼️ Profile image
+          SizedBox(
               width: 200,
-                child: AspectRatio(
-              aspectRatio: 1, // 1:1
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  image: DecorationImage(
-                    image: widget.profileImage,
-                    fit: BoxFit.cover,
+              child: AspectRatio(
+                aspectRatio: 1, // 1:1
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    image: DecorationImage(
+                      image: widget.profileImage,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              ),
-            )),
-            EyuunWidgets.spacerHorizontal(),
+              )),
+          EyuunWidgets.spacerHorizontal(),
 
-            // 📜 Right side info
-            Expanded(
+          // 📜 Right side info
+          Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // 1️⃣ Name (unchanged)
-                  SizedBox(
-                    height: textHeight,
-                    child: Center(
-                      child: TextField(
-                        controller: _nameController,
-                        readOnly: true,
-                        textAlign: TextAlign.center,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          isDense: true,
-                        ),
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                Container(
+                  alignment: Alignment.center,
+                  child: TextField(
+                    controller: _nameController,
+                    readOnly: true,
+                    textAlign: TextAlign.center,
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      isDense: true,
+                    ),
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  EyuunWidgets.spacerVertical(),
-
-                  // 2️⃣ Upbringing & Childhood (NEW split row)
-                  SizedBox(
-                    height: textHeight,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: InkWell(
-                            borderRadius: BorderRadius.circular(6),
-                            onTap: () {
-                              PopupUtil.popup(
-                                  context,
-                                  UpbringingPopup(
-                                      primary: upbringingBuff,
-                                      secondary: secondUpbringingBuff),
-                                  maximumSize: Size(
-                                      characterComponent
-                                                  ?.hasSecondaryUpbringing() ??
-                                              true
-                                          ? 1000
-                                          : 500,
-                                      600));
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: theme.cardColor,
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: Text(
-                                '${textService.getText('uitext_upbringing')}${textService.getTextFromEntity(upbringingBuff)}${secondUpbringingBuff != null ? ", ${textService.getTextFromEntity(secondUpbringingBuff)}" : ""}',
-                                style: TextStyle(
-                                  fontSize: fontSize - 2,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ),
-                        EyuunWidgets.spacerHorizontal(),
-                        Expanded(
-                          child: InkWell(
-                            borderRadius: BorderRadius.circular(6),
-                            onTap: () {
-                              PopupUtil.popup(context,
-                                  BuffDisplayPopup(buff: childhoodBuff));
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: theme.cardColor,
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: Text(
-                                '${textService.getText('uitext_childhood')}${textService.getTextFromEntity(childhoodBuff)}',
-                                style: TextStyle(
-                                  fontSize: fontSize - 2,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  EyuunWidgets.spacerVertical(),
-                  // 3️⃣ Level & Origin (Ability → Origin)
-                  SizedBox(
-                    height: textHeight,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: InkWell(
-                            borderRadius: BorderRadius.circular(6),
-                            onTap: () {
-                              if (characterComponent == null) {
-                                return;
-                              }
-
-                              var isMax = levelFeature
-                                  .isMaxLevel(characterComponent.level);
-
-                              if (isMax) {
-                                PopupUtil.popup(
-                                  context,
-                                  const Center(
-                                    child: Text(
-                                      'You have reached the maximum level!',
-                                    ),
-                                  ),
-                                  maximumSize: const Size(300, 200),
-                                );
-                                return;
-                              }
-
-                              var nextLevel = levelFeature
-                                  .getLevelAsset(characterComponent.level + 1);
-
-                              PopupUtil.popup(
-                                  context, LevelupPopup(buff: nextLevel));
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: theme.cardColor,
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: Text(
-                                'Level: ${characterComponent?.level}',
-                                style: TextStyle(
-                                  fontSize: fontSize - 2,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        EyuunWidgets.spacerHorizontal(),
-                        Expanded(
-                          child: Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: theme.cardColor,
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: Text(
-                              'Origin: ${characterComponent?.origin}',
-                              style: TextStyle(
-                                fontSize: fontSize - 2,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        );
+                ),
+                EyuunWidgets.spacerVertical(),
+                GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent:
+                                420, // controls when it becomes 1 vs 2 columns
+                            mainAxisSpacing: 12,
+                            crossAxisSpacing: 12,
+                            mainAxisExtent: 60),
+                    itemCount: characterWidgets.length,
+                    itemBuilder: (context, index) => characterWidgets[index])
+              ]))
+        ]);
       },
     );
   }
