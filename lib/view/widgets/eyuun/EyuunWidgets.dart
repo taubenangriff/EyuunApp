@@ -73,6 +73,7 @@ class EyuunWidgets {
       VoidCallback? onPressed,
       String tooltip = "",
       Color? backgroundColor,
+      bool addDeco = false,
       radius = 100}) {
     var color = const Color(0xccfdcc3a);
     return SizedBox(
@@ -80,7 +81,9 @@ class EyuunWidgets {
         height: radius,
         child: DecoratedBox(
             decoration: CircleDecoration(
-                linePaint: Brushes.goldSparkling(stepping: 20), lineWidth: 3),
+                linePaint: Brushes.goldSparkling(stepping: 20),
+                lineWidth: 3,
+                addRectangles: addDeco),
             position: DecorationPosition.foreground,
             child: FloatingActionButton(
                 backgroundColor: backgroundColor,
@@ -133,8 +136,9 @@ class EyuunWidgets {
                   child: Padding(
                       padding: EdgeInsetsGeometry.all(thickness / 2),
                       child: CircularProgressIndicator(
-                        color: progressColor,
-                          strokeWidth: thickness, value: progress))),
+                          color: progressColor,
+                          strokeWidth: thickness,
+                          value: progress))),
             ])));
   }
 }

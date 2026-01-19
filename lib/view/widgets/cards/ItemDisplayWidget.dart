@@ -88,6 +88,7 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
               right: 0,
               child: EyuunWidgets.circularFloatingActionButton(
                   radius: 52,
+                  addDeco: true,
                   text: 'x${item.count}',
                   onPressed: () {
                     var amountController = ChangeValueController(item.count,
