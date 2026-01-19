@@ -23,7 +23,7 @@ class CombatStatsRow extends StatelessWidget {
     var combatRange =
         locator<GameObjectService>().getStatic("fightingstyle_range");
 
-    return Expanded(child: Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const Text(
@@ -88,6 +88,6 @@ class CombatStatsRow extends StatelessWidget {
           ],
         )
       ],
-    ));
+    );
   }
 }
