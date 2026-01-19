@@ -30,7 +30,8 @@ class _TalentPageState extends State<TalentPage> {
   late var skillLearner =
       locator<CharacterService>().character.get<SkillLearnerComponent>();
 
-  late var controller = widget.controller ?? SkillLearnerController(skillLearner: skillLearner!);
+  late var controller =
+      widget.controller ?? SkillLearnerController(skillLearner: skillLearner!);
   late var textService = locator<TextService>();
 
   @override
@@ -38,117 +39,123 @@ class _TalentPageState extends State<TalentPage> {
     final theme = Theme.of(context);
 
     return Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-            child: Center(
-          child: Padding(
-              padding: EdgeInsets.all(20),
-              child: ConstrainedBox(
-                  constraints: BoxConstraints(maxWidth: widget.desiredSize),
-                  child: Column(children: [
-                    EyuunWidgets.eyuunBox(
-                        child: Column(
-                          children: [
-                            Text(
-                              textService.getText('uitext_basictalents'),
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
+      backgroundColor: Colors.transparent,
+      body: SingleChildScrollView(
+          child: Center(
+        child: Padding(
+            padding: EdgeInsets.all(20),
+            child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: widget.desiredSize),
+                child: Column(children: [
+                  EyuunWidgets.eyuunBox(
+                      child: Column(
+                        children: [
+                          Text(
+                            textService.getText('uitext_basictalents'),
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          EyuunWidgets.spacerVertical(),
+                          Text(textService.getText('uitext_basictalents_sub'),
+                              textAlign: TextAlign.center),
+                          EyuunWidgets.spacerVertical(),
+                          if (skillLearner != null)
+                            TalentsWidget(
+                              onTalentChanged: () {
+                                setState(() {});
+                              },
+                              skillLearnerController: controller,
+                              filter: const [TalentGroup.Basic],
+                            )
+                        ],
+                      ),
+                      theme: theme),
+                  EyuunWidgets.spacerVertical(),
+                  EyuunWidgets.eyuunBox(
+                      child: Column(
+                        children: [
+                          Text(
+                            textService.getText('uitext_advancedtalents'),
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          EyuunWidgets.spacerVertical(),
+                          Text(
+                              textService.getText('uitext_advancedtalents_sub'),
+                              textAlign: TextAlign.center),
+                          EyuunWidgets.spacerVertical(),
+                          if (skillLearner != null)
+                            TalentsWidget(
+                              onTalentChanged: () {
+                                setState(() {});
+                              },
+                              skillLearnerController: controller,
+                              filter: const [TalentGroup.Advanced],
+                            )
+                        ],
+                      ),
+                      theme: theme),
+                  EyuunWidgets.spacerVertical(),
+                  EyuunWidgets.eyuunBox(
+                      child: Column(
+                        children: [
+                          Text(
+                            textService.getText('uitext_spellschools'),
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          EyuunWidgets.spacerVertical(),
+                          Text(textService.getText('uitext_spellschools_sub'),
+                              textAlign: TextAlign.center),
+                          EyuunWidgets.spacerVertical(),
+                          if (skillLearner != null)
+                            TalentsWidget(
+                              onTalentChanged: () {
+                                setState(() {});
+                              },
+                              skillLearnerController: controller,
+                              filter: const [TalentGroup.Spellschool],
                             ),
-                            EyuunWidgets.spacerVertical(),
-                            Text(textService.getText('uitext_basictalents_sub'), textAlign: TextAlign.center),
-                            EyuunWidgets.spacerVertical(),
-                            if (skillLearner != null)
-                              TalentsWidget(
-                                onTalentChanged: () {
-                                  setState(() { });
-                                },
-                                skillLearnerController: controller,
-                                filter: const [TalentGroup.Basic],
-                              )
-                          ],
-                        ),
-                        theme: theme),
-                    EyuunWidgets.spacerVertical(),
-                    EyuunWidgets.eyuunBox(
-                        child: Column(
-                          children: [
-                            Text(
-                              textService.getText('uitext_advancedtalents'),
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            EyuunWidgets.spacerVertical(),
-                            Text(textService.getText('uitext_advancedtalents_sub'), textAlign: TextAlign.center),
-                            EyuunWidgets.spacerVertical(),
-                            if (skillLearner != null)
-                              TalentsWidget(
-                                onTalentChanged: () {
-                                  setState(() { });
-                                },
-                                skillLearnerController: controller,
-                                filter: const [TalentGroup.Advanced],
-                              )
-                          ],
-                        ),
-                        theme: theme),
-                    EyuunWidgets.spacerVertical(),
-                    EyuunWidgets.eyuunBox(
-                        child: Column(
-                          children: [
-                            Text(
-                              textService.getText('uitext_spellschools'),
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            EyuunWidgets.spacerVertical(),
-                            Text(textService.getText('uitext_spellschools_sub'), textAlign: TextAlign.center),
-                            EyuunWidgets.spacerVertical(),
-                            if (skillLearner != null)
-                              TalentsWidget(
-                                onTalentChanged: () {
-                                  setState(() { });
-                                },
-                                skillLearnerController: controller,
-                                filter: const [TalentGroup.Spellschool],
-                              ),
-                            EyuunWidgets.spacerVertical(),
-                            Text(
-                              textService.getText('uitext_spellschools_thresholds'),
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                        theme: theme),
-                    EyuunWidgets.spacerVertical(),
-                    EyuunWidgets.eyuunBox(
-                        child: Column(
-                          children: [
-                            Text(
-                              textService.getText('uitext_fightingstyles'),
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            EyuunWidgets.spacerVertical(),
-                            Text(textService.getText('uitext_fightingstyles_sub'), textAlign: TextAlign.center),
-                            EyuunWidgets.spacerVertical(),
-                            if (skillLearner != null)
-                              TalentsWidget(
-                                onTalentChanged: () {
-                                  setState(() { });
-                                },
-                                skillLearnerController: controller,
-                                filter: const [TalentGroup.FightingStyle],
-                              )
-                          ],
-                        ),
-                        theme: theme),
-                  ]))),
-        )));
+                          EyuunWidgets.spacerVertical(),
+                          Text(
+                            textService
+                                .getText('uitext_spellschools_thresholds'),
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      theme: theme),
+                  EyuunWidgets.spacerVertical(),
+                  EyuunWidgets.eyuunBox(
+                      child: Column(
+                        children: [
+                          Text(
+                            textService.getText('uitext_fightingstyles'),
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          EyuunWidgets.spacerVertical(),
+                          Text(textService.getText('uitext_fightingstyles_sub'),
+                              textAlign: TextAlign.center),
+                          EyuunWidgets.spacerVertical(),
+                          if (skillLearner != null)
+                            TalentsWidget(
+                              onTalentChanged: () {
+                                setState(() {});
+                              },
+                              skillLearnerController: controller,
+                              filter: const [TalentGroup.FightingStyle],
+                            )
+                        ],
+                      ),
+                      theme: theme),
+                ]))),
+      )),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
+      floatingActionButton: Text(
+          'Skillpoints: ${skillLearner?.getSpentSkillpoints()}/${skillLearner?.skillpoints.current}',
+          style: theme.textTheme.headlineMedium),
+    );
   }
 }
