@@ -86,11 +86,7 @@ class _InventoryPageState extends State<InventoryPage> {
             .toList() ??
         [];
 
-    List<Widget> slotWidgets = [
-      for (var (index, _) in holdables.indexed) _buildHoldableSlot(index),
-      if (_combatController.getFreeHands() > 0) _buildAddHoldableSlot(),
-      _buildArmorSlot(),
-    ];
+
 
     List<Entity> shopItems = locator<ItemShopFeatureComponent>().getShopItems();
 
@@ -103,69 +99,77 @@ class _InventoryPageState extends State<InventoryPage> {
             builder: (context, constraints) {
               final isTablet =
                   constraints.maxWidth >= 900; // adjust breakpoint if needed
+
+              double size = isTablet ? 100 : 80;
+
+              List<Widget> slotWidgets = [
+                for (var (index, _) in holdables.indexed) _buildHoldableSlot(index, size),
+                if (_combatController.getFreeHands() > 0) _buildAddHoldableSlot(size),
+                _buildArmorSlot(size),
+              ];
+
               {
                 // 📱 PHONE LAYOUT (vertical)
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    EyuunWidgets.spacerVertical(),
                     if (!isTablet) ...{
-                      SizedBox(
-                        height: 310,
+                      Flexible(
+                        flex: 2,
                         child: EyuunWidgets.eyuunBox(
                             child: ItemDisplayWidget(item: selectedItem),
                             theme: theme),
                       ),
                       EyuunWidgets.spacerVertical(),
-                      Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Wrap(
-                          spacing: 12,
-                          runSpacing: 12,
-                          alignment: WrapAlignment.center,
-                          children: slotWidgets,
-                        ),
+                      Wrap(
+                        spacing: 12,
+                        runSpacing: 12,
+                        alignment: WrapAlignment.center,
+                        children: slotWidgets,
                       )
                     } else
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          // 🧾 Item display (left)
-                          Expanded(
-                            flex: 3,
-                            child: SizedBox(
-                              height: 310,
+                      Flexible(
+                        flex: 2,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            // 🧾 Item display (left)
+                            Expanded(
+                              flex: 3,
                               child: EyuunWidgets.eyuunBox(
                                   child: ItemDisplayWidget(item: selectedItem),
                                   theme: theme),
                             ),
-                          ),
-                          EyuunWidgets.spacerHorizontal(),
-                          // 🛡 Armor slots (right)
-                          Expanded(
-                            flex: 1,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Wrap(
-                                spacing: 12,
-                                runSpacing: 12,
-                                crossAxisAlignment: WrapCrossAlignment.center,
-                                alignment: WrapAlignment.center,
-                                children: slotWidgets,
+                            EyuunWidgets.spacerHorizontal(),
+                            // 🛡 Armor slots (right)
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: Wrap(
+                                  spacing: 12,
+                                  runSpacing: 12,
+                                  crossAxisAlignment: WrapCrossAlignment.center,
+                                  alignment: WrapAlignment.center,
+                                  children: slotWidgets,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     EyuunWidgets.spacerVertical(),
-                    Expanded(
+                    Flexible(
+                      flex: 2,
                       child: EyuunWidgets.eyuunBox(
                           child: InventoryWidget(
                             inventory: _inventory!,
+                            slotSize: isTablet ? 100 : 80,
                             onItemSelected: _onItemSelected,
                           ),
                           theme: theme),
                     ),
+                    EyuunWidgets.spacerVertical(),
                     Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -209,12 +213,11 @@ class _InventoryPageState extends State<InventoryPage> {
           EyuunWidgets.circularFloatingActionButton(
             onPressed: () {
               PopupUtil.largePopup(
-                context,
-                ItemGridNavigator(rootItems: shopItems, inventory: _inventory!),
-                header: locator<TextService>().getText('uitext_shop'),
-                background:
-                  AssetImage('data/base/ui/bg/background.jpg')
-              );
+                  context,
+                  ItemGridNavigator(
+                      rootItems: shopItems, inventory: _inventory!),
+                  header: locator<TextService>().getText('uitext_shop'),
+                  background: AssetImage('data/base/ui/bg/background.jpg'));
             },
             text: 'Add Item',
             tooltip: 'Add an Item',
@@ -351,7 +354,7 @@ class _InventoryPageState extends State<InventoryPage> {
     );
   }
 
-  Widget _buildArmorSlot() => _buildTypedEquipmentSlot(
+  Widget _buildArmorSlot(double size) => _buildTypedEquipmentSlot(
         icon: Icons.shield_moon,
         getItem: () => armor,
         assignVisual: (x) => armor = x,
@@ -364,9 +367,10 @@ class _InventoryPageState extends State<InventoryPage> {
             setState(() => selectedItem = armor);
           }
         },
+        size: size,
       );
 
-  Widget _buildHoldableSlot(int index) => _buildTypedEquipmentSlot(
+  Widget _buildHoldableSlot(int index, double size) => _buildTypedEquipmentSlot(
         icon: Icons.back_hand,
         getItem: () => holdables[index],
         assignVisual: (x) => holdables[index] = x,
@@ -379,9 +383,10 @@ class _InventoryPageState extends State<InventoryPage> {
             setState(() => selectedItem = holdables[index]);
           }
         },
+        size: size,
       );
 
-  Widget _buildAddHoldableSlot() => _buildTypedEquipmentSlot(
+  Widget _buildAddHoldableSlot(double size) => _buildTypedEquipmentSlot(
         icon: Icons.back_hand,
         getItem: () => null,
         assignVisual: (x) {
@@ -392,19 +397,21 @@ class _InventoryPageState extends State<InventoryPage> {
         equip: (e) => _combatController.equipHoldable(e),
         unequip: () {},
         onTap: () => setState(() => selectedItem = null),
+        size: size,
       );
 
-  Widget _buildTypedEquipmentSlot({
-    required IconData icon,
-    required InventoryItem? Function() getItem,
-    required void Function(InventoryItem?) assignVisual,
-    required bool Function(Entity entity) acceptsEntity,
-    required bool Function(Entity entity) canEquip,
-    required void Function(Entity entity) equip,
-    required void Function() unequip,
-    required VoidCallback onTap,
-  }) {
+  Widget _buildTypedEquipmentSlot(
+      {required IconData icon,
+      required InventoryItem? Function() getItem,
+      required void Function(InventoryItem?) assignVisual,
+      required bool Function(Entity entity) acceptsEntity,
+      required bool Function(Entity entity) canEquip,
+      required void Function(Entity entity) equip,
+      required void Function() unequip,
+      required VoidCallback onTap,
+      required double size}) {
     return buildEquipmentSlot(
+      size: size,
       icon: icon,
       getItem: getItem,
       setItem: (item) {
@@ -433,17 +440,17 @@ class _InventoryPageState extends State<InventoryPage> {
     );
   }
 
-  Widget buildEquipmentSlot({
-    required IconData icon,
-    required InventoryItem? Function() getItem,
-    required void Function(InventoryItem?) setItem,
-    required ValueChanged<InventoryItem?> onItemChanged,
-    required VoidCallback onTap,
-  }) {
+  Widget buildEquipmentSlot(
+      {required IconData icon,
+      required InventoryItem? Function() getItem,
+      required void Function(InventoryItem?) setItem,
+      required ValueChanged<InventoryItem?> onItemChanged,
+      required VoidCallback onTap,
+      double size = 100}) {
     var item = getItem();
     return SizedBox(
-        height: 108,
-        width: 108,
+        height: size,
+        width: size,
         child: Stack(
           children: [
             // The decorated box with your content
@@ -462,8 +469,7 @@ class _InventoryPageState extends State<InventoryPage> {
                 });
               },
             ),
-            if (item == null)
-              IgnorePointer(child: Center(child: Icon(icon))),
+            if (item == null) IgnorePointer(child: Center(child: Icon(icon))),
             if (item != null)
               // The info button in the top right corner
               Positioned(
@@ -471,7 +477,8 @@ class _InventoryPageState extends State<InventoryPage> {
                 right: 4,
                 child: IconButton(
                   icon: const Icon(Icons.remove_circle),
-                  tooltip: 'Unequip ${locator<TextService>().getTextFromEntity(item.object)}',
+                  tooltip:
+                      'Unequip ${locator<TextService>().getTextFromEntity(item.object)}',
                   onPressed: () {
                     setState(() {
                       if (selectedItem == armor) selectedItem = null;

@@ -7,11 +7,13 @@ import 'InventoryItemWidget.dart';
 class InventoryWidget extends StatefulWidget {
   final InventoryComponent inventory;
   final ValueChanged<InventoryItem?>? onItemSelected;
+  final double slotSize;
 
   const InventoryWidget({
     super.key,
     required this.inventory,
     this.onItemSelected,
+    this.slotSize = 100
   });
 
   @override
@@ -41,11 +43,11 @@ class _InventoryWidgetState extends State<InventoryWidget> {
   Widget build(BuildContext context) {
     return GridView.builder(
       padding: const EdgeInsets.all(8),
-      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-      maxCrossAxisExtent: 108, // 👈 desired item width
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+      maxCrossAxisExtent: widget.slotSize,
       crossAxisSpacing: 8,
       mainAxisSpacing: 8,
-      childAspectRatio: 1, // tweak if needed
+      childAspectRatio: 1,
     ),
       itemCount: inventorySlots.length,
       itemBuilder: (context, index) {

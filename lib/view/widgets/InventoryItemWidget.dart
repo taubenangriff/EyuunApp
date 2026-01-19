@@ -19,7 +19,7 @@ class InventoryItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(item == null){
+    if (item == null) {
       return _buildItemTile(context, isSelected: isSelected);
     }
     return LongPressDraggable<InventoryItem>(
@@ -56,13 +56,18 @@ class InventoryItemWidget extends StatelessWidget {
                 ? Brushes.goldSparkling()
                 : Brushes.silverSparkling()),
         child: ConstrainedBox(
-          constraints: const BoxConstraints(minWidth: 100, minHeight: 100),
+          constraints: const BoxConstraints(minWidth: 60, minHeight: 60),
           child: Center(
             child: Stack(
+              fit: StackFit.passthrough,
               children: [
                 Align(
                   alignment: Alignment.center,
-                  child: icon != null ? Image(image: AssetImage(icon), width: 86, height: 86) : const Icon(Icons.inventory_2, size: 32),
+                  child: icon != null
+                      ? Padding(
+                          padding: EdgeInsets.all(12),
+                          child: Image(image: AssetImage(icon), width: 64, height: 64))
+                      : const Icon(Icons.inventory_2, size: 32),
                 ),
                 if (item!.count > 1)
                   Align(
@@ -85,7 +90,7 @@ class InventoryItemWidget extends StatelessWidget {
     final theme = Theme.of(context);
     return Container(
       decoration: EyuunDecoration(
-        background: theme.cardColor,
+          background: theme.cardColor,
           paint: Paint()
             ..color = Colors.blueGrey
             ..style = PaintingStyle.stroke,
