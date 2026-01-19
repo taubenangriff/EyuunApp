@@ -33,6 +33,7 @@ class CombatStatsRow extends StatelessWidget {
         const SizedBox(height: 16),
         Wrap(
           alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.center,
           spacing: 64,
           runSpacing: 32,
           children: [
@@ -64,7 +65,8 @@ class CombatStatsRow extends StatelessWidget {
                   ),
                   EyuunWidgets.spacerHorizontal(),
                   EyuunWidgets.circularFloatingActionButton(
-                      radius: 32,
+                      addDeco: true,
+                      radius: 46,
                       text: "${controller.getActiveTalentSkill(combatMelee)}")
                 ],
               ),
@@ -81,7 +83,8 @@ class CombatStatsRow extends StatelessWidget {
                   ),
                   EyuunWidgets.spacerHorizontal(),
                   EyuunWidgets.circularFloatingActionButton(
-                      radius: 32,
+                      addDeco: true,
+                      radius: 46,
                       text: "${controller.getActiveTalentSkill(combatRange)}")
                 ],
               )
