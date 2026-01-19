@@ -8,7 +8,7 @@ import 'package:eyuuncore/components/Combat.dart';
 import 'package:eyuunapp/view/popup/ChangeHealthPopup.dart';
 import 'package:eyuunapp/view/popup/ChangeValuePopup.dart';
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
-import 'package:eyuunapp/view/widgets/Cards/CombatStatsRow.dart';
+import 'package:eyuunapp/view/widgets/cards/CombatStatsRow.dart';
 import 'package:eyuunapp/view/widgets/eyuun/Brushes.dart';
 import 'package:eyuunapp/view/widgets/eyuun/EyuunDecoration.dart';
 import 'package:eyuuncore/components/Flux.dart';

@@ -1,6 +1,6 @@
 import 'package:eyuunapp/view/popup/PickPathPopup.dart';
-import 'package:eyuunapp/view/widgets/Cards/AttributesWidget.dart';
-import 'package:eyuunapp/view/widgets/Cards/CharacterInfoWidget.dart';
+import 'package:eyuunapp/view/widgets/cards/AttributesWidget.dart';
+import 'package:eyuunapp/view/widgets/cards/CharacterInfoWidget.dart';
 import 'package:eyuunapp/view/widgets/PickNewPathWidget.dart';
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:eyuuncore/components/Attributes.dart';
