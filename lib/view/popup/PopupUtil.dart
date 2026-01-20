@@ -1,3 +1,6 @@
+import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
+import 'package:eyuunapp/view/decoration/cornerPainters/ScaffoldCornerPainter.dart';
+import 'package:eyuunapp/view/decoration/linePainters/LinePainter.dart';
 import 'package:flutter/material.dart';
 
 import 'package:eyuunapp/view/decoration/Brushes.dart';
@@ -14,8 +17,11 @@ class PopupUtil {
         builder: (context) {
           return Dialog(
               child: DecoratedBox(
-                  decoration: EyuunDecoration(
-                      paint: Brushes.silverSparkling(), cornerSize: 12),
+                  decoration: ArtDecoBoxDecoration(
+                      cornerBuilder: (p) => ScaffoldCornerPainter(p, squareSize: 6),
+                      verticalLineBuilder: (p) => LinePainter(p),
+                      horizontalLineBuilder: (p) => LinePainter(p),
+                      paint: Brushes.goldSparkling(), cornerSize: 12),
                   child: Stack(
                     children: [
                       ConstrainedBox(
