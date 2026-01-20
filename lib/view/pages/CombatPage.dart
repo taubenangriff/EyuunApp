@@ -17,8 +17,8 @@ import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:flutter/material.dart';
 
-import '../controller/ChangeValueController.dart';
-import '../widgets/eyuun/EyuunWidgets.dart';
+import 'package:eyuunapp/view/controller/ChangeValueController.dart';
+import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
 
 class CombatPage extends StatefulWidget {
   const CombatPage({super.key});

@@ -8,7 +8,7 @@ import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/enums/ActionTime.dart';
 import 'package:flutter/material.dart';
 
-import '../ActionCard.dart';
+import 'package:eyuunapp/view/widgets/ActionCard.dart';
 
 class ActionsWidget extends StatefulWidget {
   final ActionUserComponent actionUser;

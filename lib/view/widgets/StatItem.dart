@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'eyuun/EyuunWidgets.dart';
+import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
 
 class StatItem extends StatelessWidget {
   final IconData icon;

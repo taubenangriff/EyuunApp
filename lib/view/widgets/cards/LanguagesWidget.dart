@@ -9,7 +9,7 @@ import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
-import '../eyuun/Brushes.dart';
+import 'package:eyuunapp/view/widgets/eyuun/Brushes.dart';
 
 class LanguageGrid extends StatefulWidget {
   final LanguageLearnerComponent learner;

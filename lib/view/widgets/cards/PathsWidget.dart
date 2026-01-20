@@ -13,10 +13,10 @@ import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
-import '../../enum/PathTypeColorExtension.dart';
-import '../../popup/BuffDisplayPopup.dart';
-import '../../popup/PickPathPopup.dart';
-import '../eyuun/Brushes.dart';
+import 'package:eyuunapp/view/enum/PathTypeColorExtension.dart';
+import 'package:eyuunapp/view/popup/BuffDisplayPopup.dart';
+import 'package:eyuunapp/view/popup/PickPathPopup.dart';
+import 'package:eyuunapp/view/widgets/eyuun/Brushes.dart';
 
 class PathsWidget extends StatefulWidget {
   const PathsWidget({super.key});

@@ -3,7 +3,7 @@ import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
-import '../widgets/SelectionCard.dart';
+import 'package:eyuunapp/view/widgets/SelectionCard.dart';
 
 class UpbringingPickerPopup extends StatelessWidget {
   final List<Entity> possibleBuffs;

@@ -3,8 +3,8 @@ import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
-import '../popup/PopupUtil.dart';
-import '../widgets/ActionCard.dart';
+import 'package:eyuunapp/view/popup/PopupUtil.dart';
+import 'package:eyuunapp/view/widgets/ActionCard.dart';
 
 class PickActionWidget extends StatelessWidget {
   PickActionWidget({super.key, required this.actions});

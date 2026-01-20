@@ -7,7 +7,7 @@ import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/enums/TalentGroup.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/eyuun/EyuunWidgets.dart';
+import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
 
 class TalentPage extends StatefulWidget {
   final double desiredSize;

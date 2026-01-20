@@ -4,7 +4,7 @@ import 'package:eyuunapp/view/widgets/eyuun/Brushes.dart';
 import 'package:eyuunapp/view/widgets/eyuun/EyuunDecoration.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/eyuun/EyuunWidgets.dart';
+import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
 
 class NotesPage extends StatefulWidget {
   const NotesPage({super.key});

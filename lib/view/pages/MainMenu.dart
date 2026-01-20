@@ -3,9 +3,9 @@ import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/eyuun/EyuunWidgets.dart';
-import 'CreateCharacterPage.dart';
-import 'MainPage.dart';
+import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
+import 'package:eyuunapp/view/pages/CreateCharacterPage.dart';
+import 'package:eyuunapp/view/pages/MainPage.dart';
 
 class MainMenu extends StatelessWidget {
   const MainMenu({super.key});

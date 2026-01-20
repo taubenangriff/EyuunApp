@@ -1,7 +1,7 @@
 import 'package:eyuunapp/view/controller/ChangeValueController.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/ItemWheel.dart';
+import 'package:eyuunapp/view/widgets/ItemWheel.dart';
 
 class ChangeItemCountPopup extends StatefulWidget {
   const ChangeItemCountPopup(this.changeVal,

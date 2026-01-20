@@ -6,7 +6,7 @@ import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/PathStepTile.dart';
+import 'package:eyuunapp/view/widgets/PathStepTile.dart';
 
 class PathPopup extends StatefulWidget {
   final void Function(String)? onSubmitted;

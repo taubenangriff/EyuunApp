@@ -1,10 +1,10 @@
 import 'package:eyuunapp/view/pages/CharacterPage.dart';
 import 'package:flutter/material.dart';
 
-import 'CombatPage.dart';
-import 'InventoryPage.dart';
-import 'NotesPage.dart';
-import 'TalentPage.dart';
+import 'package:eyuunapp/view/pages/CombatPage.dart';
+import 'package:eyuunapp/view/pages/InventoryPage.dart';
+import 'package:eyuunapp/view/pages/NotesPage.dart';
+import 'package:eyuunapp/view/pages/TalentPage.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.title});

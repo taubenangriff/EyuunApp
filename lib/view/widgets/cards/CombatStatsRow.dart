@@ -6,7 +6,7 @@ import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:flutter/material.dart';
 
-import '../StatItem.dart';
+import 'package:eyuunapp/view/widgets/StatItem.dart';
 
 class CombatStatsRow extends StatelessWidget {
   final CombatComponent combat;

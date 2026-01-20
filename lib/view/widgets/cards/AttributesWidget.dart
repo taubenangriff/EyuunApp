@@ -7,7 +7,7 @@ import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 
-import '../eyuun/EyuunWidgets.dart';
+import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
 
 class AttributesWidget extends StatefulWidget {
   const AttributesWidget({super.key});

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drawing_board/flutter_drawing_board.dart';
 import 'package:flutter_drawing_board/paint_contents.dart';
 
-import 'eyuun/EyuunWidgets.dart';
+import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
 
 class HandwrittenNoteWidget extends StatefulWidget {
   @override

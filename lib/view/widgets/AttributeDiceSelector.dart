@@ -7,8 +7,8 @@ import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/enums/dice.dart';
 import 'package:flutter/material.dart';
 
-import 'DiceIcon.dart'; // your custom widget
-import 'StatItem.dart'; // your custom widget
+import 'package:eyuunapp/view/widgets/DiceIcon.dart'; // your custom widget
+import 'package:eyuunapp/view/widgets/StatItem.dart'; // your custom widget
 
 class AttributeDiceSelector extends StatefulWidget {
   final AttributesComponent attributes;

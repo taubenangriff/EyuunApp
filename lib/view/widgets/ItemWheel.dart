@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'SelectableValue.dart';
+import 'package:eyuunapp/view/widgets/SelectableValue.dart';
 
 class ItemWheel extends StatefulWidget {
   ItemWheel({

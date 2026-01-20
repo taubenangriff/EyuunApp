@@ -4,7 +4,7 @@ import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 
-import 'DiceIcon.dart';
+import 'package:eyuunapp/view/widgets/DiceIcon.dart';
 
 class SkillCheckWidget extends StatefulWidget {
   final SkillcheckComponent skillcheck;

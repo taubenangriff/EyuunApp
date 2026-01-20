@@ -5,8 +5,8 @@ import 'package:eyuuncore/enums/PersonSize.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 
-import '../widgets/eyuun/Brushes.dart';
-import '../widgets/eyuun/EyuunDecoration.dart';
+import 'package:eyuunapp/view/widgets/eyuun/Brushes.dart';
+import 'package:eyuunapp/view/widgets/eyuun/EyuunDecoration.dart';
 
 class NameableComponent {
   String name;

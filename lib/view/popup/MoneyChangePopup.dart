@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../controller/ChangeValueController.dart';
-import '../widgets/eyuun/Brushes.dart';
-import '../widgets/eyuun/EyuunDecoration.dart';
-import '../widgets/eyuun/EyuunWidgets.dart';
+import 'package:eyuunapp/view/controller/ChangeValueController.dart';
+import 'package:eyuunapp/view/widgets/eyuun/Brushes.dart';
+import 'package:eyuunapp/view/widgets/eyuun/EyuunDecoration.dart';
+import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
 
 class MoneyChangePopup extends StatefulWidget {
   const MoneyChangePopup(

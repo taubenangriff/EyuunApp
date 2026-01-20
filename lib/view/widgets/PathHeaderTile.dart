@@ -5,7 +5,7 @@ import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
-import 'StarRating.dart';
+import 'package:eyuunapp/view/widgets/StarRating.dart';
 
 class PathHeaderTile extends StatelessWidget {
   final Entity pathEntity;

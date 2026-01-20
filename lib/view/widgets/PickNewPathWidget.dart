@@ -7,11 +7,11 @@ import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
-import 'PathHeaderTile.dart';
-import 'PathStepTile.dart';
-import 'eyuun/Brushes.dart';
-import 'eyuun/EyuunDecoration.dart';
-import 'eyuun/EyuunWidgets.dart';
+import 'package:eyuunapp/view/widgets/PathHeaderTile.dart';
+import 'package:eyuunapp/view/widgets/PathStepTile.dart';
+import 'package:eyuunapp/view/widgets/eyuun/Brushes.dart';
+import 'package:eyuunapp/view/widgets/eyuun/EyuunDecoration.dart';
+import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
 
 class PickNewPathWidget extends StatefulWidget {
   final PathController pathController;

@@ -19,8 +19,8 @@ import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
-import '../popup/MoneyChangePopup.dart';
-import '../widgets/eyuun/EyuunWidgets.dart';
+import 'package:eyuunapp/view/popup/MoneyChangePopup.dart';
+import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
 
 class InventoryPage extends StatefulWidget {
   const InventoryPage({super.key});

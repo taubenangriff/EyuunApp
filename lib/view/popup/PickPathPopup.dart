@@ -1,7 +1,7 @@
 import 'package:eyuuncore/controller/PathController.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/PickNewPathWidget.dart';
+import 'package:eyuunapp/view/widgets/PickNewPathWidget.dart';
 
 class PickPathPopup extends StatelessWidget {
   final PathController pathController;
