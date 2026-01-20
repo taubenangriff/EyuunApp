@@ -1,5 +1,8 @@
+import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
 import 'package:eyuunapp/view/decoration/Brushes.dart';
 import 'package:eyuunapp/view/decoration/EyuunDecoration.dart';
+import 'package:eyuunapp/view/decoration/cornerPainters/ScaffoldCornerPainter.dart';
+import 'package:eyuunapp/view/decoration/linePainters/LinePainter.dart';
 import 'package:eyuunapp/view/widgets/HandwrittenNoteWidget.dart';
 import 'package:eyuunapp/view/widgets/TextNoteWidget.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +34,11 @@ class _NotesPageState extends State<NotesPage> {
                 padding: EdgeInsets.all(20),
                 child: DecoratedBox(
                     position: DecorationPosition.foreground,
-                    decoration: EyuunDecoration(
+                    decoration: ArtDecoBoxDecoration(
+                        cornerBuilder: (p) => ScaffoldCornerPainter(p, squareSize: 6),
+                        verticalLineBuilder: (p) => LinePainter(p),
+                        horizontalLineBuilder: (p) => LinePainter(p),
                         cornerSize: 20,
-                        paintInnerLine: false,
                         paint: Brushes.goldSparkling()),
                     child: selectedWidget))),
       ),

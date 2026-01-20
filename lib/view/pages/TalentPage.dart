@@ -63,7 +63,7 @@ class _TalentPageState extends State<TalentPage> {
                         ],
                       ),
                       theme: theme),
-                  EyuunWidgets.spacerVertical(),
+                  EyuunWidgets.spacerWidget(),
                   EyuunWidgets.eyuunBox(
                       child: Column(
                         children: [
@@ -88,7 +88,7 @@ class _TalentPageState extends State<TalentPage> {
                         ],
                       ),
                       theme: theme),
-                  EyuunWidgets.spacerVertical(),
+                  EyuunWidgets.spacerWidget(),
                   EyuunWidgets.eyuunBox(
                       child: Column(
                         children: [
@@ -119,7 +119,7 @@ class _TalentPageState extends State<TalentPage> {
                         ],
                       ),
                       theme: theme),
-                  EyuunWidgets.spacerVertical(),
+                  EyuunWidgets.spacerWidget(),
                   EyuunWidgets.eyuunBox(
                       child: Column(
                         children: [

@@ -1,7 +1,10 @@
+import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
 import 'package:eyuunapp/view/decoration/Brushes.dart';
 import 'package:eyuunapp/view/decoration/CircleDecoration.dart';
 import 'package:eyuunapp/view/decoration/CircleProgressDecoration.dart';
 import 'package:eyuunapp/view/decoration/EyuunDecoration.dart';
+import 'package:eyuunapp/view/decoration/cornerPainters/ScaffoldCornerPainter.dart';
+import 'package:eyuunapp/view/decoration/linePainters/LinePainter.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -27,14 +30,18 @@ class EyuunWidgets {
     ]);
   }
 
+  static Widget spacerWidget() => const SizedBox(height: 24);
   static Widget spacerVertical() => const SizedBox(height: 16);
   static Widget spacerHorizontal() => const SizedBox(width: 16);
 
   static Widget eyuunBox({required Widget child, required ThemeData theme}) {
     return DecoratedBox(
-        decoration: EyuunDecoration(
+        decoration: ArtDecoBoxDecoration(
+            cornerBuilder: (p) => ScaffoldCornerPainter(p, squareSize: 6),
+            verticalLineBuilder: (p) => LinePainter(p),
+            horizontalLineBuilder: (p) => LinePainter(p),
             paint: Brushes.goldSparkling(),
-            cornerSize: 20,
+            cornerSize: 16,
             background: theme.canvasColor.withAlpha(230)),
         child: Padding(padding: EdgeInsets.all(20), child: child));
   }
@@ -94,7 +101,8 @@ class EyuunWidgets {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       if (icon != null) Icon(icon, size: 32, color: color),
-                      if(text.isNotEmpty) Text(text, style: TextStyle(color: color, fontSize: 20))
+                      if (text.isNotEmpty)
+                        Text(text, style: TextStyle(color: color, fontSize: 20))
                     ]))));
   }
 

@@ -73,19 +73,19 @@ class _CharacterPageState extends State<CharacterPage> {
                             theme: theme),
                         link:
                             'https://eyuun.de/charaktererstellung#vergangenheit'),
-                    EyuunWidgets.spacerVertical(),
+                    EyuunWidgets.spacerWidget(),
                     EyuunWidgets.informationBox(
                         child: EyuunWidgets.eyuunBox(
                             child: AttributesWidget(), theme: theme),
                         link:
                             'https://eyuun.de/proben-projekte#eigenschaftenwuerfe--proben'),
-                    EyuunWidgets.spacerVertical(),
+                    EyuunWidgets.spacerWidget(),
                     EyuunWidgets.informationBox(
                         child: EyuunWidgets.eyuunBox(
                             child: PathsWidget(), theme: theme),
                         link: 'https://eyuun.de/charaktere-level#pfade'),
                     if (languageLearner != null)
-                      EyuunWidgets.spacerVertical(),
+                      EyuunWidgets.spacerWidget(),
                     if (languageLearner != null)
                       EyuunWidgets.informationBox(
                           child: EyuunWidgets.eyuunBox(

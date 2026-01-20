@@ -154,7 +154,7 @@ class _InventoryPageState extends State<InventoryPage> {
                           ],
                         ),
                       ),
-                    EyuunWidgets.spacerVertical(),
+                    EyuunWidgets.spacerWidget(),
                     Flexible(
                       flex: 3,
                       child: EyuunWidgets.eyuunBox(

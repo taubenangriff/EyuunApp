@@ -75,7 +75,7 @@ class _CombatPageState extends State<CombatPage> {
                                 combat: combat, skillLearner: skillLearner!),
                             theme: theme),
                         link: 'https://eyuun.de/kaempfe'),
-                  EyuunWidgets.spacerVertical(),
+                  EyuunWidgets.spacerWidget(),
                   if (actionUser != null &&
                       attributes != null &&
                       skillLearner != null)
