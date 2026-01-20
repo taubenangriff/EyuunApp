@@ -2,8 +2,6 @@ import 'package:eyuuncore/controller/PathController.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/PickNewPathWidget.dart';
-import '../widgets/eyuun/Brushes.dart';
-import '../widgets/eyuun/EyuunDecoration.dart';
 
 class PickPathPopup extends StatelessWidget {
   final PathController pathController;

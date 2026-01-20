@@ -1,8 +1,6 @@
-import 'dart:math';
-
+import 'package:eyuunapp/view/widgets/DiceIcon.dart';
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/controller/AttributesController.dart';
-import 'package:eyuunapp/view/widgets/DiceIcon.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';

@@ -1,5 +1,5 @@
-import 'package:eyuuncore/components/Path.dart';
 import 'package:eyuunapp/view/enum/PathTypeColorExtension.dart';
+import 'package:eyuuncore/components/Path.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';

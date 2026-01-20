@@ -1,10 +1,6 @@
-import 'package:eyuunapp/view/widgets/eyuun/Brushes.dart';
-import 'package:eyuunapp/view/widgets/eyuun/EyuunDecoration.dart';
-import 'package:flutter_drawing_board/flutter_drawing_board.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_drawing_board/flutter_drawing_board.dart';
 import 'package:flutter_drawing_board/paint_contents.dart';
-
-import 'eyuun/EyuunWidgets.dart';
 
 class TextNoteWidget extends StatefulWidget {
   @override

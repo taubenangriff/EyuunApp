@@ -1,19 +1,12 @@
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
-import 'package:eyuunapp/view/widgets/SkillCheckWidget.dart';
 import 'package:eyuuncore/components/Action.dart';
 import 'package:eyuuncore/components/ActionUser.dart';
 import 'package:eyuuncore/components/Attributes.dart';
-import 'package:eyuuncore/components/Combat.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
-import 'package:eyuuncore/components/Skillcheck.dart';
-import 'package:eyuuncore/components/Weapon.dart';
-import 'package:eyuuncore/controller/SkillcheckController.dart';
-import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/enums/ActionTime.dart';
 import 'package:flutter/material.dart';
-import 'package:oxygen/oxygen.dart';
 
 import '../ActionCard.dart';
 

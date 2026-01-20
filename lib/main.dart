@@ -1,33 +1,23 @@
-import 'dart:math';
-
-import 'package:eyuunapp/view/widgets/eyuun/EyuunUiImageProvider.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'firebase_options.dart';
-
-
 import 'package:eyuunapp/view/pages/MainMenu.dart';
-import 'package:eyuunapp/view/pages/MainPage.dart';
-import 'package:eyuuncore/components/CharacterPath.dart';
-import 'package:eyuuncore/components/Combat.dart';
-import 'package:eyuuncore/components/Path.dart';
-import 'package:eyuuncore/components/upgradable.dart';
-import 'package:eyuuncore/core/assetLink.dart';
-import 'package:eyuuncore/core/objectLink.dart';
-import 'package:eyuuncore/core/registerFeatures.dart';
-import 'package:eyuuncore/core/repository/AssetDataRepository.dart';
+import 'package:eyuunapp/view/widgets/eyuun/EyuunUiImageProvider.dart';
 import 'package:eyuuncore/core/registerComponentsExtension.dart';
+import 'package:eyuuncore/core/registerFeatures.dart';
+import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/registerSystemsExtension.dart';
 import 'package:eyuuncore/core/registerUpgradesExtension.dart';
+import 'package:eyuuncore/core/repository/AssetDataRepository.dart';
 import 'package:eyuuncore/core/repository/TextRepository.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/core/services/LoadDataService.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';
-import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/io/GameObjectsExport.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'firebase_options.dart';
 
 String textFile = "data/base/text/de_de.json";
 

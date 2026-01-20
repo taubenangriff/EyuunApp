@@ -1,9 +1,6 @@
-import 'dart:math' as math;
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-
-import 'Brushes.dart';
 
 class CircleDecoration extends Decoration {
   const CircleDecoration({required this.linePaint, this.lineWidth = 2, this.addRectangles = false});

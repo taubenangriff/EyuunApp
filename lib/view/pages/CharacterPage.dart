@@ -1,24 +1,21 @@
 import 'dart:math';
 
+import 'package:eyuunapp/view/controller/ChangeValueController.dart';
+import 'package:eyuunapp/view/popup/ChangeHealthPopup.dart';
+import 'package:eyuunapp/view/popup/ChangeValuePopup.dart';
+import 'package:eyuunapp/view/popup/PopupUtil.dart';
+import 'package:eyuunapp/view/widgets/cards/AttributesWidget.dart';
+import 'package:eyuunapp/view/widgets/cards/CharacterInfoWidget.dart';
+import 'package:eyuunapp/view/widgets/cards/LanguagesWidget.dart';
+import 'package:eyuunapp/view/widgets/cards/PathsWidget.dart';
 import 'package:eyuuncore/components/Flux.dart';
 import 'package:eyuuncore/components/LanguageLearner.dart';
 import 'package:eyuuncore/components/health.dart';
 import 'package:eyuuncore/controller/HealthController.dart';
-import 'package:eyuunapp/view/controller/ChangeValueController.dart';
-import 'package:eyuunapp/view/popup/ChangeHealthPopup.dart';
-import 'package:eyuunapp/view/popup/ChangeValuePopup.dart';
-import 'package:eyuunapp/view/widgets/cards/AttributesWidget.dart';
-import 'package:eyuunapp/view/widgets/cards/CharacterInfoWidget.dart';
-import 'package:eyuunapp/view/widgets/cards/PathsWidget.dart';
-import 'package:eyuunapp/view/widgets/cards/LanguagesWidget.dart';
-import 'package:eyuunapp/view/widgets/eyuun/Brushes.dart';
-import 'package:eyuunapp/view/widgets/eyuun/EyuunDecoration.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';
 import 'package:flutter/material.dart';
-import 'package:eyuunapp/view/popup/PopupUtil.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../popup/PauseRestPopup.dart';
 import '../widgets/eyuun/EyuunWidgets.dart';

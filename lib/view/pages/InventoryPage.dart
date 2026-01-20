@@ -1,22 +1,18 @@
 import 'dart:math';
 
 import 'package:eyuunapp/view/controller/ChangeValueController.dart';
-import 'package:eyuunapp/view/popup/ChangeValuePopup.dart';
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuunapp/view/popup/SelectItemPopup.dart';
 import 'package:eyuunapp/view/widgets/InventoryItemWidget.dart';
 import 'package:eyuunapp/view/widgets/InventoryWidget.dart';
-import 'package:eyuunapp/view/widgets/WeaponCraftingScreen.dart';
-import 'package:eyuunapp/view/widgets/eyuun/Brushes.dart';
-import 'package:eyuunapp/view/widgets/eyuun/EyuunDecoration.dart';
 import 'package:eyuunapp/view/widgets/cards/ItemDisplayWidget.dart';
 import 'package:eyuuncore/components/Armor.dart';
 import 'package:eyuuncore/components/Combat.dart';
 import 'package:eyuuncore/components/Holdable.dart';
 import 'package:eyuuncore/components/feature/ItemShopFeature.dart';
 import 'package:eyuuncore/components/inventory.dart';
-import 'package:eyuuncore/controller/InventoryController.dart';
 import 'package:eyuuncore/controller/CombatController.dart';
+import 'package:eyuuncore/controller/InventoryController.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';

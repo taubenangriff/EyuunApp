@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:oxygen/oxygen.dart';
-import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
-import 'package:eyuuncore/components/feature/CharacterTables.dart';
+import 'package:flutter/material.dart';
+import 'package:oxygen/oxygen.dart';
 
 import '../popup/PopupUtil.dart';
 import '../widgets/ActionCard.dart';

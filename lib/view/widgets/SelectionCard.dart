@@ -1,12 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
+import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
-import '../popup/UpbringingPickerPopup.dart';
-import '../widgets/eyuun/EyuunDecoration.dart';
-import '../widgets/eyuun/Brushes.dart';
 import '../widgets/BuffDisplay.dart';
+import '../widgets/eyuun/Brushes.dart';
+import '../widgets/eyuun/EyuunDecoration.dart';
 import 'eyuun/EyuunWidgets.dart';
 
 class SelectionCard extends StatelessWidget {

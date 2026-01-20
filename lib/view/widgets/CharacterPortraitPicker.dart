@@ -2,12 +2,11 @@ import 'package:eyuuncore/controller/PickUpbringingController.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/enums/PersonSize.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
+
 import '../widgets/eyuun/Brushes.dart';
 import '../widgets/eyuun/EyuunDecoration.dart';
-import 'package:flutter/services.dart';
 
 class NameableComponent {
   String name;

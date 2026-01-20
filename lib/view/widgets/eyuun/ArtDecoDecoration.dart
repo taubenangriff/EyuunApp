@@ -1,11 +1,6 @@
-import 'dart:math' as math;
-import 'dart:ui' as ui;
-
 import 'package:eyuunapp/view/widgets/eyuun/EyuunUiImageProvider.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:flutter/material.dart';
-
-import 'Brushes.dart';
 
 class ArtDecoDecoration extends Decoration {
   final Paint paint;

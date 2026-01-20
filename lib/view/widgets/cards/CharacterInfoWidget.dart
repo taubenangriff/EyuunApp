@@ -1,9 +1,9 @@
-import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
-import 'package:eyuuncore/components/CharacterBase.dart';
-import 'package:eyuuncore/components/feature/LevelFeature.dart';
 import 'package:eyuunapp/view/popup/BuffDisplayPopup.dart';
 import 'package:eyuunapp/view/popup/LevelupPopup.dart';
 import 'package:eyuunapp/view/popup/UpbringingPopup.dart';
+import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
+import 'package:eyuuncore/components/CharacterBase.dart';
+import 'package:eyuuncore/components/feature/LevelFeature.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
