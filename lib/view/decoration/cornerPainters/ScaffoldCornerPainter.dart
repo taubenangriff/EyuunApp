@@ -6,13 +6,6 @@ import 'dart:ui';
 import 'package:eyuunapp/view/decoration/cornerPainters/AbstractCornerPainter.dart';
 
 class ScaffoldCornerPainter extends AbstractCornerPainter {
-  final _mirrorDiag = Float64List.fromList([
-    0, 1, 0, 0, // column 0
-    1, 0, 0, 0, // column 1
-    0, 0, 1, 0, // column 2
-    0, 0, 0, 1 // column 3
-  ]);
-
   ScaffoldCornerPainter(super.cornerPaint, {this.squareSize = 6});
 
   double squareSize;
@@ -44,7 +37,7 @@ class ScaffoldCornerPainter extends AbstractCornerPainter {
 
     canvas.save();
     _paintHalfcorner(canvas, size);
-    canvas.transform(_mirrorDiag);
+    canvas.transform(AbstractCornerPainter.mirrorDiag);
     _paintHalfcorner(canvas, size);
     canvas.restore();
 
