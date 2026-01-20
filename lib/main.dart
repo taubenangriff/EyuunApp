@@ -30,7 +30,6 @@ void main() async {
   setupGetIt();
 
   locator.registerLazySingleton(() => EyuunUiImagerProvider());
-  await locator<EyuunUiImagerProvider>().preloadImage("data/base/ui/bg/artdecocorner.png");
 
   var worldManager = locator<WorldManager>();
 
