@@ -9,8 +9,8 @@ import 'package:oxygen/oxygen.dart';
 
 import 'package:eyuunapp/view/widgets/PathHeaderTile.dart';
 import 'package:eyuunapp/view/widgets/PathStepTile.dart';
-import 'package:eyuunapp/view/widgets/eyuun/Brushes.dart';
-import 'package:eyuunapp/view/widgets/eyuun/EyuunDecoration.dart';
+import 'package:eyuunapp/view/decoration/Brushes.dart';
+import 'package:eyuunapp/view/decoration/EyuunDecoration.dart';
 import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
 
 class PickNewPathWidget extends StatefulWidget {

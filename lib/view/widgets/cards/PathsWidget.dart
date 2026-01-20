@@ -1,6 +1,6 @@
 import 'package:eyuunapp/view/popup/PathPopup.dart';
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
-import 'package:eyuunapp/view/widgets/eyuun/EyuunDecoration.dart';
+import 'package:eyuunapp/view/decoration/EyuunDecoration.dart';
 import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
 import 'package:eyuuncore/components/CharacterPath.dart';
 import 'package:eyuuncore/components/Path.dart';
@@ -16,7 +16,7 @@ import 'package:oxygen/oxygen.dart';
 import 'package:eyuunapp/view/enum/PathTypeColorExtension.dart';
 import 'package:eyuunapp/view/popup/BuffDisplayPopup.dart';
 import 'package:eyuunapp/view/popup/PickPathPopup.dart';
-import 'package:eyuunapp/view/widgets/eyuun/Brushes.dart';
+import 'package:eyuunapp/view/decoration/Brushes.dart';
 
 class PathsWidget extends StatefulWidget {
   const PathsWidget({super.key});

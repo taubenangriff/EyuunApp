@@ -1,10 +1,9 @@
-import 'package:eyuunapp/view/widgets/eyuun/CircleProgressDecoration.dart';
+import 'package:eyuunapp/view/decoration/Brushes.dart';
+import 'package:eyuunapp/view/decoration/CircleDecoration.dart';
+import 'package:eyuunapp/view/decoration/CircleProgressDecoration.dart';
+import 'package:eyuunapp/view/decoration/EyuunDecoration.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import 'Brushes.dart';
-import 'CircleDecoration.dart';
-import 'EyuunDecoration.dart';
 
 class EyuunWidgets {
   static Widget informationBox(

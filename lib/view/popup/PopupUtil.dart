@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:eyuunapp/view/widgets/eyuun/Brushes.dart';
-import 'package:eyuunapp/view/widgets/eyuun/EyuunDecoration.dart';
+import 'package:eyuunapp/view/decoration/Brushes.dart';
+import 'package:eyuunapp/view/decoration/EyuunDecoration.dart';
 
 class PopupUtil {
   static const Size defaultSize = Size(300, 500);

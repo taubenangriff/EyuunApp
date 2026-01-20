@@ -1,6 +1,7 @@
 import 'package:easy_stepper/easy_stepper.dart';
+import 'package:eyuunapp/view/decoration/Brushes.dart';
 import 'package:eyuunapp/view/widgets/PickNewPathWidget.dart';
-import 'package:eyuunapp/view/widgets/eyuun/CircleDecoration.dart';
+import 'package:eyuunapp/view/decoration/CircleDecoration.dart';
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/CharacterBase.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
@@ -13,7 +14,6 @@ import 'package:oxygen/oxygen.dart';
 import 'package:eyuunapp/view/widgets/AttributeDiceSelector.dart';
 import 'package:eyuunapp/view/widgets/CharacterPortraitPicker.dart';
 import 'package:eyuunapp/view/widgets/UpbringingSelectionWidget.dart';
-import 'package:eyuunapp/view/widgets/eyuun/Brushes.dart';
 import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
 import 'package:eyuunapp/view/pages/TalentPage.dart';
 

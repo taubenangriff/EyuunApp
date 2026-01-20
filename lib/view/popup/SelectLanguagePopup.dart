@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
 import 'package:eyuunapp/view/widgets/LanguageDetailWidget.dart';
-import 'package:eyuunapp/view/widgets/eyuun/Brushes.dart';
-import 'package:eyuunapp/view/widgets/eyuun/EyuunDecoration.dart';
+import 'package:eyuunapp/view/decoration/Brushes.dart';
+import 'package:eyuunapp/view/decoration/EyuunDecoration.dart';
 
 class SelectLanguagePopup extends StatefulWidget {
   final LanguagesController languagesController;

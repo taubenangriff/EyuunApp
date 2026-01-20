@@ -1,4 +1,5 @@
-import 'package:eyuunapp/view/widgets/eyuun/EyuunDecoration.dart';
+import 'package:eyuunapp/view/decoration/Brushes.dart';
+import 'package:eyuunapp/view/decoration/EyuunDecoration.dart';
 import 'package:eyuuncore/components/Icon.dart';
 import 'package:eyuuncore/components/feature/CombatFeature.dart';
 import 'package:eyuuncore/controller/HealthController.dart';
@@ -9,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
 import 'package:eyuunapp/view/widgets/ItemWheel.dart';
-import 'package:eyuunapp/view/widgets/eyuun/Brushes.dart';
 
 class ChangeHealthPopup extends StatefulWidget {
   const ChangeHealthPopup(this.healthController,

@@ -2,8 +2,8 @@ import 'package:eyuuncore/components/Icon.dart';
 import 'package:eyuuncore/components/inventory.dart';
 import 'package:flutter/material.dart';
 
-import 'package:eyuunapp/view/widgets/eyuun/Brushes.dart';
-import 'package:eyuunapp/view/widgets/eyuun/EyuunDecoration.dart'; // for InventoryItem
+import 'package:eyuunapp/view/decoration/Brushes.dart';
+import 'package:eyuunapp/view/decoration/EyuunDecoration.dart'; // for InventoryItem
 
 class InventoryItemWidget extends StatelessWidget {
   final InventoryItem? item;

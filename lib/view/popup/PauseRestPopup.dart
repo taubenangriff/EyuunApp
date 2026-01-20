@@ -2,8 +2,8 @@ import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 
-import 'package:eyuunapp/view/widgets/eyuun/Brushes.dart';
-import 'package:eyuunapp/view/widgets/eyuun/EyuunDecoration.dart';
+import 'package:eyuunapp/view/decoration/Brushes.dart';
+import 'package:eyuunapp/view/decoration/EyuunDecoration.dart';
 
 class PauseRestPopup extends StatelessWidget {
   PauseRestPopup({super.key});

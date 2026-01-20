@@ -1,11 +1,11 @@
 import 'package:eyuunapp/view/widgets/BuffDisplay.dart';
-import 'package:eyuunapp/view/widgets/eyuun/EyuunDecoration.dart';
+import 'package:eyuunapp/view/decoration/EyuunDecoration.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
-import 'package:eyuunapp/view/widgets/eyuun/Brushes.dart';
+import 'package:eyuunapp/view/decoration/Brushes.dart';
 
 class LevelupPopup extends StatelessWidget {
   final Entity? buff;
