@@ -66,9 +66,7 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
       backgroundColor: Colors.transparent,
       body: Padding(
         padding: const EdgeInsets.all(24),
-        child: Expanded(
-          child: _buildContent(filteredPaths, selectedPath, selectedSteps),
-        ),
+        child: _buildContent(filteredPaths, selectedPath, selectedSteps),
       ),
       floatingActionButton: _buildBottomButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
