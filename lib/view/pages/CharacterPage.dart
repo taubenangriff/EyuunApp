@@ -64,7 +64,7 @@ class _CharacterPageState extends State<CharacterPage> {
                 child: Column(
                   children: [
                     EyuunWidgets.informationBox(
-                        child: EyuunWidgets.eyuunBox(
+                        child: EyuunWidgets.cardBox(
                             child: CharacterInfoWidget(
                               profileImage: placeholderImage,
                               name: "Glup Shitto",
@@ -75,20 +75,20 @@ class _CharacterPageState extends State<CharacterPage> {
                             'https://eyuun.de/charaktererstellung#vergangenheit'),
                     EyuunWidgets.spacerWidget(),
                     EyuunWidgets.informationBox(
-                        child: EyuunWidgets.eyuunBox(
+                        child: EyuunWidgets.cardBox(
                             child: AttributesWidget(), theme: theme),
                         link:
                             'https://eyuun.de/proben-projekte#eigenschaftenwuerfe--proben'),
                     EyuunWidgets.spacerWidget(),
                     EyuunWidgets.informationBox(
-                        child: EyuunWidgets.eyuunBox(
+                        child: EyuunWidgets.cardBox(
                             child: PathsWidget(), theme: theme),
                         link: 'https://eyuun.de/charaktere-level#pfade'),
                     if (languageLearner != null)
                       EyuunWidgets.spacerWidget(),
                     if (languageLearner != null)
                       EyuunWidgets.informationBox(
-                          child: EyuunWidgets.eyuunBox(
+                          child: EyuunWidgets.cardBox(
                               child: LanguageGrid(learner: languageLearner),
                               theme: theme),
                           link: 'https://eyuun.de/charaktere-level#sprachen'),

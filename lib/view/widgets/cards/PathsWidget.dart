@@ -1,3 +1,6 @@
+import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
+import 'package:eyuunapp/view/decoration/cornerPainters/ThickThinThickCornerPainter.dart';
+import 'package:eyuunapp/view/decoration/linePainters/ThickThinThickLinePainter.dart';
 import 'package:eyuunapp/view/popup/PathPopup.dart';
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuunapp/view/decoration/EyuunDecoration.dart';
@@ -162,104 +165,109 @@ class _PathsWidgetState extends State<PathsWidget> {
           var pathType = pathComponent.pathType;
 
           return Padding(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(12),
               child: Container(
-                padding: EdgeInsets.all(4),
-                  decoration: EyuunDecoration(
-                      paint: Brushes.silverSparkling(),
-                      fillCorners: false,
-                      paintInnerLine: false,
-                      cornerSize: 8),
+                  padding: EdgeInsets.all(4),
+                  decoration: ArtDecoBoxDecoration(
+                      cornerBuilder: (p) => ThickThinThickCornerPainter(p),
+                      verticalLineBuilder: (p) => ThickThinThickLinePainter(p),
+                      horizontalLineBuilder: (p) => ThickThinThickLinePainter(p),
+                      paint: Brushes.goldSparkling()..strokeWidth = 1.25,
+                      cornerSize: 5),
                   child: InkWell(
-                  onTap: () {
-                    PopupUtil.popup(
-                        context,
-                        PathPopup(
-                            pathController: pathController,
-                            pathId: path.getTypeId()),
-                        maximumSize: Size(1000, 900));
-                  },
-                  borderRadius:
-                      BorderRadius.circular(8), // optional for ripple effect
-                  child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 10),
-                      child: Row(
-                        children: [
-                          // Title on the left
-                          SizedBox(
-                            width: 120,
-                            child: Text(
-                              locator<TextService>().getTextFromEntity(path),
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
+                      onTap: () {
+                        PopupUtil.popup(
+                            context,
+                            PathPopup(
+                                pathController: pathController,
+                                pathId: path.getTypeId()),
+                            maximumSize: Size(1000, 900));
+                      },
+                      borderRadius: BorderRadius.circular(
+                          8), // optional for ripple effect
+                      child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
+                          child: Row(
+                            children: [
+                              // Title on the left
+                              SizedBox(
+                                width: 120,
+                                child: Text(
+                                  locator<TextService>()
+                                      .getTextFromEntity(path),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
 
-                          // Progress bar with number
-                          Expanded(
-                            child: LayoutBuilder(
-                              builder: (context, constraints) {
-                                final barWidth = constraints.maxWidth;
-                                final position =
-                                    (progress / progressMax) * barWidth;
+                              // Progress bar with number
+                              Expanded(
+                                child: LayoutBuilder(
+                                  builder: (context, constraints) {
+                                    final barWidth = constraints.maxWidth;
+                                    final position =
+                                        (progress / progressMax) * barWidth;
 
-                                return Stack(
-                                  clipBehavior: Clip.none,
-                                  children: [
-                                    // Base bar
-                                    Container(
-                                      height: 28,
-                                      decoration: BoxDecoration(
-                                        color: theme.splashColor,
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                    ),
-                                    // Filled progress
-                                    Container(
-                                      width: position,
-                                      height: 28,
-                                      decoration: BoxDecoration(
-                                        color: pathType.color,
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                    ),
-                                    // Number at progress
-                                    Positioned(
-                                      left: position -
-                                          20, // adjust so text is centered
-                                      top: -6,
-                                      bottom: -6,
-                                      child: Center(
-                                        child: Container(
-                                          width: 36,
-                                          height: 36,
-                                          decoration: EyuunDecoration(
-                                              paint: Brushes.goldSparkling(),
-                                              background: pathType.color,
-                                              fillCorners: false,
-                                              cornerSize: 8),
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            '$progress',
-                                            style: TextStyle(
-                                              color: pathType.textColor,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16,
+                                    return Stack(
+                                      clipBehavior: Clip.none,
+                                      children: [
+                                        // Base bar
+                                        Container(
+                                          height: 28,
+                                          decoration: BoxDecoration(
+                                            color: theme.splashColor,
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                          ),
+                                        ),
+                                        // Filled progress
+                                        Container(
+                                          width: position,
+                                          height: 28,
+                                          decoration: BoxDecoration(
+                                            color: pathType.color,
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                          ),
+                                        ),
+                                        // Number at progress
+                                        Positioned(
+                                          left: position -
+                                              20, // adjust so text is centered
+                                          top: -6,
+                                          bottom: -6,
+                                          child: Center(
+                                            child: Container(
+                                              width: 36,
+                                              height: 36,
+                                              decoration: EyuunDecoration(
+                                                  paint:
+                                                      Brushes.goldSparkling(),
+                                                  background: pathType.color,
+                                                  fillCorners: false,
+                                                  cornerSize: 8),
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                '$progress',
+                                                style: TextStyle(
+                                                  color: pathType.textColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16,
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                          )
-                        ],
-                      ))
-                  // replace with your widget
-                  )));
+                                      ],
+                                    );
+                                  },
+                                ),
+                              )
+                            ],
+                          ))
+                      // replace with your widget
+                      )));
         }),
         if (pathController.canPickNewPath()) const SizedBox(height: 16),
         if (pathController.canPickNewPath())

@@ -65,7 +65,7 @@ class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
             ),
           ),
         ),
-        const SizedBox(height: 16),
+        EyuunWidgets.spacerWidget(),
         ConstrainedBox(
           constraints: BoxConstraints(minHeight: cardHeight),
           child: Stack(
@@ -119,7 +119,7 @@ class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
             ],
           ),
         ),
-        const SizedBox(height: 16),
+        EyuunWidgets.spacerWidget(),
         ConstrainedBox(
           constraints: BoxConstraints(minHeight: cardHeight),
           child: SelectionCard(
@@ -140,7 +140,7 @@ class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
             ),
           ),
         ),
-        const SizedBox(height: 16),
+        EyuunWidgets.spacerWidget(),
         if (upbringingController.pickedBoth()) ...{
           Divider(),
           const SizedBox(height: 16),

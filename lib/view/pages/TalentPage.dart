@@ -40,7 +40,7 @@ class _TalentPageState extends State<TalentPage> {
             child: ConstrainedBox(
                 constraints: BoxConstraints(maxWidth: widget.desiredSize),
                 child: Column(children: [
-                  EyuunWidgets.eyuunBox(
+                  EyuunWidgets.cardBox(
                       child: Column(
                         children: [
                           Text(
@@ -64,7 +64,7 @@ class _TalentPageState extends State<TalentPage> {
                       ),
                       theme: theme),
                   EyuunWidgets.spacerWidget(),
-                  EyuunWidgets.eyuunBox(
+                  EyuunWidgets.cardBox(
                       child: Column(
                         children: [
                           Text(
@@ -89,7 +89,7 @@ class _TalentPageState extends State<TalentPage> {
                       ),
                       theme: theme),
                   EyuunWidgets.spacerWidget(),
-                  EyuunWidgets.eyuunBox(
+                  EyuunWidgets.cardBox(
                       child: Column(
                         children: [
                           Text(
@@ -120,7 +120,7 @@ class _TalentPageState extends State<TalentPage> {
                       ),
                       theme: theme),
                   EyuunWidgets.spacerWidget(),
-                  EyuunWidgets.eyuunBox(
+                  EyuunWidgets.cardBox(
                       child: Column(
                         children: [
                           Text(

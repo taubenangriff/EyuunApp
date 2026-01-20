@@ -70,7 +70,7 @@ class _CombatPageState extends State<CombatPage> {
                 child: Column(children: [
                   if (combat != null)
                     EyuunWidgets.informationBox(
-                        child: EyuunWidgets.eyuunBox(
+                        child: EyuunWidgets.cardBox(
                             child: CombatStatsRow(
                                 combat: combat, skillLearner: skillLearner!),
                             theme: theme),
@@ -79,7 +79,7 @@ class _CombatPageState extends State<CombatPage> {
                   if (actionUser != null &&
                       attributes != null &&
                       skillLearner != null)
-                    EyuunWidgets.eyuunBox(
+                    EyuunWidgets.cardBox(
                         child: ActionsWidget(
                             actionUser: actionUser,
                             attributes: attributes,

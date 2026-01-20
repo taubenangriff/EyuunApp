@@ -1,3 +1,6 @@
+import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
+import 'package:eyuunapp/view/decoration/cornerPainters/ThickThinThickCornerPainter.dart';
+import 'package:eyuunapp/view/decoration/linePainters/ThickThinThickLinePainter.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
@@ -31,13 +34,13 @@ class SelectionCard extends StatelessWidget {
     var theme = Theme.of(context);
 
     return DecoratedBox(
-      decoration: EyuunDecoration(
-        paint: Brushes.silverSparkling(),
-        fillCorners: false,
-        paintInnerLine: false,
-        cornerSize: 14,
-        background: theme.cardColor.withAlpha(220)
-      ),
+      decoration: ArtDecoBoxDecoration(
+          cornerBuilder: (p) => ThickThinThickCornerPainter(p),
+          verticalLineBuilder: (p) => ThickThinThickLinePainter(p),
+          horizontalLineBuilder: (p) => ThickThinThickLinePainter(p),
+          paint: Brushes.silverSparkling()..strokeWidth = 1.25,
+          background: theme.cardColor.withAlpha(150),
+          cornerSize: 5),
       child: Material(
         color: Colors.transparent,
         child: InkWell(

@@ -112,7 +112,7 @@ class _InventoryPageState extends State<InventoryPage> {
                     if (!isTablet) ...{
                       Flexible(
                         flex: 3,
-                        child: EyuunWidgets.eyuunBox(
+                        child: EyuunWidgets.cardBox(
                             child: ItemDisplayWidget(item: selectedItem),
                             theme: theme),
                       ),
@@ -132,7 +132,7 @@ class _InventoryPageState extends State<InventoryPage> {
                             // 🧾 Item display (left)
                             Expanded(
                               flex: 3,
-                              child: EyuunWidgets.eyuunBox(
+                              child: EyuunWidgets.cardBox(
                                   child: ItemDisplayWidget(item: selectedItem),
                                   theme: theme),
                             ),
@@ -157,7 +157,7 @@ class _InventoryPageState extends State<InventoryPage> {
                     EyuunWidgets.spacerWidget(),
                     Flexible(
                       flex: 3,
-                      child: EyuunWidgets.eyuunBox(
+                      child: EyuunWidgets.cardBox(
                           child: InventoryWidget(
                             inventory: _inventory!,
                             slotSize: isTablet ? 100 : 80,

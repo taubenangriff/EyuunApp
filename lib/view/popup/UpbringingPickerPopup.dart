@@ -1,3 +1,4 @@
+import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class UpbringingPickerPopup extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(height: 16),
+        EyuunWidgets.spacerWidget(),
         Expanded(
             child: SingleChildScrollView(
                 child: Column(
@@ -32,7 +33,7 @@ class UpbringingPickerPopup extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: possibleBuffs.map((buff) {
                     return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
                       child: SelectionCard(
                         title: textService.getTextFromEntity(buff),
                         onTap: () {

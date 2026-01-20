@@ -115,7 +115,7 @@ class _ArtDecoBoxDecorationPainter extends BoxPainter {
 
   late Paint outerPaint = Paint()
     ..color = paintColor
-    ..strokeWidth = 1.5;
+    ..strokeWidth = paintBrush.strokeWidth;
 
   late final AbstractCornerPainter cornerPainter = cornerBuilder(outerPaint);
   late final AbstractLinePainter horizontalLinePainter = horizontalLineBuilder(outerPaint);

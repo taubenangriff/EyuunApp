@@ -4,7 +4,9 @@ import 'package:eyuunapp/view/decoration/CircleDecoration.dart';
 import 'package:eyuunapp/view/decoration/CircleProgressDecoration.dart';
 import 'package:eyuunapp/view/decoration/EyuunDecoration.dart';
 import 'package:eyuunapp/view/decoration/cornerPainters/ScaffoldCornerPainter.dart';
+import 'package:eyuunapp/view/decoration/cornerPainters/ThickThinThickCornerPainter.dart';
 import 'package:eyuunapp/view/decoration/linePainters/LinePainter.dart';
+import 'package:eyuunapp/view/decoration/linePainters/ThickThinThickLinePainter.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -34,7 +36,7 @@ class EyuunWidgets {
   static Widget spacerVertical() => const SizedBox(height: 16);
   static Widget spacerHorizontal() => const SizedBox(width: 16);
 
-  static Widget eyuunBox({required Widget child, required ThemeData theme}) {
+  static Widget cardBox({required Widget child, required ThemeData theme}) {
     return DecoratedBox(
         decoration: ArtDecoBoxDecoration(
             cornerBuilder: (p) => ScaffoldCornerPainter(p, squareSize: 6),
