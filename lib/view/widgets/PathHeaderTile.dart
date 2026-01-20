@@ -27,21 +27,20 @@ class PathHeaderTile extends StatelessWidget {
             color: Colors.grey.shade700,
           ),
           gradient: LinearGradient(
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
             colors: [
               pathComponent?.pathType.color.withAlpha(255) ??
                   Colors.transparent,
               Theme.of(context)
-                  .colorScheme
-                  .surfaceContainerHighest
-                  .withAlpha(100),
+                  .cardColor
+                  .withAlpha(200),
               Theme.of(context).colorScheme.surfaceContainerHighest,
             ],
             stops: const [0.0, 0.4, 1.0],
           ),
         ),
-        child: Row(
+        child: Column(
           children: [
             Expanded(
               child: Text(

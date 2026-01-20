@@ -1,3 +1,4 @@
+import 'package:eyuunapp/view/widgets/ItemWheel.dart';
 import 'package:eyuuncore/components/Path.dart';
 import 'package:eyuuncore/components/feature/PathFeature.dart';
 import 'package:eyuuncore/controller/PathController.dart';
@@ -35,6 +36,11 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
   String searchQuery = '';
 
   @override
+  void initState() {
+    // TODO: implement initState
+  }
+
+  @override
   Widget build(BuildContext context) {
     final allPaths = pathFeature.paths
       ..sort((a, b) =>
@@ -60,15 +66,8 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
       backgroundColor: Colors.transparent,
       body: Padding(
         padding: const EdgeInsets.all(24),
-        child: Column(
-          children: [
-            _buildSearchBar(),
-            EyuunWidgets.spacerVertical(),
-            Expanded(
-              child: _buildContent(filteredPaths, selectedPath, selectedSteps),
-            ),
-            const SizedBox(height: 60),
-          ],
+        child: Expanded(
+          child: _buildContent(filteredPaths, selectedPath, selectedSteps),
         ),
       ),
       floatingActionButton: _buildBottomButton(),
@@ -91,25 +90,11 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
     Entity? selectedPath,
     List<Entity> selectedSteps,
   ) {
-    return Row(
+    filteredPaths = filteredPaths + filteredPaths + filteredPaths;
+
+    return Column(
       children: [
-        Expanded(
-          flex: 2,
-          child: ListView.separated(
-            itemCount: filteredPaths.length,
-            separatorBuilder: (_, __) => const SizedBox(height: 8),
-            itemBuilder: (_, index) {
-              final path = filteredPaths[index];
-              return InkWell(
-                borderRadius: BorderRadius.circular(8),
-                onTap: () => setState(
-                  () => selectedPathId = path.getTypeId(),
-                ),
-                child: PathHeaderTile(pathEntity: path),
-              );
-            },
-          ),
-        ),
+        _buildSearchBar(),
         EyuunWidgets.spacerVertical(),
         Expanded(
           flex: 3,
@@ -132,6 +117,28 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
                   },
                 ),
         ),
+        EyuunWidgets.spacerVertical(),
+        Expanded(
+            child: ItemWheel(
+                maxValue: filteredPaths.length - 1,
+                startValue: filteredPaths.length -1,
+                customSize: 200,
+                valueIsIndex: true,
+                horizontal: true,
+                perspective: 0.002,
+                useMagnifier: false,
+                customMargin: 6,
+                valueCallback: (selectedIndex) {
+                  final path = filteredPaths[selectedIndex];
+                  setState(() {
+                    selectedPathId = path.getTypeId();
+                  });
+                },
+                childWidget: (index) {
+                  final path = filteredPaths[index];
+                  return PathHeaderTile(pathEntity: path);
+                })),
+        SizedBox(height: 60)
       ],
     );
   }

@@ -14,6 +14,8 @@ class ItemWheel extends StatefulWidget {
     this.valueIsIndex = false,
     this.customSize = 30.0,
     this.customMargin = 0,
+    this.useMagnifier = true,
+    this.perspective = 0.005
   }) {
     childCount = maxValue - minValue + 1;
   }
@@ -25,6 +27,8 @@ class ItemWheel extends StatefulWidget {
   final bool valueIsIndex;
   final double customSize;
   final double customMargin;
+  final bool useMagnifier;
+  final double perspective;
 
   final int startValue;
 
@@ -59,12 +63,12 @@ class _ItemWheelState extends State<ItemWheel> {
       body: RotatedBox(
         quarterTurns: widget.horizontal ? 1 : 0,
         child: ListWheelScrollView.useDelegate(
-          perspective: 0.005,
+          perspective: widget.perspective,
           physics: const FixedExtentScrollPhysics(),
           controller: scrollController,
           scrollBehavior: const MaterialScrollBehavior(),
           itemExtent: widget.customSize,
-          useMagnifier: true,
+          useMagnifier: widget.useMagnifier,
           magnification: 1.5,
           diameterRatio: 2.5,
           childDelegate: ListWheelChildBuilderDelegate(
