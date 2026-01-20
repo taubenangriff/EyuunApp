@@ -1,4 +1,4 @@
-import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
+import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 import 'package:eyuuncore/components/Combat.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/controller/SkillcheckController.dart';

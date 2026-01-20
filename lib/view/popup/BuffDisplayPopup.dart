@@ -4,7 +4,7 @@ import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
-import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
+import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 
 class BuffDisplayPopup extends StatelessWidget {
   final Entity? buff;

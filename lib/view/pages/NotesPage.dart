@@ -7,7 +7,7 @@ import 'package:eyuunapp/view/widgets/HandwrittenNoteWidget.dart';
 import 'package:eyuunapp/view/widgets/TextNoteWidget.dart';
 import 'package:flutter/material.dart';
 
-import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
+import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 
 class NotesPage extends StatefulWidget {
   const NotesPage({super.key});

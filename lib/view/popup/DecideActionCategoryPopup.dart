@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'package:eyuunapp/view/decoration/Brushes.dart';
 import 'package:eyuunapp/view/decoration/EyuunDecoration.dart';
-import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
+import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 import 'package:eyuunapp/view/popup/PickActionPopup.dart';
 
 class DecideActionCategoryPopup extends StatelessWidget {

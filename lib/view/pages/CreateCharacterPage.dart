@@ -14,7 +14,7 @@ import 'package:oxygen/oxygen.dart';
 import 'package:eyuunapp/view/widgets/AttributeDiceSelector.dart';
 import 'package:eyuunapp/view/widgets/CharacterPortraitPicker.dart';
 import 'package:eyuunapp/view/widgets/UpbringingSelectionWidget.dart';
-import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
+import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 import 'package:eyuunapp/view/pages/TalentPage.dart';
 
 class CreateCharacterPage extends StatefulWidget {

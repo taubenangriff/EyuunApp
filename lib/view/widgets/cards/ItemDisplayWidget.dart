@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:eyuunapp/view/controller/ChangeValueController.dart';
 import 'package:eyuunapp/view/popup/ChangeItemCountPopup.dart';
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
-import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
+import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 
 class ItemDisplayWidget extends StatefulWidget {
   final InventoryItem? item;

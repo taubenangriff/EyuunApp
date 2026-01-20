@@ -10,7 +10,7 @@ import 'package:oxygen/oxygen.dart';
 
 import 'package:eyuunapp/view/popup/UpbringingPickerPopup.dart';
 import 'package:eyuunapp/view/widgets/SelectionCard.dart';
-import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
+import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 
 class UpbringingSelectionWidget extends StatefulWidget {
   final CharacterBaseComponent characterBaseComponent;

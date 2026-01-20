@@ -1,5 +1,5 @@
 import 'package:eyuunapp/view/pages/MainMenu.dart';
-import 'package:eyuunapp/view/widgets/eyuun/EyuunUiImageProvider.dart';
+import 'package:eyuunapp/services/EyuunUiImageProvider.dart';
 import 'package:eyuuncore/core/registerComponentsExtension.dart';
 import 'package:eyuuncore/core/registerFeatures.dart';
 import 'package:eyuuncore/core/registerServices.dart';

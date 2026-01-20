@@ -6,7 +6,7 @@ import 'package:oxygen/oxygen.dart';
 import 'package:eyuunapp/view/widgets/BuffDisplay.dart';
 import 'package:eyuunapp/view/decoration/Brushes.dart';
 import 'package:eyuunapp/view/decoration/EyuunDecoration.dart';
-import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
+import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 
 class SelectionCard extends StatelessWidget {
   final String title;

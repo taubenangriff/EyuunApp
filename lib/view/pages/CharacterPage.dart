@@ -18,7 +18,7 @@ import 'package:eyuuncore/core/services/WorldManager.dart';
 import 'package:flutter/material.dart';
 
 import 'package:eyuunapp/view/popup/PauseRestPopup.dart';
-import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
+import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 
 class CharacterPage extends StatefulWidget {
   const CharacterPage({super.key});

@@ -1,7 +1,7 @@
 import 'package:eyuunapp/view/popup/PathPopup.dart';
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuunapp/view/decoration/EyuunDecoration.dart';
-import 'package:eyuunapp/view/widgets/eyuun/EyuunWidgets.dart';
+import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 import 'package:eyuuncore/components/CharacterPath.dart';
 import 'package:eyuuncore/components/Path.dart';
 import 'package:eyuuncore/components/PathStep.dart';
