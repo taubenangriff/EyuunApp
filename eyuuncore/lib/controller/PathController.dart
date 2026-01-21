@@ -42,7 +42,7 @@ class PathController {
   bool canPickAdditional() => true;
 
   /// picks a new path and adds it to [_characterPathComponent]. Doesn't add any pathSteps, that has to be done manually.
-  void pickNewPath(String id) => UnimplementedError();
+  void pickNewPath(Entity path) => UnimplementedError();
 
   /// returns a list of static assets of all additional paths that are available to the character at the moment. Entries are assured to have [PathStepComponent].
   List<Entity> getPickableAdditionalPaths() => [];

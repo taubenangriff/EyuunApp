@@ -16,7 +16,7 @@ import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 
 class PickNewPathWidget extends StatefulWidget {
   final PathController pathController;
-  final void Function(String pathId)? onPathPicked;
+  final void Function(Entity path)? onPathPicked;
 
   const PickNewPathWidget({
     super.key,
@@ -32,7 +32,7 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
   final PathFeatureComponent pathFeature = locator<PathFeatureComponent>();
   final TextService textService = locator<TextService>();
 
-  String? selectedPathId;
+  Entity? selectedPath;
   String searchQuery = '';
 
   @override
@@ -52,13 +52,6 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
       return name.contains(searchQuery.toLowerCase());
     }).toList();
 
-    final selectedPath = selectedPathId == null
-        ? null
-        : allPaths.firstWhere(
-            (p) => p.getTypeId() == selectedPathId,
-            orElse: () => allPaths.first,
-          );
-
     final selectedSteps =
         selectedPath?.get<PathComponent>()?.pickableSteps ?? [];
 
@@ -66,7 +59,7 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
       backgroundColor: Colors.transparent,
       body: Padding(
         padding: const EdgeInsets.all(24),
-        child: _buildContent(filteredPaths, selectedPath, selectedSteps),
+        child: _buildContent(filteredPaths, selectedSteps),
       ),
       floatingActionButton: _buildBottomButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -85,11 +78,8 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
 
   Widget _buildContent(
     List<Entity> filteredPaths,
-    Entity? selectedPath,
     List<Entity> selectedSteps,
   ) {
-    filteredPaths = filteredPaths + filteredPaths + filteredPaths;
-
     return Column(
       children: [
         _buildSearchBar(),
@@ -117,7 +107,7 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
         ),
         EyuunWidgets.spacerVertical(),
         Expanded(
-            child: ItemWheel(
+            child: filteredPaths.isNotEmpty ? ItemWheel(
                 maxValue: filteredPaths.length - 1,
                 startValue: filteredPaths.length -1,
                 customSize: 200,
@@ -129,13 +119,14 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
                 valueCallback: (selectedIndex) {
                   final path = filteredPaths[selectedIndex];
                   setState(() {
-                    selectedPathId = path.getTypeId();
+                    selectedPath = path;
                   });
                 },
                 childWidget: (index) {
                   final path = filteredPaths[index];
                   return PathHeaderTile(pathEntity: path);
-                })),
+                })
+                : Center(child: Text('!Your search yielded no results'))),
         SizedBox(height: 60)
       ],
     );
@@ -143,7 +134,7 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
 
   Widget _buildBottomButton() {
     final canPick =
-        selectedPathId != null && widget.pathController.canPickNewPath();
+        selectedPath != null && widget.pathController.canPickNewPath();
 
     return Padding(
       padding: const EdgeInsets.all(12),
@@ -158,11 +149,11 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
           child: ElevatedButton(
             onPressed: canPick
                 ? () {
-                    widget.pathController.pickNewPath(selectedPathId!);
-                    widget.onPathPicked?.call(selectedPathId!);
+                    widget.pathController.pickNewPath(selectedPath!);
+                    widget.onPathPicked?.call(selectedPath!);
                   }
                 : null,
-            child: selectedPathId != null
+            child: selectedPath != null
                 ? Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -170,7 +161,7 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
                       const SizedBox(width: 8),
                       Text(
                         '${textService.getText('uitext_addpath')} '
-                        '${textService.getText(selectedPathId!)}',
+                        '${textService.getTextFromEntity(selectedPath)}',
                       ),
                     ],
                   )
