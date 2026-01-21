@@ -4,5 +4,5 @@ abstract class AbstractLinePainter extends CustomPainter {
   Paint primaryLinePaint;
   AbstractLinePainter(this.primaryLinePaint);
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }

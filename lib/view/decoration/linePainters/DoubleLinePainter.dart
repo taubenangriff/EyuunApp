@@ -7,11 +7,13 @@ class DoubleLinePainter extends AbstractLinePainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    var innerLineOffset = size.height / 4;
+
     var linePaint = Paint.from(primaryLinePaint)..style = PaintingStyle.stroke;
     canvas.drawLine(const Offset(0, 0), Offset(size.width, 0), linePaint);
-    var outerPaint = Paint.from(linePaint)..strokeWidth = linePaint.strokeWidth * 0.5;
-    canvas.drawLine(Offset(size.width / 4, -6), Offset(size.width / 4 * 3, -6), outerPaint);
-    canvas.drawLine(Offset(size.width / 4, 6), Offset(size.width / 4 * 3, 6), outerPaint);
+    var outerPaint = Paint.from(linePaint)
+      ..strokeWidth = linePaint.strokeWidth * 0.5;
+    canvas.drawLine(Offset(0, innerLineOffset),
+        Offset(size.width, innerLineOffset), outerPaint);
   }
-
 }

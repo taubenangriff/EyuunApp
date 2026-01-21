@@ -1,5 +1,7 @@
 import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
+import 'package:eyuunapp/view/decoration/cornerPainters/DoubleLineCornerPainter.dart';
 import 'package:eyuunapp/view/decoration/cornerPainters/ThickThinThickCornerPainter.dart';
+import 'package:eyuunapp/view/decoration/linePainters/DoubleLinePainter.dart';
 import 'package:eyuunapp/view/decoration/linePainters/ThickThinThickLinePainter.dart';
 import 'package:eyuunapp/view/popup/PathPopup.dart';
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
@@ -82,10 +84,12 @@ class _PathsWidgetState extends State<PathsWidget> {
 
         return DecoratedBox(
             position: DecorationPosition.foreground,
-            decoration: EyuunDecoration(
-                paint: Brushes.goldSparkling(),
-                cornerSize: 12,
-                fillCorners: true),
+            decoration: ArtDecoBoxDecoration(
+                cornerBuilder: (p) => DoubleLineCornerPainter(p),
+                verticalLineBuilder: (p) => DoubleLinePainter(p),
+                horizontalLineBuilder: (p) => DoubleLinePainter(p),
+                paint: Brushes.goldSparkling()..strokeWidth = 1.5,
+                cornerSize: 16),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: pathStep.pathType.color,
@@ -241,12 +245,13 @@ class _PathsWidgetState extends State<PathsWidget> {
                                             child: Container(
                                               width: 36,
                                               height: 36,
-                                              decoration: EyuunDecoration(
-                                                  paint:
-                                                      Brushes.goldSparkling(),
-                                                  background: pathType.color,
-                                                  fillCorners: false,
-                                                  cornerSize: 8),
+                                              decoration: ArtDecoBoxDecoration(
+                                                  cornerBuilder: (p) => DoubleLineCornerPainter(p),
+                                                  verticalLineBuilder: (p) => DoubleLinePainter(p),
+                                                  horizontalLineBuilder: (p) => DoubleLinePainter(p),
+                                                  paint: Brushes.goldSparkling()..strokeWidth = 1.5,
+                                                  cornerSize: 12,
+                                                  background: pathType.color),
                                               alignment: Alignment.center,
                                               child: Text(
                                                 '$progress',

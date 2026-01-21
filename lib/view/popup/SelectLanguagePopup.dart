@@ -1,3 +1,6 @@
+import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
+import 'package:eyuunapp/view/decoration/cornerPainters/DoubleLineCornerPainter.dart';
+import 'package:eyuunapp/view/decoration/linePainters/DoubleLinePainter.dart';
 import 'package:eyuuncore/controller/LanguagesController.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
@@ -63,13 +66,14 @@ class _SelectLanguagePopupState extends State<SelectLanguagePopup> {
                         });
                       },
                       child: Container(
-                        decoration: EyuunDecoration(
+                        decoration: ArtDecoBoxDecoration(
+                            cornerBuilder: (p) => DoubleLineCornerPainter(p),
+                            verticalLineBuilder: (p) => DoubleLinePainter(p),
+                            horizontalLineBuilder: (p) => DoubleLinePainter(p),
                             paint: isSelected
                                 ? Brushes.goldSparkling()
                                 : Brushes.silverSparkling(),
-                            cornerSize: isSelected ? 16 : 12,
-                            paintInnerLine: false,
-                            fillCorners: isSelected),
+                            cornerSize: isSelected ? 20 : 16),
                         child: Padding(
                           padding: EdgeInsets.all(12),
                           child: Column(
@@ -113,8 +117,12 @@ class _SelectLanguagePopupState extends State<SelectLanguagePopup> {
           Center(
               child: DecoratedBox(
                   position: DecorationPosition.foreground,
-                  decoration: EyuunDecoration(
-                      paint: Brushes.goldSparkling(), cornerSize: 12),
+                  decoration: ArtDecoBoxDecoration(
+                      cornerBuilder: (p) => DoubleLineCornerPainter(p),
+                      verticalLineBuilder: (p) => DoubleLinePainter(p),
+                      horizontalLineBuilder: (p) => DoubleLinePainter(p),
+                      paint: Brushes.goldSparkling(),
+                      cornerSize: 16),
                   child: SizedBox(
                       width: 250,
                       child: ElevatedButton(
