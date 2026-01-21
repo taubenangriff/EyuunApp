@@ -279,15 +279,13 @@ class _PathsWidgetState extends State<PathsWidget> {
           SizedBox(
               width: 160,
               height: 46,
-              child: ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      PopupUtil.popup(context,
-                          PickPathPopup(pathController: pathController),
-                          maximumSize: Size(900, 700));
-                    });
-                  },
-                  child: Text('+ Add new Path'))),
+              child: EyuunWidgets.floatingActionButton(text: "'+ Add new Path'", onPressed: () {
+                setState(() {
+                  PopupUtil.popup(context,
+                      PickPathPopup(pathController: pathController),
+                      maximumSize: Size(900, 700));
+                });
+              },)),
         const SizedBox(height: 16),
         GridView.builder(
           shrinkWrap: true,

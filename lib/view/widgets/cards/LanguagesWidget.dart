@@ -1,3 +1,6 @@
+import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
+import 'package:eyuunapp/view/decoration/cornerPainters/ThickThinThickCornerPainter.dart';
+import 'package:eyuunapp/view/decoration/linePainters/ThickThinThickLinePainter.dart';
 import 'package:eyuunapp/view/popup/LanguageDetailPopup.dart';
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuunapp/view/popup/SelectLanguagePopup.dart';
@@ -38,10 +41,12 @@ class _LanguageGridState extends State<LanguageGrid> {
       for (final language in languages)
         DecoratedBox(
             position: DecorationPosition.foreground,
-            decoration: EyuunDecoration(
-                paint: Brushes.silverSparkling(),
-                cornerSize: 12,
-                paintInnerLine: false),
+            decoration: ArtDecoBoxDecoration(
+                cornerBuilder: (p) => ThickThinThickCornerPainter(p),
+                verticalLineBuilder: (p) => ThickThinThickLinePainter(p),
+                horizontalLineBuilder: (p) => ThickThinThickLinePainter(p),
+                paint: Brushes.goldSparkling()..strokeWidth = 1.25,
+                cornerSize: 5),
             child: InkWell(
               borderRadius: BorderRadius.circular(8),
               onTap: () {
@@ -70,7 +75,12 @@ class _LanguageGridState extends State<LanguageGrid> {
         DecoratedBox(
             position: DecorationPosition.foreground,
             decoration:
-                EyuunDecoration(paint: Brushes.goldSparkling(), cornerSize: 12),
+            ArtDecoBoxDecoration(
+                cornerBuilder: (p) => ThickThinThickCornerPainter(p),
+                verticalLineBuilder: (p) => ThickThinThickLinePainter(p),
+                horizontalLineBuilder: (p) => ThickThinThickLinePainter(p),
+                paint: Brushes.goldSparkling()..strokeWidth = 1.25,
+                cornerSize: 5),
             child: ElevatedButton(
               onPressed: () {
                 setState(() {
@@ -115,10 +125,10 @@ class _LanguageGridState extends State<LanguageGrid> {
           physics:
               const NeverScrollableScrollPhysics(), // avoid nested scrolling
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 180, // 👈 desired item width
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
-            childAspectRatio: 3, // tweak if needed
+            maxCrossAxisExtent: 200, // 👈 desired item width
+            crossAxisSpacing: 24,
+            mainAxisSpacing: 16,
+            childAspectRatio: 3.5, // tweak if needed
           ),
           itemCount: languageWidgets.length,
           itemBuilder: (BuildContext context, int index) {

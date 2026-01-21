@@ -1,3 +1,7 @@
+import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
+import 'package:eyuunapp/view/decoration/Brushes.dart';
+import 'package:eyuunapp/view/decoration/cornerPainters/ThickThinThickCornerPainter.dart';
+import 'package:eyuunapp/view/decoration/linePainters/ThickThinThickLinePainter.dart';
 import 'package:eyuunapp/view/popup/BuffDisplayPopup.dart';
 import 'package:eyuunapp/view/popup/LevelupPopup.dart';
 import 'package:eyuunapp/view/popup/UpbringingPopup.dart';
@@ -70,10 +74,12 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
     }) {
       return Container(
         alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: theme.cardColor,
-          borderRadius: BorderRadius.circular(6),
-        ),
+        decoration: ArtDecoBoxDecoration(
+            cornerBuilder: (p) => ThickThinThickCornerPainter(p),
+            verticalLineBuilder: (p) => ThickThinThickLinePainter(p),
+            horizontalLineBuilder: (p) => ThickThinThickLinePainter(p),
+            paint: Brushes.goldSparkling()..strokeWidth = 1.25,
+            cornerSize: 5),
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: Text(
           text,
@@ -156,23 +162,27 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              EyuunWidgets.spacerHorizontal(),
               // 🖼️ Profile image
               ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: 180),
                   child: AspectRatio(
                     aspectRatio: 1, // 1:1
                     child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        image: DecorationImage(
+                      foregroundDecoration: ArtDecoBoxDecoration(
+                          cornerBuilder: (p) => ThickThinThickCornerPainter(p),
+                          verticalLineBuilder: (p) => ThickThinThickLinePainter(p),
+                          horizontalLineBuilder: (p) => ThickThinThickLinePainter(p),
+                          paint: Brushes.goldSparkling()..strokeWidth = 1.25,
+                          cornerSize: 5),
+                        child: Image(
                           image: widget.profileImage,
                           fit: BoxFit.cover,
                         ),
-                      ),
                     ),
                   )),
               EyuunWidgets.spacerHorizontal(),
-
+              EyuunWidgets.spacerHorizontal(),
               // 📜 Right side info
               Expanded(
                   flex: 2,
@@ -204,13 +214,14 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                                 const SliverGridDelegateWithMaxCrossAxisExtent(
                                     maxCrossAxisExtent:
                                         420, // controls when it becomes 1 vs 2 columns
-                                    mainAxisSpacing: 12,
-                                    crossAxisSpacing: 12,
+                                    mainAxisSpacing: 24,
+                                    crossAxisSpacing: 24,
                                     mainAxisExtent: 60),
                             itemCount: characterWidgets.length,
                             itemBuilder: (context, index) =>
                                 characterWidgets[index])
-                      ]))
+                      ])),
+              EyuunWidgets.spacerHorizontal(),
             ]);
       },
     );
