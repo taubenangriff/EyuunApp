@@ -1,3 +1,4 @@
+import 'package:eyuunapp/services/ImageService.dart';
 import 'package:eyuunapp/view/pages/MainMenu.dart';
 import 'package:eyuunapp/services/EyuunUiImageProvider.dart';
 import 'package:eyuuncore/core/registerComponentsExtension.dart';
@@ -29,7 +30,7 @@ void main() async {
 
   setupGetIt();
 
-  locator.registerLazySingleton(() => EyuunUiImagerProvider());
+  locator.registerSingleton<ImageService>(FirebaseImageService());
 
   var worldManager = locator<WorldManager>();
 

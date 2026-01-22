@@ -19,6 +19,8 @@ class CharacterBaseDynamic with CharacterBaseDynamicMappable {
   String origin;
   PersonSize personSize;
 
+  Uri? image;
+
   CharacterBaseDynamic({
     AssetLink? upbringing,
     AssetLink? childhood,
@@ -26,6 +28,7 @@ class CharacterBaseDynamic with CharacterBaseDynamicMappable {
     this.origin = "",
     this.personSize = PersonSize.Normal,
     List<AssetLink>? visualUpbringings,
+    this.image,
   }) : upbringing = upbringing ?? AssetLink.invalid(),
        visualUpbringings = visualUpbringings ?? [],
        childhood = childhood ?? AssetLink.invalid();
@@ -46,6 +49,7 @@ class CharacterBaseComponent extends EyuunComponent<int> {
   late Entity? childhood;
   late int level;
   late String origin;
+  Uri? image;
 
   /// the visual size of this person. To get their speed, refer to [CombatComponent.speed].
   late PersonSize personSize;
@@ -67,6 +71,7 @@ class CharacterBaseComponent extends EyuunComponent<int> {
     level = dyn.level;
     origin = dyn.origin;
     personSize = dyn.personSize;
+    image = dyn.image;
   }
 
   @override
@@ -82,6 +87,7 @@ class CharacterBaseComponent extends EyuunComponent<int> {
     level = 0;
     origin = "";
     personSize = PersonSize.Normal;
+    image = null;
   }
 
   @override
@@ -92,5 +98,6 @@ class CharacterBaseComponent extends EyuunComponent<int> {
     origin: origin,
     visualUpbringings: visualUpbringings.asAssetLinks(),
     personSize: personSize,
+    image: image
   ).toMap();
 }

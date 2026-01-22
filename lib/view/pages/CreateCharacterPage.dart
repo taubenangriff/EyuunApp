@@ -1,4 +1,5 @@
 import 'package:easy_stepper/easy_stepper.dart';
+import 'package:eyuunapp/view/controller/CharacterImageController.dart';
 import 'package:eyuunapp/view/decoration/Brushes.dart';
 import 'package:eyuunapp/view/widgets/PickNewPathWidget.dart';
 import 'package:eyuunapp/view/decoration/CircleDecoration.dart';
@@ -58,6 +59,7 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
     _wrapWithSizedBox(CharacterPortraitPicker(
       nameable: NameableComponent("Glup Shitto"),
       upbringingController: upbringingController,
+      imageController: CharacterImageController(characterBaseComponent),
     )),
     _wrapWithLayoutBuilder(AttributeDiceSelector(
         attributes: widget.character.get<AttributesComponent>()!)),

@@ -1,3 +1,8 @@
+import 'dart:io';
+
+import 'package:cross_file_image/cross_file_image.dart';
+import 'package:eyuunapp/services/ImageService.dart';
+import 'package:eyuunapp/view/controller/CharacterImageController.dart';
 import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
 import 'package:eyuunapp/view/decoration/cornerPainters/ThickThinThickCornerPainter.dart';
 import 'package:eyuunapp/view/decoration/linePainters/ThickThinThickLinePainter.dart';
@@ -8,6 +13,7 @@ import 'package:eyuuncore/enums/PersonSize.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:eyuunapp/view/decoration/Brushes.dart';
+import 'package:image_picker/image_picker.dart';
 
 class NameableComponent {
   String name;
@@ -17,9 +23,13 @@ class NameableComponent {
 class CharacterPortraitPicker extends StatefulWidget {
   final NameableComponent nameable;
   final PickUpbringingController upbringingController;
+  final CharacterImageController imageController;
 
   const CharacterPortraitPicker(
-      {super.key, required this.nameable, required this.upbringingController});
+      {super.key,
+      required this.nameable,
+      required this.upbringingController,
+      required this.imageController});
 
   @override
   State<CharacterPortraitPicker> createState() =>
@@ -28,9 +38,6 @@ class CharacterPortraitPicker extends StatefulWidget {
 
 class _CharacterPortraitPickerState extends State<CharacterPortraitPicker> {
   late final TextEditingController _controller;
-  DropzoneViewController? _dropzoneController;
-
-  ImageProvider? _portrait;
   bool _dragging = false;
 
   @override
@@ -48,23 +55,6 @@ class _CharacterPortraitPickerState extends State<CharacterPortraitPicker> {
     super.dispose();
   }
 
-  void _handleUrlDrop(String data) {
-    final uri = Uri.tryParse(data.trim());
-
-    if (uri == null || !uri.hasScheme) {
-      return;
-    }
-
-    // Accept http / https only
-    if (uri.scheme != 'http' && uri.scheme != 'https') {
-      return;
-    }
-    setState(() {
-      _portrait = NetworkImage(uri.toString());
-      _dragging = false;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     var sizes = widget.upbringingController.getPossibleSizes();
@@ -77,6 +67,7 @@ class _CharacterPortraitPickerState extends State<CharacterPortraitPicker> {
           mainAxisSize: MainAxisSize.min,
           children: [
             DecoratedBox(
+              position: DecorationPosition.foreground,
               decoration: ArtDecoBoxDecoration(
                   cornerBuilder: (p) => ThickThinThickCornerPainter(p),
                   verticalLineBuilder: (p) => ThickThinThickLinePainter(p),
@@ -86,59 +77,56 @@ class _CharacterPortraitPickerState extends State<CharacterPortraitPicker> {
               child: SizedBox(
                 width: 380,
                 height: 380,
-                child: Stack(
-                  children: [
-                    // 🖼 Portrait
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.35),
-                          borderRadius: BorderRadius.circular(12),
-                          border: _dragging
-                              ? Border.all(color: Colors.orangeAccent, width: 2)
-                              : null,
-                          image: _portrait != null
-                              ? DecorationImage(
-                                  image: _portrait!,
-                                  fit: BoxFit.cover,
-                                )
-                              : null,
-                        ),
-                        child: _portrait == null
-                            ? const Center(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(
-                                      Icons.add_photo_alternate_outlined,
-                                      size: 48,
-                                      color: Colors.white54,
-                                    ),
-                                    SizedBox(height: 8),
-                                    Text(
-                                      'Drop image here\nor paste',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.white54,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ],
+                child: InkWell(
+                  onTap: () async {
+                    final ImagePicker picker = ImagePicker();
+                    final XFile? image =
+                        await picker.pickImage(source: ImageSource.gallery);
+                    if (image == null) {
+                      return;
+                    }
+                    setState(() {
+                      widget.imageController.changeImage(image);
+                    });
+                  },
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.35),
+                      borderRadius: BorderRadius.circular(12),
+                      border: _dragging
+                          ? Border.all(color: Colors.orangeAccent, width: 2)
+                          : null,
+                      image: widget.imageController.hasImage()
+                          ? DecorationImage(
+                              image: widget.imageController.image!,
+                              fit: BoxFit.cover,
+                            )
+                          : null,
+                    ),
+                    child: !widget.imageController.hasImage()
+                        ? const Center(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.add_photo_alternate_outlined,
+                                  size: 48,
+                                  color: Colors.white54,
                                 ),
-                              )
-                            : null,
-                      ),
-                    ),
-
-                    // 🧲 Dropzone overlay
-                    DropzoneView(
-                      onCreated: (ctrl) => _dropzoneController = ctrl,
-                      onHover: () => setState(() => _dragging = true),
-                      onLeave: () => setState(() => _dragging = false),
-                      onDropString: _handleUrlDrop,
-                    ),
-                  ],
+                                SizedBox(height: 8),
+                                Text(
+                                  'Tap to upload an image',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white54,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : null,
+                  ),
                 ),
               ),
             ),
@@ -163,19 +151,21 @@ class _CharacterPortraitPickerState extends State<CharacterPortraitPicker> {
               ),
             ),
             SizedBox(height: 32),
-            if (sizes.length > 0) ... {
+            if (sizes.length > 0) ...{
               Divider(),
               SizedBox(height: 16),
               Text(
                 textService.getText(sizes.length > 1
-                      ? 'uitext_varsize_header'
-                      : 'uitext_fixedsize_header') +
-                  (sizes.length > 1 ? "" : textService.getText(sizes.first.getTextKey())),
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            )
+                        ? 'uitext_varsize_header'
+                        : 'uitext_fixedsize_header') +
+                    (sizes.length > 1
+                        ? ""
+                        : textService.getText(sizes.first.getTextKey())),
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
             },
             if (sizes.length > 1) ...{
               SizedBox(height: 16),
@@ -185,8 +175,9 @@ class _CharacterPortraitPickerState extends State<CharacterPortraitPicker> {
                 multiSelectionEnabled: false,
                 emptySelectionAllowed: true,
                 segments: sizes
-                    .map((size) =>
-                        ButtonSegment(value: size, label: Text(textService.getText(size.getTextKey()))))
+                    .map((size) => ButtonSegment(
+                        value: size,
+                        label: Text(textService.getText(size.getTextKey()))))
                     .toList(),
                 selected: widget.upbringingController.selectedSize != null
                     ? {widget.upbringingController.selectedSize!}
