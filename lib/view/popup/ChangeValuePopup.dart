@@ -1,9 +1,10 @@
 import 'package:eyuunapp/view/controller/ChangeValueController.dart';
+import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
+import 'package:eyuunapp/view/decoration/cornerPainters/DoubleLineCornerPainter.dart';
+import 'package:eyuunapp/view/decoration/linePainters/DoubleLinePainter.dart';
 import 'package:flutter/material.dart';
-
 import 'package:eyuunapp/view/widgets/ItemWheel.dart';
 import 'package:eyuunapp/view/decoration/Brushes.dart';
-import 'package:eyuunapp/view/decoration/EyuunDecoration.dart';
 
 class ChangeValuePopup extends StatefulWidget {
   const ChangeValuePopup(this.changeVal,
@@ -61,8 +62,12 @@ class _ChangeValuePopupState extends State<ChangeValuePopup> {
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: DecoratedBox(
                     position: DecorationPosition.foreground,
-                    decoration: EyuunDecoration(
-                        paint: Brushes.goldSparkling(), cornerSize: 12),
+                    decoration: ArtDecoBoxDecoration(
+                        cornerBuilder: (p) => DoubleLineCornerPainter(p),
+                        verticalLineBuilder: (p) => DoubleLinePainter(p),
+                        horizontalLineBuilder: (p) => DoubleLinePainter(p),
+                        paint: Brushes.goldSparkling()..strokeWidth = 1.5,
+                        cornerSize: 12),
                     child: FloatingActionButton(
                         onPressed: () {
                           widget.valueChanged?.call(newVal);

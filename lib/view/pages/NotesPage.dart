@@ -1,6 +1,5 @@
 import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
 import 'package:eyuunapp/view/decoration/Brushes.dart';
-import 'package:eyuunapp/view/decoration/EyuunDecoration.dart';
 import 'package:eyuunapp/view/decoration/cornerPainters/ScaffoldCornerPainter.dart';
 import 'package:eyuunapp/view/decoration/linePainters/LinePainter.dart';
 import 'package:eyuunapp/view/widgets/HandwrittenNoteWidget.dart';

@@ -2,11 +2,8 @@ import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
 import 'package:eyuunapp/view/decoration/Brushes.dart';
 import 'package:eyuunapp/view/decoration/CircleDecoration.dart';
 import 'package:eyuunapp/view/decoration/CircleProgressDecoration.dart';
-import 'package:eyuunapp/view/decoration/EyuunDecoration.dart';
-import 'package:eyuunapp/view/decoration/cornerPainters/DoubleLineCornerPainter.dart';
 import 'package:eyuunapp/view/decoration/cornerPainters/ScaffoldCornerPainter.dart';
 import 'package:eyuunapp/view/decoration/cornerPainters/ThickThinThickCornerPainter.dart';
-import 'package:eyuunapp/view/decoration/linePainters/DoubleLinePainter.dart';
 import 'package:eyuunapp/view/decoration/linePainters/LinePainter.dart';
 import 'package:eyuunapp/view/decoration/linePainters/ThickThinThickLinePainter.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +60,12 @@ class EyuunWidgets {
         height: height,
         child: DecoratedBox(
             decoration:
-                EyuunDecoration(cornerSize: 12, paint: Brushes.goldSparkling()),
+            ArtDecoBoxDecoration(
+                cornerBuilder: (p) => ThickThinThickCornerPainter(p),
+                verticalLineBuilder: (p) => ThickThinThickLinePainter(p),
+                horizontalLineBuilder: (p) => ThickThinThickLinePainter(p),
+                paint: Brushes.goldSparkling()..strokeWidth = 1.25,
+                cornerSize: 5),
             position: DecorationPosition.foreground,
             child: FloatingActionButton(
                 tooltip: tooltip,

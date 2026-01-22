@@ -1,9 +1,10 @@
+import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
+import 'package:eyuunapp/view/decoration/cornerPainters/DoubleLineCornerPainter.dart';
+import 'package:eyuunapp/view/decoration/linePainters/DoubleLinePainter.dart';
 import 'package:eyuuncore/components/Icon.dart';
 import 'package:eyuuncore/components/inventory.dart';
 import 'package:flutter/material.dart';
-
 import 'package:eyuunapp/view/decoration/Brushes.dart';
-import 'package:eyuunapp/view/decoration/EyuunDecoration.dart'; // for InventoryItem
 
 class InventoryItemWidget extends StatelessWidget {
   final InventoryItem? item;
@@ -49,13 +50,16 @@ class InventoryItemWidget extends StatelessWidget {
 
     return AnimatedContainer(
         duration: const Duration(milliseconds: 150),
-        decoration: EyuunDecoration(
-            cornerSize: isSelected ? 14 : 8,
-            fillCorners: isSelected,
+        decoration: ArtDecoBoxDecoration(
+            cornerBuilder: (p) => DoubleLineCornerPainter(p),
+            verticalLineBuilder: (p) => DoubleLinePainter(p),
+            horizontalLineBuilder: (p) => DoubleLinePainter(p),
             background: theme.canvasColor,
-            paint: isSelected
+            paint: (isSelected
                 ? Brushes.goldSparkling()
-                : Brushes.silverSparkling()),
+                : Brushes.silverSparkling())
+              ..strokeWidth = 1.25,
+            cornerSize: 16),
         child: ConstrainedBox(
           constraints: const BoxConstraints(minWidth: 60, minHeight: 60),
           child: Center(
@@ -67,7 +71,8 @@ class InventoryItemWidget extends StatelessWidget {
                   child: icon != null
                       ? Padding(
                           padding: EdgeInsets.all(12),
-                          child: Image(image: AssetImage(icon), width: 64, height: 64))
+                          child: Image(
+                              image: AssetImage(icon), width: 64, height: 64))
                       : const Icon(Icons.inventory_2, size: 32),
                 ),
                 if (item!.count > 1)
@@ -90,14 +95,16 @@ class InventoryItemWidget extends StatelessWidget {
   Widget _buildEmptySlot(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      decoration: EyuunDecoration(
+      decoration: ArtDecoBoxDecoration(
+          cornerBuilder: (p) => DoubleLineCornerPainter(p),
+          verticalLineBuilder: (p) => DoubleLinePainter(p),
+          horizontalLineBuilder: (p) => DoubleLinePainter(p),
           background: theme.cardColor,
           paint: Paint()
             ..color = Colors.blueGrey
-            ..style = PaintingStyle.stroke,
-          cornerSize: 8,
-          paintInnerLine: false,
-          fillCorners: false),
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 1.25,
+          cornerSize: 12),
     );
   }
 }

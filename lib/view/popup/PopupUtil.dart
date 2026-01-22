@@ -2,9 +2,7 @@ import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
 import 'package:eyuunapp/view/decoration/cornerPainters/ScaffoldCornerPainter.dart';
 import 'package:eyuunapp/view/decoration/linePainters/LinePainter.dart';
 import 'package:flutter/material.dart';
-
 import 'package:eyuunapp/view/decoration/Brushes.dart';
-import 'package:eyuunapp/view/decoration/EyuunDecoration.dart';
 
 class PopupUtil {
   static const Size defaultSize = Size(300, 500);

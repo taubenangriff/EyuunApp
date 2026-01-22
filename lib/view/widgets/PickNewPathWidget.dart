@@ -1,3 +1,6 @@
+import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
+import 'package:eyuunapp/view/decoration/cornerPainters/DoubleLineCornerPainter.dart';
+import 'package:eyuunapp/view/decoration/linePainters/DoubleLinePainter.dart';
 import 'package:eyuunapp/view/widgets/ItemWheel.dart';
 import 'package:eyuuncore/components/Path.dart';
 import 'package:eyuuncore/components/feature/PathFeature.dart';
@@ -7,11 +10,9 @@ import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
-
 import 'package:eyuunapp/view/widgets/PathHeaderTile.dart';
 import 'package:eyuunapp/view/widgets/PathStepTile.dart';
 import 'package:eyuunapp/view/decoration/Brushes.dart';
-import 'package:eyuunapp/view/decoration/EyuunDecoration.dart';
 import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 
 class PickNewPathWidget extends StatefulWidget {
@@ -142,10 +143,13 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
         height: 50,
         child: DecoratedBox(
           position: DecorationPosition.foreground,
-          decoration: EyuunDecoration(
-            paint: Brushes.goldSparkling(),
-            cornerSize: 12,
-          ),
+          decoration: ArtDecoBoxDecoration(
+              cornerBuilder: (p) => DoubleLineCornerPainter(p),
+              verticalLineBuilder: (p) => DoubleLinePainter(p),
+              horizontalLineBuilder: (p) => DoubleLinePainter(p),
+              paint: Brushes.goldSparkling()
+                ..strokeWidth = 1.25,
+              cornerSize: 16),
           child: ElevatedButton(
             onPressed: canPick
                 ? () {

@@ -4,7 +4,6 @@ import 'package:eyuunapp/view/decoration/linePainters/ThickThinThickLinePainter.
 import 'package:eyuunapp/view/popup/LanguageDetailPopup.dart';
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuunapp/view/popup/SelectLanguagePopup.dart';
-import 'package:eyuunapp/view/decoration/EyuunDecoration.dart';
 import 'package:eyuuncore/components/LanguageLearner.dart';
 import 'package:eyuuncore/controller/LanguagesController.dart';
 import 'package:eyuuncore/core/registerServices.dart';

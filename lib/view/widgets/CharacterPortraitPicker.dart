@@ -1,12 +1,13 @@
+import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
+import 'package:eyuunapp/view/decoration/cornerPainters/ThickThinThickCornerPainter.dart';
+import 'package:eyuunapp/view/decoration/linePainters/ThickThinThickLinePainter.dart';
 import 'package:eyuuncore/controller/PickUpbringingController.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/enums/PersonSize.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
-
 import 'package:eyuunapp/view/decoration/Brushes.dart';
-import 'package:eyuunapp/view/decoration/EyuunDecoration.dart';
 
 class NameableComponent {
   String name;
@@ -76,10 +77,12 @@ class _CharacterPortraitPickerState extends State<CharacterPortraitPicker> {
           mainAxisSize: MainAxisSize.min,
           children: [
             DecoratedBox(
-              decoration: EyuunDecoration(
-                paint: Brushes.silverSparkling(),
-                cornerSize: 16,
-              ),
+              decoration: ArtDecoBoxDecoration(
+                  cornerBuilder: (p) => ThickThinThickCornerPainter(p),
+                  verticalLineBuilder: (p) => ThickThinThickLinePainter(p),
+                  horizontalLineBuilder: (p) => ThickThinThickLinePainter(p),
+                  paint: Brushes.goldSparkling()..strokeWidth = 1.25,
+                  cornerSize: 5),
               child: SizedBox(
                 width: 380,
                 height: 380,

@@ -1,8 +1,10 @@
+import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
+import 'package:eyuunapp/view/decoration/cornerPainters/DoubleLineCornerPainter.dart';
+import 'package:eyuunapp/view/decoration/linePainters/DoubleLinePainter.dart';
 import 'package:flutter/material.dart';
 
 import 'package:eyuunapp/view/controller/ChangeValueController.dart';
 import 'package:eyuunapp/view/decoration/Brushes.dart';
-import 'package:eyuunapp/view/decoration/EyuunDecoration.dart';
 import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 
 class MoneyChangePopup extends StatefulWidget {
@@ -193,11 +195,12 @@ class _BanknoteDisplay extends StatelessWidget {
                   onTap: onTap,
                   borderRadius: BorderRadius.zero,
                   child: DecoratedBox(
-                    decoration: EyuunDecoration(
-                      fillCorners: false,
-                      paint: Brushes.silverSparkling(),
-                      cornerSize: 10,
-                    ),
+                    decoration: ArtDecoBoxDecoration(
+                        cornerBuilder: (p) => DoubleLineCornerPainter(p),
+                        verticalLineBuilder: (p) => DoubleLinePainter(p),
+                        horizontalLineBuilder: (p) => DoubleLinePainter(p),
+                        paint: Brushes.goldSparkling()..strokeWidth = 1.5,
+                        cornerSize: 12),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 10),
