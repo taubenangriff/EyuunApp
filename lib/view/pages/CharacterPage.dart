@@ -110,7 +110,7 @@ class _CharacterPageState extends State<CharacterPage> {
                   ChangeHealthPopup(healthController, onAccept: () {
                     setState(() {});
                   }),
-                  maximumSize: Size(350, 800));
+                  maximumSize: Size(375, 800));
             },
             segments: healthSegments,
             progressColor: isDying ? Colors.red : Colors.green.shade600,
