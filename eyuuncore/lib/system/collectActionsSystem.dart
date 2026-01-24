@@ -29,7 +29,7 @@ class CollectActionsSystem extends System {
       Has<ActionUserComponent>(),
       Has<CombatComponent>(),
     ]);
-    combatQuery = createQuery([
+    skillLearnerQuery = createQuery([
       Has<ActionUserComponent>(),
       Has<SkillLearnerComponent>(),
     ]);
