@@ -169,19 +169,19 @@ class _CombatPageState extends State<CombatPage> {
                       PickActionWidget(
                           actions: list,
                           onPicked: (entity) {
-                            switch (value) {
-                              case 0:
-                                skillLearnerController.pickTrick(entity);
-                              case 1:
-                                skillLearnerController.pickSkill(entity);
-                            }
+
+                            setState(() {
+                              switch (value) {
+                                case 0:
+                                  skillLearnerController.pickTrick(entity);
+                                case 1:
+                                  skillLearnerController.pickSkill(entity);
+                              }
+                              locator<WorldManager>().execute();
+                            });
+
                           }),
                       background: AssetImage('data/base/ui/bg/background.jpg'));
-                },
-              ).then(
-                (value) {
-                  locator<WorldManager>().execute();
-                  setState(() {});
                 },
               );
             },
