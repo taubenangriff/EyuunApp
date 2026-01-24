@@ -1,3 +1,9 @@
+import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
+import 'package:eyuunapp/view/decoration/Brushes.dart';
+import 'package:eyuunapp/view/decoration/cornerPainters/DoubleLineCornerPainter.dart';
+import 'package:eyuunapp/view/decoration/cornerPainters/ThickThinThickCornerPainter.dart';
+import 'package:eyuunapp/view/decoration/linePainters/DoubleLinePainter.dart';
+import 'package:eyuunapp/view/decoration/linePainters/ThickThinThickLinePainter.dart';
 import 'package:flutter/material.dart';
 
 import 'MainPage.dart';
@@ -178,64 +184,71 @@ class _CharacterCard extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Card(
-      clipBehavior: Clip.antiAlias,
-      elevation: 8,
-      child: InkWell(
-        onTap: onTap,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // 🖼 Image (1x1)
-            AspectRatio(
-              aspectRatio: 1,
-              child: Image(
-                image: character.image,
-                fit: BoxFit.cover,
-              ),
-            ),
+        elevation: 8,
+        child: DecoratedBox(
+          position: DecorationPosition.foreground,
+          decoration: ArtDecoBoxDecoration(
+              cornerBuilder: (p) => DoubleLineCornerPainter(p),
+              verticalLineBuilder: (p) => DoubleLinePainter(p),
+              horizontalLineBuilder: (p) => DoubleLinePainter(p),
+              paint: Brushes.goldSparkling()..strokeWidth = 1.25,
+              cornerSize: 20),
+          child: InkWell(
+            onTap: onTap,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // 🖼 Image (1x1)
+                AspectRatio(
+                  aspectRatio: 1,
+                  child: Image(
+                    image: character.image,
+                    fit: BoxFit.cover,
+                  ),
+                ),
 
-            // 📜 Info
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    character.name,
-                    style: theme.textTheme.titleMedium
-                        ?.copyWith(fontWeight: FontWeight.bold),
+                // 📜 Info
+                Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        character.name,
+                        style: theme.textTheme.titleMedium
+                            ?.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 4),
+                      Text('Upbringing: ${character.upbringing}'),
+                      Text('Level ${character.level}'),
+                      const SizedBox(height: 8),
+                    ],
                   ),
-                  const SizedBox(height: 4),
-                  Text('Upbringing: ${character.upbringing}'),
-                  Text('Level ${character.level}'),
-                  const SizedBox(height: 8),
-                ],
-              ),
+                ),
+                Spacer(),
+                // 📜 Info
+                Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Modified: ${character.lastModified}',
+                        style: theme.textTheme.bodySmall,
+                      ),
+                      Text(
+                        'Creator: ${character.creatorName}',
+                        style: theme.textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            Spacer(),
-            // 📜 Info
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Modified: ${character.lastModified}',
-                    style: theme.textTheme.bodySmall,
-                  ),
-                  Text(
-                    'Creator: ${character.creatorName}',
-                    style: theme.textTheme.bodySmall,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }
