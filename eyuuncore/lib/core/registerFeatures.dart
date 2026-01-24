@@ -3,6 +3,7 @@ import 'package:eyuuncore/components/feature/DeathFeature.dart';
 import 'package:eyuuncore/components/feature/LevelFeature.dart';
 import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
+import 'package:get_it/get_it.dart';
 
 import '../components/feature/CombatFeature.dart';
 import '../components/feature/ItemShopFeature.dart';
@@ -17,35 +18,39 @@ class FeatureIds {
   static const String deathShopFeature = "death_feature";
 }
 
-void registerFeatures() {
-  locator.registerLazySingleton<CombatFeatureComponent>(
-    () => locator<GameObjectService>()
-        .getStatic(FeatureIds.combatFeature)!
-        .get<CombatFeatureComponent>()!,
-  );
-  locator.registerLazySingleton<PathFeatureComponent>(
-    () => locator<GameObjectService>()
-        .getStatic(FeatureIds.pathFeature)!
-        .get<PathFeatureComponent>()!,
-  );
-  locator.registerLazySingleton<LevelFeatureComponent>(
-    () => locator<GameObjectService>()
-        .getStatic(FeatureIds.levelFeature)!
-        .get<LevelFeatureComponent>()!,
-  );
-  locator.registerLazySingleton<CharacterTablesFeatureComponent>(
-    () => locator<GameObjectService>()
-        .getStatic(FeatureIds.characterTablesFeature)!
-        .get<CharacterTablesFeatureComponent>()!,
-  );
-  locator.registerLazySingleton<ItemShopFeatureComponent>(
-    () => locator<GameObjectService>()
-        .getStatic(FeatureIds.itemShopFeature)!
-        .get<ItemShopFeatureComponent>()!,
-  );
-  locator.registerLazySingleton<DeathFeatureComponent>(
-        () => locator<GameObjectService>()
-        .getStatic(FeatureIds.deathShopFeature)!
-        .get<DeathFeatureComponent>()!,
-  );
+extension EyuunFeaturesExtension on GetIt {
+  void registerFeatures() {
+    registerLazySingleton<CombatFeatureComponent>(
+          () => locator<GameObjectService>()
+          .getStatic(FeatureIds.combatFeature)!
+          .get<CombatFeatureComponent>()!,
+    );
+    registerLazySingleton<PathFeatureComponent>(
+          () => locator<GameObjectService>()
+          .getStatic(FeatureIds.pathFeature)!
+          .get<PathFeatureComponent>()!,
+    );
+    registerLazySingleton<LevelFeatureComponent>(
+          () => locator<GameObjectService>()
+          .getStatic(FeatureIds.levelFeature)!
+          .get<LevelFeatureComponent>()!,
+    );
+    registerLazySingleton<CharacterTablesFeatureComponent>(
+          () => locator<GameObjectService>()
+          .getStatic(FeatureIds.characterTablesFeature)!
+          .get<CharacterTablesFeatureComponent>()!,
+    );
+    registerLazySingleton<ItemShopFeatureComponent>(
+          () => locator<GameObjectService>()
+          .getStatic(FeatureIds.itemShopFeature)!
+          .get<ItemShopFeatureComponent>()!,
+    );
+    registerLazySingleton<DeathFeatureComponent>(
+          () => locator<GameObjectService>()
+          .getStatic(FeatureIds.deathShopFeature)!
+          .get<DeathFeatureComponent>()!,
+    );
+  }
 }
+
+

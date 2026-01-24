@@ -45,7 +45,7 @@ void main() async {
   await loadDataService.reloadAssets();
   await locator<TextRepository>().reloadTexts(textFile);
 
-  registerFeatures();
+  locator.registerFeatures();
 
   var goService = locator<GameObjectService>();
 
