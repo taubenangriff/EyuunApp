@@ -1,6 +1,7 @@
 import 'package:eyuunapp/view/widgets/WeaponCraftingScreen.dart';
 import 'package:eyuuncore/components/Armor.dart';
 import 'package:eyuuncore/components/Craftable.dart';
+import 'package:eyuuncore/components/Holdable.dart';
 import 'package:eyuuncore/components/Item.dart';
 import 'package:eyuuncore/components/Weapon.dart';
 import 'package:eyuuncore/components/inventory.dart';
@@ -79,67 +80,62 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
                   textAlign: TextAlign.justify,
                 )
               ]))),
-              SizedBox(height: 100)
             ],
           ),
-          Positioned(
-              top: 0,
-              right: 0,
-              child: EyuunWidgets.circularFloatingActionButton(
-                  radius: 52,
-                  addDeco: true,
-                  text: 'x${item.count}',
-                  onPressed: () {
-                    var amountController = ChangeValueController(item.count,
-                        name: "Item Count",
-                        maxLimit: 64,
-                        minLimit: 0,
-                        onValUpdated: (val) => item.count = val);
-                    setState(() {
-                      PopupUtil.popup(
-                          context,
-                          ChangeItemCountPopup(amountController,
-                              valueChanged: (change, useMoney) {
-                            setState(() {
-                              amountController.change(change);
-                            });
-                          }));
-                    });
-                  }))
         ]),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-        floatingActionButton: Column(mainAxisSize: MainAxisSize.min, children: [
+        floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+        floatingActionButton: Row(mainAxisSize: MainAxisSize.min, children: [
           if (widget.item?.object.has<ArmorComponent>() ?? false) ...{
-            const SizedBox(height: 16),
-            EyuunWidgets.floatingActionButton(
+            EyuunWidgets.spacerHorizontal(),
+            EyuunWidgets.circularFloatingActionButton(
                 icon: Icons.shield,
-                text: 'Equip',
-                onPressed: () => setState(() {}),
-                height: 60,
-                width: 130),
+                radius: 52,
+                addDeco: true,
+                onPressed: () => setState(() {})),
           },
-          if (widget.item?.object.has<WeaponComponent>() ?? false) ...{
-            const SizedBox(height: 16),
-            EyuunWidgets.floatingActionButton(
-                icon: Icons.abc,
-                text: 'Equip',
-                onPressed: () => setState(() {}),
-                height: 60,
-                width: 130),
+          if (widget.item?.object.has<HoldableComponent>() ?? false) ...{
+            EyuunWidgets.spacerHorizontal(),
+            EyuunWidgets.circularFloatingActionButton(
+                icon: Icons.back_hand_sharp,
+                radius: 52,
+                addDeco: true,
+                onPressed: () => setState(() {})),
           },
           if (widget.item?.object.has<CraftableComponent>() ?? false) ...{
-            const SizedBox(height: 16),
-            EyuunWidgets.floatingActionButton(
+            EyuunWidgets.spacerHorizontal(),
+            EyuunWidgets.circularFloatingActionButton(
                 icon: Icons.handyman,
-                text: 'Craft',
+                radius: 52,
+                addDeco: true,
                 onPressed: () => setState(() {
                       PopupUtil.largePopup(context, WeaponCraftingScreen(),
                           background:
                               AssetImage('data/base/ui/bg/background.jpg'));
-                    }),
-                height: 60,
-                width: 130),
-          }
+                    })),
+          },
+          EyuunWidgets.spacerHorizontal(),
+          EyuunWidgets.spacerHorizontal(),
+          EyuunWidgets.circularFloatingActionButton(
+              radius: 52,
+              addDeco: true,
+              text: 'x${item.count}',
+              onPressed: () {
+                var amountController = ChangeValueController(item.count,
+                    name: "Item Count",
+                    maxLimit: 64,
+                    minLimit: 0,
+                    onValUpdated: (val) => item.count = val);
+                setState(() {
+                  PopupUtil.popup(
+                      context,
+                      ChangeItemCountPopup(amountController,
+                          valueChanged: (change, useMoney) {
+                        setState(() {
+                          amountController.change(change);
+                        });
+                      }));
+                });
+              })
         ]));
   }
 }
