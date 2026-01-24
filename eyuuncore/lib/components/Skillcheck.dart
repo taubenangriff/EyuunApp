@@ -12,7 +12,8 @@ part 'Skillcheck.mapper.dart';
 class SkillcheckOption with SkillcheckOptionMappable {
   List<AssetLink> options;
   AssetLink selectedOption;
-  SkillcheckOption({List<AssetLink>? options, AssetLink? selectedOption})
+  int numberOfDices;
+  SkillcheckOption({List<AssetLink>? options, AssetLink? selectedOption, this.numberOfDices = 1})
     : options = options ?? [],
       selectedOption = selectedOption ?? AssetLink.invalid();
 }
@@ -20,7 +21,8 @@ class SkillcheckOption with SkillcheckOptionMappable {
 @MappableClass()
 class SkillcheckStaticOption with SkillcheckStaticOptionMappable {
   List<AssetLink> options;
-  SkillcheckStaticOption({List<AssetLink>? options}) : options = options ?? [];
+  int numberOfDices;
+  SkillcheckStaticOption({List<AssetLink>? options, this.numberOfDices = 1}) : options = options ?? [];
 }
 
 @MappableClass()
@@ -77,6 +79,7 @@ class SkillcheckComponent extends EyuunComponent<int> {
           (e) => SkillcheckOption(
             options: e.options,
             selectedOption: e.options.first,
+            numberOfDices: e.numberOfDices,
           ),
         )
         .toList();

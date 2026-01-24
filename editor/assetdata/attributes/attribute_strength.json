@@ -6,7 +6,16 @@
     "text": {
         "short": "text_Strength_short"
     },
-    "stat": {
-        "constrainedBy": []
+    "skillcheck": {
+        "checkedAttributes": [
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Strength"
+                    }
+                ],
+                "numberOfDices": 4
+            }
+        ]
     }
 }

@@ -7,7 +7,7 @@
         "increaseThresholdPerFail": 4,
         "minimumHealthToLive": 1,
         "deathSkillcheck": {
-            "id": "death_skillcheck"
+            "id": "baseSkill_Constitution"
         }
     }
 }

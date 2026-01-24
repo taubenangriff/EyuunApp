@@ -48,6 +48,9 @@ class DeathFeatureComponent extends EyuunComponent<int> {
   void loadStaticData(Map<String, dynamic> staticData) {
     var stat = DeathFeatureStaticMapper.fromMap(staticData);
     baseThreshold = stat.baseThreshold;
+    increaseThresholdPerFail = stat.increaseThresholdPerFail;
+    minimumHealthToLive = stat.minimumHealthToLive;
+    deathSkillcheck = stat.deathSkillcheck.getEntity();
   }
 
   @override

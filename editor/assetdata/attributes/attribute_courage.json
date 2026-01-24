@@ -6,7 +6,16 @@
     "text": {
         "short": "text_Courage_short"
     },
-    "stat": {
-        "constrainedBy": []
+    "skillcheck": {
+        "checkedAttributes": [
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Courage"
+                    }
+                ],
+                "numberOfDices": 4
+            }
+        ]
     }
 }
