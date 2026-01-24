@@ -126,7 +126,7 @@ class ActionCard extends StatelessWidget {
                                       attributes: attributes,
                                       spacing: 2,
                                       showText: false,
-                                      iconSize: enaughWidth ? 42 : 28),
+                                      iconSize: enaughWidth ? 46 : 38),
                                   Text(
                                       " + ${skillcheckController.getWeaponSkill(actionEntity)}",
                                       style: enaughWidth

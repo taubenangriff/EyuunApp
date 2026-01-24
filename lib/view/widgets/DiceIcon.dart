@@ -35,8 +35,8 @@ class DiceIcon extends StatelessWidget {
           children: [
         Image(
             image: AssetImage(diceIcons[type]!),
-            width: size + 8,
-            height: size + 8),
+            width: size,
+            height: size),
         Center(child: Text(type.getText(), style: theme.textTheme.headlineMedium?.copyWith(
           shadows: [
             Shadow(

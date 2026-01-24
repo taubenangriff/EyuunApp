@@ -59,7 +59,7 @@ class _TalentsWidgetState extends State<TalentsWidget> {
         locator<CharacterService>().character.get<AttributesComponent>()!;
 
     const minimalWidth = 450;
-    const hideTextWidth = 600;
+    const hideTextWidth = 620;
     const longTextWidth = 900;
 
     return LayoutBuilder(builder: (context, constraints) {
@@ -132,7 +132,7 @@ class _TalentsWidgetState extends State<TalentsWidget> {
                               child: SkillCheckWidget(
                                   useWrap: false,
                                   spacing: hasEnaughWidth ? 24 : aboveMinimal ? 8 : 2,
-                                  iconSize: hasEnaughWidth ? 42 : aboveMinimal ? 32 : 26,
+                                  iconSize: hasEnaughWidth ? 52 : aboveMinimal ? 42 : 32,
                                   showText: hasEnaughWidth,
                                   useLongText: useLong,
                                   skillcheck: skillcheck,

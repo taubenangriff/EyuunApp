@@ -51,7 +51,7 @@ class _AttributesWidgetState extends State<AttributesWidget> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Center(child: DiceIcon(type: item.dice)),
+                Center(child: DiceIcon(type: item.dice, size: 52)),
                 EyuunWidgets.spacerHorizontal(),
                 SizedBox(
                   width: 150,
@@ -76,7 +76,7 @@ class _AttributesWidgetState extends State<AttributesWidget> {
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: 600, // 👈 desired item width
-            mainAxisExtent: 50,
+            mainAxisExtent: 52,
             crossAxisSpacing: 12,
             mainAxisSpacing: 12,
           ),
