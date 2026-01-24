@@ -1,0 +1,13 @@
+{
+    "standard": {
+        "typeId": "death_feature"
+    },
+    "deathFeature": {
+        "baseThreshold": 5,
+        "increaseThresholdPerFail": 4,
+        "minimumHealthToLive": 1,
+        "deathSkillcheck": {
+            "id": "death_skillcheck"
+        }
+    }
+}

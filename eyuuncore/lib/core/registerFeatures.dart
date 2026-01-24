@@ -1,4 +1,5 @@
 import 'package:eyuuncore/components/feature/CharacterTables.dart';
+import 'package:eyuuncore/components/feature/DeathFeature.dart';
 import 'package:eyuuncore/components/feature/LevelFeature.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
@@ -13,6 +14,7 @@ class FeatureIds {
   static const String levelFeature = "level_feature";
   static const String characterTablesFeature = "character_tables_feature";
   static const String itemShopFeature = "item_shop_feature";
+  static const String deathShopFeature = "death_feature";
 }
 
 void registerFeatures() {
@@ -40,5 +42,10 @@ void registerFeatures() {
     () => locator<GameObjectService>()
         .getStatic(FeatureIds.itemShopFeature)!
         .get<ItemShopFeatureComponent>()!,
+  );
+  locator.registerLazySingleton<DeathFeatureComponent>(
+        () => locator<GameObjectService>()
+        .getStatic(FeatureIds.deathShopFeature)!
+        .get<DeathFeatureComponent>()!,
   );
 }

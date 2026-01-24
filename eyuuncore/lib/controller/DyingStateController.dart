@@ -17,7 +17,7 @@ class DyingStateController {
     UnimplementedError();
   }
 
-  void stabilize(int diceResult) {
+  void tryStabilize(int diceResult) {
     UnimplementedError();
   }
 

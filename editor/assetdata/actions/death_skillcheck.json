@@ -1,0 +1,18 @@
+{
+  "standard": {
+    "typeId": "death_skillcheck",
+    "internalName": "Skillcheck for a character to not die"
+  },
+  "text": { },
+  "skillcheck": {
+    "checkedAttributes": [
+      {
+        "options": [
+          {
+            "id": "baseSkill_Constitution"
+          }
+        ]
+      }
+    ]
+  }
+}
