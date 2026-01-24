@@ -144,6 +144,9 @@ class _CombatPageState extends State<CombatPage> {
               if (skillLearner == null) {
                 return;
               }
+              var skillLearnerController =
+                  SkillLearnerController(skillLearner: skillLearner);
+
               PopupUtil.popup<int>(
                   context,
                   DecideActionCategoryPopup(labels: [
@@ -156,13 +159,10 @@ class _CombatPageState extends State<CombatPage> {
                   }
                   var tables = locator<CharacterTablesFeatureComponent>();
                   List<Entity> list = switch (value) {
-                    0 => tables.tricks,
-                    1 => tables.spells,
+                    0 => skillLearnerController.getAvailableTricks(),
+                    1 => skillLearnerController.getAvailableSpells(),
                     _ => [],
                   };
-
-                  var skillLearnerController =
-                      SkillLearnerController(skillLearner: skillLearner);
 
                   await PopupUtil.largePopup(
                       context,

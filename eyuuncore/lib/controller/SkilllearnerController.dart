@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:eyuuncore/components/SkillLearner.dart';
+import 'package:eyuuncore/components/feature/CharacterTables.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';
 import 'package:oxygen/oxygen.dart';
@@ -48,6 +49,12 @@ class SkillLearnerController {
     skillLearner.spells.add(spell);
     worldManager.execute();
   }
+
+  // TODO filter the list
+  List<Entity> getAvailableSpells() => locator<CharacterTablesFeatureComponent>().spells;
+
+  // TODO filter the list
+  List<Entity> getAvailableTricks() => locator<CharacterTablesFeatureComponent>().tricks;
 
   void setSkillvalue(Entity? skillEntity, int value){
     if(skillEntity == null){
