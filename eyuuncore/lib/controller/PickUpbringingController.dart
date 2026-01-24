@@ -5,7 +5,7 @@ import 'package:eyuuncore/enums/PersonSize.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../core/assetLink.dart';
-import '../core/registerServices.dart';
+import '../GetIt.dart';
 
 class PickUpbringingController {
   Entity? selectedUpbringing;

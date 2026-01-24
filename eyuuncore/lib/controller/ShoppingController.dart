@@ -3,7 +3,7 @@ import 'package:eyuuncore/components/inventory.dart';
 import 'package:eyuuncore/controller/InventoryController.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
 
-import '../core/registerServices.dart';
+import '../GetIt.dart';
 
 class ShoppingController {
   final InventoryComponent _inventoryComponent;

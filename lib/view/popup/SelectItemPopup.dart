@@ -6,7 +6,7 @@ import 'package:eyuuncore/components/Icon.dart';
 import 'package:eyuuncore/components/inventory.dart';
 import 'package:eyuuncore/controller/ShoppingController.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
-import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';

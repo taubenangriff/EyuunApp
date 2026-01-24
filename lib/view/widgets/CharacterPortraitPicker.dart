@@ -7,7 +7,7 @@ import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
 import 'package:eyuunapp/view/decoration/cornerPainters/ThickThinThickCornerPainter.dart';
 import 'package:eyuunapp/view/decoration/linePainters/ThickThinThickLinePainter.dart';
 import 'package:eyuuncore/controller/PickUpbringingController.dart';
-import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/enums/PersonSize.dart';
 import 'package:flutter/material.dart';

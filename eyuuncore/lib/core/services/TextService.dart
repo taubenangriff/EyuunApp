@@ -6,7 +6,7 @@ import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../assetLink.dart';
-import '../registerServices.dart';
+import '../../GetIt.dart';
 
 class TextService {
   late TextRepository _textRepository;

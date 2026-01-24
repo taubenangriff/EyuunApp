@@ -19,7 +19,7 @@ import 'package:eyuuncore/components/health.dart';
 import 'package:eyuuncore/controller/DyingStateController.dart';
 import 'package:eyuuncore/controller/HealthController.dart';
 import 'package:eyuuncore/controller/SkilllearnerController.dart';
-import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';

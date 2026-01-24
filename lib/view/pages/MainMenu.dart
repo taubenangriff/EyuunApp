@@ -1,5 +1,5 @@
 import 'package:eyuunapp/view/pages/CharacterSelectionPage.dart';
-import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:flutter/material.dart';
 

@@ -2,7 +2,7 @@ import 'package:eyuuncore/io/AssetSerializer.dart';
 import 'package:eyuuncore/io/GameObjectsExport.dart';
 import 'package:oxygen/oxygen.dart';
 
-import '../core/registerServices.dart';
+import '../GetIt.dart';
 
 class GameObjectsSerializer {
   final AssetSerializer _assetSerializer = locator<AssetSerializer>();

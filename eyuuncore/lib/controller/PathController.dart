@@ -6,7 +6,7 @@ import 'package:eyuuncore/core/assetLink.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../components/upgradable.dart';
-import '../core/registerServices.dart';
+import '../GetIt.dart';
 
 class PathController {
   late CharacterPathComponent _characterPathComponent;

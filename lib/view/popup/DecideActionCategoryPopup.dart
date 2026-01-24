@@ -5,7 +5,7 @@ import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/components/feature/CharacterTables.dart';
 import 'package:eyuuncore/controller/SkilllearnerController.dart';
-import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';

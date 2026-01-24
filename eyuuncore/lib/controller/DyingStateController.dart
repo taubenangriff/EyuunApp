@@ -2,8 +2,7 @@ import 'package:eyuuncore/components/feature/DeathFeature.dart';
 import 'package:eyuuncore/components/health.dart';
 import 'package:eyuuncore/enums/AliveState.dart';
 import 'package:oxygen/oxygen.dart';
-
-import '../core/registerServices.dart';
+import '../GetIt.dart';
 
 class DyingStateController {
   Entity dyingEntity;

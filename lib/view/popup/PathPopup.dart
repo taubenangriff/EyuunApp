@@ -1,7 +1,7 @@
 import 'package:eyuuncore/components/Path.dart';
 import 'package:eyuuncore/controller/PathController.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
-import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';

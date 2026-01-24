@@ -3,6 +3,7 @@ import 'package:eyuunapp/view/pages/MainMenu.dart';
 import 'package:eyuunapp/services/EyuunUiImageProvider.dart';
 import 'package:eyuuncore/core/registerComponentsExtension.dart';
 import 'package:eyuuncore/core/registerFeatures.dart';
+import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/registerSystemsExtension.dart';
 import 'package:eyuuncore/core/registerUpgradesExtension.dart';
@@ -28,8 +29,8 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  setupGetIt();
-
+  locator.registerCoreServices();
+  locator.registerControllers();
   locator.registerSingleton<ImageService>(FirebaseImageService());
 
   var worldManager = locator<WorldManager>();

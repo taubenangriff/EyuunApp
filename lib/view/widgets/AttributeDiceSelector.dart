@@ -2,7 +2,7 @@ import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/controller/AttributesController.dart';
 import 'package:eyuuncore/controller/CharacterGenerateStatsController.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
-import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/enums/dice.dart';
 import 'package:flutter/material.dart';

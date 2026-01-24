@@ -3,7 +3,7 @@ import 'package:eyuuncore/core/repository/AssetDataRepository.dart';
 import 'package:eyuuncore/core/repository/StaticAssetRepository.dart';
 import 'package:oxygen/oxygen.dart';
 
-import '../core/registerServices.dart';
+import '../GetIt.dart';
 import '../core/services/WorldManager.dart';
 
 class AssetLoader {

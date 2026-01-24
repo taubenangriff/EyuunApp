@@ -1,7 +1,7 @@
 import 'package:eyuuncore/components/feature/CharacterTables.dart';
 import 'package:eyuuncore/components/feature/DeathFeature.dart';
 import 'package:eyuuncore/components/feature/LevelFeature.dart';
-import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
 
 import '../components/feature/CombatFeature.dart';

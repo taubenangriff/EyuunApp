@@ -3,7 +3,7 @@ import 'package:eyuuncore/components/Action.dart';
 import 'package:eyuuncore/components/ActionUser.dart';
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
-import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/enums/ActionTime.dart';
 import 'package:flutter/material.dart';

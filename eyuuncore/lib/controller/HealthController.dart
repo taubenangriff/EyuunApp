@@ -9,7 +9,7 @@ import 'package:eyuuncore/components/upgradable.dart';
 import 'package:eyuuncore/enums/DamageCalculation.dart';
 import 'package:oxygen/oxygen.dart';
 
-import '../core/registerServices.dart';
+import '../GetIt.dart';
 
 abstract class DamageCalculator {
   /// The positive amount of damage eaten by the shield

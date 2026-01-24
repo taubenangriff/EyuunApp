@@ -7,7 +7,7 @@ import 'package:oxygen/oxygen.dart';
 import '../core/assetLink.dart';
 import '../core/reflection/Reflecting.dart';
 import '../core/reflection/reflector.dart';
-import '../core/registerServices.dart';
+import '../GetIt.dart';
 
 part 'upgradable.mapper.dart';
 

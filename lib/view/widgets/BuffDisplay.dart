@@ -9,7 +9,7 @@ import 'package:eyuuncore/components/upgrade/FluxUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/HealthUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/LanguageLearnerUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/TalentsUpgrade.dart';
-import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/enums/ActionTime.dart';
 import 'package:flutter/material.dart';

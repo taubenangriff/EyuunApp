@@ -1,7 +1,7 @@
 import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/io/assetloader.dart';
 
-import '../registerServices.dart';
+import '../../GetIt.dart';
 import '../repository/AssetDataRepository.dart';
 import 'WorldManager.dart';
 

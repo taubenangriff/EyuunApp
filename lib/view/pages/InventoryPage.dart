@@ -13,7 +13,7 @@ import 'package:eyuuncore/components/feature/ItemShopFeature.dart';
 import 'package:eyuuncore/components/inventory.dart';
 import 'package:eyuuncore/controller/CombatController.dart';
 import 'package:eyuuncore/controller/InventoryController.dart';
-import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';

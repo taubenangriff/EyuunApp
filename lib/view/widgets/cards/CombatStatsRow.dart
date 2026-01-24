@@ -2,7 +2,7 @@ import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 import 'package:eyuuncore/components/Combat.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/controller/SkillcheckController.dart';
-import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:flutter/material.dart';
 

@@ -6,7 +6,7 @@ import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';
 import 'package:oxygen/oxygen.dart';
 
-import '../core/registerServices.dart';
+import '../GetIt.dart';
 
 class SkillLearnerController {
   final SkillLearnerComponent skillLearner;

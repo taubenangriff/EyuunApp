@@ -4,7 +4,7 @@ import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../core/assetLink.dart';
-import '../core/registerServices.dart';
+import '../GetIt.dart';
 
 class LanguagesController {
   final LanguageLearnerComponent targetLearner;
