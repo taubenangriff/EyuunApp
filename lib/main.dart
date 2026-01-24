@@ -30,7 +30,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   locator.registerCoreServices();
-  locator.registerControllers();
   locator.registerSingleton<ImageService>(FirebaseImageService());
 
   var worldManager = locator<WorldManager>();
