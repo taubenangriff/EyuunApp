@@ -40,11 +40,15 @@ class _DyingWidgetState extends State<DyingWidget> {
               '!Dying',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             )),
-        SizedBox(height: 16),
+        if(widget.controller.isDying()) ...{
+          EyuunWidgets.spacerVertical(),
+          Center(child: Text(locator<TextService>().getText('uitext_indyingstate'), style: theme.textTheme.bodyMedium))
+        },
         if(widget.controller.isStabilized()) ...{
           EyuunWidgets.spacerVertical(),
-          Text(locator<TextService>().getText('uitext_stabilized'), style: theme.textTheme.bodyMedium)
+          Center(child: Text(locator<TextService>().getText('uitext_stabilized'), style: theme.textTheme.bodyMedium))
         },
+        EyuunWidgets.spacerVertical(),
         Wrap(
           alignment: WrapAlignment.center,
           crossAxisAlignment: WrapCrossAlignment.center,
@@ -62,43 +66,62 @@ class _DyingWidgetState extends State<DyingWidget> {
                     attributes: widget.attributes!,
                     iconSize: 52)
               ]),
-            EyuunWidgets.spacerHorizontal(),
-            EyuunWidgets.floatingActionButton(
-                text: '!Get stabilized',
-                width: 150,
-                height: 50,
-                onPressed: () {
-                  setState(() {
-                    widget.controller.stabilize();
-                  });
-                }),
-            EyuunWidgets.spacerHorizontal(),
-            EyuunWidgets.floatingActionButton(
-                text: '!Pass Deathsave',
-                width: 150,
-                height: 50,
-                onPressed: () {
-                  setState(() {
-                    widget.controller.increaseDyingCheck();
-                  });
-                }),
-            EyuunWidgets.spacerHorizontal(),
-            EyuunWidgets.floatingActionButton(
-                icon: Icons.directions_transit_filled_outlined,
-                text: 'Sterben',
-                width: 150,
-                height: 50,
-                onPressed: () {
-                  setState(() {
-                    PopupUtil.popup(context,
-                            Center(child: Text("Are you sure this character is dead?")))
-                        .then((value) {
-                      if (value == null) return;
-                      //TODO implement proper dialog here
-                      widget.controller.die();
+            if(widget.controller.isDying()) ... {
+              EyuunWidgets.spacerHorizontal(),
+              EyuunWidgets.floatingActionButton(
+                  text: '!Get stabilized',
+                  width: 150,
+                  height: 50,
+                  onPressed: () {
+                    setState(() {
+                      widget.controller.stabilize();
                     });
-                  });
-                }),
+                  }),
+            },
+            if(widget.controller.isDying()) ... {
+              EyuunWidgets.spacerHorizontal(),
+              EyuunWidgets.floatingActionButton(
+                  text: '!Pass Deathsave',
+                  width: 150,
+                  height: 50,
+                  onPressed: () {
+                    setState(() {
+                      widget.controller.increaseDyingCheck();
+                    });
+                  }),
+            },
+            if(widget.controller.isDying()) ... {
+              EyuunWidgets.spacerHorizontal(),
+              EyuunWidgets.floatingActionButton(
+                  icon: Icons.directions_transit_filled_outlined,
+                  text: 'Sterben',
+                  width: 150,
+                  height: 50,
+                  onPressed: () {
+                    setState(() {
+                      PopupUtil.popup(context,
+                          Center(child: Text(
+                              "Are you sure this character is dead?")))
+                          .then((value) {
+                        if (value == null) return;
+                        //TODO implement proper dialog here
+                        widget.controller.die();
+                      });
+                    });
+                  }),
+            },
+            if(widget.controller.isStabilized()) ... {
+              EyuunWidgets.spacerHorizontal(),
+              EyuunWidgets.floatingActionButton(
+                  text: 'Take Damage',
+                  width: 150,
+                  height: 50,
+                  onPressed: () {
+                    setState(() {
+                      widget.controller.startDying();
+                    });
+                  }),
+            },
           ],
         )
       ],

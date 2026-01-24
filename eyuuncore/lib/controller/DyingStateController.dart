@@ -15,6 +15,10 @@ class DyingStateController {
     return dyingEntity.get<HealthComponent>()?.aliveState == AliveState.Stabilized;
   }
 
+  bool isDying() {
+    return dyingEntity.get<HealthComponent>()?.aliveState == AliveState.Dying;
+  }
+
   bool passesDeathCheck(int diceResult) {
     UnimplementedError();
     return true;
@@ -33,6 +37,10 @@ class DyingStateController {
   }
 
   void stabilize() {
+    UnimplementedError();
+  }
+
+  void startDying() {
     UnimplementedError();
   }
 
