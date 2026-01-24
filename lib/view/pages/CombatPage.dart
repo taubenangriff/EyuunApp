@@ -175,7 +175,8 @@ class _CombatPageState extends State<CombatPage> {
                               case 1:
                                 skillLearnerController.pickSkill(entity);
                             }
-                          }));
+                          }),
+                      background: AssetImage('data/base/ui/bg/background.jpg'));
                 },
               ).then(
                 (value) {
