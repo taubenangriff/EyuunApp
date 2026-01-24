@@ -210,6 +210,7 @@
     "uitext_spellschools_sub": "Zauberschulen werden zum Wirken von Zaubern verwendet. Jeder ungerade Talentwert in einer Zauberschule ermöglicht die Wahl eines weiteren Zaubers dieser Zauberschule.",
     "uitext_fightingstyles": "Kampfstile",
     "uitext_fightingstyles_sub": "Kampfstile werden für Angriffe mit Waffen verwendet. Der Talentwert ist für alle Waffen des Kampfstils gleich, die gewürfelte Probe unterscheidet sich jedoch von Waffe zu Waffe. Jeder ungerade Talentwert in einem Kampfstil ermöglicht die Wahl eines weiteren Tricks für diesen Kampfstil.",
+    "uitext_stabilized": " Ist ein Charakter erfolgreich stabilisiert, ist dieser zwar immer noch bewusstlos (bis er wieder mindestens 1 Leben hat), muss aber keine KO-Proben mehr werfen, um am Leben zu bleiben. Wenn ein stabilisierter Charakter angegriffen wird, endet die Stabilisierung und der Charakter ist wieder im Sterben.",
     "personsize_normal": "Normalgroß",
     "personsize_small": "Klein",
     "personsize_verysmall": "Sehr klein",

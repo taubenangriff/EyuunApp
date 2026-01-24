@@ -1,4 +1,6 @@
 import 'package:eyuuncore/components/feature/DeathFeature.dart';
+import 'package:eyuuncore/components/health.dart';
+import 'package:eyuuncore/enums/AliveState.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../core/registerServices.dart';
@@ -8,6 +10,10 @@ class DyingStateController {
   DeathFeatureComponent deathFeature = locator<DeathFeatureComponent>();
 
   DyingStateController(this.dyingEntity);
+
+  bool isStabilized() {
+    return dyingEntity.get<HealthComponent>()?.aliveState == AliveState.Stabilized;
+  }
 
   bool passesDeathCheck(int diceResult) {
     UnimplementedError();
@@ -23,6 +29,10 @@ class DyingStateController {
   }
 
   void tryStabilize(int diceResult) {
+    UnimplementedError();
+  }
+
+  void stabilize() {
     UnimplementedError();
   }
 

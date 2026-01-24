@@ -37,7 +37,7 @@ class _SkillCheckWidgetState extends State<SkillCheckWidget> {
   Widget build(BuildContext context) {
     var children = [
       for (var attributeOption in widget.skillcheck.checkedAttributes)
-        _displayAttribute(attributeOption),
+        _displayAttribute(context, attributeOption),
     ];
 
     if (widget.useWrap) {
@@ -51,12 +51,17 @@ class _SkillCheckWidgetState extends State<SkillCheckWidget> {
     );
   }
 
-  Widget _displayAttribute(SkillcheckOption attribute) {
+  Widget _displayAttribute(BuildContext context, SkillcheckOption attribute) {
+    var theme = Theme.of(context);
+
     return Row(
       children: [
+        if(attribute.numberOfDices > 1)... {
+          Text('${attribute.numberOfDices}x ', style: theme.textTheme.headlineSmall),
+        },
         ...attribute.options
             .map((e) => [
-                  Text(' / '),
+                  Text(' / ', style: theme.textTheme.headlineSmall),
                   DiceIcon(
                       type: widget.attributes.getStatEntry(e.id)!.dice,
                       size: widget.iconSize),

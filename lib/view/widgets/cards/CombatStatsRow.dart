@@ -26,10 +26,12 @@ class CombatStatsRow extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Text(
-          'Combat Stats',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
+        Align(
+            alignment: Alignment.center,
+            child: Text(
+              '!Combat Stats',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            )),
         const SizedBox(height: 16),
         Wrap(
           alignment: WrapAlignment.center,

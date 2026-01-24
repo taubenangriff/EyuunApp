@@ -4,6 +4,7 @@ import 'package:eyuuncore/core/reflection/reflector.dart';
 
 import '../core/components/EyuunComponent.dart';
 import '../core/reflection/Reflecting.dart';
+import '../enums/AliveState.dart';
 
 part 'health.mapper.dart';
 
@@ -13,8 +14,8 @@ class HealthDynamic with HealthDynamicMappable {
   int hitpoints;
   int temporaryHitpoints;
   int deathThrows;
-
   int naturalArmor;
+  AliveState aliveState;
 
   HealthDynamic({
     this.maxHitpoints = 0,
@@ -22,6 +23,7 @@ class HealthDynamic with HealthDynamicMappable {
     this.temporaryHitpoints = 0,
     this.deathThrows = 0,
     this.naturalArmor = 0,
+    this.aliveState = AliveState.Healthy
   });
 }
 
@@ -57,6 +59,8 @@ class HealthComponent extends EyuunComponent<int> {
   /// the natural armor of a character
   UpgradableInt naturalArmor = 0.upgradable;
 
+  late AliveState aliveState;
+
   @override
   void init([data]) {
     reset();
@@ -70,6 +74,7 @@ class HealthComponent extends EyuunComponent<int> {
     deathThrows = 0;
     maxDeathThrows = 0.upgradable;
     naturalArmor = 0.upgradable;
+    aliveState = AliveState.Healthy;
   }
 
   bool isInDyingState() => hitpoints <= 0;
@@ -86,6 +91,7 @@ class HealthComponent extends EyuunComponent<int> {
     deathThrows = dyn.deathThrows;
     maxHitpoints = dyn.maxHitpoints.upgradable;
     naturalArmor = dyn.naturalArmor.upgradable;
+    aliveState = dyn.aliveState;
   }
 
   @override
@@ -102,5 +108,6 @@ class HealthComponent extends EyuunComponent<int> {
     temporaryHitpoints: temporaryHitpoints,
     deathThrows: deathThrows,
     naturalArmor: naturalArmor.base,
+    aliveState: aliveState
   ).toMap();
 }

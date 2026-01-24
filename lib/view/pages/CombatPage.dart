@@ -8,6 +8,7 @@ import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuunapp/view/widgets/PickActionWidget.dart';
 import 'package:eyuunapp/view/widgets/cards/ActionsWidget.dart';
 import 'package:eyuunapp/view/widgets/cards/CombatStatsRow.dart';
+import 'package:eyuunapp/view/widgets/cards/DyingWidget.dart';
 import 'package:eyuuncore/components/ActionUser.dart';
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/Combat.dart';
@@ -15,6 +16,7 @@ import 'package:eyuuncore/components/Flux.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/components/feature/CharacterTables.dart';
 import 'package:eyuuncore/components/health.dart';
+import 'package:eyuuncore/controller/DyingStateController.dart';
 import 'package:eyuuncore/controller/HealthController.dart';
 import 'package:eyuuncore/controller/SkilllearnerController.dart';
 import 'package:eyuuncore/core/registerServices.dart';
@@ -67,6 +69,7 @@ class _CombatPageState extends State<CombatPage> {
     int fluxSegments = max((((flux.fluxMaximum.current / 40)).round() * 4), 4);
 
     var isDying = health.isInDyingState();
+    var dyingStateController = DyingStateController(character);
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -84,6 +87,16 @@ class _CombatPageState extends State<CombatPage> {
                             theme: theme),
                         link: 'https://eyuun.de/kaempfe'),
                   EyuunWidgets.spacerWidget(),
+                  if (isDying) ...{
+                    EyuunWidgets.informationBox(
+                        child: EyuunWidgets.cardBox(
+                            child:
+                                DyingWidget(controller: dyingStateController),
+                            theme: theme),
+                        link:
+                            'https://eyuun.de/charaktere-level#temporaere-leben-rasten--sterben'),
+                    EyuunWidgets.spacerWidget(),
+                  },
                   if (actionUser != null &&
                       attributes != null &&
                       skillLearner != null)
@@ -169,7 +182,6 @@ class _CombatPageState extends State<CombatPage> {
                       PickActionWidget(
                           actions: list,
                           onPicked: (entity) {
-
                             setState(() {
                               switch (value) {
                                 case 0:
@@ -179,7 +191,6 @@ class _CombatPageState extends State<CombatPage> {
                               }
                               locator<WorldManager>().execute();
                             });
-
                           }),
                       background: AssetImage('data/base/ui/bg/background.jpg'));
                 },
