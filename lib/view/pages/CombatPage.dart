@@ -175,7 +175,7 @@ class _CombatPageState extends State<CombatPage> {
                                 case 0:
                                   skillLearnerController.pickTrick(entity);
                                 case 1:
-                                  skillLearnerController.pickSkill(entity);
+                                  skillLearnerController.pickSpell(entity);
                               }
                               locator<WorldManager>().execute();
                             });

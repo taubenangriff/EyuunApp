@@ -45,7 +45,7 @@ class SkillLearnerController {
   }
 
   // TODO protect against picking skills that aren't allowed to be picked
-  void pickSkill(Entity spell) {
+  void pickSpell(Entity spell) {
     skillLearner.spells.add(spell);
     worldManager.execute();
   }
