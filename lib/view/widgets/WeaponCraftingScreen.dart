@@ -1,4 +1,5 @@
 import 'package:eyuunapp/view/widgets/BuffDisplay.dart';
+import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/Skillcheck.dart';
 import 'package:eyuuncore/components/Weapon.dart';
@@ -97,6 +98,7 @@ class _WeaponCraftingScreenState extends State<WeaponCraftingScreen> {
     return DefaultTabController(
       length: 4,
       child: Scaffold(
+        backgroundColor: Colors.transparent,
         body: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
@@ -124,17 +126,7 @@ class _WeaponCraftingScreenState extends State<WeaponCraftingScreen> {
                   ],
                 ),
               ),
-
-              const SizedBox(height: 16),
-
-              // ⚒ Craft button
-              SizedBox(
-                width: 200,
-                child: FloatingActionButton(
-                  onPressed: () {},
-                  child: const Text("Craft!"),
-                ),
-              ),
+              const SizedBox(height: 16)
             ],
           ),
         ),

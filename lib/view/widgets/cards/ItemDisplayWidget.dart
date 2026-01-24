@@ -1,4 +1,6 @@
+import 'package:eyuunapp/view/widgets/WeaponCraftingScreen.dart';
 import 'package:eyuuncore/components/Armor.dart';
+import 'package:eyuuncore/components/Craftable.dart';
 import 'package:eyuuncore/components/Item.dart';
 import 'package:eyuuncore/components/Weapon.dart';
 import 'package:eyuuncore/components/inventory.dart';
@@ -122,6 +124,19 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
                 icon: Icons.abc,
                 text: 'Equip',
                 onPressed: () => setState(() {}),
+                height: 60,
+                width: 130),
+          },
+          if (widget.item?.object.has<CraftableComponent>() ?? false) ...{
+            const SizedBox(height: 16),
+            EyuunWidgets.floatingActionButton(
+                icon: Icons.handyman,
+                text: 'Craft',
+                onPressed: () => setState(() {
+                      PopupUtil.largePopup(context, WeaponCraftingScreen(),
+                          background:
+                              AssetImage('data/base/ui/bg/background.jpg'));
+                    }),
                 height: 60,
                 width: 130),
           }
