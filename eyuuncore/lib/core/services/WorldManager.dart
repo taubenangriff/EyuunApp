@@ -75,6 +75,10 @@ class WorldManager{
     return null;
   }
 
+  void execute(){
+    world.init();
+  }
+
   void init()
   {
     world.init();

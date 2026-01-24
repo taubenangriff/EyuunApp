@@ -2,8 +2,11 @@ import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
 import 'package:eyuunapp/view/decoration/cornerPainters/DoubleLineCornerPainter.dart';
 import 'package:eyuunapp/view/decoration/linePainters/DoubleLinePainter.dart';
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
+import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/components/feature/CharacterTables.dart';
+import 'package:eyuuncore/controller/SkilllearnerController.dart';
 import 'package:eyuuncore/core/registerServices.dart';
+import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 import 'package:eyuunapp/view/decoration/Brushes.dart';
@@ -51,6 +54,14 @@ class DecideActionCategoryPopup extends StatelessWidget {
                         PopupUtil.largePopup(
                             context,
                             PickActionPopup(
+                                onPicked: (trick) {
+                                  var skillLearner = locator<CharacterService>().character.get<SkillLearnerComponent>();
+                                  if(skillLearner == null){
+                                    return;
+                                  }
+                                  var controller = SkillLearnerController(skillLearner: skillLearner);
+                                  controller.pickTrick(trick);
+                                },
                                 actions:
                                     locator<CharacterTablesFeatureComponent>()
                                         .tricks,

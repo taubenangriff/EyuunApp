@@ -7,7 +7,8 @@ import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuunapp/view/widgets/ActionCard.dart';
 
 class PickActionWidget extends StatelessWidget {
-  PickActionWidget({super.key, required this.actions});
+  final void Function(Entity entity)? onPicked;
+  PickActionWidget({super.key, required this.actions, this.onPicked});
 
   final List<Entity> actions;
 
@@ -31,6 +32,7 @@ class PickActionWidget extends StatelessWidget {
 
         return ActionCard(
           onTap: () {
+            onPicked?.call(action);
             PopupUtil.popup(
               context,
               Center(

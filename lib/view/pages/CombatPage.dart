@@ -55,7 +55,8 @@ class _CombatPageState extends State<CombatPage> {
 
     var healthProgress = health.hitpoints / health.maxHitpoints.current;
     var fluxProgress = flux.fluxSpent / flux.fluxMaximum.current;
-    int healthSegments = max((((health.maxHitpoints.current / 40)).round() * 4), 4);
+    int healthSegments =
+        max((((health.maxHitpoints.current / 40)).round() * 4), 4);
     int fluxSegments = max((((flux.fluxMaximum.current / 40)).round() * 4), 4);
 
     var isDying = health.isInDyingState();
@@ -132,13 +133,14 @@ class _CombatPageState extends State<CombatPage> {
           ),
           EyuunWidgets.spacerHorizontal(),
           EyuunWidgets.circularFloatingActionButton(
-            onPressed: () {
-              PopupUtil.popup(
-                  context,
-                  const DecideActionCategoryPopup());
+            onPressed: () async {
+              PopupUtil.popup(context, const DecideActionCategoryPopup()).then(
+                (value) {
+                  setState(() {});
+                },
+              );
             },
-            text:
-            'Add',
+            text: 'Add',
             tooltip: 'Add trick or Spell',
             icon: Icons.add,
           ),

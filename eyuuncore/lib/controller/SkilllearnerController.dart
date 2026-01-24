@@ -2,13 +2,17 @@ import 'dart:math';
 
 import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
+import 'package:eyuuncore/core/services/WorldManager.dart';
 import 'package:oxygen/oxygen.dart';
+
+import '../core/registerServices.dart';
 
 class SkillLearnerController {
   final SkillLearnerComponent skillLearner;
   final bool allowDowngrades;
+  late final worldManager = locator<WorldManager>();
 
-  const SkillLearnerController({required this.skillLearner, this.allowDowngrades = false});
+  SkillLearnerController({required this.skillLearner, this.allowDowngrades = false});
 
   int getMax(){
     var spent = skillLearner.getSpentSkillpoints();
@@ -31,6 +35,18 @@ class SkillLearnerController {
       return true;
     }
     return skillLearner.getSpentSkillpoints() < skillLearner.skillpoints.current;
+  }
+
+  // TODO protect against picking tricks that aren't allowed to be picked
+  void pickTrick(Entity trick) {
+    skillLearner.tricks.add(trick);
+    worldManager.execute();
+  }
+
+  // TODO protect against picking skills that aren't allowed to be picked
+  void pickSkill(Entity spell) {
+    skillLearner.spells.add(spell);
+    worldManager.execute();
   }
 
   void setSkillvalue(Entity? skillEntity, int value){

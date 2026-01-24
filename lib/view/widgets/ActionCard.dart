@@ -1,3 +1,7 @@
+import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
+import 'package:eyuunapp/view/decoration/Brushes.dart';
+import 'package:eyuunapp/view/decoration/cornerPainters/ThickThinThickCornerPainter.dart';
+import 'package:eyuunapp/view/decoration/linePainters/ThickThinThickLinePainter.dart';
 import 'package:eyuunapp/view/widgets/SkillCheckWidget.dart';
 import 'package:eyuuncore/components/Action.dart';
 import 'package:eyuuncore/components/Attributes.dart';
@@ -49,75 +53,88 @@ class ActionCard extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Stack(children: [
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: Icon(Icons.pin_drop),
-                  ),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Text(
-                      _textService.getText(actionEntity
-                          .get<ActionComponent>()!
-                          .actionTime
-                          .getTextKey()),
-                    ),
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const SizedBox(height: 44),
-                      // 🏷 Title
-                      Text(
-                        _textService.getTextFromEntity(actionEntity) +
-                            (sourceEntity != null
-                                ? " (${_textService.getTextFromEntity(sourceEntity)})"
-                                : ""),
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                        textAlign: TextAlign.center,
+              child: DecoratedBox(
+                  decoration: ArtDecoBoxDecoration(
+                      cornerBuilder: (p) => ThickThinThickCornerPainter(p),
+                      verticalLineBuilder: (p) => ThickThinThickLinePainter(p),
+                      horizontalLineBuilder: (p) =>
+                          ThickThinThickLinePainter(p),
+                      paint: Brushes.goldSparkling()..strokeWidth = 1.25,
+                      cornerSize: 5),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Stack(children: [
+                      const Align(
+                        alignment: Alignment.topLeft,
+                        child: Icon(Icons.pin_drop),
                       ),
-                      const SizedBox(height: 16),
-                      // 📖 Description
-                      Flexible(
-                          child: Text(
-                        _textService
-                            .getActionDescriptionFromEntity(actionEntity),
-                        style: Theme.of(context).textTheme.bodyMedium,
-                        textAlign: TextAlign.justify,
-                        overflow: TextOverflow.fade,
-                      )),
+                      Align(
+                        alignment: Alignment.topCenter,
+                        child: Text(
+                          _textService.getText(actionEntity
+                              .get<ActionComponent>()!
+                              .actionTime
+                              .getTextKey()),
+                        ),
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const SizedBox(height: 44),
+                          // 🏷 Title
+                          Text(
+                            _textService.getTextFromEntity(actionEntity) +
+                                (sourceEntity != null
+                                    ? " (${_textService.getTextFromEntity(sourceEntity)})"
+                                    : ""),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 16),
+                          // 📖 Description
+                          Flexible(
+                              child: Text(
+                            _textService
+                                .getActionDescriptionFromEntity(actionEntity),
+                            style: Theme.of(context).textTheme.bodyMedium,
+                            textAlign: TextAlign.justify,
+                            overflow: TextOverflow.fade,
+                          )),
 
-                      const SizedBox(height: 16),
-                    ],
-                  ),
-                  // 🎲 Skill check widget
-                  if (actionEntity.has<SkillcheckComponent>())
-                    Positioned(
-                        bottom: 4,
-                        right: 0,
-                        left: 0,
-                        child: Center(
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                              SkillCheckWidget(
-                                  skillcheck:
-                                      actionEntity.get<SkillcheckComponent>()!,
-                                  attributes: attributes,
-                                  spacing: 8,
-                                  showText: false,
-                                  iconSize: enaughWidth ? 42 : 32),
-                              Text(
-                                  " + ${skillcheckController.getWeaponSkill(actionEntity)}",
-                                  style: enaughWidth ? theme.textTheme.headlineMedium : theme.textTheme.bodyLarge)
-                            ]))),
-                ]),
-              ));
+                          const SizedBox(height: 16),
+                        ],
+                      ),
+                      // 🎲 Skill check widget
+                      if (actionEntity.has<SkillcheckComponent>())
+                        Positioned(
+                            bottom: 4,
+                            right: 0,
+                            left: 0,
+                            child: Center(
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                  SkillCheckWidget(
+                                      skillcheck: actionEntity
+                                          .get<SkillcheckComponent>()!,
+                                      attributes: attributes,
+                                      spacing: 8,
+                                      showText: false,
+                                      iconSize: enaughWidth ? 42 : 32),
+                                  Text(
+                                      " + ${skillcheckController.getWeaponSkill(actionEntity)}",
+                                      style: enaughWidth
+                                          ? theme.textTheme.headlineMedium
+                                          : theme.textTheme.bodyLarge)
+                                ]))),
+                    ]),
+                  )));
         }));
   }
 }

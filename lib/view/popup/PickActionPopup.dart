@@ -7,7 +7,7 @@ import 'package:oxygen/oxygen.dart';
 import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 
 class PickActionPopup extends StatelessWidget {
-  final void Function(String pathId)? onPicked;
+  final void Function(Entity entity)? onPicked;
   final String headerKey;
   final List<Entity> actions;
 
@@ -33,6 +33,7 @@ class PickActionPopup extends StatelessWidget {
           EyuunWidgets.spacerVertical(),
           Expanded(
               child: PickActionWidget(
+                  onPicked: onPicked,
                   actions: actions))
         ]));
   }
