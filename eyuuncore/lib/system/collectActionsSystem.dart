@@ -1,6 +1,7 @@
 import 'package:eyuuncore/components/Action.dart';
 import 'package:eyuuncore/components/ActionUser.dart';
 import 'package:eyuuncore/components/Combat.dart';
+import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/components/Weapon.dart';
 import 'package:eyuuncore/components/inventory.dart';
 import 'package:eyuuncore/components/upgradable.dart';
@@ -15,6 +16,7 @@ class CollectActionsSystem extends System {
   late Query actionUserQuery;
   late Query inventoryQuery;
   late Query combatQuery;
+  late Query skillLearnerQuery;
 
   @override
   void init() {
@@ -27,6 +29,10 @@ class CollectActionsSystem extends System {
       Has<ActionUserComponent>(),
       Has<CombatComponent>(),
     ]);
+    combatQuery = createQuery([
+      Has<ActionUserComponent>(),
+      Has<SkillLearnerComponent>(),
+    ]);
   }
 
   @override
@@ -38,6 +44,24 @@ class CollectActionsSystem extends System {
 
     for (var heldWeapon in combatQuery.entities) {
       _addActionsFromWeaponsHeld(heldWeapon);
+    }
+
+    for (var skillLearner in skillLearnerQuery.entities){
+      _addActionsFromSkillLearner(skillLearner);
+    }
+  }
+
+  void _addActionsFromSkillLearner(Entity actionUser){
+    if (!actionUser.has<SkillLearnerComponent>()) {
+      return;
+    }
+    var skillLearnerComponent = actionUser.get<SkillLearnerComponent>()!;
+    var actionUserComponent = actionUser.get<ActionUserComponent>()!;
+    for(var trick in skillLearnerComponent.tricks){
+      actionUserComponent.addAction(trick);
+    }
+    for(var spell in skillLearnerComponent.spells){
+      actionUserComponent.addAction(spell);
     }
   }
 

@@ -45,12 +45,18 @@ class SkillLearnerDynamic with SkillLearnerDynamicMappable {
   int skillpoints;
   int skillCeiling;
   List<SkillEntryDynamic> skills;
+  List<AssetLink> spells = [];
+  List<AssetLink> tricks = [];
 
   SkillLearnerDynamic({
     this.skillpoints = 0,
     this.skillCeiling = 0,
     List<SkillEntryDynamic>? skills,
-  }) : skills = skills ?? [];
+    List<AssetLink>? spells,
+    List<AssetLink>? tricks,
+  }) : skills = skills ?? [],
+       spells = spells ?? [],
+       tricks = tricks ?? [];
 }
 
 @MappableClass()
@@ -71,6 +77,9 @@ class SkillLearnerComponent extends EyuunComponent<int> {
 
   /// The list of talents this character uses.
   List<SkillEntry> skills = [];
+
+  List<Entity> spells = [];
+  List<Entity> tricks = [];
 
   /// returns the talentEntry for the Talent listed in key. returns null, if the talent does not exist.
   SkillEntry? getSkill(String key) =>
@@ -110,6 +119,8 @@ class SkillLearnerComponent extends EyuunComponent<int> {
     skills.addAll(dynSkills);
     skillpoints = dyn.skillpoints.upgradable;
     skillCeiling = dyn.skillCeiling.upgradable;
+    spells = dyn.spells.getAssets();
+    tricks = dyn.spells.getAssets();
   }
 
   @override
@@ -125,6 +136,8 @@ class SkillLearnerComponent extends EyuunComponent<int> {
   @override
   void reset() {
     skills = [];
+    spells = [];
+    tricks = [];
   }
 
   @override
@@ -132,5 +145,7 @@ class SkillLearnerComponent extends EyuunComponent<int> {
     skillpoints: skillpoints.base,
     skillCeiling: skillCeiling.base,
     skills: skills.map((e) => SkillEntryDynamic.from(e)).toList(),
+    spells: spells.asAssetLinks(),
+    tricks: tricks.asAssetLinks()
   ).toMap();
 }
