@@ -82,6 +82,7 @@ flutter:
     - data/base/asset/
     - data/base/text/
     - data/base/icons/dice/
+    - data/base/icons/dice/2.0x/
     - data/base/icons/damage_type/
     - data/base/icons/weapon/
     - data/base/icons/

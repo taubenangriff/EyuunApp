@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:eyuunapp/view/decoration/Brushes.dart';
 import 'package:eyuuncore/enums/dice.dart';
 import 'package:flutter/material.dart';
 
@@ -9,12 +10,12 @@ class DiceIcon extends StatelessWidget {
   final Color color;
 
   static Map<Dice, String> diceIcons = {
-    Dice.d4 : "data/base/icons/dice/d4.png",
-    Dice.d6 : "data/base/icons/dice/d6.png",
-    Dice.d8 : "data/base/icons/dice/d8.png",
-    Dice.d10 : "data/base/icons/dice/d10.png",
-    Dice.d12 : "data/base/icons/dice/d12.png",
-    Dice.d20 : "data/base/icons/dice/d20.png",
+    Dice.d4: "data/base/icons/dice/d4.png",
+    Dice.d6: "data/base/icons/dice/d6.png",
+    Dice.d8: "data/base/icons/dice/d8.png",
+    Dice.d10: "data/base/icons/dice/d10.png",
+    Dice.d12: "data/base/icons/dice/d12.png",
+    Dice.d20: "data/base/icons/dice/d20.png",
   };
 
   const DiceIcon({
@@ -26,8 +27,27 @@ class DiceIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(diceIcons.containsKey(type)) {
-      return Image(image: AssetImage(diceIcons[type]!), width: size, height: size);
+    var theme = Theme.of(context);
+
+    if (diceIcons.containsKey(type)) {
+      return Stack(alignment: Alignment.center,
+          fit: StackFit.passthrough,
+          children: [
+        Image(
+            image: AssetImage(diceIcons[type]!),
+            width: size + 8,
+            height: size + 8),
+        Center(child: Text(type.getText(), style: theme.textTheme.headlineMedium?.copyWith(
+          shadows: [
+            Shadow(
+              color: Colors.black,      // Choose the color of the shadow
+              blurRadius: 2.0,          // Adjust the blur radius for the shadow effect
+              offset: Offset(2.0, 1.0), // Set the horizontal and vertical offset for the shadow
+            ),
+          ],
+          foreground: Brushes.goldSparkling(stepping: 200)..style = PaintingStyle.fill
+        ))),
+      ]);
     }
 
     return CustomPaint(
@@ -55,11 +75,11 @@ class _DicePainter extends CustomPainter {
 
     switch (type) {
       case Dice.d2:
-      // Draw a rectangle (coin-like)
+        // Draw a rectangle (coin-like)
         canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), paint);
         break;
       case Dice.d4:
-      // Draw triangle
+        // Draw triangle
         final path = Path()
           ..moveTo(center.dx, 0)
           ..lineTo(size.width, size.height)
@@ -68,11 +88,11 @@ class _DicePainter extends CustomPainter {
         canvas.drawPath(path, paint);
         break;
       case Dice.d6:
-      // Draw square
+        // Draw square
         canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), paint);
         break;
       case Dice.d8:
-      // Draw octagon
+        // Draw octagon
         final oct = Path();
         final r = half;
         for (int i = 0; i < 8; i++) {
@@ -89,7 +109,7 @@ class _DicePainter extends CustomPainter {
         canvas.drawPath(oct, paint);
         break;
       case Dice.d10:
-      // Draw pentagon (simplified as 10-sided icon)
+        // Draw pentagon (simplified as 10-sided icon)
         final path = Path();
         final r = half;
         for (int i = 0; i < 10; i++) {
@@ -106,7 +126,7 @@ class _DicePainter extends CustomPainter {
         canvas.drawPath(path, paint);
         break;
       case Dice.d12:
-      // Draw 12-sided polygon
+        // Draw 12-sided polygon
         final path = Path();
         final r = half;
         for (int i = 0; i < 12; i++) {
@@ -123,7 +143,7 @@ class _DicePainter extends CustomPainter {
         canvas.drawPath(path, paint);
         break;
       case Dice.d20:
-      // Draw 20-sided polygon
+        // Draw 20-sided polygon
         final path = Path();
         final r = half;
         for (int i = 0; i < 20; i++) {
@@ -140,7 +160,7 @@ class _DicePainter extends CustomPainter {
         canvas.drawPath(path, paint);
         break;
       case Dice.d100:
-      // Approximate as a circle
+        // Approximate as a circle
         canvas.drawCircle(center, half, paint);
         break;
     }
