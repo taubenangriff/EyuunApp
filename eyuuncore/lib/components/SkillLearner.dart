@@ -100,8 +100,7 @@ class SkillLearnerComponent extends EyuunComponent<int> {
 
   @override
   void init([int? data]) {
-    skillpoints = 0.upgradable;
-    skillCeiling = 0.upgradable;
+    reset();
   }
 
   @override
@@ -136,9 +135,11 @@ class SkillLearnerComponent extends EyuunComponent<int> {
 
   @override
   void reset() {
+    skillpoints = 0.upgradable;
+    skillCeiling = 0.upgradable;
     skills = [];
-    spells = UpgradableList<Entity>();
-    tricks = UpgradableList<Entity>();
+    spells = <Entity>[].upgradable;
+    tricks = <Entity>[].upgradable;
   }
 
   @override
