@@ -76,7 +76,7 @@ class WorldManager{
   }
 
   void execute(){
-    world.init();
+    world.execute(0);
   }
 
   void init()

@@ -16,80 +16,55 @@ import 'package:eyuunapp/view/popup/PickActionPopup.dart';
 class DecideActionCategoryPopup extends StatelessWidget {
   const DecideActionCategoryPopup({
     super.key,
+    required this.labels,
   });
+
+  final List<String> labels;
 
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-        decoration: ArtDecoBoxDecoration(
-            cornerBuilder: (p) => DoubleLineCornerPainter(p),
-            verticalLineBuilder: (p) => DoubleLinePainter(p),
-            horizontalLineBuilder: (p) => DoubleLinePainter(p),
-            paint: Brushes.goldSparkling()..strokeWidth = 1.5,
-            cornerSize: 12),
-        child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  EyuunWidgets.spacerVertical(),
-                  Center(
-                      child: Text(
-                    locator<TextService>().getText('uitext_pickselectlist'),
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )),
-                  EyuunWidgets.spacerVertical(),
-                  Divider(),
-                  EyuunWidgets.spacerVertical(),
-                  EyuunWidgets.floatingActionButton(
-                      height: 60,
-                      text:
-                          locator<TextService>().getText('uitext_picknewtrick'),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        PopupUtil.largePopup(
-                            context,
-                            PickActionPopup(
-                                onPicked: (trick) {
-                                  var skillLearner = locator<CharacterService>().character.get<SkillLearnerComponent>();
-                                  if(skillLearner == null){
-                                    return;
-                                  }
-                                  var controller = SkillLearnerController(skillLearner: skillLearner);
-                                  controller.pickTrick(trick);
-                                },
-                                actions:
-                                    locator<CharacterTablesFeatureComponent>()
-                                        .tricks,
-                                headerKey: 'uitext_picknewtrick'),
-                            header: locator<TextService>()
-                                .getText('uitext_picknewtrick'),
-                            background:
-                                AssetImage('data/base/ui/bg/background.jpg'));
-                      }),
-                  EyuunWidgets.spacerVertical(),
-                  EyuunWidgets.floatingActionButton(
-                      height: 60,
-                      text:
-                          locator<TextService>().getText('uitext_picknewspell'),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        PopupUtil.largePopup(
-                            context,
-                            PickActionPopup(
-                                actions:
-                                    locator<CharacterTablesFeatureComponent>()
-                                        .spells,
-                                headerKey: 'uitext_picknewspell'),
-                            header: locator<TextService>()
-                                .getText('uitext_picknewspell'),
-                            background:
-                                AssetImage('data/base/ui/bg/background.jpg'));
-                      })
-                ])));
+      decoration: ArtDecoBoxDecoration(
+        cornerBuilder: (p) => DoubleLineCornerPainter(p),
+        verticalLineBuilder: (p) => DoubleLinePainter(p),
+        horizontalLineBuilder: (p) => DoubleLinePainter(p),
+        paint: Brushes.goldSparkling()..strokeWidth = 1.5,
+        cornerSize: 12,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            EyuunWidgets.spacerVertical(),
+            Center(
+              child: Text(
+                locator<TextService>().getText('uitext_pickselectlist'),
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            EyuunWidgets.spacerVertical(),
+            const Divider(),
+            EyuunWidgets.spacerVertical(),
+
+            for (int i = 0; i < labels.length; i++) ...[
+              EyuunWidgets.floatingActionButton(
+                height: 60,
+                text: labels[i],
+                onPressed: () {
+                  Navigator.of(context).pop(i); // ✅ dialog result
+                },
+              ),
+              if (i < labels.length - 1) EyuunWidgets.spacerVertical(),
+            ],
+          ],
+        ),
+      ),
+    );
   }
 }
+

@@ -3,7 +3,9 @@ import 'dart:math';
 import 'package:eyuunapp/view/popup/ChangeHealthPopup.dart';
 import 'package:eyuunapp/view/popup/ChangeValuePopup.dart';
 import 'package:eyuunapp/view/popup/DecideActionCategoryPopup.dart';
+import 'package:eyuunapp/view/popup/PickActionPopup.dart';
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
+import 'package:eyuunapp/view/widgets/PickActionWidget.dart';
 import 'package:eyuunapp/view/widgets/cards/ActionsWidget.dart';
 import 'package:eyuunapp/view/widgets/cards/CombatStatsRow.dart';
 import 'package:eyuuncore/components/ActionUser.dart';
@@ -11,14 +13,19 @@ import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/Combat.dart';
 import 'package:eyuuncore/components/Flux.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
+import 'package:eyuuncore/components/feature/CharacterTables.dart';
 import 'package:eyuuncore/components/health.dart';
 import 'package:eyuuncore/controller/HealthController.dart';
+import 'package:eyuuncore/controller/SkilllearnerController.dart';
 import 'package:eyuuncore/core/registerServices.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
+import 'package:eyuuncore/core/services/TextService.dart';
+import 'package:eyuuncore/core/services/WorldManager.dart';
 import 'package:flutter/material.dart';
 
 import 'package:eyuunapp/view/controller/ChangeValueController.dart';
 import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
+import 'package:oxygen/oxygen.dart';
 
 class CombatPage extends StatefulWidget {
   const CombatPage({super.key});
@@ -134,8 +141,45 @@ class _CombatPageState extends State<CombatPage> {
           EyuunWidgets.spacerHorizontal(),
           EyuunWidgets.circularFloatingActionButton(
             onPressed: () async {
-              PopupUtil.popup(context, const DecideActionCategoryPopup()).then(
+              if (skillLearner == null) {
+                return;
+              }
+              PopupUtil.popup<int>(
+                  context,
+                  DecideActionCategoryPopup(labels: [
+                    locator<TextService>().getText('uitext_picknewtrick'),
+                    locator<TextService>().getText('uitext_picknewspell'),
+                  ])).then(
+                (value) async {
+                  if (value == null) {
+                    return;
+                  }
+                  var tables = locator<CharacterTablesFeatureComponent>();
+                  List<Entity> list = switch (value) {
+                    0 => tables.tricks,
+                    1 => tables.spells,
+                    _ => [],
+                  };
+
+                  var skillLearnerController =
+                      SkillLearnerController(skillLearner: skillLearner);
+
+                  await PopupUtil.largePopup(
+                      context,
+                      PickActionWidget(
+                          actions: list,
+                          onPicked: (entity) {
+                            switch (value) {
+                              case 0:
+                                skillLearnerController.pickTrick(entity);
+                              case 1:
+                                skillLearnerController.pickSkill(entity);
+                            }
+                          }));
+                },
+              ).then(
                 (value) {
+                  locator<WorldManager>().execute();
                   setState(() {});
                 },
               );
