@@ -16,7 +16,6 @@ class NotesPage extends StatefulWidget {
 }
 
 class _NotesPageState extends State<NotesPage> {
-
   Widget selectedWidget = HandwrittenNoteWidget();
 
   @override
@@ -27,17 +26,18 @@ class _NotesPageState extends State<NotesPage> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Center(
-        child: ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: desiredSize),
-            child: Padding(
-                padding: EdgeInsets.all(20),
+        child: Padding(
+            padding: EdgeInsets.all(8),
+            child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: desiredSize),
                 child: DecoratedBox(
                     position: DecorationPosition.foreground,
                     decoration: ArtDecoBoxDecoration(
-                        cornerBuilder: (p) => ScaffoldCornerPainter(p, squareSize: 6),
+                        cornerBuilder: (p) =>
+                            ScaffoldCornerPainter(p, squareSize: 6),
                         verticalLineBuilder: (p) => LinePainter(p),
                         horizontalLineBuilder: (p) => LinePainter(p),
-                        cornerSize: 20,
+                        cornerSize: 16,
                         paint: Brushes.goldSparkling()),
                     child: selectedWidget))),
       ),

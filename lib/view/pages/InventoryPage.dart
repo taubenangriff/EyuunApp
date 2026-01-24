@@ -82,13 +82,13 @@ class _InventoryPageState extends State<InventoryPage> {
             .toList() ??
         [];
 
-
-
     List<Entity> shopItems = locator<ItemShopFeatureComponent>().getShopItems();
 
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Center(
+          child: Padding(
+        padding: const EdgeInsets.all(8),
         child: ConstrainedBox(
           constraints: BoxConstraints(maxWidth: desiredSize),
           child: LayoutBuilder(
@@ -99,8 +99,10 @@ class _InventoryPageState extends State<InventoryPage> {
               double size = isTablet ? 100 : 80;
 
               List<Widget> slotWidgets = [
-                for (var (index, _) in holdables.indexed) _buildHoldableSlot(index, size),
-                if (_combatController.getFreeHands() > 0) _buildAddHoldableSlot(size),
+                for (var (index, _) in holdables.indexed)
+                  _buildHoldableSlot(index, size),
+                if (_combatController.getFreeHands() > 0)
+                  _buildAddHoldableSlot(size),
                 _buildArmorSlot(size),
               ];
 
@@ -165,7 +167,6 @@ class _InventoryPageState extends State<InventoryPage> {
                           ),
                           theme: theme),
                     ),
-                    EyuunWidgets.spacerVertical(),
                     Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -180,7 +181,7 @@ class _InventoryPageState extends State<InventoryPage> {
             },
           ),
         ),
-      ),
+      )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.center,

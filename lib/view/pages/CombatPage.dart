@@ -71,7 +71,7 @@ class _CombatPageState extends State<CombatPage> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(8),
           child: Center(
             child: ConstrainedBox(
                 constraints: BoxConstraints(maxWidth: desiredSize),

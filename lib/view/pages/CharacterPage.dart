@@ -57,7 +57,7 @@ class _CharacterPageState extends State<CharacterPage> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(8),
         child: Center(
             child: ConstrainedBox(
                 constraints: BoxConstraints(maxWidth: desiredSize),

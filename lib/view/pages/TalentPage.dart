@@ -36,7 +36,7 @@ class _TalentPageState extends State<TalentPage> {
       body: SingleChildScrollView(
           child: Center(
         child: Padding(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(8),
             child: ConstrainedBox(
                 constraints: BoxConstraints(maxWidth: widget.desiredSize),
                 child: Column(children: [
