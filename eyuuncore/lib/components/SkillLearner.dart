@@ -7,6 +7,7 @@ import 'package:oxygen/oxygen.dart';
 
 import '../core/upgrading/UpgradableInt.dart';
 import '../core/assetLink.dart';
+import '../core/upgrading/UpgradableList.dart';
 
 part 'SkillLearner.mapper.dart';
 
@@ -78,8 +79,8 @@ class SkillLearnerComponent extends EyuunComponent<int> {
   /// The list of talents this character uses.
   List<SkillEntry> skills = [];
 
-  List<Entity> spells = [];
-  List<Entity> tricks = [];
+  late UpgradableList<Entity> spells;
+  late UpgradableList<Entity> tricks;
 
   /// returns the talentEntry for the Talent listed in key. returns null, if the talent does not exist.
   SkillEntry? getSkill(String key) =>
@@ -119,8 +120,8 @@ class SkillLearnerComponent extends EyuunComponent<int> {
     skills.addAll(dynSkills);
     skillpoints = dyn.skillpoints.upgradable;
     skillCeiling = dyn.skillCeiling.upgradable;
-    spells = dyn.spells.getAssets();
-    tricks = dyn.spells.getAssets();
+    spells = dyn.spells.getAssets().upgradable;
+    tricks = dyn.spells.getAssets().upgradable;
   }
 
   @override
@@ -136,8 +137,8 @@ class SkillLearnerComponent extends EyuunComponent<int> {
   @override
   void reset() {
     skills = [];
-    spells = [];
-    tricks = [];
+    spells = UpgradableList<Entity>();
+    tricks = UpgradableList<Entity>();
   }
 
   @override
@@ -145,7 +146,7 @@ class SkillLearnerComponent extends EyuunComponent<int> {
     skillpoints: skillpoints.base,
     skillCeiling: skillCeiling.base,
     skills: skills.map((e) => SkillEntryDynamic.from(e)).toList(),
-    spells: spells.asAssetLinks(),
-    tricks: tricks.asAssetLinks()
+    spells: spells.baseList.asAssetLinks(),
+    tricks: tricks.baseList.asAssetLinks()
   ).toMap();
 }

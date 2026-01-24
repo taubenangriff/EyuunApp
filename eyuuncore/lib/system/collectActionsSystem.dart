@@ -57,10 +57,10 @@ class CollectActionsSystem extends System {
     }
     var skillLearnerComponent = actionUser.get<SkillLearnerComponent>()!;
     var actionUserComponent = actionUser.get<ActionUserComponent>()!;
-    for(var trick in skillLearnerComponent.tricks){
+    for(var trick in skillLearnerComponent.tricks.current){
       actionUserComponent.addAction(trick);
     }
-    for(var spell in skillLearnerComponent.spells){
+    for(var spell in skillLearnerComponent.spells.current){
       actionUserComponent.addAction(spell);
     }
   }
