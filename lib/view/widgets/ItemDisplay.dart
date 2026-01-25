@@ -96,12 +96,12 @@ class ItemDisplay extends StatelessWidget {
           EyuunWidgets.spacerVertical(),
           RichText(
               text: TextSpan(children: [
-            TextSpan(text: '!Armor: ${armor.armorToughness.current} '),
+            TextSpan(text: '!Armor Toughness: ${armor.armorToughness.current} '),
           ], style: theme.textTheme.bodyMedium)),
           if (armor.isTemplate)
             RichText(
                 text: TextSpan(children: [
-              TextSpan(text: '-Impact: '),
+              TextSpan(text: 'Impact: '),
               if (armor.stealthImpactOnCraft > 0)
                 TextSpan(text: '-${armor.stealthImpactOnCraft} Stealth '),
               if (armor.evasionImpactOnCraft > 0)

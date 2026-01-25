@@ -17,6 +17,9 @@
     },
     "tricks": {
       "id": "all_tricks_pool"
+    },
+    "spells": {
+      "id": "all_spells_pool"
     }
   }
 }

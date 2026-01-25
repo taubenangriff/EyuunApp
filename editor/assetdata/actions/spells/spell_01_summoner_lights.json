@@ -1,0 +1,29 @@
+{
+  "standard": {
+    "typeId": "spell_01_summoner_lights"
+  },
+  "text": { },
+  "action": {
+    "actionDescription": "spell_01_summoner_lights_desc",
+    "actionTime": "Reaction",
+    "fluxCost": 0
+  },
+  "casted": {
+    "castScope": "Sight"
+  },
+  "spell": {
+    "tier": 1,
+    "spellSchool": {
+      "id": "spellschool_summoner"
+    }
+  },
+  "skillcheck": {
+    "checkedAttributes": null,
+    "overrideSkillcheck": {
+      "id": "spellschool_summoner"
+    },
+    "overrideTalentValue": {
+      "id": "spellschool_summoner"
+    }
+  }
+}

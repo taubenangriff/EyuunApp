@@ -1,0 +1,13 @@
+{
+  "standard": {
+    "typeId": "all_spells_pool"
+  },
+  "text": { },
+  "assetBundle": {
+    "assets": [
+      {
+        "id": "spell_01_summoner_lights"
+      }
+    ]
+  }
+}
