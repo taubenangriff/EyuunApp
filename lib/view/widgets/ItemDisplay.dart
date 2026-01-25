@@ -3,6 +3,7 @@ import 'package:eyuunapp/view/widgets/SkillCheckWidget.dart';
 import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/components/Action.dart';
 import 'package:eyuuncore/components/ActionUser.dart';
+import 'package:eyuuncore/components/Armor.dart';
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/Craftable.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
@@ -27,6 +28,7 @@ class ItemDisplay extends StatelessWidget {
     var craftable = item.get<CraftableComponent>();
     var weapon = item.get<WeaponComponent>();
     var actionUser = item.get<ActionUserComponent>();
+    var armor = item.get<ArmorComponent>();
 
     return LayoutBuilder(builder: (context, constraints) {
       var theme = Theme.of(context);
@@ -89,6 +91,38 @@ class ItemDisplay extends StatelessWidget {
               TextSpan(
                   text: textService.getActionDescriptionFromEntity(action)),
             ], style: theme.textTheme.bodyMedium))
+        },
+        if (armor != null) ...{
+          EyuunWidgets.spacerVertical(),
+          RichText(
+              text: TextSpan(children: [
+            TextSpan(text: '!Armor: ${armor.armorToughness.current} '),
+          ], style: theme.textTheme.bodyMedium)),
+          if (armor.isTemplate)
+            RichText(
+                text: TextSpan(children: [
+              TextSpan(text: '-Impact: '),
+              if (armor.stealthImpactOnCraft > 0)
+                TextSpan(text: '-${armor.stealthImpactOnCraft} Stealth '),
+              if (armor.evasionImpactOnCraft > 0)
+                TextSpan(text: '-${armor.evasionImpactOnCraft} Evasion '),
+              if (armor.athleticImpactOnCraft > 0)
+                TextSpan(text: '-${armor.athleticImpactOnCraft} Athletics '),
+              if (armor.splittableImpactOnCraft > 0)
+                TextSpan(
+                    text: '-${armor.splittableImpactOnCraft} Distributable '),
+            ], style: theme.textTheme.bodyMedium)),
+          if (!armor.isTemplate)
+            RichText(
+                text: TextSpan(children: [
+              TextSpan(text: '-Impact: '),
+              if (armor.stealthImpact > 0)
+                TextSpan(text: '-${armor.stealthImpact} Stealth '),
+              if (armor.evasionImpact > 0)
+                TextSpan(text: '-${armor.evasionImpact} Evasion '),
+              if (armor.athleticImpact > 0)
+                TextSpan(text: '-${armor.athleticImpact} Athletics '),
+            ], style: theme.textTheme.bodyMedium)),
         }
       ]);
     });

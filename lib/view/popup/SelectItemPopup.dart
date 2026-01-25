@@ -1,6 +1,7 @@
 import 'package:eyuunapp/view/controller/ChangeValueController.dart';
 import 'package:eyuunapp/view/popup/ChangeValuePopup.dart';
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
+import 'package:eyuunapp/view/widgets/ItemDisplay.dart';
 import 'package:eyuuncore/components/AssetBundle.dart';
 import 'package:eyuuncore/components/Icon.dart';
 import 'package:eyuuncore/components/inventory.dart';
@@ -15,7 +16,8 @@ class ItemGridNavigator extends StatefulWidget {
   final List<Entity> rootItems;
   final InventoryComponent inventory;
 
-  const ItemGridNavigator({super.key, required this.rootItems, required this.inventory});
+  const ItemGridNavigator(
+      {super.key, required this.rootItems, required this.inventory});
 
   @override
   State<ItemGridNavigator> createState() => _ItemGridNavigatorState();
@@ -117,9 +119,8 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
                     child: GridView.builder(
                       padding: const EdgeInsets.all(8),
                       gridDelegate:
-                      const SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent:
-                        128, // 👈 desired item width
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent: 128, // 👈 desired item width
                         crossAxisSpacing: 12,
                         mainAxisSpacing: 12,
                         childAspectRatio: 1, // tweak if needed
@@ -140,7 +141,9 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               item.has<IconComponent>()
-                                  ? Image(image: item.get<IconComponent>()!.getImage())
+                                  ? Image(
+                                      image:
+                                          item.get<IconComponent>()!.getImage())
                                   : Icon(Icons.add, size: 32),
                               const SizedBox(height: 8),
                               Text(
@@ -173,7 +176,12 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
                             children: [
                               const SizedBox(height: 30),
                               selectedItem?.has<IconComponent>() ?? false
-                                  ? Image(image: selectedItem!.get<IconComponent>()!.getImage(), width: 128, height: 128)
+                                  ? Image(
+                                      image: selectedItem!
+                                          .get<IconComponent>()!
+                                          .getImage(),
+                                      width: 128,
+                                      height: 128)
                                   : Icon(Icons.add, size: 32),
                               const SizedBox(height: 16),
                               Text(
@@ -182,14 +190,12 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
                                     Theme.of(context).textTheme.headlineSmall,
                               ),
                               const Divider(),
-                              Expanded(
-                                  child: SingleChildScrollView(
-                                      child: Column(children: [
-                                Text(
-                                  _textService.getFluffFromEntity(selectedItem),
-                                  textAlign: TextAlign.justify,
-                                )
-                              ]))),
+                              if (selectedItem != null)
+                                Expanded(
+                                    child: SingleChildScrollView(
+                                        child: Column(children: [
+                                  ItemDisplay(item: selectedItem!),
+                                ]))),
                               SizedBox(height: 110)
                             ],
                           )),
@@ -209,10 +215,11 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
                                           child: const Text("x1"),
                                           onPressed: () {
                                             setState(() {
-                                              if(selectedItem == null){
+                                              if (selectedItem == null) {
                                                 return;
                                               }
-                                              _shoppingController.buyItem(selectedItem!.getTypeId());
+                                              _shoppingController.buyItem(
+                                                  selectedItem!.getTypeId());
                                               inInventoryCount += 1;
                                             });
                                           })),

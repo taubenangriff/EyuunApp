@@ -12,11 +12,13 @@ class ArmorDynamic with ArmorDynamicMappable {
   int evasionImpact;
   int athleticImpact;
   int stealthImpact;
+  bool isTemplate;
 
   ArmorDynamic({
     this.evasionImpact = 0,
     this.athleticImpact = 0,
     this.stealthImpact = 0,
+    this.isTemplate = true,
   });
 }
 
@@ -29,6 +31,7 @@ class ArmorStatic with ArmorStaticMappable, ComponentReflectable {
   int evasionImpactOnCraft;
   int athleticImpactOnCraft;
   int stealthImpactOnCraft;
+  bool isTemplate;
 
   ArmorStatic({
     this.armorToughness = 0,
@@ -36,6 +39,7 @@ class ArmorStatic with ArmorStaticMappable, ComponentReflectable {
     this.evasionImpactOnCraft = 0,
     this.athleticImpactOnCraft = 0,
     this.stealthImpactOnCraft = 0,
+    this.isTemplate = true,
   });
 }
 
@@ -66,6 +70,8 @@ class ArmorComponent extends EyuunComponent<int> {
   /// The impact on stealth of this armor.
   int stealthImpact = 0;
 
+  bool isTemplate = true;
+
   @override
   String getName() => propertyName;
 
@@ -80,6 +86,7 @@ class ArmorComponent extends EyuunComponent<int> {
     evasionImpact = dyn.evasionImpact;
     athleticImpact = dyn.athleticImpact;
     stealthImpact = dyn.stealthImpact;
+    isTemplate = dyn.isTemplate;
   }
 
   @override
@@ -90,6 +97,7 @@ class ArmorComponent extends EyuunComponent<int> {
     stealthImpactOnCraft = stat.stealthImpactOnCraft;
     athleticImpactOnCraft = stat.athleticImpactOnCraft;
     evasionImpactOnCraft = stat.evasionImpactOnCraft;
+    isTemplate = stat.isTemplate;
   }
 
   @override
@@ -102,6 +110,7 @@ class ArmorComponent extends EyuunComponent<int> {
     evasionImpact = 0;
     athleticImpact = 0;
     stealthImpact = 0;
+    isTemplate = true;
   }
 
   @override
@@ -109,5 +118,6 @@ class ArmorComponent extends EyuunComponent<int> {
     evasionImpact: evasionImpact,
     athleticImpact: athleticImpact,
     stealthImpact: stealthImpact,
+    isTemplate: isTemplate,
   ).toMap();
 }
