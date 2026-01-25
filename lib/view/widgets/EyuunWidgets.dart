@@ -52,8 +52,8 @@ class EyuunWidgets {
       IconData? icon,
       VoidCallback? onPressed,
       String tooltip = "",
-      width = 90,
-      height = 90}) {
+      width = 150,
+      height = 50}) {
     var color = Color(0xccfdcc3a);
     return SizedBox(
         width: width,

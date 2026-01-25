@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:eyuunapp/view/popup/ChangeHealthPopup.dart';
 import 'package:eyuunapp/view/popup/ChangeValuePopup.dart';
 import 'package:eyuunapp/view/popup/DecideActionCategoryPopup.dart';
-import 'package:eyuunapp/view/popup/PickActionPopup.dart';
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuunapp/view/widgets/PickActionWidget.dart';
 import 'package:eyuunapp/view/widgets/cards/ActionsWidget.dart';
@@ -171,16 +170,17 @@ class _CombatPageState extends State<CombatPage> {
                     return;
                   }
                   var tables = locator<CharacterTablesFeatureComponent>();
-                  List<Entity> list = switch (value) {
-                    0 => skillLearnerController.getAvailableTricks(),
-                    1 => skillLearnerController.getAvailableSpells(),
-                    _ => [],
+                  List<Entity> Function() actionsBuilder = switch (value) {
+                    0 => () => skillLearnerController.getAvailableTricks(),
+                    1 => () => skillLearnerController.getAvailableSpells(),
+                    _ => () => [],
                   };
 
                   await PopupUtil.largePopup(
                       context,
+                      header: "!Pick",
                       PickActionWidget(
-                          actions: list,
+                          actionsBuilder: actionsBuilder,
                           onPicked: (entity) {
                             setState(() {
                               switch (value) {

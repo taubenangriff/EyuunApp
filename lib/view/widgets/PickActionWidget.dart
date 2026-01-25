@@ -1,20 +1,33 @@
+import 'package:eyuunapp/view/popup/AcceptActionPopup.dart';
+import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
+import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuunapp/view/widgets/ActionCard.dart';
 
-class PickActionWidget extends StatelessWidget {
+class PickActionWidget extends StatefulWidget {
+  final List<Entity> Function() actionsBuilder;
   final void Function(Entity entity)? onPicked;
-  PickActionWidget({super.key, required this.actions, this.onPicked});
 
-  final List<Entity> actions;
+  const PickActionWidget({
+    super.key,
+    required this.actionsBuilder,
+    this.onPicked,
+  });
 
-  // temporary placeholders – you said you’ll handle this later
-  final skillLearner = SkillLearnerComponent();
-  final attributes = AttributesComponent();
+  @override
+  State<PickActionWidget> createState() => _PickActionWidgetState();
+}
+
+class _PickActionWidgetState extends State<PickActionWidget> {
+  final SkillLearnerComponent skillLearner = locator<CharacterService>().character.get<SkillLearnerComponent>() ?? SkillLearnerComponent();
+  final AttributesComponent attributes = locator<CharacterService>().character.get<AttributesComponent>() ?? AttributesComponent();
+
+  late List<Entity> actions = widget.actionsBuilder.call();
 
   @override
   Widget build(BuildContext context) {
@@ -29,20 +42,18 @@ class PickActionWidget extends StatelessWidget {
       itemCount: actions.length,
       itemBuilder: (context, index) {
         final action = actions[index];
-
         return ActionCard(
-          onTap: () {
-            onPicked?.call(action);
-            PopupUtil.popup(
+          onTap: () async {
+            final result = await PopupUtil.popup(
               context,
-              Center(
-                child: Text(
-                  "Are you sure you want to skill $action?",
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              maximumSize: const Size(600, 400),
+              AcceptActionPopup(buff: action),
             );
+            if (result == null) return;
+
+            widget.onPicked?.call(action);
+            setState(() {
+              actions = widget.actionsBuilder.call();
+            });
           },
           skillLearner: skillLearner,
           attributes: attributes,
