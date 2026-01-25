@@ -83,8 +83,15 @@ class SkillLearnerComponent extends EyuunComponent<int> {
   late UpgradableList<Entity> tricks;
 
   /// returns the talentEntry for the Talent listed in key. returns null, if the talent does not exist.
-  SkillEntry? getSkill(String key) =>
-      skills.firstWhere((e) => e.skill.getTypeId() == key, orElse: null);
+  SkillEntry? getSkill(String key) {
+    try{
+      skills.firstWhere((e) => e.skill.getTypeId() == key);
+    } on StateError {
+      return null;
+    }
+    return null;
+  }
+
 
   /// If the talent is present in talents, this function sets it's value to newVal.
   void setSkillValue(String key, int newVal) => getSkill(key)?.value = newVal;

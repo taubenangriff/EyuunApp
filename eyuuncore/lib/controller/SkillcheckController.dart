@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/components/Skillcheck.dart';
@@ -11,6 +13,16 @@ class SkillcheckController {
   SkillLearnerComponent skillLearner;
 
   SkillcheckController(this.skillLearner);
+
+  int getSkill(Entity entity){
+    if(entity.has<WeaponComponent>()) {
+      return getWeaponSkill(entity);
+    }
+    if(entity.has<SkillcheckComponent>()){
+      return getActiveTalentSkill(entity);
+    }
+    return 0;
+  }
 
   int getWeaponSkill(Entity weapon){
     var weaponComp = weapon.get<WeaponComponent>();

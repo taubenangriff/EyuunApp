@@ -87,6 +87,9 @@
     "childhood_homeless": "Obdachlos",
     "childhood_homeless_effectdesc": "Immer wenn du erschöpft werden würdest, wirf einen KO-Wurf gegen 4. Du erhältst nur bei einem Fehlschlag tatsächlich die Erschöpfung",
 
+    "spell_01_summoner_lights": "Lichtkugeln",
+    "spell_01_summoner_lights_desc": "Beschwöre, eine magische Lichtkugel, dessen Helligkeit, Farbe und Leuchtrichtung du kontrollieren kannst. Die Kugel kann dabei maximal taghell leuchten, sämtliche sichtbare Farben annehmen und von überall hin, bis hin zu einem kleinen fokussierten Strahl ausgerichtet werden. Sie hat 1 Leben, 1 Fluss, 0 Rüstung, einen Ausweichen-Wert von +0 und eine Geschwindigkeit von 12. Die Kugel bleibt bestehen, solange das Beschwörungssymbol bestehen bleibt. Jede höhere Stufe beschwört bis zu doppelt so viele Kugeln wie auf der vorherigen Stufe",
+
     "level_1": "Level 1",
     "level_2": "Level 2",
     "weapontype_smiteweapon": "Wuchtwaffe",

@@ -71,7 +71,7 @@ class ActionDisplay extends StatelessWidget {
                 showText: false,
                 iconSize: enaughWidth ? 46 : 38),
             Text(
-                " + ${SkillcheckController(skillLearner).getActiveTalentSkill(action)}",
+                " + ${SkillcheckController(skillLearner).getSkill(action)}",
                 style: enaughWidth
                     ? theme.textTheme.headlineMedium
                     : theme.textTheme.bodyLarge)
