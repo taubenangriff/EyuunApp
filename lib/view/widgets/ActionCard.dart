@@ -12,6 +12,7 @@ import 'package:eyuuncore/controller/SkillcheckController.dart';
 import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/enums/ActionTime.dart';
+import 'package:eyuuncore/enums/BillingCycle.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
@@ -40,6 +41,7 @@ class ActionCard extends StatelessWidget {
         SkillcheckController(skillLearner);
 
     var theme = Theme.of(context);
+    var actionComponent = actionEntity.get<ActionComponent>()!;
 
     return GestureDetector(
         onTap: onTap,
@@ -110,29 +112,47 @@ class ActionCard extends StatelessWidget {
                           const SizedBox(height: 16),
                         ],
                       ),
-                      // 🎲 Skill check widget
-                      if (actionEntity.has<SkillcheckComponent>())
-                        Positioned(
-                            bottom: 4,
-                            right: 0,
-                            left: 0,
-                            child: Center(
-                                child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                  SkillCheckWidget(
-                                      skillcheck: actionEntity
-                                          .get<SkillcheckComponent>()!,
-                                      attributes: attributes,
-                                      spacing: 2,
-                                      showText: false,
-                                      iconSize: enaughWidth ? 46 : 38),
+                      Positioned(
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        child: Column(
+                          children: [
+                            if (actionComponent.fluxCost > 0) ...{
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.water, size: 32),
+                                  SizedBox(width: 6),
                                   Text(
-                                      " + ${skillcheckController.getWeaponSkill(actionEntity)}",
-                                      style: enaughWidth
-                                          ? theme.textTheme.headlineMedium
-                                          : theme.textTheme.bodyLarge)
-                                ]))),
+                                    '!Flux: ${actionComponent.fluxCost}${(actionComponent.billingCycle != BillingCycle.Once) ? "/!round" : ""}',
+                                    style: theme.textTheme.headlineSmall,
+                                  ),
+                                ],
+                              ),
+                            },
+                            if (actionEntity.has<SkillcheckComponent>()) ...{
+                              const SizedBox(height: 16),
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SkillCheckWidget(
+                                        skillcheck: actionEntity
+                                            .get<SkillcheckComponent>()!,
+                                        attributes: attributes,
+                                        spacing: 2,
+                                        showText: false,
+                                        iconSize: enaughWidth ? 46 : 38),
+                                    Text(
+                                        " + ${skillcheckController.getWeaponSkill(actionEntity)}",
+                                        style: enaughWidth
+                                            ? theme.textTheme.headlineMedium
+                                            : theme.textTheme.bodyLarge)
+                                  ])
+                            }
+                          ],
+                        ),
+                      ),
                     ]),
                   )));
         }));

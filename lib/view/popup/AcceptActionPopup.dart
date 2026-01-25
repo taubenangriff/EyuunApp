@@ -1,3 +1,4 @@
+import 'package:eyuunapp/view/widgets/ActionDisplay.dart';
 import 'package:eyuunapp/view/widgets/BuffDisplay.dart';
 import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
@@ -25,14 +26,7 @@ class AcceptActionPopup extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(locator<TextService>().getTextFromEntity(buff!),
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                )),
-            EyuunWidgets.spacerVertical(),
-            BuffDisplay(buff: buff),
+            ActionDisplay(action: buff!, source: source),
             Center(child: EyuunWidgets.floatingActionButton(text: "Accept", onPressed: () => Navigator.of(context).pop(1)))
           ],
         ))
