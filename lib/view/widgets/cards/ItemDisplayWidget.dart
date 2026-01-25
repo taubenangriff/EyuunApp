@@ -1,3 +1,5 @@
+import 'package:eyuunapp/view/widgets/ActionDisplay.dart';
+import 'package:eyuunapp/view/widgets/ItemDisplay.dart';
 import 'package:eyuunapp/view/widgets/WeaponCraftingScreen.dart';
 import 'package:eyuuncore/components/Armor.dart';
 import 'package:eyuuncore/components/Craftable.dart';
@@ -65,21 +67,15 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 8),
               Text(
                 _textService.getText(itemText ?? ""),
                 style: theme.textTheme.bodyMedium,
               ),
-              const Divider(height: 24),
+              const Divider(height: 16),
               Expanded(
                   child: SingleChildScrollView(
-                      child: Column(children: [
-                Text(
-                  _textService.getFluffFromEntity(item.object),
-                  style: theme.textTheme.bodyMedium,
-                  textAlign: TextAlign.justify,
-                )
-              ]))),
+                      child:
+                          Column(children: [ItemDisplay(item: item.object)]))),
             ],
           ),
         ]),
@@ -89,7 +85,7 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
             EyuunWidgets.spacerHorizontal(),
             EyuunWidgets.circularFloatingActionButton(
                 icon: Icons.shield,
-                radius: 52,
+                radius: 42,
                 addDeco: true,
                 onPressed: () => setState(() {})),
           },
@@ -97,7 +93,7 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
             EyuunWidgets.spacerHorizontal(),
             EyuunWidgets.circularFloatingActionButton(
                 icon: Icons.back_hand_sharp,
-                radius: 52,
+                radius: 42,
                 addDeco: true,
                 onPressed: () => setState(() {})),
           },
@@ -105,7 +101,7 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
             EyuunWidgets.spacerHorizontal(),
             EyuunWidgets.circularFloatingActionButton(
                 icon: Icons.handyman,
-                radius: 52,
+                radius: 42,
                 addDeco: true,
                 onPressed: () => setState(() {
                       PopupUtil.largePopup(context, WeaponCraftingScreen(),
@@ -116,7 +112,7 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
           EyuunWidgets.spacerHorizontal(),
           EyuunWidgets.spacerHorizontal(),
           EyuunWidgets.circularFloatingActionButton(
-              radius: 52,
+              radius: 42,
               addDeco: true,
               text: 'x${item.count}',
               onPressed: () {

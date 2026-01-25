@@ -1,5 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/upgrading/UpgradableInt.dart';
+import 'package:eyuuncore/core/upgrading/UpgradableList.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../core/assetLink.dart';
@@ -20,8 +21,14 @@ class CraftableDynamic with CraftableDynamicMappable {
   AssetLink? material;
   AssetLink? craftMethod;
   int upgradeSlots;
+  List<AssetLink> upgrades;
 
-  CraftableDynamic({this.material, this.craftMethod, this.upgradeSlots = 0});
+  CraftableDynamic({
+    this.material,
+    this.craftMethod,
+    this.upgradeSlots = 0,
+    List<AssetLink>? upgrades,
+  }) : upgrades = upgrades ?? [];
 }
 
 class CraftableComponent extends EyuunComponent<int> {
@@ -30,6 +37,7 @@ class CraftableComponent extends EyuunComponent<int> {
   late Entity? material;
   late Entity? craftMethod;
   late UpgradableInt upgradeSlots;
+  late List<Entity> upgrades;
 
   @override
   String getName() => propertyName;
@@ -45,6 +53,7 @@ class CraftableComponent extends EyuunComponent<int> {
     material = dyn.material?.getEntity();
     craftMethod = dyn.craftMethod?.getEntity();
     upgradeSlots = dyn.upgradeSlots.upgradable;
+    upgrades = dyn.upgrades.getAssets();
   }
 
   @override
@@ -56,8 +65,15 @@ class CraftableComponent extends EyuunComponent<int> {
   void reset() {
     material = null;
     craftMethod = null;
+    upgradeSlots = 0.upgradable;
+    upgrades = [];
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => <String, dynamic>{};
+  Map<String, dynamic> saveDynamicData() => CraftableDynamic(
+    craftMethod: craftMethod?.asAssetLink(),
+    material: material?.asAssetLink(),
+    upgrades: upgrades.asAssetLinks(),
+    upgradeSlots: upgradeSlots.base,
+  ).toMap();
 }
