@@ -26,7 +26,8 @@ class AcceptActionPopup extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            ActionDisplay(action: buff!, source: source),
+            Flexible(child: ActionDisplay(action: buff!, source: source)),
+            EyuunWidgets.spacerVertical(),
             Center(child: EyuunWidgets.floatingActionButton(text: "Accept", onPressed: () => Navigator.of(context).pop(1)))
           ],
         ))

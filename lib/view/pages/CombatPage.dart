@@ -104,7 +104,8 @@ class _CombatPageState extends State<CombatPage> {
                             actionUser: actionUser,
                             attributes: attributes,
                             skillLearner: skillLearner),
-                        theme: theme)
+                        theme: theme),
+                  SizedBox(height: 200)
                 ])),
           )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

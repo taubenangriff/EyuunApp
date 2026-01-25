@@ -1,0 +1,29 @@
+{
+  "standard": {
+    "typeId": "spell_03_summoner_clothes"
+  },
+  "text": { },
+  "action": {
+    "actionDescription": "spell_03_summoner_clothes_desc",
+    "actionTime": "Action",
+    "fluxCost": 1
+  },
+  "casted": {
+    "castScope": "Touch"
+  },
+  "spell": {
+    "tier": 1,
+    "spellSchool": {
+      "id": "spellschool_summoner"
+    }
+  },
+  "skillcheck": {
+    "checkedAttributes": null,
+    "overrideSkillcheck": {
+      "id": "spellschool_summoner"
+    },
+    "overrideTalentValue": {
+      "id": "spellschool_summoner"
+    }
+  }
+}
