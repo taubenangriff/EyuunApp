@@ -1,3 +1,4 @@
+import 'package:eyuunapp/view/popup/AcceptActionPopup.dart';
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuuncore/components/Action.dart';
 import 'package:eyuuncore/components/ActionUser.dart';
@@ -121,13 +122,13 @@ class _ActionsWidgetState extends State<ActionsWidget> {
         itemBuilder: (BuildContext context, int index) {
           var actionLink = actions[index];
           return ActionCard(
-              onTap: () {
-                PopupUtil.popup(
+              onTap: () async {
+                var result = await PopupUtil.popup(
                     context,
-                    const Center(
-                        child: Text(
-                            "Popup showing the action in full and a button to cast it.")),
-                    maximumSize: Size(600, 400));
+                    AcceptActionPopup(buff: actionLink.action, source: actionLink.source));
+                if(result == null) return;
+
+                //cast the action
               },
               skillLearner: widget.skillLearner,
               attributes: widget.attributes,

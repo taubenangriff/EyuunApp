@@ -8,9 +8,11 @@ import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 
 class AcceptActionPopup extends StatelessWidget {
   final Entity? buff;
+  final Entity? source;
 
   const AcceptActionPopup({
     required this.buff,
+    this.source,
     super.key,
   });
 
