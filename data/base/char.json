@@ -98,8 +98,8 @@
         "fluxMaximum": 15
       },
       "skillLearner": {
-        "skillpoints": 50,
-        "skillCeiling": 5,
+        "skillpoints": 0,
+        "skillCeiling": 0,
         "skills": [
           {
             "skill": {

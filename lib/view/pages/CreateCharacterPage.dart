@@ -3,12 +3,15 @@ import 'package:eyuunapp/view/controller/CharacterImageController.dart';
 import 'package:eyuunapp/view/decoration/Brushes.dart';
 import 'package:eyuunapp/view/widgets/PickNewPathWidget.dart';
 import 'package:eyuunapp/view/decoration/CircleDecoration.dart';
+import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/CharacterBase.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/controller/PathController.dart';
 import 'package:eyuuncore/controller/PickUpbringingController.dart';
 import 'package:eyuuncore/controller/SkilllearnerController.dart';
+import 'package:eyuuncore/core/services/GameObjectService.dart';
+import 'package:eyuuncore/core/services/WorldManager.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
@@ -20,10 +23,8 @@ import 'package:eyuunapp/view/pages/TalentPage.dart';
 
 class CreateCharacterPage extends StatefulWidget {
   const CreateCharacterPage(
-      {super.key, required this.title, required this.character});
-
+      {super.key, required this.title});
   final String title;
-  final Entity character;
 
   @override
   State<CreateCharacterPage> createState() => _CreateCharacterPageState();
@@ -41,13 +42,15 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
     EasyStep(title: 'Summary', customStep: _buildStep(context)),
   ];
 
-  late var pathController = PathController(widget.character);
+  late Entity character;
+
+  late var pathController = PathController(character);
   late var characterBaseComponent =
-      widget.character.get<CharacterBaseComponent>()!;
+      character.get<CharacterBaseComponent>()!;
   late var upbringingController =
       PickUpbringingController(characterBaseComponent);
   late var skillLearnerComponent =
-      widget.character.get<SkillLearnerComponent>();
+      character.get<SkillLearnerComponent>();
   late var skillLearnerController = SkillLearnerController(
       skillLearner: skillLearnerComponent!, allowDowngrades: true);
 
@@ -62,7 +65,7 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
       imageController: CharacterImageController(characterBaseComponent),
     )),
     _wrapWithLayoutBuilder(AttributeDiceSelector(
-        attributes: widget.character.get<AttributesComponent>()!)),
+        attributes: character.get<AttributesComponent>()!)),
     _wrapWithSizedBox(
         Center(child: TalentPage(controller: skillLearnerController))),
     Center(
@@ -74,6 +77,14 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
       'https://tse3.mm.bing.net/th/id/OIP.cPOpHmPNSfuOjLHJxKOFzAHaGe?rs=1&pid=ImgDetMain&o=7&rm=3');
 
   double desiredWidth = 1100;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    character = locator<GameObjectService>().createInstance("character")!;
+    locator<WorldManager>().execute();
+  }
 
   @override
   Widget build(BuildContext context) {

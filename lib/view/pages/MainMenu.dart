@@ -67,8 +67,7 @@ class MainMenu extends StatelessWidget {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (_) => CreateCharacterPage(
-                          title: 'Create a new Character',
-                          character: character,
+                          title: 'Create a new Character'
                         ),
                       ),
                     );

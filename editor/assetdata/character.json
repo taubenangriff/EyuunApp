@@ -40,7 +40,11 @@
     ]
   },
   "upgradable": {
-    "defaultUpgrades": []
+    "defaultUpgrades": [
+      {
+        "id": "level_1"
+      }
+    ]
   },
   "boon": {
     "maxBoon": 5
