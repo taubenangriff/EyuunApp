@@ -85,11 +85,10 @@ class SkillLearnerComponent extends EyuunComponent<int> {
   /// returns the talentEntry for the Talent listed in key. returns null, if the talent does not exist.
   SkillEntry? getSkill(String key) {
     try{
-      skills.firstWhere((e) => e.skill.getTypeId() == key);
+      return skills.firstWhere((e) => e.skill.getTypeId() == key);
     } on StateError {
       return null;
     }
-    return null;
   }
 
 
