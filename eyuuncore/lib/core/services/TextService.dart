@@ -3,6 +3,7 @@ import 'package:eyuuncore/components/text.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/core/repository/TextRepository.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
+import 'package:format/format.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../assetLink.dart';
@@ -17,14 +18,14 @@ class TextService {
     _gameObjectService = locator<GameObjectService>();
   }
 
-  String getTextFromEntity(Entity? entity) {
+  String getTextFromEntity(Entity? entity, {final List<String> formatArgs = const []}) {
     if(entity == null){
       return "";
     }
-    return getText(entity.getTextKey());
+    return getText(entity.getTextKey(), formatArgs: formatArgs);
   }
 
-  String getActionDescriptionFromEntity(Entity? entity){
+  String getActionDescriptionFromEntity(Entity? entity, {final List<String> formatArgs = const []}){
     if(entity == null){
       return "";
     }
@@ -33,10 +34,10 @@ class TextService {
       return "";
     }
 
-    return getText(key);
+    return getText(key, formatArgs: formatArgs);
   }
 
-  String getFluffFromEntity(Entity? entity) {
+  String getFluffFromEntity(Entity? entity, {final List<String> formatArgs = const []}) {
     if(entity == null){
       return "";
     }
@@ -44,34 +45,10 @@ class TextService {
     if(fluff == null){
       return "";
     }
-    return getText(fluff);
+    return getText(fluff, formatArgs: formatArgs);
   }
 
-  String getText(String textLookup)
-  {
-    return _textRepository.getText(getTextKey(textLookup));
-  }
-
-  String getTextFromLink(AssetLink? textLink) => textLink == null ? "" : getText(textLink.id);
-
-  bool hasFluff(String typeId)
-  {
-    return _gameObjectService.getStatic(typeId)?.get<TextComponent>()?.fluff != null;
-  }
-
-  String getFluff(String typeId)
-  {
-    return _textRepository.getText(getFluffKey(typeId));
-  }
-
-  String getFluffFromLink(AssetLink textLink) => getFluff(textLink.id);
-
-  String getShort(String typeId)
-  {
-    return _textRepository.getText(getShortKey(typeId));
-  }
-
-  String getShortFromEntity(Entity? entity)  {
+  String getShortFromEntity(Entity? entity, {final List<String> formatArgs = const []}) {
     if(entity == null){
       return "";
     }
@@ -79,10 +56,25 @@ class TextService {
     if(short == null){
       return "";
     }
-    return getText(short);
+    return getText(short, formatArgs: formatArgs);
   }
 
-  String getShortFromLink(AssetLink textLink) => getFluff(textLink.id);
+  String _getFormatted(String textKey, List<String> formatArgs) {
+    var raw = _textRepository.getText(textKey);
+    if(formatArgs.isEmpty) return raw;
+    return format(raw, formatArgs);
+  }
+
+  String getText(String textLookup, {final List<String> formatArgs = const []}) => _getFormatted(getTextKey(textLookup), formatArgs);
+
+  bool hasFluff(String typeId)
+  {
+    return _gameObjectService.getStatic(typeId)?.get<TextComponent>()?.fluff != null;
+  }
+
+  String getFluff(String typeId, {final List<String> formatArgs = const []})  => _getFormatted(getFluffKey(typeId), formatArgs);
+
+  String getShort(String typeId, {final List<String> formatArgs = const []}) => _getFormatted(getShortKey(typeId), formatArgs);
 
   String getTextKey(String typeId) {
     var entity = _gameObjectService.getStatic(typeId);

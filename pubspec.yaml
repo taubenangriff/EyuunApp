@@ -51,6 +51,7 @@ dependencies:
   google_fonts: ^7.0.2
   image_picker: ^1.2.1
   cross_file_image: ^1.1.0
+  format: ^1.6.0
 
 dev_dependencies:
   flutter_test:

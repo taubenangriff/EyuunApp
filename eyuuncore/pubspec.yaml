@@ -19,6 +19,7 @@ dependencies:
   lorem_ipsum: ^0.0.3
   dartdoc: ^9.0.0
   reflectable: ^5.1.0
+  format: ^1.6.0
 
 dev_dependencies:
   flutter_test:

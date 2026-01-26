@@ -12,6 +12,7 @@ import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/enums/ActionTime.dart';
 import 'package:eyuuncore/enums/BillingCycle.dart';
+import 'package:eyuuncore/enums/CastScope.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
@@ -67,24 +68,38 @@ class ActionDisplay extends StatelessWidget {
                         textService.getActionDescriptionFromEntity(action)))),
           SizedBox(height: 8),
         },
-        if (action.has<CastedComponent>())... {
-          Text('Scope: ${action.get<CastedComponent>()!.castScope}')
+        if (action.has<CastedComponent>()) ...{
+          Text(textService.getText('uitext_casted_scope', formatArgs: [
+            textService.getText(
+                action.get<CastedComponent>()!.castScope.getTextKey(),
+                formatArgs: [
+                  action.get<CastedComponent>()!.castScopeX.toString(),
+                  action.get<CastedComponent>()!.castScopeY.toString(),
+                  action.get<CastedComponent>()!.castScopeZ.toString(),
+                ]).toString()
+          ]))
         },
         if (action.has<SpellComponent>()) ...{
-          Text(
-              "School: ${textService.getTextFromEntity(action.get<SpellComponent>()!.spellSchool)}")
+          Text(textService.getText('uitext_action_spellschool', formatArgs: [
+            textService.getTextFromEntity(action.get<SpellComponent>()!.spellSchool)
+          ]))
         },
-        if (showCost && actionComponent != null && actionComponent.fluxCost > 0) ...{
+        if (showCost &&
+            actionComponent != null &&
+            actionComponent.fluxCost > 0) ...{
           SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.water, size: 24),
               SizedBox(width: 6),
-              Text(
-                '!Flux: ${actionComponent.fluxCost}${(actionComponent.billingCycle != BillingCycle.Once) ? "/!round" : ""}',
-                style: theme.textTheme.titleMedium,
-              ),
+              Text(textService.getText(
+                  switch (actionComponent.billingCycle) {
+                    BillingCycle.Once => 'uitext_flux_once',
+                    BillingCycle.PerRound => 'uitext_flux_per_round',
+                    BillingCycle.PerHour => 'uitext_flux_per_hour',
+                  },
+                  formatArgs: [actionComponent.fluxCost.toString()])),
             ],
           ),
           SizedBox(height: 8),
