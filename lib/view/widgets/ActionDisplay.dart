@@ -45,12 +45,15 @@ class ActionDisplay extends StatelessWidget {
       var theme = Theme.of(context);
 
       return Column(children: [
+        if(actionComponent != null)... {
+          Text(textService.getText(actionComponent.actionTime.getTextKey())),
+        },
+        SizedBox(height: 8),
         Text(
             textAlign: TextAlign.center,
             "${textService.getTextFromEntity(action)}${source != action && source != null ? " (${textService.getTextFromEntity(source)})" : ""}",
             style: theme.textTheme.titleLarge),
         if (actionComponent != null) ...{
-          Text(textService.getText(actionComponent.actionTime.getTextKey())),
           SizedBox(height: 8),
           if (textBehavior == TextBehavior.fade)
             Expanded(

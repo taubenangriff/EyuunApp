@@ -15,10 +15,11 @@ class SkillLearnerController {
 
   SkillLearnerController({required this.skillLearner, this.allowDowngrades = false});
 
-  int getMax(){
+  int getMax(Entity skillEntity){
     var spent = skillLearner.getSpentSkillpoints();
     var cap = skillLearner.skillCeiling.current;
-    return min(cap, skillLearner.skillpoints.current - spent);
+    var currentlySkilled = skillLearner.getSkillValue(skillEntity.getTypeId());
+    return max(min(cap, skillLearner.skillpoints.current - spent), currentlySkilled);
   }
 
   int getMin(Entity? skillEntity) {
@@ -31,8 +32,11 @@ class SkillLearnerController {
     return skillLearner.getSkillValue(skillEntity.getTypeId());
   }
 
-  bool canSkill() {
-    if(allowDowngrades) {
+  bool canSkill(Entity? skillEntity) {
+    if(skillEntity == null){
+      return false;
+    }
+    if(allowDowngrades && skillLearner.getSkillValue(skillEntity.getTypeId()) > 0){
       return true;
     }
     return skillLearner.getSpentSkillpoints() < skillLearner.skillpoints.current;

@@ -10,6 +10,7 @@ import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/controller/PathController.dart';
 import 'package:eyuuncore/controller/PickUpbringingController.dart';
 import 'package:eyuuncore/controller/SkilllearnerController.dart';
+import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';
 import 'package:flutter/material.dart';
@@ -83,6 +84,7 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
     // TODO: implement initState
     super.initState();
     character = locator<GameObjectService>().createInstance("character")!;
+    locator<CharacterService>().changeCharacter(character);
     locator<WorldManager>().execute();
   }
 

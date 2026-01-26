@@ -88,16 +88,16 @@ class _TalentsWidgetState extends State<TalentsWidget> {
               EyuunWidgets.spacerHorizontal(),
               EyuunWidgets.circularFloatingActionButton(
                 addDeco: true,
-                backgroundColor: widget.skillLearnerController.canSkill()
+                backgroundColor: widget.skillLearnerController.canSkill(talentAsset)
                     ? Colors.blueGrey
                     : theme.floatingActionButtonTheme.backgroundColor,
                 text: "${talent.value}",
-                onPressed: widget.skillLearnerController.canSkill()
+                onPressed: widget.skillLearnerController.canSkill(talentAsset)
                     ? () {
                         ChangeValueController changeValController =
                             ChangeValueController(talent.value,
                                 maxLimit:
-                                    widget.skillLearnerController.getMax(),
+                                    widget.skillLearnerController.getMax(talentAsset),
                                 minLimit: widget.skillLearnerController
                                     .getMin(talentAsset),
                                 onValUpdated: (val) => widget
