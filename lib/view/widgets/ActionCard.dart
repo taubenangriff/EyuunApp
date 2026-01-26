@@ -32,7 +32,7 @@ class ActionCard extends StatelessWidget {
   final Entity? sourceEntity;
   final VoidCallback? onTap;
 
-  final TextService _textService = locator<TextService>();
+  final TextService textService = locator<TextService>();
 
   @override
   Widget build(BuildContext context) {
@@ -79,10 +79,13 @@ class ActionCard extends StatelessWidget {
                             children: [
                               Icon(Icons.water, size: 24),
                               SizedBox(width: 6),
-                              Text(
-                                '${actionComponent.fluxCost}${(actionComponent.billingCycle != BillingCycle.Once) ? "/KR" : ""}',
-                                style: theme.textTheme.titleMedium,
-                              ),
+                              Text(textService.getText(
+                                  switch (actionComponent.billingCycle) {
+                                    BillingCycle.Once => 'uitext_flux_once_short',
+                                    BillingCycle.PerRound => 'uitext_flux_per_round_short',
+                                    BillingCycle.PerHour => 'uitext_flux_per_hour_short',
+                                  },
+                                  formatArgs: [actionComponent.fluxCost.toString()])),
                             ],
                           ),
                         ),

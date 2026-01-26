@@ -40,23 +40,24 @@ class ItemDisplay extends StatelessWidget {
           RichText(
               text: TextSpan(children: [
             TextSpan(
-                text:
-                    '!Weapon (${textService.getTextFromEntity(weapon.fightingType)}): '),
-            TextSpan(text: 'This item can be used to attack other characters'),
+                text: textService.getText('uitext_weapon', formatArgs: [
+              textService.getTextFromEntity(weapon.fightingType)
+            ])),
+            TextSpan(text: textService.getText('uitext_weapon_explainer')),
           ], style: theme.textTheme.bodyMedium))
         },
         if (craftable != null) ...{
           EyuunWidgets.spacerVertical(),
           RichText(
               text: TextSpan(children: [
-            TextSpan(text: '!Craftable: '),
-            TextSpan(text: 'This item can be modified on the crafting table'),
+            TextSpan(text: textService.getText('uitext_craftable')),
+            TextSpan(text: textService.getText('uitext_craftable_explainer')),
           ], style: theme.textTheme.bodyMedium)),
           if (craftable.craftMethod != null)
             RichText(
                 text: TextSpan(children: [
               TextSpan(text: "- "),
-              TextSpan(text: '!Craft Method:'),
+              TextSpan(text: textService.getText('uitext_craftmethod')),
               TextSpan(
                   text: textService.getTextFromEntity(craftable.craftMethod!)),
             ])),
@@ -64,7 +65,7 @@ class ItemDisplay extends StatelessWidget {
             RichText(
                 text: TextSpan(children: [
               TextSpan(text: "- "),
-              TextSpan(text: '!Material:'),
+              TextSpan(text: textService.getText('uitext_material')),
               TextSpan(
                   text: textService.getTextFromEntity(craftable.material!)),
             ])),
@@ -72,7 +73,7 @@ class ItemDisplay extends StatelessWidget {
             RichText(
                 text: TextSpan(children: [
               TextSpan(text: "- "),
-              TextSpan(text: '!Upgrade:'),
+              TextSpan(text: textService.getText('uitext_upgrade')),
               TextSpan(text: textService.getTextFromEntity(upgrade)),
             ]))
         },
@@ -80,8 +81,8 @@ class ItemDisplay extends StatelessWidget {
           EyuunWidgets.spacerVertical(),
           RichText(
               text: TextSpan(children: [
-            TextSpan(text: '!Actions:'),
-            TextSpan(text: 'This item adds the following actions:'),
+            TextSpan(text: textService.getText('uitext_actions')),
+            TextSpan(text: textService.getText('uitext_actions_explainer')),
           ], style: theme.textTheme.bodyMedium)),
           for (var action in actionUser.getActions())
             RichText(
@@ -96,32 +97,67 @@ class ItemDisplay extends StatelessWidget {
           EyuunWidgets.spacerVertical(),
           RichText(
               text: TextSpan(children: [
-            TextSpan(text: '!Armor Toughness: ${armor.armorToughness.current} '),
+            TextSpan(
+                text: textService.getText('uitext_armor_toughness',
+                    formatArgs: [armor.armorToughness.current.toString()])),
           ], style: theme.textTheme.bodyMedium)),
           if (armor.isTemplate)
             RichText(
                 text: TextSpan(children: [
-              TextSpan(text: 'Impact: '),
+              TextSpan(text: textService.getText('uitext_armor_impactOnCraft')),
               if (armor.stealthImpactOnCraft > 0)
-                TextSpan(text: '-${armor.stealthImpactOnCraft} Stealth '),
+                TextSpan(
+                    text: textService.getText('uitext_armor_impact',
+                        formatArgs: [
+                      armor.stealthImpactOnCraft.toString(),
+                      textService.getText('talent_sneaky')
+                    ])),
               if (armor.evasionImpactOnCraft > 0)
-                TextSpan(text: '-${armor.evasionImpactOnCraft} Evasion '),
+                TextSpan(
+                    text: textService.getText('uitext_armor_impact',
+                        formatArgs: [
+                          armor.evasionImpactOnCraft.toString(),
+                          textService.getText('uitext_evasion')
+                        ])),
               if (armor.athleticImpactOnCraft > 0)
-                TextSpan(text: '-${armor.athleticImpactOnCraft} Athletics '),
+                TextSpan(
+                    text: textService.getText('uitext_armor_impact',
+                        formatArgs: [
+                          armor.evasionImpactOnCraft.toString(),
+                          textService.getText('talent_athletic')
+                        ])),
               if (armor.splittableImpactOnCraft > 0)
                 TextSpan(
-                    text: '-${armor.splittableImpactOnCraft} Distributable '),
+                    text: textService.getText('uitext_armor_impact_distributable',
+                        formatArgs: [
+                          armor.splittableImpactOnCraft.toString()
+                        ])),
             ], style: theme.textTheme.bodyMedium)),
           if (!armor.isTemplate)
             RichText(
                 text: TextSpan(children: [
-              TextSpan(text: '-Impact: '),
+                  TextSpan(text: textService.getText('uitext_armor_impactOnCraft')),
               if (armor.stealthImpact > 0)
-                TextSpan(text: '-${armor.stealthImpact} Stealth '),
+                TextSpan(
+                    text: textService.getText('uitext_armor_impact',
+                        formatArgs: [
+                          armor.stealthImpact.toString(),
+                          textService.getText('talent_sneaky')
+                        ])),
               if (armor.evasionImpact > 0)
-                TextSpan(text: '-${armor.evasionImpact} Evasion '),
+                TextSpan(
+                    text: textService.getText('uitext_armor_impact',
+                        formatArgs: [
+                          armor.evasionImpact.toString(),
+                          textService.getText('uitext_evasion')
+                        ])),
               if (armor.athleticImpact > 0)
-                TextSpan(text: '-${armor.athleticImpact} Athletics '),
+                TextSpan(
+                    text: textService.getText('uitext_armor_impact',
+                        formatArgs: [
+                          armor.athleticImpact.toString(),
+                          textService.getText('talent_athletic')
+                        ])),
             ], style: theme.textTheme.bodyMedium)),
         }
       ]);
