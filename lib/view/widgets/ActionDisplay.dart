@@ -3,6 +3,7 @@ import 'package:eyuunapp/view/widgets/SkillCheckWidget.dart';
 import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/components/Action.dart';
 import 'package:eyuuncore/components/Attributes.dart';
+import 'package:eyuuncore/components/Casted.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/components/Skillcheck.dart';
 import 'package:eyuuncore/components/Spell.dart';
@@ -19,10 +20,12 @@ enum TextBehavior { scroll, fade }
 class ActionDisplay extends StatelessWidget {
   final Entity action;
   final Entity? source;
+  bool showCost;
   final TextBehavior textBehavior;
-  const ActionDisplay(
+  ActionDisplay(
       {super.key,
       required this.action,
+      this.showCost = true,
       this.source,
       this.textBehavior = TextBehavior.scroll});
 
@@ -63,29 +66,32 @@ class ActionDisplay extends StatelessWidget {
                         textAlign: TextAlign.justify,
                         textService.getActionDescriptionFromEntity(action)))),
           SizedBox(height: 8),
-          if (actionComponent.fluxCost > 0) ...{
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.water, size: 24),
-                SizedBox(width: 6),
-                Text(
-                  '!Flux: ${actionComponent.fluxCost}${(actionComponent.billingCycle != BillingCycle.Once) ? "/!round" : ""}',
-                  style: theme.textTheme.titleMedium,
-                ),
-              ],
-            ),
-          },
+        },
+        if (action.has<CastedComponent>())... {
+          Text('Scope: ${action.get<CastedComponent>()!.castScope}')
         },
         if (action.has<SpellComponent>()) ...{
-          SizedBox(height: 8),
           Text(
               "School: ${textService.getTextFromEntity(action.get<SpellComponent>()!.spellSchool)}")
+        },
+        if (showCost && actionComponent != null && actionComponent.fluxCost > 0) ...{
+          SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.water, size: 24),
+              SizedBox(width: 6),
+              Text(
+                '!Flux: ${actionComponent.fluxCost}${(actionComponent.billingCycle != BillingCycle.Once) ? "/!round" : ""}',
+                style: theme.textTheme.titleMedium,
+              ),
+            ],
+          ),
+          SizedBox(height: 8),
         },
         if (action.has<SkillcheckComponent>() &&
             attributes != null &&
             skillLearner != null) ...{
-          const SizedBox(height: 16),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             SkillCheckWidget(
                 skillcheck: action.get<SkillcheckComponent>()!,

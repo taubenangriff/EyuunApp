@@ -71,7 +71,24 @@ class ActionCard extends StatelessWidget {
                         alignment: Alignment.topLeft,
                         child: Icon(Icons.pin_drop),
                       ),
+                      if (actionComponent.fluxCost > 0) ...{
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Icon(Icons.water, size: 24),
+                              SizedBox(width: 6),
+                              Text(
+                                '${actionComponent.fluxCost}${(actionComponent.billingCycle != BillingCycle.Once) ? "/KR" : ""}',
+                                style: theme.textTheme.titleMedium,
+                              ),
+                            ],
+                          ),
+                        ),
+                      },
                       ActionDisplay(
+                        showCost: false,
                           action: actionEntity,
                           source: sourceEntity,
                           textBehavior: TextBehavior.fade)
