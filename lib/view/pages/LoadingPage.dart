@@ -19,9 +19,9 @@ class _LoadingPageState extends State<LoadingPage>
 
   @override
   void dispose() {
-    super.dispose();
     _animationController.stop();
     _animationController.dispose();
+    super.dispose();
   }
 
   @override
