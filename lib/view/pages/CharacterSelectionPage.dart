@@ -162,6 +162,7 @@ class CharacterSelectionPage extends StatelessWidget {
                         await locator<SessionService>().loadSession("fuck");
 
                         if(!context.mounted) return;
+                        Navigator.of(context).pop();
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
                             builder: (_) => const MainPage(title: 'Eyuun App'),
