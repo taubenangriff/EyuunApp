@@ -1,4 +1,5 @@
 import 'package:eyuunapp/services/ImageService.dart';
+import 'package:eyuunapp/services/SessionService.dart';
 import 'package:eyuunapp/view/pages/MainMenu.dart';
 import 'package:eyuunapp/services/EyuunUiImageProvider.dart';
 import 'package:eyuuncore/core/registerComponentsExtension.dart';
@@ -31,6 +32,7 @@ void main() async {
 
   locator.registerCoreServices();
   locator.registerSingleton<ImageService>(FirebaseImageService());
+  locator.registerSingleton(SessionService());
 
   var worldManager = locator<WorldManager>();
 
@@ -44,24 +46,7 @@ void main() async {
   var loadDataService = locator<LoadDataService>();
   await loadDataService.reloadAssets();
   await locator<TextRepository>().reloadTexts(textFile);
-
   locator.registerFeatures();
-
-  var goService = locator<GameObjectService>();
-
-  final String response = await rootBundle.loadString("data/base/char.json");
-  var gameObjects = GameObjectsExportMapper.fromJson(response);
-  goService.registerEntities(gameObjects);
-  goService.loadEntitiesData(gameObjects);
-  var character = goService.getObject(gameObjects.characterId);
-
-  if(character == null){
-    return;
-  }
-
-  locator<CharacterService>().changeCharacter(character);
-
-  worldManager.world.execute(1);
 
   runApp(const MyApp());
 }

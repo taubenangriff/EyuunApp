@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:eyuuncore/core/repository/AssetDataRepository.dart';
 import 'package:eyuuncore/core/repository/GameObjectRepository.dart';
 import 'package:eyuuncore/core/repository/StaticAssetRepository.dart';
@@ -28,14 +30,14 @@ class GameObjectService {
   var uuid = const Uuid();
 
   Entity? getStatic(String typeId) {
-    if(!_assetDataRepository.isValidDefinition(typeId)){
+    if (!_assetDataRepository.isValidDefinition(typeId)) {
       return null;
     }
     return _staticAssetRepository.getAssetData(typeId);
   }
 
   void preloadStatic(String typeId) {
-    if(!_assetDataRepository.isValidDefinition(typeId)){
+    if (!_assetDataRepository.isValidDefinition(typeId)) {
       return;
     }
     var entity = _worldManager.staticWorld.createEntity();
@@ -43,25 +45,26 @@ class GameObjectService {
   }
 
   void loadStaticData(String typeId) {
-    if(!_assetDataRepository.isValidDefinition(typeId)){
+    if (!_assetDataRepository.isValidDefinition(typeId)) {
       return;
     }
     var entity = _staticAssetRepository.getAssetData(typeId);
-    if(entity == null){
+    if (entity == null) {
       return;
     }
     _assetLoader.applyStaticData(entity, typeId);
-    if(!entity.has<StandardComponent>()){
+    if (!entity.has<StandardComponent>()) {
       return;
     }
     entity.get<StandardComponent>()?.isStatic = true;
   }
 
-  Entity? getObject(String objectId) => _gameObjectRepository.getEntity(objectId);
+  Entity? getObject(String objectId) =>
+      _gameObjectRepository.getEntity(objectId);
 
   Entity? createInstance(String typeId) {
     var entity = _createEntity(typeId);
-    if(entity == null){
+    if (entity == null) {
       return null;
     }
 
@@ -75,27 +78,39 @@ class GameObjectService {
   }
 
   Entity? _createEntity(String typeId) {
-    if(!_assetDataRepository.isValidDefinition(typeId)){
+    if (!_assetDataRepository.isValidDefinition(typeId)) {
       return null;
     }
 
     var entity = _worldManager.world.createEntity();
     _assetLoader.applyStaticData(entity, typeId);
 
-    if(!entity.has<StandardComponent>()){
+    if (!entity.has<StandardComponent>()) {
       return null;
     }
 
     return entity;
   }
 
+  void reset() {
+    for (var entity in _gameObjectRepository.getEntities()) {
+      killEntity(entity);
+    }
+  }
+
+  void killEntity(Entity entity) {
+    entity.dispose();
+    _gameObjectRepository.removeEntity(entity);
+    _worldManager.execute();
+  }
+
   Entity? _loadEntityData(Map<String, dynamic> entityMap) {
     var objectId = _assetLoader.getObjectIdFromObjectMap(entityMap);
-    if(objectId == null){
+    if (objectId == null) {
       return null;
     }
     var entity = _gameObjectRepository.getEntity(objectId);
-    if(entity == null){
+    if (entity == null) {
       return null;
     }
 
@@ -109,34 +124,34 @@ class GameObjectService {
 
   List<Entity> getObjects() => _gameObjectRepository.getEntities();
 
-  void registerEntities(GameObjectsExport export){
-    for(var entry in export.gameObjects){
-      if(entry is Map<String, dynamic>){
+  void registerEntities(GameObjectsExport export) {
+    for (var entry in export.gameObjects) {
+      if (entry is Map<String, dynamic>) {
         _preloadEntity(entry);
       }
     }
   }
 
   /// Loads Entity Data. In order for all objectLinks to be resolved correctly, all [GameObjectsExport] that contain data to load must be registered using [registerEntities] before any call to [loadEntitiesData] is made.
-  void loadEntitiesData(GameObjectsExport export){
-    for(var entry in export.gameObjects){
-      if(entry is Map<String, dynamic>){
+  void loadEntitiesData(GameObjectsExport export) {
+    for (var entry in export.gameObjects) {
+      if (entry is Map<String, dynamic>) {
         _loadEntityData(entry);
       }
     }
   }
 
-  void _preloadEntity(Map<String, dynamic> entityMap){
+  void _preloadEntity(Map<String, dynamic> entityMap) {
     var typeId = _assetLoader.getTypeIdFromAssetMap(entityMap);
     if (typeId == null) {
       return;
     }
     var objectId = _assetLoader.getObjectIdFromObjectMap(entityMap);
-    if(objectId == null){
+    if (objectId == null) {
       return;
     }
     var entity = _createEntity(typeId);
-    if(entity == null){
+    if (entity == null) {
       return;
     }
     _gameObjectRepository.preregisterEntity(entity, objectId);

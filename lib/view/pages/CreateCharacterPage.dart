@@ -1,4 +1,5 @@
 import 'package:easy_stepper/easy_stepper.dart';
+import 'package:eyuunapp/services/SessionService.dart';
 import 'package:eyuunapp/view/controller/CharacterImageController.dart';
 import 'package:eyuunapp/view/decoration/Brushes.dart';
 import 'package:eyuunapp/view/widgets/PickNewPathWidget.dart';
@@ -83,9 +84,13 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    character = locator<GameObjectService>().createInstance("character")!;
-    locator<CharacterService>().changeCharacter(character);
-    locator<WorldManager>().execute();
+    character = locator<CharacterService>().character;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    locator<SessionService>().leaveSession();
   }
 
   @override

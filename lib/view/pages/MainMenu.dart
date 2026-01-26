@@ -1,3 +1,4 @@
+import 'package:eyuunapp/services/SessionService.dart';
 import 'package:eyuunapp/view/pages/CharacterSelectionPage.dart';
 import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
@@ -33,10 +34,13 @@ class MainMenu extends StatelessWidget {
                   text: 'Load <Last Character>',
                   width: 300,
                   height: 50,
-                  onPressed: () {
+                  onPressed: () async {
+                    await locator<SessionService>().loadTestSession();
+
+                    if(!context.mounted) return;
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (_) => const MainPage(title: 'Eyuun App'),
+                        builder: (_) => const CharacterSelectionPage(),
                       ),
                     );
                   },
@@ -46,7 +50,10 @@ class MainMenu extends StatelessWidget {
                   text: 'Load Character',
                   width: 300,
                   height: 50,
-                  onPressed: () {
+                  onPressed: () async {
+                    await locator<SessionService>().loadTestSession();
+
+                    if(!context.mounted) return;
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (_) => const CharacterSelectionPage(),
@@ -60,9 +67,7 @@ class MainMenu extends StatelessWidget {
                   width: 300,
                   height: 50,
                   onPressed: () {
-                    final character = locator<GameObjectService>()
-                        .createInstance("character");
-                    if (character == null) return;
+                    locator<SessionService>().createNewSession();
 
                     Navigator.of(context).push(
                       MaterialPageRoute(

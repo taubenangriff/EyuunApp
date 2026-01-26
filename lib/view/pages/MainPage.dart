@@ -1,4 +1,7 @@
+import 'package:eyuunapp/services/SessionService.dart';
 import 'package:eyuunapp/view/pages/CharacterPage.dart';
+import 'package:eyuuncore/GetIt.dart';
+import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:flutter/material.dart';
 
 import 'package:eyuunapp/view/pages/CombatPage.dart';
@@ -25,6 +28,12 @@ class _MainPageState extends State<MainPage> {
     const Center(child: InventoryPage()),
     const Center(child: NotesPage()),
   ];
+
+  @override
+  void dispose() {
+    super.dispose();
+    locator<SessionService>().leaveSession();
+  }
 
   @override
   Widget build(BuildContext context) {

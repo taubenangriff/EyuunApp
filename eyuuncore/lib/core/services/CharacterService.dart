@@ -1,4 +1,7 @@
+import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:oxygen/oxygen.dart';
+
+import '../../GetIt.dart';
 
 class CharacterService {
   //character is read only!
@@ -7,5 +10,9 @@ class CharacterService {
 
   void changeCharacter(Entity character){
     _character = character;
+  }
+
+  void unload() {
+    _character = locator<GameObjectService>().getStatic('character')!;
   }
 }
