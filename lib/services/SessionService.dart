@@ -14,7 +14,7 @@ class SessionService {
   Future<void> loadTestSession() async {
     final String response = await rootBundle.loadString("data/base/char.json");
     var gameObjects = GameObjectsExportMapper.fromJson(response);
-    loadSession(gameObjects);
+    _loadSession(gameObjects);
   }
 
   void createNewSession() {
@@ -23,8 +23,15 @@ class SessionService {
     locator<WorldManager>().execute();
   }
 
+  Future<bool> loadSession(String sessionId) async {
+    // some async data loading logic
+    await Future.delayed(Duration(seconds: 1));
+    await loadTestSession();
+    return true;
+  }
+
   /// loads a session from [gameObjects]. returns whether the loading was successful.
-  bool loadSession(GameObjectsExport gameObjects) {
+  bool _loadSession(GameObjectsExport gameObjects) {
     var goService = locator<GameObjectService>();
     goService.registerEntities(gameObjects);
     goService.loadEntitiesData(gameObjects);

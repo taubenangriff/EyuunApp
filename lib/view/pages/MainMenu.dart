@@ -1,5 +1,6 @@
 import 'package:eyuunapp/services/SessionService.dart';
 import 'package:eyuunapp/view/pages/CharacterSelectionPage.dart';
+import 'package:eyuunapp/view/pages/LoadingPage.dart';
 import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:flutter/material.dart';
@@ -35,12 +36,15 @@ class MainMenu extends StatelessWidget {
                   width: 300,
                   height: 50,
                   onPressed: () async {
-                    await locator<SessionService>().loadTestSession();
+                    if(!context.mounted) return;
+                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => LoadingPage()));
+
+                    await locator<SessionService>().loadSession("fuck");
 
                     if(!context.mounted) return;
-                    Navigator.of(context).push(
+                    Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                        builder: (_) => const CharacterSelectionPage(),
+                        builder: (_) => const MainPage(title: 'Eyuun App'),
                       ),
                     );
                   },
@@ -50,10 +54,7 @@ class MainMenu extends StatelessWidget {
                   text: 'Load Character',
                   width: 300,
                   height: 50,
-                  onPressed: () async {
-                    await locator<SessionService>().loadTestSession();
-
-                    if(!context.mounted) return;
+                  onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (_) => const CharacterSelectionPage(),

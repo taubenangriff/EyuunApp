@@ -78,6 +78,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   assets:
+    - data/base/ui/
     - data/base/ui/bg/
     - data/base/
     - data/base/asset/

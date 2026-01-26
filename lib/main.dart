@@ -1,5 +1,6 @@
 import 'package:eyuunapp/services/ImageService.dart';
 import 'package:eyuunapp/services/SessionService.dart';
+import 'package:eyuunapp/view/pages/LoadingPage.dart';
 import 'package:eyuunapp/view/pages/MainMenu.dart';
 import 'package:eyuunapp/services/EyuunUiImageProvider.dart';
 import 'package:eyuuncore/core/registerComponentsExtension.dart';
@@ -24,9 +25,10 @@ import 'firebase_options.dart';
 
 String textFile = "data/base/text/de_de.json";
 
-
 void main() async {
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -35,18 +37,10 @@ void main() async {
   locator.registerSingleton(SessionService());
 
   var worldManager = locator<WorldManager>();
-
   worldManager.registerComponents();
   worldManager.registerSystems();
   worldManager.registerUpgrades();
   worldManager.init();
-
-  await locator<AssetDataRepository>().reloadAssetFile();
-
-  var loadDataService = locator<LoadDataService>();
-  await loadDataService.reloadAssets();
-  await locator<TextRepository>().reloadTexts(textFile);
-  locator.registerFeatures();
 
   runApp(const MyApp());
 }
@@ -82,7 +76,6 @@ class MyApp extends StatelessWidget {
           elevation: 2,
         ),
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
-
           backgroundColor: Color(0xff1e1e1e), // Gold
           foregroundColor: Colors.black,
         ),
@@ -103,7 +96,24 @@ class MyApp extends StatelessWidget {
         ),
         iconTheme: const IconThemeData(color: Color(0xFF90A4AE)),
       ),
-      home: const MainMenu(),
+      home: FutureBuilder(
+          future: loadData(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return const MainMenu();
+            }
+            return const LoadingPage();
+          }),
     );
   }
+}
+
+Future<void> loadData() async {
+  await locator<AssetDataRepository>().reloadAssetFile();
+  var loadDataService = locator<LoadDataService>();
+  await loadDataService.reloadAssets();
+  await locator<TextRepository>().reloadTexts(textFile);
+
+  //features should be registered here because they draw data from assets, which must be loaded.
+  locator.registerFeatures();
 }

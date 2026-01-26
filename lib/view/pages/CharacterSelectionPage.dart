@@ -1,9 +1,12 @@
+import 'package:eyuunapp/services/SessionService.dart';
 import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
 import 'package:eyuunapp/view/decoration/Brushes.dart';
 import 'package:eyuunapp/view/decoration/cornerPainters/DoubleLineCornerPainter.dart';
 import 'package:eyuunapp/view/decoration/cornerPainters/ThickThinThickCornerPainter.dart';
 import 'package:eyuunapp/view/decoration/linePainters/DoubleLinePainter.dart';
 import 'package:eyuunapp/view/decoration/linePainters/ThickThinThickLinePainter.dart';
+import 'package:eyuunapp/view/pages/LoadingPage.dart';
+import 'package:eyuuncore/GetIt.dart';
 import 'package:flutter/material.dart';
 
 import 'MainPage.dart';
@@ -154,9 +157,12 @@ class CharacterSelectionPage extends StatelessWidget {
                     final character = placeholderCharacters[index];
                     return _CharacterCard(
                       character: character,
-                      onTap: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(
+                      onTap: () async {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (_) => LoadingPage()));
+                        await locator<SessionService>().loadSession("fuck");
+
+                        if(!context.mounted) return;
+                        Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
                             builder: (_) => const MainPage(title: 'Eyuun App'),
                           ),
