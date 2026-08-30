@@ -7,6 +7,7 @@ import 'package:editor/main.dart';
 import 'package:editor/views/AssetWidget.dart';
 import 'package:eyuuncore/core/repository/ComponentRepository.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 
 import '../Asset.dart';
 import 'SelectFile.dart';
@@ -41,7 +42,7 @@ class _EditorState extends State<Editor> {
                   assetFile = file;
                 });
 
-                if(assetFile == null){
+                if (assetFile == null) {
                   return;
                 }
                 var json = await loadJsonFile(assetFile!);
@@ -51,7 +52,9 @@ class _EditorState extends State<Editor> {
           ),
           Flexible(
             flex: 3,
-            child: loadedAsset != null ? AssetWidget(asset: loadedAsset!) : Center(child: Text("No asset selected")),
+            child: loadedAsset != null
+                ? AssetWidget(asset: loadedAsset!)
+                : Center(child: Text("No asset selected")),
           ),
         ],
       ),
@@ -59,8 +62,8 @@ class _EditorState extends State<Editor> {
         width: 128,
         child: FloatingActionButton(
           onPressed: () {
-            var dir = Directory('D:\\Coding\\flexbackend\\editor\\assetdata');
-            assetexporter.export(dir, Directory('D:\\Coding\\flexbackend'));
+            var dir = Directory(join(Directory.current.path, 'assetdata'));
+            assetexporter.export(dir, Directory.current.parent);
             // export
           },
           tooltip: "Export assets",
