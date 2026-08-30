@@ -199,13 +199,14 @@ class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
     List<Entity> buffs,
     void Function(Entity) selectedBuffCallback,
   ) {
-    PopupUtil.popup(
-      context,
-      UpbringingPickerPopup(
-        possibleBuffs: buffs,
-        selectedBuffCallback: selectedBuffCallback,
-      ),
-      maximumSize: const Size(1100, 800),
-    );
+    PopupUtil.largePopup(
+        context,
+        UpbringingPickerPopup(
+          possibleBuffs: buffs,
+          selectedBuffCallback: selectedBuffCallback,
+        ),
+        maximumSize: const Size(1100, 800),
+        header: "",
+        background: const AssetImage('data/base/ui/bg/background.jpg'));
   }
 }

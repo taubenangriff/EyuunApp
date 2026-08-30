@@ -133,12 +133,15 @@ class _PathsWidgetState extends State<PathsWidget> {
       additionalPathWidgets.add(_buildAddNewAdditionalPathButton(
           context,
           () => setState(() {
-                PopupUtil.popup(
+                PopupUtil.largePopup(
                     context,
                     const Center(
                         child: Text(
                             "Popup showing all available Additional Paths first, then the rest you cannot yet pick.")),
-                    maximumSize: Size(900, 700));
+                    maximumSize: const Size(1100, 900),
+                    header: "",
+                    background:
+                        const AssetImage('data/base/ui/bg/background.jpg'));
               })));
     }
 
@@ -174,17 +177,21 @@ class _PathsWidgetState extends State<PathsWidget> {
                   decoration: ArtDecoBoxDecoration(
                       cornerBuilder: (p) => ThickThinThickCornerPainter(p),
                       verticalLineBuilder: (p) => ThickThinThickLinePainter(p),
-                      horizontalLineBuilder: (p) => ThickThinThickLinePainter(p),
+                      horizontalLineBuilder: (p) =>
+                          ThickThinThickLinePainter(p),
                       paint: Brushes.goldSparkling()..strokeWidth = 1.25,
                       cornerSize: 5),
                   child: InkWell(
                       onTap: () {
-                        PopupUtil.popup(
+                        PopupUtil.largePopup(
                             context,
                             PathPopup(
                                 pathController: pathController,
                                 pathId: path.getTypeId()),
-                            maximumSize: Size(1000, 900));
+                            maximumSize: const Size(1100, 900),
+                            header: "",
+                            background: const AssetImage(
+                                'data/base/ui/bg/background.jpg'));
                       },
                       borderRadius: BorderRadius.circular(
                           8), // optional for ripple effect
@@ -245,10 +252,15 @@ class _PathsWidgetState extends State<PathsWidget> {
                                               width: 36,
                                               height: 36,
                                               decoration: ArtDecoBoxDecoration(
-                                                  cornerBuilder: (p) => DoubleLineCornerPainter(p),
-                                                  verticalLineBuilder: (p) => DoubleLinePainter(p),
-                                                  horizontalLineBuilder: (p) => DoubleLinePainter(p),
-                                                  paint: Brushes.goldSparkling()..strokeWidth = 1.5,
+                                                  cornerBuilder: (p) =>
+                                                      DoubleLineCornerPainter(
+                                                          p),
+                                                  verticalLineBuilder: (p) =>
+                                                      DoubleLinePainter(p),
+                                                  horizontalLineBuilder: (p) =>
+                                                      DoubleLinePainter(p),
+                                                  paint: Brushes.goldSparkling()
+                                                    ..strokeWidth = 1.5,
                                                   cornerSize: 12,
                                                   background: pathType.color),
                                               alignment: Alignment.center,
@@ -278,13 +290,19 @@ class _PathsWidgetState extends State<PathsWidget> {
           SizedBox(
               width: 160,
               height: 46,
-              child: EyuunWidgets.floatingActionButton(text: "'+ Add new Path'", onPressed: () {
-                setState(() {
-                  PopupUtil.popup(context,
-                      PickPathPopup(pathController: pathController),
-                      maximumSize: Size(900, 700));
-                });
-              },)),
+              child: EyuunWidgets.floatingActionButton(
+                text: "'+ Add new Path'",
+                onPressed: () {
+                  setState(() {
+                    PopupUtil.largePopup(
+                        context, PickPathPopup(pathController: pathController),
+                        maximumSize: const Size(1100, 900),
+                        header: "",
+                        background:
+                            const AssetImage('data/base/ui/bg/background.jpg'));
+                  });
+                },
+              )),
         const SizedBox(height: 16),
         GridView.builder(
           shrinkWrap: true,
