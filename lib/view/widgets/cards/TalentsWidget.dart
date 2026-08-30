@@ -77,7 +77,11 @@ class _TalentsWidgetState extends State<TalentsWidget> {
               // Name
               SizedBox(
                 height: 60,
-                width: hasEnaughWidth ? 150 : aboveMinimal ? 120 : 100,
+                width: hasEnaughWidth
+                    ? 150
+                    : aboveMinimal
+                        ? 120
+                        : 100,
                 child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -86,18 +90,46 @@ class _TalentsWidgetState extends State<TalentsWidget> {
                     )),
               ),
               EyuunWidgets.spacerHorizontal(),
+              if (skillcheck != null && skillcheck.checkedAttributes.isNotEmpty)
+                Expanded(
+                    child: InkWell(
+                        splashColor: Colors.red,
+                        onTap: () {},
+                        child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: useLong ? 6 : 10),
+                            child: Center(
+                              child: SkillCheckWidget(
+                                  useWrap: false,
+                                  spacing: hasEnaughWidth
+                                      ? 24
+                                      : aboveMinimal
+                                          ? 8
+                                          : 2,
+                                  iconSize: hasEnaughWidth
+                                      ? 52
+                                      : aboveMinimal
+                                          ? 42
+                                          : 32,
+                                  showText: hasEnaughWidth,
+                                  useLongText: useLong,
+                                  skillcheck: skillcheck,
+                                  attributes: attributes),
+                            )))),
+              EyuunWidgets.spacerHorizontal(),
               EyuunWidgets.circularFloatingActionButton(
                 addDeco: true,
-                backgroundColor: widget.skillLearnerController.canSkill(talentAsset)
-                    ? Colors.blueGrey
-                    : theme.floatingActionButtonTheme.backgroundColor,
+                backgroundColor:
+                    widget.skillLearnerController.canSkill(talentAsset)
+                        ? Colors.blueGrey
+                        : theme.floatingActionButtonTheme.backgroundColor,
                 text: "${talent.value}",
                 onPressed: widget.skillLearnerController.canSkill(talentAsset)
                     ? () {
                         ChangeValueController changeValController =
                             ChangeValueController(talent.value,
-                                maxLimit:
-                                    widget.skillLearnerController.getMax(talentAsset),
+                                maxLimit: widget.skillLearnerController
+                                    .getMax(talentAsset),
                                 minLimit: widget.skillLearnerController
                                     .getMin(talentAsset),
                                 onValUpdated: (val) => widget
@@ -119,25 +151,6 @@ class _TalentsWidgetState extends State<TalentsWidget> {
                     : null,
                 radius: aboveMinimal ? 42 : 32,
               ),
-              SizedBox(width: boxWidth),
-              if (skillcheck != null && skillcheck.checkedAttributes.isNotEmpty)
-                Expanded(
-                    child: InkWell(
-                        splashColor: Colors.red,
-                        onTap: () {},
-                        child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: useLong ? 6 : 10),
-                            child: Center(
-                              child: SkillCheckWidget(
-                                  useWrap: false,
-                                  spacing: hasEnaughWidth ? 24 : aboveMinimal ? 8 : 2,
-                                  iconSize: hasEnaughWidth ? 52 : aboveMinimal ? 42 : 32,
-                                  showText: hasEnaughWidth,
-                                  useLongText: useLong,
-                                  skillcheck: skillcheck,
-                                  attributes: attributes),
-                            )))),
             ],
           ));
     });

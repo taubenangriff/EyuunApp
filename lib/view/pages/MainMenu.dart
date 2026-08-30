@@ -18,7 +18,7 @@ class MainMenu extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('data/base/ui/bg/background.jpg'),
+            image: AssetImage('data/base/ui/bg/mainmenu.png'),
             fit: BoxFit.cover,
           ),
         ),
@@ -36,12 +36,13 @@ class MainMenu extends StatelessWidget {
                   width: 300,
                   height: 50,
                   onPressed: () async {
-                    if(!context.mounted) return;
-                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => LoadingPage()));
+                    if (!context.mounted) return;
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (_) => LoadingPage()));
 
                     await locator<SessionService>().loadSession("fuck");
 
-                    if(!context.mounted) return;
+                    if (!context.mounted) return;
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
                         builder: (_) => const MainPage(title: 'Eyuun App'),
@@ -73,8 +74,7 @@ class MainMenu extends StatelessWidget {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (_) => CreateCharacterPage(
-                          title: 'Create a new Character'
-                        ),
+                            title: 'Create a new Character'),
                       ),
                     );
                   },
@@ -84,14 +84,14 @@ class MainMenu extends StatelessWidget {
                   text: 'Groups',
                   width: 300,
                   height: 50,
-                  onPressed: () { },
+                  onPressed: () {},
                 ),
                 const SizedBox(height: 16),
                 EyuunWidgets.floatingActionButton(
                   text: 'Options',
                   width: 300,
                   height: 50,
-                  onPressed: () { },
+                  onPressed: () {},
                 ),
               ],
             ),

@@ -56,8 +56,9 @@ class _SkillCheckWidgetState extends State<SkillCheckWidget> {
 
     return Row(
       children: [
-        if(attribute.numberOfDices > 1)... {
-          Text('${attribute.numberOfDices}x ', style: theme.textTheme.headlineSmall),
+        if (attribute.numberOfDices > 1) ...{
+          Text('${attribute.numberOfDices}x ',
+              style: theme.textTheme.headlineSmall),
         },
         ...attribute.options
             .map((e) => [
@@ -65,11 +66,14 @@ class _SkillCheckWidgetState extends State<SkillCheckWidget> {
                   DiceIcon(
                       type: widget.attributes.getStatEntry(e.id)!.dice,
                       size: widget.iconSize),
-                  if(widget.showText)... {
+                  if (widget.showText) ...{
                     SizedBox(width: 4),
                     ConstrainedBox(
-                        constraints: BoxConstraints(minWidth: widget.useLongText ? 80 : 20),
-                        child: Text(widget.useLongText ? _textService.getText(e.id) : _textService.getShort(e.id))),
+                        constraints: BoxConstraints(
+                            minWidth: widget.useLongText ? 90 : 20),
+                        child: Text(widget.useLongText
+                            ? _textService.getText(e.id)
+                            : _textService.getShort(e.id))),
                   }
                 ])
             .expand((e) => e)
