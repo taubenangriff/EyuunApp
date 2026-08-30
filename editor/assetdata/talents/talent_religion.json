@@ -20,14 +20,14 @@
             {
                 "options": [
                     {
-                        "id": "baseSkill_Intuition"
+                        "id": "baseSkill_Intelligence"
                     }
                 ]
             },
             {
                 "options": [
                     {
-                        "id": "baseSkill_Agility"
+                        "id": "baseSkill_Intuition"
                     }
                 ]
             }

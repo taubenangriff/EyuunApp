@@ -13,14 +13,14 @@
             {
                 "options": [
                     {
-                        "id": "baseSkill_Courage"
+                        "id": "baseSkill_Intelligence"
                     }
                 ]
             },
             {
                 "options": [
                     {
-                        "id": "baseSkill_Intuition"
+                        "id": "baseSkill_Charisma"
                     }
                 ]
             },

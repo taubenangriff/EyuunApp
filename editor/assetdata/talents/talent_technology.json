@@ -13,21 +13,21 @@
             {
                 "options": [
                     {
-                        "id": "baseSkill_Courage"
+                        "id": "baseSkill_Intelligence"
                     }
                 ]
             },
             {
                 "options": [
                     {
-                        "id": "baseSkill_Intuition"
+                        "id": "baseSkill_Dexterity"
                     }
                 ]
             },
             {
                 "options": [
                     {
-                        "id": "baseSkill_Agility"
+                        "id": "baseSkill_Strength"
                     }
                 ]
             }
