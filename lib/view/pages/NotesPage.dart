@@ -1,8 +1,7 @@
-import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
-import 'package:eyuunapp/view/decoration/Brushes.dart';
-import 'package:eyuunapp/view/decoration/cornerPainters/ScaffoldCornerPainter.dart';
-import 'package:eyuunapp/view/decoration/linePainters/LinePainter.dart';
+import 'package:eyuunapp/view/Note.dart';
+import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuunapp/view/widgets/HandwrittenNoteWidget.dart';
+import 'package:eyuunapp/view/widgets/NoteCard.dart';
 import 'package:eyuunapp/view/widgets/TextNoteWidget.dart';
 import 'package:flutter/material.dart';
 
@@ -16,30 +15,90 @@ class NotesPage extends StatefulWidget {
 }
 
 class _NotesPageState extends State<NotesPage> {
-  Widget selectedWidget = HandwrittenNoteWidget();
+  final List<Note> notes = [
+    const Note(
+      type: NoteType.text,
+      heading: 'Ashen Market Leads',
+      text: 'The apothecary knows who purchased the silvered salt.',
+    ),
+    const Note(
+      type: NoteType.handwritten,
+      heading: 'Map of the Old Quarter',
+      text: '',
+      previewImage: 'data/base/ui/bg/note.png',
+    ),
+    const Note(
+      type: NoteType.text,
+      heading: 'Party Supplies',
+      text: 'Lantern oil, rope, dried rations, and a fresh healing kit.',
+    ),
+    const Note(
+      type: NoteType.handwritten,
+      heading: 'Rune Fragment',
+      previewImage: 'data/base/ui/bg/note.png',
+      text: '',
+    ),
+  ];
+
+  void _openNote(Note note) {
+    PopupUtil.largePopup(
+      context,
+      note.type == NoteType.text ? TextNoteWidget() : HandwrittenNoteWidget(),
+      header: note.heading.isEmpty ? 'New Note' : note.heading,
+      background: const AssetImage('data/base/ui/bg/background.jpg'),
+    );
+  }
+
+  void _openNewNote(NoteType type) {
+    final note = Note(
+      type: type,
+      heading: type == NoteType.text ? 'New Text Note' : 'New Handwritten Note',
+      text: type == NoteType.text ? 'Start writing your note here.' : '',
+    );
+
+    setState(() {
+      notes.add(note);
+    });
+    _openNote(note);
+  }
+
+  void _deleteNote(Note note) {
+    setState(() {
+      notes.remove(note);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final size = MediaQuery.of(context).size;
-    late double desiredSize = 1100;
+    const desiredSize = 1100.0;
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Center(
-        child: Padding(
-            padding: EdgeInsets.all(8),
-            child: ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: desiredSize),
-                child: DecoratedBox(
-                    position: DecorationPosition.foreground,
-                    decoration: ArtDecoBoxDecoration(
-                        cornerBuilder: (p) =>
-                            ScaffoldCornerPainter(p, squareSize: 6),
-                        verticalLineBuilder: (p) => LinePainter(p),
-                        horizontalLineBuilder: (p) => LinePainter(p),
-                        cornerSize: 16,
-                        paint: Brushes.goldSparkling()),
-                    child: selectedWidget))),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(8, 8, 8, 100),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: desiredSize),
+            child: EyuunWidgets.cardBox(
+              theme: Theme.of(context),
+              child: GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 400,
+                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 16,
+                  mainAxisExtent: 300,
+                ),
+                itemCount: notes.length,
+                itemBuilder: (context, index) => NoteCard(
+                  note: notes[index],
+                  onTap: () => _openNote(notes[index]),
+                  onDelete: () => _deleteNote(notes[index]),
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Row(
@@ -47,9 +106,7 @@ class _NotesPageState extends State<NotesPage> {
         children: [
           EyuunWidgets.circularFloatingActionButton(
             onPressed: () {
-              setState(() {
-                selectedWidget = TextNoteWidget();
-              });
+              _openNewNote(NoteType.text);
             },
             text: 'New',
             tooltip: 'Add a new Text Note',
@@ -58,9 +115,7 @@ class _NotesPageState extends State<NotesPage> {
           EyuunWidgets.spacerHorizontal(),
           EyuunWidgets.circularFloatingActionButton(
             onPressed: () {
-              setState(() {
-                selectedWidget = HandwrittenNoteWidget();
-              });
+              _openNewNote(NoteType.handwritten);
             },
             text: 'New',
             tooltip: 'Add a new Handwritten Note',

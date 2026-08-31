@@ -1,3 +1,7 @@
+import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
+import 'package:eyuunapp/view/decoration/Brushes.dart';
+import 'package:eyuunapp/view/decoration/cornerPainters/ScaffoldCornerPainter.dart';
+import 'package:eyuunapp/view/decoration/linePainters/LinePainter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drawing_board/flutter_drawing_board.dart';
 import 'package:flutter_drawing_board/paint_contents.dart';
@@ -46,6 +50,8 @@ class _HandwrittenNoteWidgetState extends State<HandwrittenNoteWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       floatingActionButton: Padding(
           padding: EdgeInsets.symmetric(vertical: 30),
@@ -104,28 +110,24 @@ class _HandwrittenNoteWidgetState extends State<HandwrittenNoteWidget> {
                   ])))), // Drawing Board
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       body: Container(
-        decoration: const BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black87,
-            ),
-            BoxShadow(
-              color: Colors.white,
-              spreadRadius: -4.0,
-              blurRadius: 4.0,
-            ),
-          ],
+        decoration: ArtDecoBoxDecoration(
+          cornerBuilder: (p) => ScaffoldCornerPainter(p, squareSize: 6),
+          verticalLineBuilder: (p) => LinePainter(p),
+          horizontalLineBuilder: (p) => LinePainter(p),
+          cornerSize: 16,
+          paint: Brushes.goldSparkling(),
+          background: theme.canvasColor,
         ),
+        padding: const EdgeInsets.all(12),
         child: DrawingBoard(
-          controller: _drawingController,
-          boardConstrained: true,
-          boardPanEnabled: false,
-          enablePalmRejection: true,
-          boardScaleEnabled: false,
-          maxScale: 3,
-          minScale: 1,
-          background: Container(color: Colors.white),
-        ),
+            controller: _drawingController,
+            boardConstrained: true,
+            boardPanEnabled: false,
+            enablePalmRejection: true,
+            boardScaleEnabled: false,
+            maxScale: 3,
+            minScale: 1,
+            background: Container(color: Colors.white)),
       ),
     );
   }

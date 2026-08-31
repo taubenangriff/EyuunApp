@@ -1,3 +1,7 @@
+import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
+import 'package:eyuunapp/view/decoration/Brushes.dart';
+import 'package:eyuunapp/view/decoration/cornerPainters/ScaffoldCornerPainter.dart';
+import 'package:eyuunapp/view/decoration/linePainters/LinePainter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drawing_board/flutter_drawing_board.dart';
 import 'package:flutter_drawing_board/paint_contents.dart';
@@ -48,6 +52,14 @@ class _TextNoteWidgetState extends State<TextNoteWidget> {
 
     return Scaffold(
         body: Container(
+            decoration: ArtDecoBoxDecoration(
+              cornerBuilder: (p) => ScaffoldCornerPainter(p, squareSize: 6),
+              verticalLineBuilder: (p) => LinePainter(p),
+              horizontalLineBuilder: (p) => LinePainter(p),
+              cornerSize: 16,
+              paint: Brushes.goldSparkling(),
+              background: theme.canvasColor,
+            ),
             padding: const EdgeInsets.all(20),
             child: Column(children: [
               TextField(
@@ -57,7 +69,8 @@ class _TextNoteWidgetState extends State<TextNoteWidget> {
                     enabledBorder: InputBorder.none,
                     errorBorder: InputBorder.none,
                     disabledBorder: InputBorder.none,
-                    hintStyle: theme.textTheme.headlineLarge?.copyWith(foreground: Paint()..color = Colors.white70),
+                    hintStyle: theme.textTheme.headlineLarge
+                        ?.copyWith(foreground: Paint()..color = Colors.white70),
                     hintText: "Title"),
                 maxLines: 1,
               ),
@@ -69,7 +82,8 @@ class _TextNoteWidgetState extends State<TextNoteWidget> {
                     enabledBorder: InputBorder.none,
                     errorBorder: InputBorder.none,
                     disabledBorder: InputBorder.none,
-                    hintStyle: theme.textTheme.bodyLarge?.copyWith(foreground: Paint()..color = Colors.white38),
+                    hintStyle: theme.textTheme.bodyLarge
+                        ?.copyWith(foreground: Paint()..color = Colors.white38),
                     hintText: "click into the text field and start typing..."),
                 expands: true,
                 keyboardType: TextInputType.multiline,
