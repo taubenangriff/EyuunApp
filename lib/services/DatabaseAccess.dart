@@ -25,9 +25,7 @@ abstract class DatabaseAccess {
 
   Future<List<String>> getSessionKeys();
 
-  Future<String?> getLastSession();
-
-  Future<void> setLastSession(String sessionId);
+  Future<void> deleteSession(String sessionKey);
 }
 
 class FirebaseAccess implements DatabaseAccess {
@@ -119,21 +117,21 @@ class FirebaseAccess implements DatabaseAccess {
   }
 
   @override
-  Future<String?> getLastSession() async {
-    final snapshot = await FirebaseFirestore.instance
-        .collection('meta')
-        .doc('last_session')
-        .get();
-    final sessionId = snapshot.data()?['sessionId'];
+  Future<void> deleteSession(String sessionKey) async {
+    final sessionRef =
+        FirebaseFirestore.instance.collection('sessions').doc(sessionKey);
 
-    return sessionId is String ? sessionId : null;
-  }
+    final gameObjectsSnapshot =
+        await sessionRef.collection('gameObjects').get();
+    for (final doc in gameObjectsSnapshot.docs) {
+      await doc.reference.delete();
+    }
 
-  @override
-  Future<void> setLastSession(String sessionId) {
-    return FirebaseFirestore.instance
-        .collection('meta')
-        .doc('last_session')
-        .set({'sessionId': sessionId});
+    final metaSnapshot = await sessionRef.collection('meta').get();
+    for (final doc in metaSnapshot.docs) {
+      await doc.reference.delete();
+    }
+
+    await sessionRef.delete();
   }
 }

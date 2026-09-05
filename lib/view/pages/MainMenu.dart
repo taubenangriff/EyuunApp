@@ -3,6 +3,7 @@ import 'package:eyuunapp/services/SessionService.dart';
 import 'package:eyuunapp/view/pages/CharacterSelectionPage.dart';
 import 'package:eyuunapp/view/pages/LoadingPage.dart';
 import 'package:eyuuncore/GetIt.dart';
+import 'package:eyuuncore/enums/CharacterState.dart';
 import 'package:flutter/material.dart';
 
 import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
@@ -17,16 +18,31 @@ class MainMenu extends StatefulWidget {
 }
 
 class _MainMenuState extends State<MainMenu> {
-  late Future<List<String>> _sessionKeys;
+  late Future<List<SessionCharacter>> _characters;
 
   @override
   void initState() {
     super.initState();
-    _reloadSessionKeys();
+    _reloadCharacters();
   }
 
-  void _reloadSessionKeys() {
-    _sessionKeys = locator<DatabaseAccess>().getSessionKeys();
+  void _reloadCharacters() {
+    _characters = _loadCharacters();
+  }
+
+  Future<List<SessionCharacter>> _loadCharacters() async {
+    final databaseAccess = locator<DatabaseAccess>();
+    final sessionIds = await databaseAccess.getSessionKeys();
+    final characters = await Future.wait(
+      sessionIds.map((sessionId) async {
+        final metaInfo = await databaseAccess.getCharacterMetaInfo(sessionId);
+        return metaInfo == null ? null : SessionCharacter(sessionId, metaInfo);
+      }),
+    );
+    final validCharacters = characters.whereType<SessionCharacter>().toList();
+    validCharacters.sort(
+        (a, b) => b.metaInfo.lastModified.compareTo(a.metaInfo.lastModified));
+    return validCharacters;
   }
 
   @override
@@ -48,39 +64,41 @@ class _MainMenuState extends State<MainMenu> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                FutureBuilder<List<String>>(
-                  future: _sessionKeys,
+                FutureBuilder<List<SessionCharacter>>(
+                  future: _characters,
                   builder: (context, snapshot) {
-                    if (snapshot.data?.isEmpty ?? true) {
+                    final characters = snapshot.data ?? [];
+                    if (characters.isEmpty) {
                       return const SizedBox.shrink();
                     }
+
+                    final lastCharacter = characters.first;
 
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         EyuunWidgets.floatingActionButton(
-                          text: 'Load <Last Character>',
+                          text: 'Load ${lastCharacter.metaInfo.name}',
                           width: 300,
                           height: 50,
                           onPressed: () async {
-                            final lastSessionKey =
-                                await locator<DatabaseAccess>()
-                                    .getLastSession();
-                            if (!context.mounted || lastSessionKey == null) {
-                              return;
-                            }
-
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (_) => const LoadingPage()));
 
                             await locator<SessionService>()
-                                .loadSession(lastSessionKey);
+                                .loadSession(lastCharacter.sessionId);
 
                             if (!context.mounted) return;
+                            Navigator.of(context).pop();
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                 builder: (_) =>
-                                    const MainPage(title: 'Eyuun App'),
+                                    lastCharacter.metaInfo.characterState ==
+                                            CharacterState.InCreation
+                                        ? const CreateCharacterPage(
+                                            title: 'Create a new Character',
+                                          )
+                                        : const MainPage(title: 'Eyuun App'),
                               ),
                             );
                           },
@@ -93,11 +111,13 @@ class _MainMenuState extends State<MainMenu> {
                           onPressed: () async {
                             await Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (_) => const CharacterSelectionPage(),
+                                builder: (_) => CharacterSelectionPage(
+                                  characterList: characters,
+                                ),
                               ),
                             );
                             if (!context.mounted) return;
-                            setState(_reloadSessionKeys);
+                            setState(_reloadCharacters);
                           },
                         ),
                       ],
@@ -119,7 +139,7 @@ class _MainMenuState extends State<MainMenu> {
                       ),
                     );
                     if (!context.mounted) return;
-                    setState(_reloadSessionKeys);
+                    setState(_reloadCharacters);
                   },
                 ),
                 const SizedBox(height: 16),

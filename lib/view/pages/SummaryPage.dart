@@ -18,18 +18,6 @@ class SummaryPage extends StatelessWidget {
   const SummaryPage({super.key, required this.onCharacterCreated});
 
   void _createCharacter(BuildContext context) {
-    final character = locator<CharacterService>().character;
-    final characterBase = character.get<CharacterBaseComponent>()!;
-    final sessionService = locator<SessionService>();
-
-    characterBase.characterState = CharacterState.Ingame;
-    locator<EventBus>().fire(EntityUpdatedEvent(character, characterBase));
-    locator<EventBus>()
-        .fire(SessionCreatedEvent(sessionService.sessionId, character));
-    locator<EventBus>().fire(SessionLoadEvent(sessionService.sessionId));
-    locator<EventBus>()
-        .fire(SessionLoadedEvent(sessionService.sessionId, character));
-
     onCharacterCreated();
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (_) => const MainPage(title: 'Eyuun App')),

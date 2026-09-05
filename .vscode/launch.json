@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Flutter Web Project",
+            "name": "Flutter Run",
             "type": "dart",
             "request": "launch",
             "program": "lib/main.dart",
@@ -13,6 +13,17 @@
                 "-d",
                 "web-server"
             ]
+        },
+        {
+            "name": "Flutter Debug",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "args": [
+                "-d",
+                "web-server"
+            ],
+            "flutterMode": "debug"
         }
     ]
 }

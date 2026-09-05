@@ -1,19 +1,33 @@
 import 'package:easy_stepper/easy_stepper.dart';
+import 'package:event_bus/event_bus.dart';
 import 'package:eyuunapp/services/SessionService.dart';
 import 'package:eyuunapp/view/controller/CharacterImageController.dart';
 import 'package:eyuunapp/view/decoration/Brushes.dart';
+import 'package:eyuunapp/view/pages/MainPage.dart';
 import 'package:eyuunapp/view/widgets/PickNewPathWidget.dart';
 import 'package:eyuunapp/view/decoration/CircleDecoration.dart';
 import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/CharacterBase.dart';
+import 'package:eyuuncore/components/Combat.dart';
+import 'package:eyuuncore/components/Flux.dart';
+import 'package:eyuuncore/components/LanguageLearner.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
+import 'package:eyuuncore/components/health.dart';
+import 'package:eyuuncore/components/inventory.dart';
+import 'package:eyuuncore/controller/CharacterGenerateStatsController.dart';
 import 'package:eyuuncore/controller/PathController.dart';
 import 'package:eyuuncore/controller/PickUpbringingController.dart';
 import 'package:eyuuncore/controller/SkilllearnerController.dart';
+import 'package:eyuuncore/controller/CharacterInitController.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';
+import 'package:eyuuncore/enums/CharacterState.dart';
+import 'package:eyuuncore/events/EntityUpdatedEvent.dart';
+import 'package:eyuuncore/events/SessionCreatedEvent.dart';
+import 'package:eyuuncore/events/SessionLoadEvent.dart';
+import 'package:eyuuncore/events/SessionLoadedEvent.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
@@ -55,6 +69,19 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
   late var skillLearnerController = SkillLearnerController(
       skillLearner: skillLearnerComponent!, allowDowngrades: true);
 
+  late var generateStatsController = CharacterGenerateStatsController(
+      character.get<AttributesComponent>()!,
+      healthComponent: character.get<HealthComponent>(),
+      combatComponent: character.get<CombatComponent>(),
+      fluxComponent: character.get<FluxComponent>(),
+      inventoryComponent: character.get<InventoryComponent>(),
+      languageLearnerComponent: character.get<LanguageLearnerComponent>());
+
+  late var characterInitController = CharacterInitController(
+      characterBaseComponent: character.get<CharacterBaseComponent>()!,
+      fluxComponent: character.get<FluxComponent>(),
+      healthComponent: character.get<HealthComponent>());
+
   late var pages = [
     _wrapWithLayoutBuilder(UpbringingSelectionWidget(
         characterBaseComponent: characterBaseComponent,
@@ -69,7 +96,7 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
         attributes: character.get<AttributesComponent>()!)),
     _wrapWithSizedBox(
         Center(child: TalentPage(controller: skillLearnerController))),
-    SummaryPage(onCharacterCreated: _keepSessionActive),
+    SummaryPage(onCharacterCreated: _createCharacter),
   ];
 
   final ImageProvider placeholderImage = const NetworkImage(
@@ -82,10 +109,6 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
     // TODO: implement initState
     super.initState();
     character = locator<CharacterService>().character;
-  }
-
-  void _keepSessionActive() {
-    _leaveSessionOnDispose = false;
   }
 
   @override
@@ -178,5 +201,24 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
         );
       },
     );
+  }
+
+  void _createCharacter() {
+    _leaveSessionOnDispose = false;
+
+    generateStatsController.finalizeStats();
+    characterInitController.initCharacter();
+
+    final character = locator<CharacterService>().character;
+    final characterBase = character.get<CharacterBaseComponent>()!;
+    final sessionService = locator<SessionService>();
+
+    characterBase.characterState = CharacterState.Ingame;
+    locator<EventBus>().fire(EntityUpdatedEvent(character, characterBase));
+    locator<EventBus>()
+        .fire(SessionCreatedEvent(sessionService.sessionId, character));
+    locator<EventBus>().fire(SessionLoadEvent(sessionService.sessionId));
+    locator<EventBus>()
+        .fire(SessionLoadedEvent(sessionService.sessionId, character));
   }
 }

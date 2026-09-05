@@ -10,15 +10,17 @@ part 'ActionUserUpgrade.mapper.dart';
 
 @MappableClass()
 @reflector
-class ActionUserUpgradeStatDyn with ActionUserUpgradeStatDynMappable, ComponentReflectable {
+class ActionUserUpgradeStatDyn
+    with ActionUserUpgradeStatDynMappable, ComponentReflectable {
   List<AssetLink> addedActions;
-  ActionUserUpgradeStatDyn({List<AssetLink>? addedActions}) : addedActions = addedActions ?? [];
+  ActionUserUpgradeStatDyn({List<AssetLink>? addedActions})
+    : addedActions = addedActions ?? [];
 }
 
 class ActionUserUpgradeComponent extends EyuunComponent<int> {
   static const String propertyName = "actionUserUpgrade";
 
-  late List<ActionLink> addedActions;
+  List<ActionLink> addedActions = [];
 
   @override
   String getName() => propertyName;
@@ -34,10 +36,10 @@ class ActionUserUpgradeComponent extends EyuunComponent<int> {
     _addEntities(dyn.addedActions);
   }
 
-  void _addEntities(List<AssetLink> link){
-    for(var action in link){
+  void _addEntities(List<AssetLink> link) {
+    for (var action in link) {
       var entity = action.getEntity();
-      if(entity == null){
+      if (entity == null) {
         continue;
       }
       addedActions.add(ActionLink(action: entity, source: entity));
@@ -56,5 +58,9 @@ class ActionUserUpgradeComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => ActionUserUpgradeStatDyn(addedActions: addedActions.map((e) => AssetLink.fromEntity(e.action)).toList()).toMap();
+  Map<String, dynamic> saveDynamicData() => ActionUserUpgradeStatDyn(
+    addedActions: addedActions
+        .map((e) => AssetLink.fromEntity(e.action))
+        .toList(),
+  ).toMap();
 }
