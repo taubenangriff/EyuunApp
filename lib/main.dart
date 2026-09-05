@@ -1,5 +1,6 @@
 import 'package:eyuunapp/services/ImageService.dart';
 import 'package:eyuunapp/services/DatabaseAccess.dart';
+import 'package:eyuunapp/services/SessionPersistenceListener.dart';
 import 'package:eyuunapp/services/SessionService.dart';
 import 'package:eyuunapp/view/pages/LoadingPage.dart';
 import 'package:eyuunapp/view/pages/MainMenu.dart';
@@ -16,8 +17,11 @@ import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/core/services/LoadDataService.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';
-import 'package:eyuuncore/io/GameObjectsExport.dart';
+import 'package:eyuuncore/io/SessionData.dart';
+import 'package:event_bus/event_bus.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,9 +38,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   locator.registerCoreServices();
+  locator.registerSingleton<EventBus>(EventBus());
   locator.registerSingleton<ImageService>(FirebaseImageService());
   locator.registerSingleton<DatabaseAccess>(FirebaseAccess());
   locator.registerSingleton(SessionService());
+  locator.registerSingleton(SessionPersistenceListener());
 
   var worldManager = locator<WorldManager>();
   worldManager.registerComponents();

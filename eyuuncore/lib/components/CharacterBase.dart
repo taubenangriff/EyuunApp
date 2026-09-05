@@ -3,6 +3,7 @@ import 'package:eyuuncore/components/Combat.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:eyuuncore/core/reflection/Reflecting.dart';
 import 'package:eyuuncore/core/reflection/reflector.dart';
+import 'package:eyuuncore/enums/CharacterState.dart';
 import 'package:eyuuncore/enums/PersonSize.dart';
 import 'package:oxygen/oxygen.dart';
 
@@ -18,12 +19,14 @@ class CharacterBaseDynamic with CharacterBaseDynamicMappable {
   int level;
   String origin;
   PersonSize personSize;
+  CharacterState characterState;
 
   Uri? image;
 
   CharacterBaseDynamic({
     AssetLink? upbringing,
     AssetLink? childhood,
+    this.characterState = CharacterState.InCreation,
     this.level = 0,
     this.origin = "",
     this.personSize = PersonSize.Normal,
@@ -50,6 +53,7 @@ class CharacterBaseComponent extends EyuunComponent<int> {
   late int level;
   late String origin;
   Uri? image;
+  late CharacterState characterState;
 
   /// the visual size of this person. To get their speed, refer to [CombatComponent.speed].
   late PersonSize personSize;
@@ -72,6 +76,7 @@ class CharacterBaseComponent extends EyuunComponent<int> {
     origin = dyn.origin;
     personSize = dyn.personSize;
     image = dyn.image;
+    characterState = dyn.characterState;
   }
 
   @override
@@ -88,6 +93,7 @@ class CharacterBaseComponent extends EyuunComponent<int> {
     origin = "";
     personSize = PersonSize.Normal;
     image = null;
+    characterState = CharacterState.InCreation;
   }
 
   @override
@@ -98,6 +104,7 @@ class CharacterBaseComponent extends EyuunComponent<int> {
     origin: origin,
     visualUpbringings: visualUpbringings.asAssetLinks(),
     personSize: personSize,
-    image: image
+    image: image,
+    characterState: characterState,
   ).toMap();
 }

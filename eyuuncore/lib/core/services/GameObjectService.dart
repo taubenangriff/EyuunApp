@@ -1,9 +1,13 @@
 import 'dart:math';
 
+import 'package:event_bus/event_bus.dart';
+import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/core/repository/AssetDataRepository.dart';
 import 'package:eyuuncore/core/repository/GameObjectRepository.dart';
 import 'package:eyuuncore/core/repository/StaticAssetRepository.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';
+import 'package:eyuuncore/events/EntityCreatedEvent.dart';
+import 'package:eyuuncore/events/EntityDeletedEvent.dart';
 import 'package:eyuuncore/io/SessionData.dart';
 import 'package:oxygen/oxygen.dart';
 import 'package:uuid/uuid.dart';
@@ -74,6 +78,8 @@ class GameObjectService {
     _gameObjectRepository.registerEntity(entity);
     entity.get<StandardComponent>()?.isStatic = false;
 
+    locator<EventBus>().fire(EntityCreatedEvent(entity));
+
     return entity;
   }
 
@@ -99,8 +105,10 @@ class GameObjectService {
   }
 
   void killEntity(Entity entity) {
+    var objectId = entity.getObjectId();
     entity.dispose();
     _gameObjectRepository.removeEntity(entity);
+    locator<EventBus>().fire(EntityDeletedEvent(objectId));
     _worldManager.execute();
   }
 
