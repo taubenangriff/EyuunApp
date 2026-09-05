@@ -43,51 +43,54 @@ class _LoadingPageState extends State<LoadingPage>
     var theme = Theme.of(context);
 
     return Scaffold(
-        body: Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: const AssetImage('data/base/ui/bg/background.jpg'),
-          fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(
-                theme.canvasColor.withAlpha(180), BlendMode.srcOver)
+        appBar: AppBar(
+          title: const Text(''),
+          automaticallyImplyLeading: false,
         ),
-      ),
-      child: Center(
-          child: AnimatedBuilder(
-              animation: _animation,
-              builder: (context, child) {
-                return Stack(alignment: Alignment.center, children: [
-                  Container(
-                    height: 180,
-                    decoration: CircleDecoration(
-                        linePaint: Brushes.goldSparkling(stepping: 10)),
-                  ),
-                  Transform.rotate(
-                    angle: _animation.value,
-                    child: Container(
-                      height: 160,
-                      decoration: CircleProgressDecoration(
-                          linePaint: Brushes.goldSparkling(stepping: 10),
-                          segments: 20,
-                          thickness: 10),
-                    ),
-                  ),
-                  Transform.rotate(
-                    angle: -_animation.value,
-                    child: Container(
-                      height: 120,
-                      decoration: CircleProgressDecoration(
-                          linePaint: Brushes.goldSparkling(stepping: 10),
-                          segments: 16,
-                          thickness: 10),
-                    ),
-                  ),
-                  Image(
-                      height: 86,
-                      width: 86,
-                      image: AssetImage('data/base/ui/eyuun_icon.png'))
-                ]);
-              })),
-    ));
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: const AssetImage('data/base/ui/bg/background.jpg'),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                    theme.canvasColor.withAlpha(180), BlendMode.srcOver)),
+          ),
+          child: Center(
+              child: AnimatedBuilder(
+                  animation: _animation,
+                  builder: (context, child) {
+                    return Stack(alignment: Alignment.center, children: [
+                      Container(
+                        height: 180,
+                        decoration: CircleDecoration(
+                            linePaint: Brushes.goldSparkling(stepping: 10)),
+                      ),
+                      Transform.rotate(
+                        angle: _animation.value,
+                        child: Container(
+                          height: 160,
+                          decoration: CircleProgressDecoration(
+                              linePaint: Brushes.goldSparkling(stepping: 10),
+                              segments: 20,
+                              thickness: 10),
+                        ),
+                      ),
+                      Transform.rotate(
+                        angle: -_animation.value,
+                        child: Container(
+                          height: 120,
+                          decoration: CircleProgressDecoration(
+                              linePaint: Brushes.goldSparkling(stepping: 10),
+                              segments: 16,
+                              thickness: 10),
+                        ),
+                      ),
+                      Image(
+                          height: 86,
+                          width: 86,
+                          image: AssetImage('data/base/ui/eyuun_icon.png'))
+                    ]);
+                  })),
+        ));
   }
 }

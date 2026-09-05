@@ -1,4 +1,7 @@
+import 'package:eyuunapp/model/CharacterMetaInfo.dart';
+import 'package:eyuunapp/services/DatabaseAccess.dart';
 import 'package:eyuunapp/services/SessionService.dart';
+import 'package:eyuunapp/view/pages/CreateCharacterPage.dart';
 import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
 import 'package:eyuunapp/view/decoration/Brushes.dart';
 import 'package:eyuunapp/view/decoration/cornerPainters/DoubleLineCornerPainter.dart';
@@ -7,130 +10,70 @@ import 'package:eyuunapp/view/decoration/linePainters/DoubleLinePainter.dart';
 import 'package:eyuunapp/view/decoration/linePainters/ThickThinThickLinePainter.dart';
 import 'package:eyuunapp/view/pages/LoadingPage.dart';
 import 'package:eyuuncore/GetIt.dart';
+import 'package:eyuuncore/enums/CharacterState.dart';
 import 'package:flutter/material.dart';
 
 import 'MainPage.dart';
 
-class CharacterOverview {
-  final String id;
-  final String name;
-  final String upbringing;
-  final int level;
-  final DateTime lastModified;
-  final String creatorName;
-  final ImageProvider image;
+class _SessionCharacter {
+  final String sessionId;
+  final CharacterMetaInfo metaInfo;
 
-  CharacterOverview({
-    required this.id,
-    required this.name,
-    required this.upbringing,
-    required this.level,
-    required this.lastModified,
-    required this.creatorName,
-    required this.image,
-  });
+  const _SessionCharacter(this.sessionId, this.metaInfo);
 }
 
-final List<CharacterOverview> placeholderCharacters = [
-  CharacterOverview(
-    id: 'f8',
-    name: 'Rainer Winkler',
-    upbringing: 'Schanzenbewohner',
-    level: 11,
-    lastModified: DateTime.now().subtract(const Duration(days: 30)),
-    creatorName: 'Rudi & Rita Winkler',
-    image: const NetworkImage(
-        'https://i.scdn.co/image/ab676161000051746e6cb7c255477a5588e311fd'),
-  ),
-  CharacterOverview(
-    id: 'f1',
-    name: 'Sir Crashalot',
-    upbringing: 'Knightly Aspirant (Failed)',
-    level: 2,
-    lastModified: DateTime.now().subtract(const Duration(minutes: 42)),
-    creatorName: 'QA Department',
-    image: const NetworkImage(
-        'https://tse3.mm.bing.net/th/id/OIP.cPOpHmPNSfuOjLHJxKOFzAHaGe?rs=1&pid=ImgDetMain&o=7&rm=3'),
-  ),
-  CharacterOverview(
-    id: 'f2',
-    name: 'Mildred the Adequate',
-    upbringing: 'Barely Trained Apprentice',
-    level: 3,
-    lastModified: DateTime.now().subtract(const Duration(days: 5)),
-    creatorName: 'Mildred',
-    image: const NetworkImage(
-        'https://tse3.mm.bing.net/th/id/OIP.cPOpHmPNSfuOjLHJxKOFzAHaGe?rs=1&pid=ImgDetMain&o=7&rm=3'),
-  ),
-  CharacterOverview(
-    id: 'f3',
-    name: 'Grunk',
-    upbringing: 'Raised by Something (Unclear)',
-    level: 6,
-    lastModified: DateTime.now().subtract(const Duration(hours: 1)),
-    creatorName: 'Grunk',
-    image: const NetworkImage(
-        'https://tse3.mm.bing.net/th/id/OIP.cPOpHmPNSfuOjLHJxKOFzAHaGe?rs=1&pid=ImgDetMain&o=7&rm=3'),
-  ),
-  CharacterOverview(
-    id: 'f4',
-    name: 'Professor Whifflebottom',
-    upbringing: 'Academically Overqualified',
-    level: 9,
-    lastModified: DateTime.now().subtract(const Duration(days: 12)),
-    creatorName: 'Prof. Whifflebottom',
-    image: const NetworkImage(
-        'https://tse3.mm.bing.net/th/id/OIP.cPOpHmPNSfuOjLHJxKOFzAHaGe?rs=1&pid=ImgDetMain&o=7&rm=3'),
-  ),
-  CharacterOverview(
-    id: 'f5',
-    name: 'Stabby McPeaceful',
-    upbringing: 'Pacifist Commune',
-    level: 5,
-    lastModified: DateTime.now().subtract(const Duration(hours: 18)),
-    creatorName: 'Irony Engine',
-    image: const NetworkImage(
-        'https://tse3.mm.bing.net/th/id/OIP.cPOpHmPNSfuOjLHJxKOFzAHaGe?rs=1&pid=ImgDetMain&o=7&rm=3'),
-  ),
-  CharacterOverview(
-    id: 'f6',
-    name: 'Kevin',
-    upbringing: 'Extremely Normal Childhood',
-    level: 1,
-    lastModified: DateTime.now().subtract(const Duration(minutes: 3)),
-    creatorName: 'Kevin',
-    image: const NetworkImage(
-        'https://tse3.mm.bing.net/th/id/OIP.cPOpHmPNSfuOjLHJxKOFzAHaGe?rs=1&pid=ImgDetMain&o=7&rm=3'),
-  ),
-  CharacterOverview(
-    id: 'f7',
-    name: 'Lady Overprepared',
-    upbringing: 'Survivalist Bunker',
-    level: 8,
-    lastModified: DateTime.now().subtract(const Duration(days: 2)),
-    creatorName: 'Paranoia Inc.',
-    image: const NetworkImage(
-        'https://tse3.mm.bing.net/th/id/OIP.cPOpHmPNSfuOjLHJxKOFzAHaGe?rs=1&pid=ImgDetMain&o=7&rm=3'),
-  ),
-  CharacterOverview(
-    id: 'f8',
-    name: 'The Chosen One (Again)',
-    upbringing: 'Prophecy Factory',
-    level: 11,
-    lastModified: DateTime.now().subtract(const Duration(days: 30)),
-    creatorName: 'Narrative Convenience',
-    image: const NetworkImage(
-        'https://tse3.mm.bing.net/th/id/OIP.cPOpHmPNSfuOjLHJxKOFzAHaGe?rs=1&pid=ImgDetMain&o=7&rm=3'),
-  ),
-];
-
-class CharacterSelectionPage extends StatelessWidget {
+class CharacterSelectionPage extends StatefulWidget {
   const CharacterSelectionPage({super.key});
 
+  @override
+  State<CharacterSelectionPage> createState() => _CharacterSelectionPageState();
+}
+
+class _CharacterSelectionPageState extends State<CharacterSelectionPage> {
   final double desiredSize = 1100;
+  late final Future<List<_SessionCharacter>> _characters;
+
+  @override
+  void initState() {
+    super.initState();
+    _characters = _loadCharacters();
+  }
+
+  Future<List<_SessionCharacter>> _loadCharacters() async {
+    final databaseAccess = locator<DatabaseAccess>();
+    final sessionIds = await databaseAccess.getSessionKeys();
+    final characters = await Future.wait(
+      sessionIds.map((sessionId) async {
+        final metaInfo = await databaseAccess.getCharacterMetaInfo(sessionId);
+        return metaInfo == null ? null : _SessionCharacter(sessionId, metaInfo);
+      }),
+    );
+    return characters.whereType<_SessionCharacter>().toList();
+  }
 
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder<List<_SessionCharacter>>(
+      future: _characters,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return const Scaffold(
+            body: Center(child: Text('Could not load characters.')),
+          );
+        }
+        if (!snapshot.hasData) {
+          return const LoadingPage();
+        }
+
+        return _buildCharacterSelection(context, snapshot.data!);
+      },
+    );
+  }
+
+  Widget _buildCharacterSelection(
+    BuildContext context,
+    List<_SessionCharacter> characters,
+  ) {
     return Scaffold(
         appBar: AppBar(title: const Text('Select Character')),
         body: Container(
@@ -145,40 +88,51 @@ class CharacterSelectionPage extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: ConstrainedBox(
                 constraints: BoxConstraints(maxWidth: desiredSize),
-                child: GridView.builder(
-                  itemCount: placeholderCharacters.length,
-                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                    mainAxisSpacing: 16,
-                    crossAxisSpacing: 16,
-                    childAspectRatio: 0.55,
-                    maxCrossAxisExtent: 300,
-                  ),
-                  itemBuilder: (context, index) {
-                    final character = placeholderCharacters[index];
-                    return _CharacterCard(
-                      character: character,
-                      onTap: () async {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (_) => LoadingPage()));
-                        await locator<SessionService>().loadSession("fuck");
+                child: characters.isEmpty
+                    ? const Center(child: Text('No characters found.'))
+                    : GridView.builder(
+                        itemCount: characters.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                          mainAxisSpacing: 16,
+                          crossAxisSpacing: 16,
+                          childAspectRatio: 0.55,
+                          maxCrossAxisExtent: 300,
+                        ),
+                        itemBuilder: (context, index) {
+                          final character = characters[index];
+                          return _CharacterCard(
+                            character: character.metaInfo,
+                            onTap: () async {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (_) => const LoadingPage()));
+                              await locator<SessionService>()
+                                  .loadSession(character.sessionId);
 
-                        if(!context.mounted) return;
-                        Navigator.of(context).pop();
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (_) => const MainPage(title: 'Eyuun App'),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                ),
+                              if (!context.mounted) return;
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      character.metaInfo.characterState ==
+                                              CharacterState.InCreation
+                                          ? const CreateCharacterPage(
+                                              title: 'Create a new Character',
+                                            )
+                                          : const MainPage(title: 'Eyuun App'),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      ),
               )),
         ));
   }
 }
 
 class _CharacterCard extends StatelessWidget {
-  final CharacterOverview character;
+  final CharacterMetaInfo character;
   final VoidCallback onTap;
 
   const _CharacterCard({
@@ -189,6 +143,12 @@ class _CharacterCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    late final ImageProvider<Object> portraitImage;
+    if (character.image == null) {
+      portraitImage = const AssetImage('data/base/ui/bg/background.jpg');
+    } else {
+      portraitImage = NetworkImage(character.image.toString());
+    }
 
     return Card(
         elevation: 8,
@@ -209,7 +169,7 @@ class _CharacterCard extends StatelessWidget {
                 AspectRatio(
                   aspectRatio: 1,
                   child: Image(
-                    image: character.image,
+                    image: portraitImage,
                     fit: BoxFit.cover,
                   ),
                 ),

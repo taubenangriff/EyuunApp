@@ -2,8 +2,8 @@ import 'package:eyuunapp/services/ImageService.dart';
 import 'package:eyuunapp/services/DatabaseAccess.dart';
 import 'package:eyuunapp/services/SessionPersistenceListener.dart';
 import 'package:eyuunapp/services/SessionService.dart';
+import 'package:eyuunapp/view/pages/LoginScreen.dart';
 import 'package:eyuunapp/view/pages/LoadingPage.dart';
-import 'package:eyuunapp/view/pages/MainMenu.dart';
 import 'package:eyuunapp/services/EyuunUiImageProvider.dart';
 import 'package:eyuuncore/core/registerComponentsExtension.dart';
 import 'package:eyuuncore/core/registerFeatures.dart';
@@ -19,7 +19,6 @@ import 'package:eyuuncore/core/services/LoadDataService.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';
 import 'package:eyuuncore/io/SessionData.dart';
 import 'package:event_bus/event_bus.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -108,7 +107,7 @@ class MyApp extends StatelessWidget {
           future: loadData(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              return const MainMenu();
+              return const LoginScreen();
             }
             return const LoadingPage();
           }),

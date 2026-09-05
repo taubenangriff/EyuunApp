@@ -1,12 +1,15 @@
 import 'package:event_bus/event_bus.dart';
 import 'package:eyuuncore/GetIt.dart';
+import 'package:eyuuncore/components/CharacterBase.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
+import 'package:eyuuncore/enums/CharacterState.dart';
 import 'package:eyuuncore/events/SessionCreatedEvent.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';
 import 'package:eyuuncore/events/SessionLoadEvent.dart';
 import 'package:eyuuncore/events/SessionLoadedEvent.dart';
+import 'package:eyuuncore/events/SessionLeaveEvent.dart';
 import 'package:eyuuncore/io/AssetSerializer.dart';
 import 'package:eyuuncore/io/SessionData.dart';
 import 'package:eyuunapp/services/DatabaseAccess.dart';
@@ -17,6 +20,9 @@ class SessionService {
   late String sessionId;
 
   void leaveSession() {
+    locator<EventBus>().fire(
+      SessionLeaveEvent(sessionId, locator<CharacterService>().character),
+    );
     locator<GameObjectService>().reset();
     locator<CharacterService>().unload();
   }
@@ -30,6 +36,8 @@ class SessionService {
   void createNewSession() {
     sessionId = const Uuid().v4();
     var character = locator<GameObjectService>().createInstance("character")!;
+    character.get<CharacterBaseComponent>()?.characterState =
+        CharacterState.InCreation;
     locator<CharacterService>().changeCharacter(character);
     locator<WorldManager>().execute();
 
@@ -58,17 +66,7 @@ class SessionService {
 
   Future<List<Map<String, dynamic>>> _fetchEntityData(
       SessionData sessionData) async {
-    List<Map<String, dynamic>> entityMaps = [];
-    for (var objectId in sessionData.gameObjects) {
-      final entityMap = await locator<DatabaseAccess>().getGameObjectData(
-        sessionData.sessionId,
-        objectId,
-      );
-      if (entityMap != null) {
-        entityMaps.add(entityMap);
-      }
-    }
-    return entityMaps;
+    return locator<DatabaseAccess>().getGameObjectIds(sessionData.sessionId);
   }
 
   /// loads a session from [gameObjects]. returns whether the loading was successful.
@@ -89,12 +87,10 @@ class SessionService {
   Future<void> persistCurrentSession() async {
     var characterId = locator<CharacterService>().character.getObjectId();
     var entities = locator<GameObjectService>().getObjects();
-    var entityIds = entities.map((e) => e.getObjectId()).toList();
 
     var databaseAccess = locator<DatabaseAccess>();
 
-    SessionData sessionData =
-        SessionData(characterId, this.sessionId, entityIds);
+    SessionData sessionData = SessionData(characterId, this.sessionId);
     databaseAccess.postSessionData(this.sessionId, sessionData);
 
     for (var entity in entities) {

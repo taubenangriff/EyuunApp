@@ -7,9 +7,8 @@ part 'SessionData.mapper.dart';
 class SessionData with SessionDataMappable {
   String characterId;
   String sessionId;
-  List<String> gameObjects;
-  SessionData(this.characterId, this.sessionId, this.gameObjects);
+  SessionData(this.characterId, this.sessionId);
 
   static const uuid = Uuid();
-  static SessionData empty() => SessionData("", uuid.v4(), []);
+  static SessionData empty() => SessionData("", uuid.v4());
 }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eyuunapp/model/CharacterMetaInfo.dart';
 import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/io/AssetSerializer.dart';
 import 'package:eyuuncore/io/SessionData.dart';
@@ -8,12 +9,19 @@ abstract class DatabaseAccess {
   Future<Map<String, dynamic>?> getGameObjectData(
       String sessionKey, String objectId);
 
+  Future<List<Map<String, dynamic>>> getGameObjectIds(String sessionKey);
+
   Future<void> postGameObject(
       String sessionKey, String objectId, Entity gameObject);
 
   Future<SessionData?> getSessionData(String sessionKey);
 
   Future<void> postSessionData(String sessionKey, SessionData sessionData);
+
+  Future<CharacterMetaInfo?> getCharacterMetaInfo(String sessionKey);
+
+  Future<void> postCharacterMetaInfo(
+      String sessionKey, CharacterMetaInfo characterMetaInfo);
 
   Future<List<String>> getSessionKeys();
 
@@ -33,6 +41,17 @@ class FirebaseAccess implements DatabaseAccess {
         .doc(objectId)
         .get();
     return snapshot.exists ? snapshot.data() : null;
+  }
+
+  @override
+  Future<List<Map<String, dynamic>>> getGameObjectIds(String sessionKey) async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('sessions')
+        .doc(sessionKey)
+        .collection('gameObjects')
+        .get();
+
+    return snapshot.docs.map((document) => document.data()).toList();
   }
 
   @override
@@ -68,6 +87,30 @@ class FirebaseAccess implements DatabaseAccess {
   }
 
   @override
+  Future<CharacterMetaInfo?> getCharacterMetaInfo(String sessionKey) async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('sessions')
+        .doc(sessionKey)
+        .collection('meta')
+        .doc('info')
+        .get();
+    return snapshot.exists
+        ? CharacterMetaInfoMapper.fromMap(snapshot.data()!)
+        : null;
+  }
+
+  @override
+  Future<void> postCharacterMetaInfo(
+      String sessionKey, CharacterMetaInfo characterMetaInfo) {
+    return FirebaseFirestore.instance
+        .collection('sessions')
+        .doc(sessionKey)
+        .collection('meta')
+        .doc('info')
+        .set(characterMetaInfo.toMap());
+  }
+
+  @override
   Future<List<String>> getSessionKeys() async {
     final snapshot =
         await FirebaseFirestore.instance.collection('sessions').get();
@@ -78,7 +121,7 @@ class FirebaseAccess implements DatabaseAccess {
   @override
   Future<String?> getLastSession() async {
     final snapshot = await FirebaseFirestore.instance
-        .collection('Meta')
+        .collection('meta')
         .doc('last_session')
         .get();
     final sessionId = snapshot.data()?['sessionId'];
@@ -89,7 +132,7 @@ class FirebaseAccess implements DatabaseAccess {
   @override
   Future<void> setLastSession(String sessionId) {
     return FirebaseFirestore.instance
-        .collection('Meta')
+        .collection('meta')
         .doc('last_session')
         .set({'sessionId': sessionId});
   }

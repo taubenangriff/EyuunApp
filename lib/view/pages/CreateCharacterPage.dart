@@ -21,11 +21,11 @@ import 'package:eyuunapp/view/widgets/AttributeDiceSelector.dart';
 import 'package:eyuunapp/view/widgets/CharacterPortraitPicker.dart';
 import 'package:eyuunapp/view/widgets/UpbringingSelectionWidget.dart';
 import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
+import 'package:eyuunapp/view/pages/SummaryPage.dart';
 import 'package:eyuunapp/view/pages/TalentPage.dart';
 
 class CreateCharacterPage extends StatefulWidget {
-  const CreateCharacterPage(
-      {super.key, required this.title});
+  const CreateCharacterPage({super.key, required this.title});
   final String title;
 
   @override
@@ -34,6 +34,7 @@ class CreateCharacterPage extends StatefulWidget {
 
 class _CreateCharacterPageState extends State<CreateCharacterPage> {
   int currentStep = 0;
+  var _leaveSessionOnDispose = true;
 
   late var steps = [
     EasyStep(title: 'Past', customStep: _buildStep(context)),
@@ -47,12 +48,10 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
   late Entity character;
 
   late var pathController = PathController(character);
-  late var characterBaseComponent =
-      character.get<CharacterBaseComponent>()!;
+  late var characterBaseComponent = character.get<CharacterBaseComponent>()!;
   late var upbringingController =
       PickUpbringingController(characterBaseComponent);
-  late var skillLearnerComponent =
-      character.get<SkillLearnerComponent>();
+  late var skillLearnerComponent = character.get<SkillLearnerComponent>();
   late var skillLearnerController = SkillLearnerController(
       skillLearner: skillLearnerComponent!, allowDowngrades: true);
 
@@ -70,9 +69,7 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
         attributes: character.get<AttributesComponent>()!)),
     _wrapWithSizedBox(
         Center(child: TalentPage(controller: skillLearnerController))),
-    Center(
-        child: Text(
-            "A summary displaying your core choices and the create button"))
+    SummaryPage(onCharacterCreated: _keepSessionActive),
   ];
 
   final ImageProvider placeholderImage = const NetworkImage(
@@ -87,10 +84,16 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
     character = locator<CharacterService>().character;
   }
 
+  void _keepSessionActive() {
+    _leaveSessionOnDispose = false;
+  }
+
   @override
   void dispose() {
+    if (_leaveSessionOnDispose) {
+      locator<SessionService>().leaveSession();
+    }
     super.dispose();
-    locator<SessionService>().leaveSession();
   }
 
   @override

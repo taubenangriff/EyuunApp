@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:event_bus/event_bus.dart';
+import 'package:eyuunapp/model/CharacterMetaInfo.dart';
 import 'package:eyuuncore/GetIt.dart';
+import 'package:eyuuncore/components/CharacterBase.dart';
+import 'package:eyuuncore/components/Nameable.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/events/SessionCreatedEvent.dart';
@@ -24,9 +27,14 @@ class SessionPersistenceListener {
     final sessionData = SessionData(
       event.character.getObjectId(),
       event.sessionId,
-      entities.map((entity) => entity.getObjectId()).toList(),
     );
     final databaseAccess = locator<DatabaseAccess>();
+    final characterMetaInfo = CharacterMetaInfo.fromCharacterBaseComponent(
+      event.character.get<CharacterBaseComponent>() ?? CharacterBaseComponent(),
+      event.character.get<NameableComponent>() ?? NameableComponent(),
+      lastModified: DateTime.now(),
+      creatorName: 'Unknown',
+    );
 
     await databaseAccess.postSessionData(event.sessionId, sessionData);
     await Future.wait(
@@ -38,6 +46,8 @@ class SessionPersistenceListener {
         ),
       ),
     );
+    await databaseAccess.postCharacterMetaInfo(
+        event.sessionId, characterMetaInfo);
   }
 
   Future<void> dispose() => _sessionCreatedSubscription.cancel();

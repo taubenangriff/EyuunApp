@@ -150,5 +150,6 @@
         "id": "action_hide"
       }
     ]
-  }
+  },
+  "nameable": {}
 }
