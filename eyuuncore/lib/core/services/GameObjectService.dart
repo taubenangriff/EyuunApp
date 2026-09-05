@@ -4,7 +4,7 @@ import 'package:eyuuncore/core/repository/AssetDataRepository.dart';
 import 'package:eyuuncore/core/repository/GameObjectRepository.dart';
 import 'package:eyuuncore/core/repository/StaticAssetRepository.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';
-import 'package:eyuuncore/io/GameObjectsExport.dart';
+import 'package:eyuuncore/io/SessionData.dart';
 import 'package:oxygen/oxygen.dart';
 import 'package:uuid/uuid.dart';
 
@@ -124,20 +124,16 @@ class GameObjectService {
 
   List<Entity> getObjects() => _gameObjectRepository.getEntities();
 
-  void registerEntities(GameObjectsExport export) {
-    for (var entry in export.gameObjects) {
-      if (entry is Map<String, dynamic>) {
-        _preloadEntity(entry);
-      }
+  void registerEntities(List<Map<String, dynamic>> gameObjects) {
+    for (var entry in gameObjects) {
+      _preloadEntity(entry);
     }
   }
 
-  /// Loads Entity Data. In order for all objectLinks to be resolved correctly, all [GameObjectsExport] that contain data to load must be registered using [registerEntities] before any call to [loadEntitiesData] is made.
-  void loadEntitiesData(GameObjectsExport export) {
-    for (var entry in export.gameObjects) {
-      if (entry is Map<String, dynamic>) {
-        _loadEntityData(entry);
-      }
+  /// Loads Entity Data. In order for all objectLinks to be resolved correctly, all [SessionData] that contain data to load must be registered using [registerEntities] before any call to [loadEntitiesData] is made.
+  void loadEntitiesData(List<Map<String, dynamic>> gameObjects) {
+    for (var entry in gameObjects) {
+      _loadEntityData(entry);
     }
   }
 

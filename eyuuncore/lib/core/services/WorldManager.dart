@@ -5,13 +5,16 @@ import 'package:oxygen/oxygen.dart';
 import '../components/EyuunComponent.dart';
 import '../upgrading/UpgradableList.dart';
 
-typedef FuncEyuunComponentAdder<T1 extends EyuunComponent<T2>, T2> = void Function(Entity entity);
-typedef FuncEyuunComponentChecker<T1 extends EyuunComponent<T2>, T2> = bool Function(Entity entity);
-typedef FuncEyuunComponentGetter<T1 extends EyuunComponent<T2>, T2> = T1? Function(Entity entity);
+typedef FuncEyuunComponentAdder<T1 extends EyuunComponent<T2>, T2> =
+    void Function(Entity entity);
+typedef FuncEyuunComponentChecker<T1 extends EyuunComponent<T2>, T2> =
+    bool Function(Entity entity);
+typedef FuncEyuunComponentGetter<T1 extends EyuunComponent<T2>, T2> =
+    T1? Function(Entity entity);
 
 //The worldManager is keeping track of registered Components in order to allow dynamic access to properties.
 //This is mainly used for IO, where you don't know the specifics of entites and need some abstraction.
-class WorldManager{
+class WorldManager {
   World world = World();
   World staticWorld = World();
 
@@ -25,23 +28,32 @@ class WorldManager{
   List<UpgradeDescriptor> get upgrades => _updateRegistry;
   List<ListUpgradeDescriptor> get listUpdates => _listUpdateRegistry;
 
-  void registerUpgrade (
-      UpgradableInt Function(EyuunComponent) getBase,
-      int? Function(EyuunComponent) getUpgrade,
-      String baseTypeId,
-      String upgradeTypeId) {
-    _updateRegistry.add(UpgradeDescriptor(baseTypeId, upgradeTypeId, getBase, getUpgrade));
+  void registerUpgrade(
+    UpgradableInt Function(EyuunComponent) getBase,
+    int? Function(EyuunComponent) getUpgrade,
+    String baseTypeId,
+    String upgradeTypeId,
+  ) {
+    _updateRegistry.add(
+      UpgradeDescriptor(baseTypeId, upgradeTypeId, getBase, getUpgrade),
+    );
   }
 
   void registerListUpgrade<T>(
-      UpgradableList<T> Function(EyuunComponent) getBase,
-      List<T>? Function(EyuunComponent) getUpgrade,
-      String baseTypeId,
-      String upgradeTypeId) {
-    _listUpdateRegistry.add(ListUpgradeDescriptor(baseTypeId, upgradeTypeId, getBase, getUpgrade));
+    UpgradableList<T> Function(EyuunComponent) getBase,
+    List<T>? Function(EyuunComponent) getUpgrade,
+    String baseTypeId,
+    String upgradeTypeId,
+  ) {
+    _listUpdateRegistry.add(
+      ListUpgradeDescriptor(baseTypeId, upgradeTypeId, getBase, getUpgrade),
+    );
   }
 
-  void registerComponent<T1 extends EyuunComponent<T2>, T2>(String propertyName, T1 Function() create){
+  void registerComponent<T1 extends EyuunComponent<T2>, T2>(
+    String propertyName,
+    T1 Function() create,
+  ) {
     world.registerComponent(create);
     staticWorld.registerComponent(create);
     entityAdder[propertyName] = (Entity entity) => entity.add<T1, T2>();
@@ -52,35 +64,35 @@ class WorldManager{
 
   void addComponentToEntity(String componentName, Entity entity) {
     var func = entityAdder[componentName];
-    if(func != null) {
+    if (func != null) {
       func(entity);
     }
   }
 
   bool entityHasComponent(String propertyName, Entity entity) {
     var check = entityChecker[propertyName];
-    if(check != null) {
+    if (check != null) {
       return check(entity);
     }
     return false;
   }
 
-  bool isValidComponentName(String componentName) => components.containsKey(componentName);
+  bool isValidComponentName(String componentName) =>
+      components.containsKey(componentName);
 
   EyuunComponent? getComponentFromEntity(String propertyName, Entity entity) {
     var getter = entityGetter[propertyName];
-    if(getter != null) {
+    if (getter != null) {
       return getter(entity);
     }
     return null;
   }
 
-  void execute(){
+  void execute() {
     world.execute(0);
   }
 
-  void init()
-  {
+  void init() {
     world.init();
     staticWorld.init();
   }

@@ -13,33 +13,41 @@ class SkillLearnerController {
   final bool allowDowngrades;
   late final worldManager = locator<WorldManager>();
 
-  SkillLearnerController({required this.skillLearner, this.allowDowngrades = false});
+  SkillLearnerController({
+    required this.skillLearner,
+    this.allowDowngrades = false,
+  });
 
-  int getMax(Entity skillEntity){
+  int getMax(Entity skillEntity) {
     var spent = skillLearner.getSpentSkillpoints();
     var cap = skillLearner.skillCeiling.current;
     var currentlySkilled = skillLearner.getSkillValue(skillEntity.getTypeId());
-    return max(min(cap, skillLearner.skillpoints.current - spent), currentlySkilled);
+    return max(
+      min(cap, skillLearner.skillpoints.current - spent),
+      currentlySkilled,
+    );
   }
 
   int getMin(Entity? skillEntity) {
-    if(allowDowngrades){
+    if (allowDowngrades) {
       return 0;
     }
-    if(skillEntity == null){
+    if (skillEntity == null) {
       return 0;
     }
     return skillLearner.getSkillValue(skillEntity.getTypeId());
   }
 
   bool canSkill(Entity? skillEntity) {
-    if(skillEntity == null){
+    if (skillEntity == null) {
       return false;
     }
-    if(allowDowngrades && skillLearner.getSkillValue(skillEntity.getTypeId()) > 0){
+    if (allowDowngrades &&
+        skillLearner.getSkillValue(skillEntity.getTypeId()) > 0) {
       return true;
     }
-    return skillLearner.getSpentSkillpoints() < skillLearner.skillpoints.current;
+    return skillLearner.getSpentSkillpoints() <
+        skillLearner.skillpoints.current;
   }
 
   // TODO protect against picking tricks that aren't allowed to be picked
@@ -55,13 +63,15 @@ class SkillLearnerController {
   }
 
   // TODO filter the list
-  List<Entity> getAvailableSpells() => locator<CharacterTablesFeatureComponent>().spells;
+  List<Entity> getAvailableSpells() =>
+      locator<CharacterTablesFeatureComponent>().spells;
 
   // TODO filter the list
-  List<Entity> getAvailableTricks() => locator<CharacterTablesFeatureComponent>().tricks;
+  List<Entity> getAvailableTricks() =>
+      locator<CharacterTablesFeatureComponent>().tricks;
 
-  void setSkillvalue(Entity? skillEntity, int value){
-    if(skillEntity == null){
+  void setSkillvalue(Entity? skillEntity, int value) {
+    if (skillEntity == null) {
       return;
     }
     skillLearner.setSkillValue(skillEntity.getTypeId(), value);

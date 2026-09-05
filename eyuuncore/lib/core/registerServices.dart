@@ -10,7 +10,7 @@ import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/core/services/LoadDataService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/io/AssetSerializer.dart';
-import 'package:eyuuncore/io/GameObjectsSerializer.dart';
+import 'package:eyuuncore/io/SessionSerializer.dart';
 import 'package:eyuuncore/io/assetloader.dart';
 
 extension EyuunCoreExtension on GetIt {
@@ -26,6 +26,6 @@ extension EyuunCoreExtension on GetIt {
     locator.registerSingleton<CharacterService>(CharacterService());
     locator.registerSingleton<LoadDataService>(LoadDataService());
     locator.registerLazySingleton<AssetSerializer>(() => AssetSerializer());
-    locator.registerLazySingleton<GameObjectsSerializer>(() => GameObjectsSerializer());
+    locator.registerLazySingleton<SessionSerializer>(() => SessionSerializer());
   }
 }

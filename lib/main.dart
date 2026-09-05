@@ -1,4 +1,5 @@
 import 'package:eyuunapp/services/ImageService.dart';
+import 'package:eyuunapp/services/DatabaseAccess.dart';
 import 'package:eyuunapp/services/SessionService.dart';
 import 'package:eyuunapp/view/pages/LoadingPage.dart';
 import 'package:eyuunapp/view/pages/MainMenu.dart';
@@ -34,6 +35,7 @@ void main() async {
 
   locator.registerCoreServices();
   locator.registerSingleton<ImageService>(FirebaseImageService());
+  locator.registerSingleton<DatabaseAccess>(FirebaseAccess());
   locator.registerSingleton(SessionService());
 
   var worldManager = locator<WorldManager>();
