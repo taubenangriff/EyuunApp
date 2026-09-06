@@ -5,13 +5,14 @@ import 'package:eyuuncore/core/reflection/Reflecting.dart';
 import 'package:eyuuncore/core/reflection/reflector.dart';
 import 'package:eyuuncore/enums/CharacterState.dart';
 import 'package:eyuuncore/enums/PersonSize.dart';
+import 'package:eyuuncore/io/UriMapper.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../core/assetLink.dart';
 
 part 'CharacterBase.mapper.dart';
 
-@MappableClass()
+@MappableClass(includeCustomMappers: [UriMapper()])
 class CharacterBaseDynamic with CharacterBaseDynamicMappable {
   AssetLink upbringing;
   AssetLink childhood;

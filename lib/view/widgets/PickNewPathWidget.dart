@@ -40,6 +40,12 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
   String searchQuery = '';
 
   @override
+  void initState() {
+    super.initState();
+    _selectPath(pathFeature.paths[0]);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final allPaths = pathFeature.paths
       ..sort((a, b) =>

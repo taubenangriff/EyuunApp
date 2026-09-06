@@ -1,0 +1,18 @@
+{
+    "standard": {
+        "typeId": "upbringing_dwarf",
+        "internalName": "Human upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_dwarf_effectdesc"
+    },
+    "buff": { },
+    "upbringing": {
+        "possibleSizes": [
+            "Small"
+        ]
+    },
+    "inventoryUpgrade":{
+        "increaseSlotCount": 1
+    }
+}

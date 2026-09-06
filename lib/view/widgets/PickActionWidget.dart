@@ -10,13 +10,17 @@ import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuunapp/view/widgets/ActionCard.dart';
 
 class PickActionWidget extends StatefulWidget {
-  final List<Entity> Function() actionsBuilder;
-  final void Function(Entity entity)? onPicked;
+  final List<Entity> Function() tricksBuilder;
+  final List<Entity> Function() spellsBuilder;
+  final void Function(Entity entity)? onTrickPicked;
+  final void Function(Entity entity)? onSpellPicked;
 
   const PickActionWidget({
     super.key,
-    required this.actionsBuilder,
-    this.onPicked,
+    required this.tricksBuilder,
+    required this.spellsBuilder,
+    this.onTrickPicked,
+    this.onSpellPicked,
   });
 
   @override
@@ -24,17 +28,75 @@ class PickActionWidget extends StatefulWidget {
 }
 
 class _PickActionWidgetState extends State<PickActionWidget> {
-  final SkillLearnerComponent skillLearner = locator<CharacterService>().character.get<SkillLearnerComponent>() ?? SkillLearnerComponent();
-  final AttributesComponent attributes = locator<CharacterService>().character.get<AttributesComponent>() ?? AttributesComponent();
+  final SkillLearnerComponent skillLearner =
+      locator<CharacterService>().character.get<SkillLearnerComponent>() ??
+          SkillLearnerComponent();
+  final AttributesComponent attributes =
+      locator<CharacterService>().character.get<AttributesComponent>() ??
+          AttributesComponent();
 
-  late List<Entity> actions = widget.actionsBuilder.call();
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2,
+      child: Column(
+        children: [
+          const TabBar(
+            tabs: [
+              Tab(text: 'Spells'),
+              Tab(text: 'Tricks'),
+            ],
+          ),
+          Expanded(
+            child: TabBarView(
+              children: [
+                _ActionPicker(
+                  actionsBuilder: widget.spellsBuilder,
+                  onPicked: widget.onSpellPicked,
+                  skillLearner: skillLearner,
+                  attributes: attributes,
+                ),
+                _ActionPicker(
+                  actionsBuilder: widget.tricksBuilder,
+                  onPicked: widget.onTrickPicked,
+                  skillLearner: skillLearner,
+                  attributes: attributes,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ActionPicker extends StatefulWidget {
+  final List<Entity> Function() actionsBuilder;
+  final void Function(Entity entity)? onPicked;
+  final SkillLearnerComponent skillLearner;
+  final AttributesComponent attributes;
+
+  const _ActionPicker({
+    required this.actionsBuilder,
+    required this.onPicked,
+    required this.skillLearner,
+    required this.attributes,
+  });
+
+  @override
+  State<_ActionPicker> createState() => _ActionPickerState();
+}
+
+class _ActionPickerState extends State<_ActionPicker> {
+  late List<Entity> actions = widget.actionsBuilder();
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
       padding: const EdgeInsets.all(16),
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 320, // 👈 card width
+        maxCrossAxisExtent: 320,
         mainAxisSpacing: 16,
         crossAxisSpacing: 16,
         mainAxisExtent: 300,
@@ -50,13 +112,13 @@ class _PickActionWidgetState extends State<PickActionWidget> {
             );
             if (result == null) return;
 
-            widget.onPicked?.call(action);
             setState(() {
-              actions = widget.actionsBuilder.call();
+              actions = widget.actionsBuilder();
             });
+            widget.onPicked?.call(action);
           },
-          skillLearner: skillLearner,
-          attributes: attributes,
+          skillLearner: widget.skillLearner,
+          attributes: widget.attributes,
           actionEntity: action,
         );
       },

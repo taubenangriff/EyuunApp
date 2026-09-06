@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "upbringing_elf",
+        "internalName": "Elven upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_elf_effectdesc"
+    },
+    "buff": { },
+    "upbringing": {
+        "possibleSizes": [
+            "Normal"
+        ]
+    }
+}

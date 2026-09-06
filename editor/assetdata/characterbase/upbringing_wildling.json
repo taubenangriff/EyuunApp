@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "upbringing_wildling",
+        "internalName": "Wildling upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_wildling_effectdesc"
+    },
+    "buff": { },
+    "upbringing": {
+        "possibleSizes": [
+            "Small"
+        ]
+    }
+}

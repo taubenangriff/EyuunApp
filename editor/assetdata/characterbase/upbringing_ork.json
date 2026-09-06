@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "upbringing_ork",
+        "internalName": "Ork upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_ork_effectdesc"
+    },
+    "buff": { },
+    "upbringing": {
+        "possibleSizes": [
+            "Normal"
+        ]
+    }
+}

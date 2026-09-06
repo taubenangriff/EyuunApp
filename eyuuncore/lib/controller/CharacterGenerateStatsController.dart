@@ -56,6 +56,6 @@ class CharacterGenerateStatsController {
     languageLearnerComponent?.languageMaxPotential =
         getLanguagePotential().upgradable;
     fluxComponent?.fluxMaximum = getFlux().upgradable;
-    inventoryComponent?.maxCapacity = getInventoryCapacity();
+    inventoryComponent?.maxCapacity = getInventoryCapacity().upgradable;
   }
 }

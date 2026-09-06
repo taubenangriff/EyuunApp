@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "upbringing_fairy",
+        "internalName": "Fairy upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_fairy_effectdesc"
+    },
+    "buff": { },
+    "upbringing": {
+        "possibleSizes": [
+            "VerySmall"
+        ]
+    }
+}

@@ -9,12 +9,11 @@ class InventoryWidget extends StatefulWidget {
   final ValueChanged<InventoryItem?>? onItemSelected;
   final double slotSize;
 
-  const InventoryWidget({
-    super.key,
-    required this.inventory,
-    this.onItemSelected,
-    this.slotSize = 100
-  });
+  const InventoryWidget(
+      {super.key,
+      required this.inventory,
+      this.onItemSelected,
+      this.slotSize = 100});
 
   @override
   State<InventoryWidget> createState() => _InventoryWidgetState();
@@ -34,7 +33,7 @@ class _InventoryWidgetState extends State<InventoryWidget> {
     super.initState();
 
     inventorySlots = List<InventoryItem?>.filled(minSlots, null);
-    for (int i = 0; i < inventory.maxCapacity; i++) {
+    for (int i = 0; i < inventory.maxCapacity.current; i++) {
       inventorySlots[i] = inventory.getSlotItem(i);
     }
   }
@@ -44,11 +43,11 @@ class _InventoryWidgetState extends State<InventoryWidget> {
     return GridView.builder(
       padding: const EdgeInsets.all(8),
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-      maxCrossAxisExtent: widget.slotSize,
-      crossAxisSpacing: 8,
-      mainAxisSpacing: 8,
-      childAspectRatio: 1,
-    ),
+        maxCrossAxisExtent: widget.slotSize,
+        crossAxisSpacing: 8,
+        mainAxisSpacing: 8,
+        childAspectRatio: 1,
+      ),
       itemCount: inventorySlots.length,
       itemBuilder: (context, index) {
         final item = inventorySlots[index];
@@ -72,8 +71,7 @@ class _InventoryWidgetState extends State<InventoryWidget> {
               isSelected: selectedItem == item,
               onTap: () {
                 setState(() => selectedItem = item);
-                if(item == null)
-                  return;
+                if (item == null) return;
                 widget.onItemSelected?.call(item);
               },
             );

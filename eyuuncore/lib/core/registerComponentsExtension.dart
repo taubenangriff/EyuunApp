@@ -37,6 +37,7 @@ import 'package:eyuuncore/components/upgrade/CharacterPathUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/CombatUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/FluxUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/HealthUpgrade.dart';
+import 'package:eyuuncore/components/upgrade/InventoryUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/LanguageLearnerUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/TalentsUpgrade.dart';
 import 'package:eyuuncore/core/components/Inherit.dart';
@@ -299,6 +300,11 @@ extension registerEditorComponentsExtension on ComponentRepository {
       (map) => HealthUpgradeStatDynMapper.fromMap(map),
       (comp) => comp.toMap(),
     );
+    registerComponent<InventoryUpgradeStatDyn>(
+      InventoryUpgradeComponent.propertyName,
+      (map) => InventoryUpgradeStatDynMapper.fromMap(map),
+      (comp) => comp.toMap(),
+    );
     registerComponent<LanguageLearnerUpgradeStatDyn>(
       LanguageLearnerUpgradeComponent.propertyName,
       (map) => LanguageLearnerUpgradeStatDynMapper.fromMap(map),
@@ -536,6 +542,10 @@ extension RegisterComponentsExtension on WorldManager {
     registerComponent<HealthUpgradeComponent, int>(
       HealthUpgradeComponent.propertyName,
       () => HealthUpgradeComponent(),
+    );
+    registerComponent<InventoryUpgradeComponent, int>(
+      InventoryUpgradeComponent.propertyName,
+      () => InventoryUpgradeComponent(),
     );
     registerComponent<LanguageLearnerUpgradeComponent, int>(
       LanguageLearnerUpgradeComponent.propertyName,

@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "upbringing_hobbit",
+        "internalName": "Hobbit upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_hobbit_effectdesc"
+    },
+    "buff": { },
+    "upbringing": {
+        "possibleSizes": [
+            "Small"
+        ]
+    }
+}

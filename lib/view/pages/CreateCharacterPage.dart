@@ -115,10 +115,10 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
 
   @override
   void dispose() {
+    super.dispose();
     if (_leaveSessionOnDispose) {
       locator<SessionService>().leaveSession();
     }
-    super.dispose();
   }
 
   @override

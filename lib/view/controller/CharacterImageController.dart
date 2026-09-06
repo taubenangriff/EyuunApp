@@ -25,7 +25,7 @@ class CharacterImageController {
 
   Future<void> finalize() async {
     if (imageFile == null) {
-      throw StateError("Cannot finalize without having picked an image!!");
+      return;
     }
     var uri = await locator<ImageService>().uploadImage(imageFile!);
     characterBase.image = uri;

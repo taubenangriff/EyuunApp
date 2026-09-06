@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "upbringing_goblin",
+        "internalName": "Goblin upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_goblin_effectdesc"
+    },
+    "buff": { },
+    "upbringing": {
+        "possibleSizes": [
+            "Small"
+        ]
+    }
+}

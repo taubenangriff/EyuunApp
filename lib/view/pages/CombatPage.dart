@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:eyuunapp/view/popup/ChangeHealthPopup.dart';
 import 'package:eyuunapp/view/popup/ChangeValuePopup.dart';
-import 'package:eyuunapp/view/popup/DecideActionCategoryPopup.dart';
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuunapp/view/widgets/PickActionWidget.dart';
 import 'package:eyuunapp/view/widgets/cards/ActionsWidget.dart';
@@ -13,14 +12,12 @@ import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/Combat.dart';
 import 'package:eyuuncore/components/Flux.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
-import 'package:eyuuncore/components/feature/CharacterTables.dart';
 import 'package:eyuuncore/components/health.dart';
 import 'package:eyuuncore/controller/DyingStateController.dart';
 import 'package:eyuuncore/controller/HealthController.dart';
 import 'package:eyuuncore/controller/SkilllearnerController.dart';
 import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
-import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';
 import 'package:flutter/material.dart';
 
@@ -153,48 +150,31 @@ class _CombatPageState extends State<CombatPage> {
           ),
           EyuunWidgets.spacerHorizontal(),
           EyuunWidgets.circularFloatingActionButton(
-            onPressed: () async {
+            onPressed: () {
               if (skillLearner == null) {
                 return;
               }
-              var skillLearnerController =
+              final skillLearnerController =
                   SkillLearnerController(skillLearner: skillLearner);
 
-              PopupUtil.popup<int>(
-                  context,
-                  DecideActionCategoryPopup(labels: [
-                    locator<TextService>().getText('uitext_picknewtrick'),
-                    locator<TextService>().getText('uitext_picknewspell'),
-                  ])).then(
-                (value) async {
-                  if (value == null) {
-                    return;
-                  }
-                  var tables = locator<CharacterTablesFeatureComponent>();
-                  List<Entity> Function() actionsBuilder = switch (value) {
-                    0 => () => skillLearnerController.getAvailableTricks(),
-                    1 => () => skillLearnerController.getAvailableSpells(),
-                    _ => () => [],
-                  };
-
-                  await PopupUtil.largePopup(
-                      context,
-                      header: "!Pick",
-                      PickActionWidget(
-                          actionsBuilder: actionsBuilder,
-                          onPicked: (entity) {
-                            setState(() {
-                              switch (value) {
-                                case 0:
-                                  skillLearnerController.pickTrick(entity);
-                                case 1:
-                                  skillLearnerController.pickSpell(entity);
-                              }
-                              locator<WorldManager>().execute();
-                            });
-                          }),
-                      background: AssetImage('data/base/ui/bg/background.jpg'));
-                },
+              PopupUtil.largePopup(
+                context,
+                PickActionWidget(
+                  tricksBuilder: skillLearnerController.getAvailableTricks,
+                  spellsBuilder: skillLearnerController.getAvailableSpells,
+                  onTrickPicked: (entity) => _pickAction(
+                    skillLearner,
+                    entity,
+                    isTrick: true,
+                  ),
+                  onSpellPicked: (entity) => _pickAction(
+                    skillLearner,
+                    entity,
+                    isTrick: false,
+                  ),
+                ),
+                header: '!Pick',
+                background: const AssetImage('data/base/ui/bg/background.jpg'),
               );
             },
             text: 'Add',
@@ -204,5 +184,24 @@ class _CombatPageState extends State<CombatPage> {
         ],
       ),
     );
+  }
+
+  void _pickAction(
+    SkillLearnerComponent skillLearner,
+    Entity entity, {
+    required bool isTrick,
+  }) {
+    final skillLearnerController =
+        SkillLearnerController(skillLearner: skillLearner);
+
+    setState(() {
+      if (isTrick) {
+        skillLearnerController.pickTrick(entity);
+      } else {
+        skillLearnerController.pickSpell(entity);
+      }
+      locator<WorldManager>().execute();
+    });
+    Navigator.of(context).pop();
   }
 }

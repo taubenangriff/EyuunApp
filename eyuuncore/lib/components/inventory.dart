@@ -1,6 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:eyuuncore/core/components/standard.dart';
+import 'package:eyuuncore/core/upgrading/UpgradableInt.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../core/assetLink.dart';
@@ -43,7 +44,7 @@ class InventoryItem {
 
   static InventoryItem? fromDynamic(InventoryItemDynamic dyn) {
     var entity = dyn.objectId?.getEntity();
-    if(entity == null){
+    if (entity == null) {
       return null;
     }
     var item = InventoryItem(entity, count: dyn.count);
@@ -58,7 +59,7 @@ class InventoryComponent extends EyuunComponent<int> {
   int money = 0;
 
   /// Maximum inventory slots
-  int maxCapacity = 100;
+  UpgradableInt maxCapacity = 100.upgradable;
 
   /// A map of index to inventory slot. Only indices which actually hold an item are in the map.
   Map<int, InventoryItem> items = {};
@@ -97,7 +98,7 @@ class InventoryComponent extends EyuunComponent<int> {
 
   /// Gets the next free slot position in inventory.
   int getNextFreeSlotIndex() {
-    for (int i = 0; i < maxCapacity; i++) {
+    for (int i = 0; i < maxCapacity.current; i++) {
       if (!items.containsKey(i)) {
         return i;
       }
@@ -130,7 +131,7 @@ class InventoryComponent extends EyuunComponent<int> {
     var dyn = InventoryDynamicMapper.fromMap(dynamicData);
     for (var item in dyn.items) {
       var addItem = InventoryItem.fromDynamic(item);
-      if(addItem == null){
+      if (addItem == null) {
         continue;
       }
       items[item.slot] = addItem;
