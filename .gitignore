@@ -51,4 +51,3 @@ app.*.map.json
 *.reflectable.dart
 *.mapper.dart
 linux/
-firebase_options.dart
