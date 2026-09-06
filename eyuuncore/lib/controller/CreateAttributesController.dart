@@ -40,6 +40,10 @@ class CreateAttributesController {
   /// Gets the list of dices that it is possible to set [statId] to while adhering to character creation rules.
   List<Dice> getPossibleDices(String statId) => [Dice.d4, Dice.d6, Dice.d8];
 
-  int getRemainingDiceUpgrades() =>
-      _attributes.maxDiceIncreases.current - _attributes.spentUpgrades;
+  int getRemainingDiceUpgrades() {
+    var spentUpgrades = _attributes.statValues
+        .map((e) => e.dice.getUpgrades())
+        .reduce((a, b) => a + b);
+    return _attributes.maxDiceIncreases.current - spentUpgrades;
+  }
 }

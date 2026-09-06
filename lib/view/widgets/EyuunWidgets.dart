@@ -63,11 +63,11 @@ class EyuunWidgets {
         height: height,
         child: DecoratedBox(
             decoration: ArtDecoBoxDecoration(
-                cornerBuilder: (p) => ThickThinThickCornerPainter(p),
-                verticalLineBuilder: (p) => ThickThinThickLinePainter(p),
-                horizontalLineBuilder: (p) => ThickThinThickLinePainter(p),
+                cornerBuilder: (p) => DoubleLineCornerPainter(p),
+                verticalLineBuilder: (p) => DoubleLinePainter(p),
+                horizontalLineBuilder: (p) => DoubleLinePainter(p),
                 paint: Brushes.goldSparkling()..strokeWidth = 1.25,
-                cornerSize: 5),
+                cornerSize: 10),
             position: DecorationPosition.foreground,
             child: FloatingActionButton(
                 tooltip: tooltip,

@@ -66,8 +66,6 @@ class AttributesComponent extends EyuunComponent<int> {
   /// (Upgradable) the total number of Dice increases this character can spend on upgrading stats.
   late UpgradableInt maxDiceIncreases;
 
-  int spentUpgrades = 0;
-
   /// Gets the AttributeEntry for the attribute which's typeId matches attributeKey.
   AttributeEntry? getStatEntry(String attributeKey) {
     return statValues.firstWhere(
@@ -76,16 +74,9 @@ class AttributesComponent extends EyuunComponent<int> {
     );
   }
 
-  void _updateSpentUpgrades() {
-    spentUpgrades = statValues
-        .map((e) => e.dice.getUpgrades())
-        .reduce((a, b) => a + b);
-  }
-
   void setStatEntry(String attributeKey, Dice value) {
     var entry = getStatEntry(attributeKey);
     entry?.dice = value;
-    _updateSpentUpgrades();
   }
 
   int getDiceValue(String attributeKey) {
@@ -120,8 +111,6 @@ class AttributesComponent extends EyuunComponent<int> {
         .where((e) => e != null)
         .map((e) => e!)
         .toList();
-
-    _updateSpentUpgrades();
   }
 
   @override
