@@ -1,37 +1,30 @@
-import 'dart:convert';
-
-import 'package:dart_mappable/dart_mappable.dart';
+import 'package:fluent_bundle/fluent_bundle.dart';
 import 'package:flutter/services.dart';
 
-part 'TextRepository.mapper.dart';
-
-
-@MappableClass()
-class Texts with TextsMappable {
-  Map<String, String> texts;
-
-  Texts(this.texts);
-
-  static const fromMap = TextsMapper.fromMap;
-}
-
 class TextRepository {
-  Map<String, String> _texts = {};
+  FluentBundle? _bundle;
 
-  String getText(String key)
-  {
-    if(_texts.containsKey(key)){
-      return _texts[key]!;
+  String getText(String key) {
+    if (_bundle?.hasMessage(key) ?? false) {
+      return _bundle!.formatMessage(key);
     }
 
-    return "¿" +  key.toString() + "?";
+    return "¿" + key.toString() + "?";
   }
 
   Future<void> reloadTexts(String textFile) async {
-    final String response = await rootBundle.loadString(textFile);
-    Map<String, dynamic> data = await json.decode(response);
-    var loadedTexts = Texts.fromMap(data);
-    _texts = loadedTexts.texts;
+    final source = await rootBundle.loadString(textFile);
+    final locale = textFile
+        .split('/')
+        .last
+        .split('.')
+        .first
+        .replaceAll('_', '-');
+    final bundle = FluentBundle(locale, useIsolating: false);
+    final result = bundle.addResource(source);
+    if (result.hasErrors) {
+      throw FormatException('Invalid Fluent resource: $textFile');
+    }
+    _bundle = bundle;
   }
-
 }

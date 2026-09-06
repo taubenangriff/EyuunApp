@@ -21,6 +21,7 @@ dependencies:
   reflectable: ^5.1.0
   format: ^1.6.0
   event_bus: ^2.0.1
+  fluent_bundle: ^0.1.0
 
 dev_dependencies:
   flutter_test:

@@ -27,7 +27,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'firebase_options.dart';
 
-String textFile = "data/base/text/de_de.json";
+String textFile = "data/base/text/de_de.ftl";
 
 void main() async {
   await Firebase.initializeApp(
