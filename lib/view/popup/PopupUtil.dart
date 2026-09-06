@@ -16,10 +16,12 @@ class PopupUtil {
           return Dialog(
               child: DecoratedBox(
                   decoration: ArtDecoBoxDecoration(
-                      cornerBuilder: (p) => ScaffoldCornerPainter(p, squareSize: 6),
+                      cornerBuilder: (p) =>
+                          ScaffoldCornerPainter(p, squareSize: 6),
                       verticalLineBuilder: (p) => LinePainter(p),
                       horizontalLineBuilder: (p) => LinePainter(p),
-                      paint: Brushes.goldSparkling(), cornerSize: 12),
+                      paint: Brushes.goldSparkling(),
+                      cornerSize: 12),
                   child: Stack(
                     children: [
                       ConstrainedBox(
@@ -58,7 +60,8 @@ class PopupUtil {
                           image: background,
                           fit: BoxFit.cover,
                           colorFilter: ColorFilter.mode(
-                              theme.canvasColor.withAlpha(180), BlendMode.srcOver),
+                              theme.canvasColor.withAlpha(200),
+                              BlendMode.srcOver),
                         )
                       : null,
                 ),

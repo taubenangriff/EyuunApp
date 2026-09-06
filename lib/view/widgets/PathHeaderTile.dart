@@ -1,3 +1,7 @@
+import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
+import 'package:eyuunapp/view/decoration/Brushes.dart';
+import 'package:eyuunapp/view/decoration/cornerPainters/ThickThinThickCornerPainter.dart';
+import 'package:eyuunapp/view/decoration/linePainters/ThickThinThickLinePainter.dart';
 import 'package:eyuunapp/view/enum/PathTypeColorExtension.dart';
 import 'package:eyuuncore/components/Path.dart';
 import 'package:eyuuncore/GetIt.dart';
@@ -15,26 +19,29 @@ class PathHeaderTile extends StatelessWidget {
     required this.pathEntity,
   });
 
-  late var pathComponent = pathEntity.get<PathComponent>();
+  late final pathComponent = pathEntity.get<PathComponent>();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return DecoratedBox(
+      position: DecorationPosition.foreground,
+      decoration: ArtDecoBoxDecoration(
+        cornerBuilder: (paint) => ThickThinThickCornerPainter(paint),
+        verticalLineBuilder: (paint) => ThickThinThickLinePainter(paint),
+        horizontalLineBuilder: (paint) => ThickThinThickLinePainter(paint),
+        paint: Brushes.goldSparkling()..strokeWidth = 1.25,
+        cornerSize: 4,
+      ),
+      child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: Colors.grey.shade700,
-          ),
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
               pathComponent?.pathType.color.withAlpha(255) ??
                   Colors.transparent,
-              Theme.of(context)
-                  .cardColor
-                  .withAlpha(200),
+              Theme.of(context).cardColor.withAlpha(200),
               Theme.of(context).colorScheme.surfaceContainerHighest,
             ],
             stops: const [0.0, 0.4, 1.0],
@@ -59,6 +66,8 @@ class PathHeaderTile extends StatelessWidget {
             StarRating(value: pathComponent?.complexity ?? 0),
             const SizedBox(width: 8),
           ],
-        ));
+        ),
+      ),
+    );
   }
 }

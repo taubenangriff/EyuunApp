@@ -1,3 +1,4 @@
+import 'package:eyuunapp/view/controller/CharacterNameController.dart';
 import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
 import 'package:eyuunapp/view/decoration/Brushes.dart';
 import 'package:eyuunapp/view/decoration/cornerPainters/ThickThinThickCornerPainter.dart';
@@ -18,31 +19,27 @@ import 'package:eyuunapp/view/popup/PopupUtil.dart';
 class CharacterInfoWidget extends StatefulWidget {
   final ImageProvider profileImage;
   final Entity character;
-  final String name;
 
   const CharacterInfoWidget(
-      {super.key,
-      required this.profileImage,
-      required this.name,
-      required this.character});
+      {super.key, required this.profileImage, required this.character});
 
   @override
   State<CharacterInfoWidget> createState() => _CharacterInfoWidgetState();
 }
 
 class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
-  late TextEditingController _nameController;
+  late CharacterNameController _nameController;
 
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController(text: widget.name);
+    _nameController = CharacterNameController(widget.character);
   }
 
   @override
   void dispose() {
-    _nameController.dispose();
     super.dispose();
+    _nameController.dispose();
   }
 
   @override
@@ -171,14 +168,16 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                     child: Container(
                       foregroundDecoration: ArtDecoBoxDecoration(
                           cornerBuilder: (p) => ThickThinThickCornerPainter(p),
-                          verticalLineBuilder: (p) => ThickThinThickLinePainter(p),
-                          horizontalLineBuilder: (p) => ThickThinThickLinePainter(p),
+                          verticalLineBuilder: (p) =>
+                              ThickThinThickLinePainter(p),
+                          horizontalLineBuilder: (p) =>
+                              ThickThinThickLinePainter(p),
                           paint: Brushes.goldSparkling()..strokeWidth = 1.25,
                           cornerSize: 5),
-                        child: Image(
-                          image: widget.profileImage,
-                          fit: BoxFit.cover,
-                        ),
+                      child: Image(
+                        image: widget.profileImage,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   )),
               EyuunWidgets.spacerHorizontal(),
@@ -193,7 +192,8 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
                         Container(
                           alignment: Alignment.center,
                           child: TextField(
-                            controller: _nameController,
+                            controller: _nameController.textController,
+                            onSubmitted: (e) => _nameController.submit(),
                             readOnly: true,
                             textAlign: TextAlign.center,
                             decoration: const InputDecoration(

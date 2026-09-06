@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cross_file_image/cross_file_image.dart';
 import 'package:eyuunapp/services/ImageService.dart';
 import 'package:eyuunapp/view/controller/CharacterImageController.dart';
+import 'package:eyuunapp/view/controller/CharacterNameController.dart';
 import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
 import 'package:eyuunapp/view/decoration/cornerPainters/ThickThinThickCornerPainter.dart';
 import 'package:eyuunapp/view/decoration/linePainters/ThickThinThickLinePainter.dart';
@@ -14,20 +15,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:eyuunapp/view/decoration/Brushes.dart';
 import 'package:image_picker/image_picker.dart';
-
-class NameableComponent {
-  String name;
-  NameableComponent(this.name);
-}
+import 'package:oxygen/oxygen.dart';
 
 class CharacterPortraitPicker extends StatefulWidget {
-  final NameableComponent nameable;
+  final Entity character;
   final PickUpbringingController upbringingController;
   final CharacterImageController imageController;
 
   const CharacterPortraitPicker(
       {super.key,
-      required this.nameable,
+      required this.character,
       required this.upbringingController,
       required this.imageController});
 
@@ -37,21 +34,18 @@ class CharacterPortraitPicker extends StatefulWidget {
 }
 
 class _CharacterPortraitPickerState extends State<CharacterPortraitPicker> {
-  late final TextEditingController _controller;
   bool _dragging = false;
+  late CharacterNameController _nameController;
 
   @override
   void initState() {
+    _nameController = CharacterNameController(widget.character);
     super.initState();
-    _controller = TextEditingController(text: widget.nameable.name);
-    _controller.addListener(() {
-      widget.nameable.name = _controller.text;
-    });
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _nameController.dispose();
     super.dispose();
   }
 
@@ -134,7 +128,8 @@ class _CharacterPortraitPickerState extends State<CharacterPortraitPicker> {
             SizedBox(
               width: 350,
               child: TextField(
-                controller: _controller,
+                controller: _nameController.textController,
+                onSubmitted: (e) => _nameController.submit,
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
                   hintText: 'Character Name',

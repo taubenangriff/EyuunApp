@@ -138,6 +138,11 @@ extension registerEditorComponentsExtension on ComponentRepository {
       (comp) => comp.toMap(),
     );
     registerComponent<EmptyData>(
+      NameableComponent.propertyName,
+      (map) => EmptyDataMapper.fromMap(map),
+      (comp) => comp.toMap(),
+    );
+    registerComponent<EmptyData>(
       LanguageLearnerComponent.propertyName,
       (map) => EmptyDataMapper.fromMap(map),
       (comp) => comp.toMap(),

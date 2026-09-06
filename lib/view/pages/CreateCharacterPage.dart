@@ -2,6 +2,7 @@ import 'package:easy_stepper/easy_stepper.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:eyuunapp/services/SessionService.dart';
 import 'package:eyuunapp/view/controller/CharacterImageController.dart';
+import 'package:eyuunapp/view/controller/CharacterNameController.dart';
 import 'package:eyuunapp/view/decoration/Brushes.dart';
 import 'package:eyuunapp/view/pages/MainPage.dart';
 import 'package:eyuunapp/view/widgets/PickNewPathWidget.dart';
@@ -68,6 +69,7 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
   late var skillLearnerComponent = character.get<SkillLearnerComponent>();
   late var skillLearnerController = SkillLearnerController(
       skillLearner: skillLearnerComponent!, allowDowngrades: true);
+  late var imageController = CharacterImageController(characterBaseComponent);
 
   late var generateStatsController = CharacterGenerateStatsController(
       character.get<AttributesComponent>()!,
@@ -88,9 +90,9 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
         upbringingController: upbringingController)),
     _wrapWithSizedBox(PickNewPathWidget(pathController: pathController)),
     _wrapWithSizedBox(CharacterPortraitPicker(
-      nameable: NameableComponent("Glup Shitto"),
+      character: character,
       upbringingController: upbringingController,
-      imageController: CharacterImageController(characterBaseComponent),
+      imageController: imageController,
     )),
     _wrapWithLayoutBuilder(AttributeDiceSelector(
         attributes: character.get<AttributesComponent>()!)),
@@ -203,8 +205,10 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
     );
   }
 
-  void _createCharacter() {
+  Future<void> _createCharacter() async {
     _leaveSessionOnDispose = false;
+
+    await imageController.finalize();
 
     generateStatsController.finalizeStats();
     characterInitController.initCharacter();

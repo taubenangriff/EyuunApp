@@ -47,120 +47,124 @@ class _MainMenuState extends State<MainMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('data/base/ui/bg/mainmenu.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Center(
-          child:
-              // ⬅ Left menu
-              Padding(
-            padding: const EdgeInsets.all(32),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                FutureBuilder<List<SessionCharacter>>(
-                  future: _characters,
-                  builder: (context, snapshot) {
-                    final characters = snapshot.data ?? [];
-                    if (characters.isEmpty) {
-                      return const SizedBox.shrink();
-                    }
+    return FutureBuilder<List<SessionCharacter>>(
+      future: _characters,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const LoadingPage();
+        }
 
-                    final lastCharacter = characters.first;
+        final characters = snapshot.data ?? [];
+        return Scaffold(
+          body: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('data/base/ui/bg/mainmenu.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Center(
+              child:
+                  // ⬅ Left menu
+                  Padding(
+                padding: const EdgeInsets.all(32),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (characters.isNotEmpty) ...[
+                      Builder(builder: (context) {
+                        final lastCharacter = characters.first;
 
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        EyuunWidgets.floatingActionButton(
-                          text: 'Load ${lastCharacter.metaInfo.name}',
-                          width: 300,
-                          height: 50,
-                          onPressed: () async {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (_) => const LoadingPage()));
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            EyuunWidgets.floatingActionButton(
+                              text: 'Load ${lastCharacter.metaInfo.name}',
+                              width: 300,
+                              height: 50,
+                              onPressed: () async {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (_) => const LoadingPage()));
 
-                            await locator<SessionService>()
-                                .loadSession(lastCharacter.sessionId);
+                                await locator<SessionService>()
+                                    .loadSession(lastCharacter.sessionId);
 
-                            if (!context.mounted) return;
-                            Navigator.of(context).pop();
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (_) =>
-                                    lastCharacter.metaInfo.characterState ==
+                                if (!context.mounted) return;
+                                Navigator.of(context).pop();
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => lastCharacter
+                                                .metaInfo.characterState ==
                                             CharacterState.InCreation
                                         ? const CreateCharacterPage(
                                             title: 'Create a new Character',
                                           )
                                         : const MainPage(title: 'Eyuun App'),
-                              ),
-                            );
-                          },
-                        ),
-                        const SizedBox(height: 64),
-                        EyuunWidgets.floatingActionButton(
-                          text: 'Load Character',
-                          width: 300,
-                          height: 50,
-                          onPressed: () async {
-                            await Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => CharacterSelectionPage(
-                                  characterList: characters,
-                                ),
-                              ),
-                            );
-                            if (!context.mounted) return;
-                            setState(_reloadCharacters);
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                ),
-                const SizedBox(height: 16),
-                EyuunWidgets.floatingActionButton(
-                  text: 'Create Character',
-                  width: 300,
-                  height: 50,
-                  onPressed: () async {
-                    locator<SessionService>().createNewSession();
+                                  ),
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 64),
+                            EyuunWidgets.floatingActionButton(
+                              text: 'Load Character',
+                              width: 300,
+                              height: 50,
+                              onPressed: () async {
+                                await Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => CharacterSelectionPage(
+                                      characterList: characters,
+                                    ),
+                                  ),
+                                );
+                                if (!context.mounted) return;
+                                setState(_reloadCharacters);
+                              },
+                            ),
+                          ],
+                        );
+                      }),
+                    ],
+                    const SizedBox(height: 16),
+                    EyuunWidgets.floatingActionButton(
+                      text: 'Create Character',
+                      width: 300,
+                      height: 50,
+                      onPressed: () async {
+                        locator<SessionService>().createNewSession();
 
-                    await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => const CreateCharacterPage(
-                            title: 'Create a new Character'),
-                      ),
-                    );
-                    if (!context.mounted) return;
-                    setState(_reloadCharacters);
-                  },
+                        await Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const CreateCharacterPage(
+                                title: 'Create a new Character'),
+                          ),
+                        );
+                        if (!context.mounted) return;
+                        setState(_reloadCharacters);
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    EyuunWidgets.floatingActionButton(
+                      text: 'Groups',
+                      width: 300,
+                      height: 50,
+                      onPressed: () {},
+                    ),
+                    const SizedBox(height: 16),
+                    EyuunWidgets.floatingActionButton(
+                      text: 'Options',
+                      width: 300,
+                      height: 50,
+                      onPressed: () {},
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 16),
-                EyuunWidgets.floatingActionButton(
-                  text: 'Groups',
-                  width: 300,
-                  height: 50,
-                  onPressed: () {},
-                ),
-                const SizedBox(height: 16),
-                EyuunWidgets.floatingActionButton(
-                  text: 'Options',
-                  width: 300,
-                  height: 50,
-                  onPressed: () {},
-                ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

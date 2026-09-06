@@ -299,7 +299,7 @@ class _PathsWidgetState extends State<PathsWidget> {
                         maximumSize: const Size(1100, 900),
                         header: "",
                         background:
-                            const AssetImage('data/base/ui/bg/background.jpg'));
+                            const AssetImage('data/base/ui/bg/path.png'));
                   });
                 },
               )),

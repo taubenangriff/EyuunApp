@@ -1,11 +1,11 @@
+import 'dart:ui';
+
 import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
 import 'package:eyuunapp/view/decoration/cornerPainters/DoubleLineCornerPainter.dart';
 import 'package:eyuunapp/view/decoration/linePainters/DoubleLinePainter.dart';
-import 'package:eyuunapp/view/widgets/ItemWheel.dart';
 import 'package:eyuuncore/components/Path.dart';
 import 'package:eyuuncore/components/feature/PathFeature.dart';
 import 'package:eyuuncore/controller/PathController.dart';
-import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
@@ -30,16 +30,14 @@ class PickNewPathWidget extends StatefulWidget {
 }
 
 class _PickNewPathWidgetState extends State<PickNewPathWidget> {
+  static const _carouselWeights = [1, 1, 2, 1, 1];
+
+  final CarouselController _carouselController = CarouselController();
   final PathFeatureComponent pathFeature = locator<PathFeatureComponent>();
   final TextService textService = locator<TextService>();
 
   Entity? selectedPath;
   String searchQuery = '';
-
-  @override
-  void initState() {
-    // TODO: implement initState
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +60,6 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
         padding: const EdgeInsets.all(24),
         child: _buildContent(filteredPaths, selectedSteps),
       ),
-      floatingActionButton: _buildBottomButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
@@ -101,36 +98,69 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
                     return PathStepTile(
                       pathStep: selectedSteps[index],
                       pathController: widget.pathController,
-                      canPick: false,
+                      canPick: true,
                     );
                   },
                 ),
         ),
         EyuunWidgets.spacerVertical(),
         Expanded(
-            child: filteredPaths.isNotEmpty ? ItemWheel(
-                maxValue: filteredPaths.length - 1,
-                startValue: filteredPaths.length -1,
-                customSize: 200,
-                valueIsIndex: true,
-                horizontal: true,
-                perspective: 0.002,
-                useMagnifier: false,
-                customMargin: 6,
-                valueCallback: (selectedIndex) {
-                  final path = filteredPaths[selectedIndex];
-                  setState(() {
-                    selectedPath = path;
-                  });
-                },
-                childWidget: (index) {
-                  final path = filteredPaths[index];
-                  return PathHeaderTile(pathEntity: path);
-                })
-                : Center(child: Text('!Your search yielded no results'))),
-        SizedBox(height: 60)
+          child: filteredPaths.isNotEmpty
+              ? NotificationListener<ScrollEndNotification>(
+                  onNotification: (notification) {
+                    final selectedIndex = (notification.metrics.pixels /
+                            (notification.metrics.viewportDimension /
+                                _carouselWeights
+                                    .reduce((total, weight) => total + weight)))
+                        .round()
+                        .clamp(0, filteredPaths.length - 1);
+                    setState(() {
+                      _selectPath(filteredPaths[selectedIndex]);
+                    });
+                    return false;
+                  },
+                  child: ScrollConfiguration(
+                    behavior: const MaterialScrollBehavior().copyWith(
+                      dragDevices: {
+                        PointerDeviceKind.touch,
+                        PointerDeviceKind.mouse,
+                        PointerDeviceKind.trackpad,
+                      },
+                    ),
+                    child: CarouselView.weightedBuilder(
+                      controller: _carouselController,
+                      flexWeights: _carouselWeights,
+                      itemSnapping: true,
+                      padding: const EdgeInsets.symmetric(horizontal: 6),
+                      itemCount: filteredPaths.length,
+                      onTap: (selectedIndex) {
+                        _carouselController.animateToItem(selectedIndex);
+                        setState(() {
+                          _selectPath(filteredPaths[selectedIndex]);
+                        });
+                      },
+                      itemBuilder: (context, index) {
+                        final path = filteredPaths[index];
+                        return AnimatedScale(
+                          scale: selectedPath == path ? 0.94 : 0.88,
+                          duration: const Duration(milliseconds: 150),
+                          child: PathHeaderTile(pathEntity: path),
+                        );
+                      },
+                    ),
+                  ),
+                )
+              : const Center(child: Text('!Your search yielded no results')),
+        ),
       ],
     );
+  }
+
+  void _selectPath(Entity path) {
+    if (selectedPath == path) return;
+    setState(() {
+      selectedPath = path;
+    });
   }
 
   Widget _buildBottomButton() {
@@ -147,8 +177,7 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
               cornerBuilder: (p) => DoubleLineCornerPainter(p),
               verticalLineBuilder: (p) => DoubleLinePainter(p),
               horizontalLineBuilder: (p) => DoubleLinePainter(p),
-              paint: Brushes.goldSparkling()
-                ..strokeWidth = 1.25,
+              paint: Brushes.goldSparkling()..strokeWidth = 1.25,
               cornerSize: 16),
           child: ElevatedButton(
             onPressed: canPick

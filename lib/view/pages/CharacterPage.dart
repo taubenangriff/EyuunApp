@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:eyuunapp/services/ImageService.dart';
 import 'package:eyuunapp/view/controller/ChangeValueController.dart';
 import 'package:eyuunapp/view/popup/ChangeHealthPopup.dart';
 import 'package:eyuunapp/view/popup/ChangeValuePopup.dart';
@@ -9,6 +10,7 @@ import 'package:eyuunapp/view/widgets/cards/CharacterInfoWidget.dart';
 import 'package:eyuunapp/view/widgets/cards/LanguagesWidget.dart';
 import 'package:eyuunapp/view/widgets/cards/PathsWidget.dart';
 import 'package:eyuuncore/GetIt.dart';
+import 'package:eyuuncore/components/CharacterBase.dart';
 import 'package:eyuuncore/components/Flux.dart';
 import 'package:eyuuncore/components/LanguageLearner.dart';
 import 'package:eyuuncore/components/health.dart';
@@ -28,10 +30,33 @@ class CharacterPage extends StatefulWidget {
 }
 
 class _CharacterPageState extends State<CharacterPage> {
+  static const _placeholderImage = NetworkImage(
+    'https://tse3.mm.bing.net/th/id/OIP.cPOpHmPNSfuOjLHJxKOFzAHaGe?rs=1&pid=ImgDetMain&o=7&rm=3',
+  );
+
+  late final Future<ImageProvider> _profileImage;
+
+  @override
+  void initState() {
+    super.initState();
+    _profileImage = _loadProfileImage();
+  }
+
+  Future<ImageProvider> _loadProfileImage() async {
+    final character = locator<CharacterService>().character;
+    final imageUri = character.get<CharacterBaseComponent>()?.image;
+    if (imageUri == null) return _placeholderImage;
+
+    try {
+      return await locator<ImageService>().getImage(imageUri);
+    } on Exception {
+      return _placeholderImage;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final size = MediaQuery.of(context).size;
     late double desiredSize = 1100;
 
     var character = locator<CharacterService>().character;
@@ -44,12 +69,10 @@ class _CharacterPageState extends State<CharacterPage> {
         minLimit: 0,
         onValUpdated: (val) => flux.fluxSpent = val);
 
-    final ImageProvider placeholderImage = const NetworkImage(
-        'https://tse3.mm.bing.net/th/id/OIP.cPOpHmPNSfuOjLHJxKOFzAHaGe?rs=1&pid=ImgDetMain&o=7&rm=3');
-
     var healthProgress = health.hitpoints / health.maxHitpoints.current;
     var fluxProgress = flux.fluxSpent / flux.fluxMaximum.current;
-    int healthSegments = max((((health.maxHitpoints.current / 40)).round() * 4), 4);
+    int healthSegments =
+        max((((health.maxHitpoints.current / 40)).round() * 4), 4);
     int fluxSegments = max((((flux.fluxMaximum.current / 40)).round() * 4), 4);
 
     var isDying = health.isInDyingState();
@@ -65,10 +88,15 @@ class _CharacterPageState extends State<CharacterPage> {
                   children: [
                     EyuunWidgets.informationBox(
                         child: EyuunWidgets.cardBox(
-                            child: CharacterInfoWidget(
-                              profileImage: placeholderImage,
-                              name: "Glup Shitto",
-                              character: character,
+                            child: FutureBuilder<ImageProvider>(
+                              future: _profileImage,
+                              builder: (context, snapshot) {
+                                return CharacterInfoWidget(
+                                  profileImage:
+                                      snapshot.data ?? _placeholderImage,
+                                  character: character,
+                                );
+                              },
                             ),
                             theme: theme),
                         link:
@@ -84,8 +112,7 @@ class _CharacterPageState extends State<CharacterPage> {
                         child: EyuunWidgets.cardBox(
                             child: PathsWidget(), theme: theme),
                         link: 'https://eyuun.de/charaktere-level#pfade'),
-                    if (languageLearner != null)
-                      EyuunWidgets.spacerWidget(),
+                    if (languageLearner != null) EyuunWidgets.spacerWidget(),
                     if (languageLearner != null)
                       EyuunWidgets.informationBox(
                           child: EyuunWidgets.cardBox(

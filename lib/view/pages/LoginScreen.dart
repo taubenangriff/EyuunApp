@@ -1,5 +1,6 @@
 import 'package:eyuunapp/view/pages/MainMenu.dart';
 import 'package:eyuunapp/view/pages/LoadingPage.dart';
+import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -51,18 +52,12 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             child: Center(
-              child: FilledButton.icon(
-                onPressed: _isSigningIn ? null : _signInWithGoogle,
-                icon: _isSigningIn
-                    ? const SizedBox(
-                        width: 18,
-                        height: 18,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                    : const Icon(Icons.login),
-                label: const Text('Log in with Google'),
-              ),
-            ),
+                child: EyuunWidgets.floatingActionButton(
+              text: 'Log in with Google',
+              height: 32,
+              width: 160,
+              onPressed: _isSigningIn ? null : _signInWithGoogle,
+            )),
           ),
         );
       },

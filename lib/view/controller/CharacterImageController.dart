@@ -13,15 +13,15 @@ class CharacterImageController {
 
   CharacterImageController(this.characterBase);
 
-  changeImage(XFile file){
+  changeImage(XFile file) {
     image = XFileImage(file);
     imageFile = file;
   }
 
   hasImage() => image != null;
 
-  finalize() async {
-    if(imageFile == null){
+  Future<void> finalize() async {
+    if (imageFile == null) {
       throw StateError("Cannot finalize without having picked an image!!");
     }
     var uri = await locator<ImageService>().uploadImage(imageFile!);

@@ -1,24 +1,18 @@
-import 'package:event_bus/event_bus.dart';
-import 'package:eyuunapp/services/SessionService.dart';
+import 'package:eyuunapp/view/pages/LoadingPage.dart';
 import 'package:eyuunapp/view/pages/MainPage.dart';
 import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
-import 'package:eyuuncore/GetIt.dart';
-import 'package:eyuuncore/components/CharacterBase.dart';
-import 'package:eyuuncore/core/services/CharacterService.dart';
-import 'package:eyuuncore/enums/CharacterState.dart';
-import 'package:eyuuncore/events/EntityUpdatedEvent.dart';
-import 'package:eyuuncore/events/SessionCreatedEvent.dart';
-import 'package:eyuuncore/events/SessionLoadEvent.dart';
-import 'package:eyuuncore/events/SessionLoadedEvent.dart';
 import 'package:flutter/material.dart';
 
 class SummaryPage extends StatelessWidget {
-  final VoidCallback onCharacterCreated;
+  final Future<void> Function() onCharacterCreated;
 
   const SummaryPage({super.key, required this.onCharacterCreated});
 
-  void _createCharacter(BuildContext context) {
-    onCharacterCreated();
+  Future<void> _createCharacter(BuildContext context) async {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (_) => const LoadingPage()),
+    );
+    await onCharacterCreated();
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (_) => const MainPage(title: 'Eyuun App')),
     );
