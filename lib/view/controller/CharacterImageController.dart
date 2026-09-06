@@ -1,7 +1,10 @@
 import 'package:cross_file_image/cross_file_image.dart';
+import 'package:event_bus/event_bus.dart';
 import 'package:eyuunapp/services/ImageService.dart';
 import 'package:eyuuncore/components/CharacterBase.dart';
 import 'package:eyuuncore/GetIt.dart';
+import 'package:eyuuncore/core/services/CharacterService.dart';
+import 'package:eyuuncore/events/EntityUpdatedEvent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -26,5 +29,7 @@ class CharacterImageController {
     }
     var uri = await locator<ImageService>().uploadImage(imageFile!);
     characterBase.image = uri;
+    locator<EventBus>().fire(EntityUpdatedEvent(
+        locator<CharacterService>().character, characterBase));
   }
 }
