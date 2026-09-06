@@ -15,13 +15,13 @@
             ]
         },
         {
-            "name": "Flutter Debug",
+            "name": "Flutter Chrome",
             "type": "dart",
             "request": "launch",
             "program": "lib/main.dart",
             "args": [
                 "-d",
-                "web-server"
+                "chrome"
             ],
             "flutterMode": "debug"
         }

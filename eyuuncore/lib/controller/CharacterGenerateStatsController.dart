@@ -40,10 +40,11 @@ class CharacterGenerateStatsController {
               attributesComponent.getDiceValue('baseSkill_Strength'));
 
   int getFlux() =>
-      2 *
-      (attributesComponent.getDiceValue('baseSkill_Intelligence') +
-          attributesComponent.getDiceValue('baseSkill_Intuition') +
-          attributesComponent.getDiceValue('baseSkill_Charisma'));
+      (0.5 *
+              (attributesComponent.getDiceValue('baseSkill_Intelligence') +
+                  attributesComponent.getDiceValue('baseSkill_Intuition') +
+                  attributesComponent.getDiceValue('baseSkill_Charisma')))
+          .round();
 
   int getInventoryCapacity() =>
       2 + (attributesComponent.getDiceValue('baseSkill_Strength') / 2).round();

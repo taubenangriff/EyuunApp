@@ -35,7 +35,10 @@ class SessionService {
 
   void createNewSession() {
     sessionId = const Uuid().v4();
-    var character = locator<GameObjectService>().createInstance("character")!;
+    var character = locator<GameObjectService>().createInstance("character");
+    if (character == null) {
+      return;
+    }
     character.get<CharacterBaseComponent>()?.characterState =
         CharacterState.InCreation;
     locator<CharacterService>().changeCharacter(character);

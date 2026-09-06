@@ -72,7 +72,7 @@ class _AttributeDiceSelectorState extends State<AttributeDiceSelector> {
                       segments: dices
                           .map((opt) => ButtonSegment(
                                 enabled: attributesController.canSet(
-                                    entry.stat.getTypeId(), entry.dice),
+                                    entry.stat.getTypeId(), opt),
                                 value: opt,
                                 label: DiceIcon(
                                     type: opt, size: aboveMinimal ? 46 : 26),
@@ -81,7 +81,8 @@ class _AttributeDiceSelectorState extends State<AttributeDiceSelector> {
                       selected: {entry.dice},
                       onSelectionChanged: (newSelection) {
                         setState(() {
-                          entry.dice = newSelection.first;
+                          attributesController.setDice(
+                              entry.stat.getTypeId(), newSelection.first);
                         });
                       },
                     ),
@@ -113,7 +114,7 @@ class _AttributeDiceSelectorState extends State<AttributeDiceSelector> {
           StatItem(
             icon: Icons.shield,
             label: 'Natural Armor (KK / 2):',
-            value: characterGenerateStatsController.getEvasion(),
+            value: characterGenerateStatsController.getNaturalArmor(),
           ),
           StatItem(
             icon: Icons.speaker_notes,

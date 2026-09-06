@@ -1,5 +1,9 @@
+import 'package:event_bus/event_bus.dart';
+import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/components/Attributes.dart';
+import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/enums/dice.dart';
+import 'package:eyuuncore/events/EntityUpdatedEvent.dart';
 
 class CreateAttributesController {
   late AttributesComponent _attributes;
@@ -11,8 +15,12 @@ class CreateAttributesController {
   /// Sets the dice for the Attribute with [statId] to [dice] while adhering to all rules.
   ///
   /// Throws an [Exception] if setting [statId] to this [dice] is against the rules.
-  void setDice(String statId, Dice dice) =>
-      _attributes.setStatEntry(statId, dice);
+  void setDice(String statId, Dice dice) {
+    _attributes.setStatEntry(statId, dice);
+    locator<EventBus>().fire(
+      EntityUpdatedEvent(locator<CharacterService>().character, _attributes),
+    );
+  }
 
   /// Gets whether the stat can be currently set to [dice].
   bool canSet(String statId, Dice dice) {
@@ -25,7 +33,7 @@ class CreateAttributesController {
       return true;
     }
 
-    return entry.dice.getUpgrades() - dice.getUpgrades() <=
+    return dice.getUpgrades() - entry.dice.getUpgrades() <=
         getRemainingDiceUpgrades();
   }
 

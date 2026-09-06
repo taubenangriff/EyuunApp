@@ -15,9 +15,9 @@ class CharacterInitController {
   });
 
   void initCharacter() {
-    //healthComponent?.hitpoints = healthComponent?.maxHitpoints.current ?? 0;
-    //fluxComponent?.fluxCapacity =
-    //(fluxComponent?.fluxMaximum.current ?? 0).upgradable;
-    //characterBaseComponent.level = 1;
+    healthComponent?.hitpoints = healthComponent?.maxHitpoints.current ?? 0;
+    fluxComponent?.fluxCapacity =
+        (fluxComponent?.fluxMaximum.current ?? 0).upgradable;
+    characterBaseComponent.level = 1;
   }
 }

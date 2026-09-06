@@ -78,7 +78,7 @@ class AttributesComponent extends EyuunComponent<int> {
 
   void _updateSpentUpgrades() {
     spentUpgrades = statValues
-        .map((e) => e.dice.getValue())
+        .map((e) => e.dice.getUpgrades())
         .reduce((a, b) => a + b);
   }
 
@@ -98,9 +98,6 @@ class AttributesComponent extends EyuunComponent<int> {
   @override
   void init([data]) {
     reset();
-    spentUpgrades = statValues
-        .map((e) => e.dice.getValue())
-        .reduce((a, b) => a + b);
   }
 
   @override
@@ -123,6 +120,8 @@ class AttributesComponent extends EyuunComponent<int> {
         .where((e) => e != null)
         .map((e) => e!)
         .toList();
+
+    _updateSpentUpgrades();
   }
 
   @override

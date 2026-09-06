@@ -11,7 +11,7 @@
   },
   "combat": {},
   "attributes": {
-    "defaultDiceIncreases" : 4,
+    "defaultDiceIncreases" : 0,
     "statValues": [
       {
         "id": "baseSkill_Courage"
