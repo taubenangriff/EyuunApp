@@ -112,48 +112,34 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
         EyuunWidgets.spacerVertical(),
         Expanded(
           child: filteredPaths.isNotEmpty
-              ? NotificationListener<ScrollEndNotification>(
-                  onNotification: (notification) {
-                    final selectedIndex = (notification.metrics.pixels /
-                            (notification.metrics.viewportDimension /
-                                _carouselWeights
-                                    .reduce((total, weight) => total + weight)))
-                        .round()
-                        .clamp(0, filteredPaths.length - 1);
-                    setState(() {
-                      _selectPath(filteredPaths[selectedIndex]);
-                    });
-                    return false;
-                  },
-                  child: ScrollConfiguration(
-                    behavior: const MaterialScrollBehavior().copyWith(
-                      dragDevices: {
-                        PointerDeviceKind.touch,
-                        PointerDeviceKind.mouse,
-                        PointerDeviceKind.trackpad,
-                      },
-                    ),
-                    child: CarouselView.weightedBuilder(
-                      controller: _carouselController,
-                      flexWeights: _carouselWeights,
-                      itemSnapping: true,
-                      padding: const EdgeInsets.symmetric(horizontal: 6),
-                      itemCount: filteredPaths.length,
-                      onTap: (selectedIndex) {
-                        _carouselController.animateToItem(selectedIndex);
-                        setState(() {
-                          _selectPath(filteredPaths[selectedIndex]);
-                        });
-                      },
-                      itemBuilder: (context, index) {
-                        final path = filteredPaths[index];
-                        return AnimatedScale(
-                          scale: selectedPath == path ? 0.94 : 0.88,
-                          duration: const Duration(milliseconds: 150),
-                          child: PathHeaderTile(pathEntity: path),
-                        );
-                      },
-                    ),
+              ? ScrollConfiguration(
+                  behavior: const MaterialScrollBehavior().copyWith(
+                    dragDevices: {
+                      PointerDeviceKind.touch,
+                      PointerDeviceKind.mouse,
+                      PointerDeviceKind.trackpad,
+                    },
+                  ),
+                  child: CarouselView.weightedBuilder(
+                    controller: _carouselController,
+                    flexWeights: _carouselWeights,
+                    itemSnapping: true,
+                    infinite: true,
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    itemCount: filteredPaths.length,
+                    onIndexChanged: (selectedIndex) {
+                      final middleIndex =
+                          (selectedIndex + 2) % filteredPaths.length;
+                      _selectPath(filteredPaths[middleIndex]);
+                    },
+                    itemBuilder: (context, index) {
+                      final path = filteredPaths[index];
+                      return AnimatedScale(
+                        scale: selectedPath == path ? 0.96 : 0.86,
+                        duration: const Duration(milliseconds: 150),
+                        child: PathHeaderTile(pathEntity: path),
+                      );
+                    },
                   ),
                 )
               : const Center(child: Text('!Your search yielded no results')),
