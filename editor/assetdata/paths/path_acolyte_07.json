@@ -1,0 +1,19 @@
+{
+    "standard": {
+        "typeId": "path_acolyte_07",
+        "internalName": "Keeper of Knowledge Path"
+    },
+    "text": {},
+    "path": {
+        "pathType": "Acolyte",
+        "pickableSteps": [
+            { "id": "path_acolyte_07_step_00" },
+            { "id": "path_acolyte_07_step_01" },
+            { "id": "path_acolyte_07_step_02" },
+            { "id": "path_acolyte_07_step_03" },
+            { "id": "path_acolyte_07_step_04" },
+            { "id": "path_acolyte_07_step_05" },
+            { "id": "path_acolyte_07_step_06" }
+        ]
+    }
+}

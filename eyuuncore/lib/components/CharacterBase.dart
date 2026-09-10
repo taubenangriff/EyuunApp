@@ -85,6 +85,9 @@ class CharacterBaseComponent extends EyuunComponent<int> {
 
   bool hasSecondaryUpbringing() => visualUpbringings.isEmpty;
 
+  List<Entity> getOnlyVisualUpbringings() =>
+      visualUpbringings.where((x) => x != upbringing).toList();
+
   @override
   void reset() {
     upbringing = null;

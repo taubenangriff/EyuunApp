@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "childhood_always_traveling",
+        "internalName": "Childhood Always Traveling"
+    },
+    "text": {},
+    "buff": {
+        "textDescription": "childhood_always_traveling_effectdesc"
+    }
+}

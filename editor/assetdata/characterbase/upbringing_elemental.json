@@ -1,0 +1,17 @@
+{
+    "standard": {
+        "typeId": "upbringing_elemental",
+        "internalName": "Elemental upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_elemental_fluff"
+    },
+    "buff": {
+        "textDescription": "upbringing_elemental_effectdesc"
+    },
+    "upbringing": {
+        "possibleSizes": [
+            "Normal"
+        ]
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "childhood_tribe",
+        "internalName": "Childhood Tribe"
+    },
+    "text": {},
+    "buff": {
+        "textDescription": "childhood_tribe_effectdesc"
+    }
+}

@@ -10,7 +10,7 @@
       "id": "all_upbringings_pool"
     },
     "secondaryUpbringings": {
-      "id": "all_upbringings_pool"
+      "id": "all_secondary_upbringings_pool"
     },
     "childhoods": {
       "id": "all_childhoods_pool"

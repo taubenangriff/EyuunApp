@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_flux_02_step_07",
+        "internalName": "Druid Path | Step 5 | Masterful Healing"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 5,
+        "isAdditional": false,
+        "pathType": "Flux"
+    },
+    "buff": {
+        "textDescription": "path_flux_02_step_07_effectdesc"
+    }
+}

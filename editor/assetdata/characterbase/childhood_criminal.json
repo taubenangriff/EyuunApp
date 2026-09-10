@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "childhood_criminal",
+        "internalName": "Childhood Criminal"
+    },
+    "text": {},
+    "buff": {
+        "textDescription": "childhood_criminal_effectdesc"
+    }
+}

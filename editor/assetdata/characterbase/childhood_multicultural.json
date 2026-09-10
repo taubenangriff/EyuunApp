@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "childhood_multicultural",
+        "internalName": "Childhood Multicultural"
+    },
+    "text": {},
+    "buff": {
+        "textDescription": "childhood_multicultural_effectdesc"
+    }
+}

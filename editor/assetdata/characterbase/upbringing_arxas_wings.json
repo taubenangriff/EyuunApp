@@ -1,0 +1,17 @@
+{
+    "standard": {
+        "typeId": "upbringing_arxas_wings",
+        "internalName": "Arxas wings upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_arxas_wings_fluff"
+    },
+    "buff": {
+        "textDescription": "upbringing_arxas_wings_effectdesc"
+    },
+    "upbringing": {
+        "possibleSizes": [
+            "Small"
+        ]
+    }
+}

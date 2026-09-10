@@ -1,0 +1,17 @@
+{
+    "standard": {
+        "typeId": "upbringing_varkadon_third_arm",
+        "internalName": "Varkadon third arm upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_varkadon_third_arm_fluff"
+    },
+    "buff": {
+        "textDescription": "upbringing_varkadon_third_arm_effectdesc"
+    },
+    "upbringing": {
+        "possibleSizes": [
+            "Normal"
+        ]
+    }
+}

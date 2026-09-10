@@ -1,12 +1,14 @@
 {
     "standard": {
         "typeId": "upbringing_dwarf",
-        "internalName": "Human upbringing"
+        "internalName": "Dwarf upbringing"
     },
     "text": {
-        "fluff": "upbringing_dwarf_effectdesc"
+        "fluff": "upbringing_dwarf_fluff"
     },
-    "buff": { },
+    "buff": {
+        "textDescription": "upbringing_dwarf_effectdesc"
+    },
     "upbringing": {
         "possibleSizes": [
             "Small"

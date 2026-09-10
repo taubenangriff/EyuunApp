@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_acolyte_02_step_00",
+        "internalName": "Creator Path | Step 0 | Devotion to Gerodon"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 0,
+        "isAdditional": false,
+        "pathType": "Acolyte"
+    },
+    "buff": {
+        "textDescription": "path_acolyte_02_step_00_effectdesc"
+    }
+}

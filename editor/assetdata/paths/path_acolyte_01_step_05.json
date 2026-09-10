@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_acolyte_01_step_05",
+        "internalName": "Samaritan Path | Step 3 | Great Ordering"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 3,
+        "isAdditional": false,
+        "pathType": "Acolyte"
+    },
+    "buff": {
+        "textDescription": "path_acolyte_01_step_05_effectdesc"
+    }
+}

@@ -4,9 +4,11 @@
         "internalName": "Elven upbringing"
     },
     "text": {
-        "fluff": "upbringing_elf_effectdesc"
+        "fluff": "upbringing_elf_fluff"
     },
-    "buff": { },
+    "buff": {
+        "textDescription": "upbringing_elf_effectdesc"
+    },
     "upbringing": {
         "possibleSizes": [
             "Normal"

@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_fighter_04_step_00",
+        "internalName": "Marksman Path | Step 0 | Projectile Connection"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 0,
+        "isAdditional": false,
+        "pathType": "Fighter"
+    },
+    "buff": {
+        "textDescription": "path_fighter_04_step_00_effectdesc"
+    }
+}

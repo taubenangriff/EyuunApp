@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_fighter_05_step_02",
+        "internalName": "Titan Path | Step 1 | Complete Immunity"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 1,
+        "isAdditional": false,
+        "pathType": "Fighter"
+    },
+    "buff": {
+        "textDescription": "path_fighter_05_step_02_effectdesc"
+    }
+}

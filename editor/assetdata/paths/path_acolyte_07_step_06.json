@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_acolyte_07_step_06",
+        "internalName": "Keeper of Knowledge Path | Step 5 | Knowledge is Power"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 5,
+        "isAdditional": false,
+        "pathType": "Acolyte"
+    },
+    "buff": {
+        "textDescription": "path_acolyte_07_step_06_effectdesc"
+    }
+}

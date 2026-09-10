@@ -1,0 +1,17 @@
+{
+    "standard": {
+        "typeId": "upbringing_arxas_alternative_perception",
+        "internalName": "Arxas alternative perception upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_arxas_alternative_perception_fluff"
+    },
+    "buff": {
+        "textDescription": "upbringing_arxas_alternative_perception_effectdesc"
+    },
+    "upbringing": {
+        "possibleSizes": [
+            "Small"
+        ]
+    }
+}

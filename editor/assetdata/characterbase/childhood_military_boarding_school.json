@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "childhood_military_boarding_school",
+        "internalName": "Childhood Military Boarding School"
+    },
+    "text": {},
+    "buff": {
+        "textDescription": "childhood_military_boarding_school_effectdesc"
+    }
+}

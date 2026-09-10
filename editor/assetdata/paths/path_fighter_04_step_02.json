@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_fighter_04_step_02",
+        "internalName": "Marksman Path | Step 1 | Shoot and Run"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 1,
+        "isAdditional": false,
+        "pathType": "Fighter"
+    },
+    "buff": {
+        "textDescription": "path_fighter_04_step_02_effectdesc"
+    }
+}

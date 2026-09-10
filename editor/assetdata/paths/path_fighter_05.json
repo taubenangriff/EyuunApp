@@ -1,0 +1,19 @@
+{
+    "standard": {
+        "typeId": "path_fighter_05",
+        "internalName": "Titan Path"
+    },
+    "text": {},
+    "path": {
+        "pathType": "Fighter",
+        "pickableSteps": [
+            { "id": "path_fighter_05_step_00" },
+            { "id": "path_fighter_05_step_01" },
+            { "id": "path_fighter_05_step_02" },
+            { "id": "path_fighter_05_step_03" },
+            { "id": "path_fighter_05_step_04" },
+            { "id": "path_fighter_05_step_05" },
+            { "id": "path_fighter_05_step_06" }
+        ]
+    }
+}

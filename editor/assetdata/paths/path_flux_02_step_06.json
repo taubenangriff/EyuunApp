@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_flux_02_step_06",
+        "internalName": "Druid Path | Step 3 | Top Form"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 3,
+        "isAdditional": false,
+        "pathType": "Flux"
+    },
+    "buff": {
+        "textDescription": "path_flux_02_step_06_effectdesc"
+    }
+}

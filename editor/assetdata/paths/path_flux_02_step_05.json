@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_flux_02_step_05",
+        "internalName": "Druid Path | Step 2 | Pain of Nature"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 2,
+        "isAdditional": false,
+        "pathType": "Flux"
+    },
+    "buff": {
+        "textDescription": "path_flux_02_step_05_effectdesc"
+    }
+}

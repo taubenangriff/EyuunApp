@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "childhood_hermit_alone",
+        "internalName": "Childhood Hermit or Alone"
+    },
+    "text": {},
+    "buff": {
+        "textDescription": "childhood_hermit_alone_effectdesc"
+    }
+}

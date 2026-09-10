@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "childhood_seafarer",
+        "internalName": "Childhood Seafarer"
+    },
+    "text": {},
+    "buff": {
+        "textDescription": "childhood_seafarer_effectdesc"
+    }
+}

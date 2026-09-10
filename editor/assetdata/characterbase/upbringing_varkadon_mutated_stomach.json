@@ -1,0 +1,17 @@
+{
+    "standard": {
+        "typeId": "upbringing_varkadon_mutated_stomach",
+        "internalName": "Varkadon mutated stomach upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_varkadon_mutated_stomach_fluff"
+    },
+    "buff": {
+        "textDescription": "upbringing_varkadon_mutated_stomach_effectdesc"
+    },
+    "upbringing": {
+        "possibleSizes": [
+            "Normal"
+        ]
+    }
+}

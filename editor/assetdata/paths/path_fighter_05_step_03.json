@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_fighter_05_step_03",
+        "internalName": "Titan Path | Step 1 | Intimidating Presence"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 1,
+        "isAdditional": false,
+        "pathType": "Fighter"
+    },
+    "buff": {
+        "textDescription": "path_fighter_05_step_03_effectdesc"
+    }
+}

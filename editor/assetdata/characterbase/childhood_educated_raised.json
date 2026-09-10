@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "childhood_educated_raised",
+        "internalName": "Childhood Educated Raised"
+    },
+    "text": {},
+    "buff": {
+        "textDescription": "childhood_educated_raised_effectdesc"
+    }
+}

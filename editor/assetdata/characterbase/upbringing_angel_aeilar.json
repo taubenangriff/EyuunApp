@@ -1,0 +1,17 @@
+{
+    "standard": {
+        "typeId": "upbringing_angel_aeilar",
+        "internalName": "Angel Aeilar upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_angel_aeilar_fluff"
+    },
+    "buff": {
+        "textDescription": "upbringing_angel_aeilar_effectdesc"
+    },
+    "upbringing": {
+        "possibleSizes": [
+            "Normal"
+        ]
+    }
+}

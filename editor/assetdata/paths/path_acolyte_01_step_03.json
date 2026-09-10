@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_acolyte_01_step_03",
+        "internalName": "Samaritan Path | Step 2 | Restorative Healing"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 2,
+        "isAdditional": false,
+        "pathType": "Acolyte"
+    },
+    "buff": {
+        "textDescription": "path_acolyte_01_step_03_effectdesc"
+    }
+}

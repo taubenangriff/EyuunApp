@@ -1,0 +1,20 @@
+{
+    "standard": {
+        "typeId": "upbringing_arxas_protected",
+        "internalName": "Arxas protected upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_arxas_protected_fluff"
+    },
+    "buff": {
+        "textDescription": "upbringing_arxas_protected_effectdesc"
+    },
+    "upbringing": {
+        "possibleSizes": [
+            "Small"
+        ]
+    },
+    "healthUpgrade": {
+        "naturalArmorUpgrade": 1
+    }
+}

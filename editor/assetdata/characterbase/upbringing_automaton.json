@@ -1,0 +1,17 @@
+{
+    "standard": {
+        "typeId": "upbringing_automaton",
+        "internalName": "Automaton upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_automaton_fluff"
+    },
+    "buff": {
+        "textDescription": "upbringing_automaton_effectdesc"
+    },
+    "upbringing": {
+        "possibleSizes": [
+            "Normal"
+        ]
+    }
+}

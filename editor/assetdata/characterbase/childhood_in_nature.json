@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "childhood_in_nature",
+        "internalName": "Childhood in Nature"
+    },
+    "text": {},
+    "buff": {
+        "textDescription": "childhood_in_nature_effectdesc"
+    }
+}

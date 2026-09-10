@@ -1,0 +1,11 @@
+{
+    "standard": {
+        "typeId": "childhood_trading_city",
+        "internalName": "Childhood Trading City"
+    },
+    "text": {},
+    "buff": { },
+    "languageLearnerUpgrade": {
+        "languageMaxPotentialUpgrade": 2
+    }
+}

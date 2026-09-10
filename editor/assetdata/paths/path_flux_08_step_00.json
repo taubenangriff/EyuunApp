@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_flux_08_step_00",
+        "internalName": "Manipulator Path | Step 0 | Enter the Mind"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 0,
+        "isAdditional": false,
+        "pathType": "Flux"
+    },
+    "buff": {
+        "textDescription": "path_flux_08_step_00_effectdesc"
+    }
+}

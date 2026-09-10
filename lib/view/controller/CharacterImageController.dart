@@ -23,7 +23,7 @@ class CharacterImageController {
 
   hasImage() => image != null;
 
-  Future<void> finalize() async {
+  Future<void> finalizeImage() async {
     if (imageFile == null) {
       return;
     }

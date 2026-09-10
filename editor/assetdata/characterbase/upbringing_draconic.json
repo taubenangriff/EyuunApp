@@ -1,0 +1,17 @@
+{
+    "standard": {
+        "typeId": "upbringing_draconic",
+        "internalName": "Draconic upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_draconic_fluff"
+    },
+    "buff": {
+        "textDescription": "upbringing_draconic_effectdesc"
+    },
+    "upbringing": {
+        "possibleSizes": [
+            "Normal"
+        ]
+    }
+}

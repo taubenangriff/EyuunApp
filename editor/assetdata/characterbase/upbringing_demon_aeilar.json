@@ -1,0 +1,17 @@
+{
+    "standard": {
+        "typeId": "upbringing_demon_aeilar",
+        "internalName": "Demon Aeilar upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_demon_aeilar_fluff"
+    },
+    "buff": {
+        "textDescription": "upbringing_demon_aeilar_effectdesc"
+    },
+    "upbringing": {
+        "possibleSizes": [
+            "Normal"
+        ]
+    }
+}

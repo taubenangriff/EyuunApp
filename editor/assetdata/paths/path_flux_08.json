@@ -1,0 +1,19 @@
+{
+    "standard": {
+        "typeId": "path_flux_08",
+        "internalName": "Manipulator Path"
+    },
+    "text": {},
+    "path": {
+        "pathType": "Flux",
+        "pickableSteps": [
+            { "id": "path_flux_08_step_00" },
+            { "id": "path_flux_08_step_01" },
+            { "id": "path_flux_08_step_02" },
+            { "id": "path_flux_08_step_03" },
+            { "id": "path_flux_08_step_04" },
+            { "id": "path_flux_08_step_05" },
+            { "id": "path_flux_08_step_06" }
+        ]
+    }
+}

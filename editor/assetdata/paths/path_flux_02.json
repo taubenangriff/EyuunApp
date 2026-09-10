@@ -1,0 +1,20 @@
+{
+    "standard": {
+        "typeId": "path_flux_02",
+        "internalName": "Druid Path"
+    },
+    "text": {},
+    "path": {
+        "pathType": "Flux",
+        "pickableSteps": [
+            { "id": "path_flux_02_step_00" },
+            { "id": "path_flux_02_step_01" },
+            { "id": "path_flux_02_step_02" },
+            { "id": "path_flux_02_step_03" },
+            { "id": "path_flux_02_step_04" },
+            { "id": "path_flux_02_step_05" },
+            { "id": "path_flux_02_step_06" },
+            { "id": "path_flux_02_step_07" }
+        ]
+    }
+}

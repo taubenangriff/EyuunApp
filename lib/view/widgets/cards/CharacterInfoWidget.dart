@@ -57,7 +57,8 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
     var characterComponent = widget.character.get<CharacterBaseComponent>();
 
     var upbringingBuff = characterComponent?.upbringing;
-    var secondUpbringingBuff = null;
+    var visualUpbringingBuffs =
+        characterComponent?.getOnlyVisualUpbringings() ?? [];
     var childhoodBuff = characterComponent?.childhood;
 
     var textService = locator<TextService>();
@@ -95,18 +96,17 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
           borderRadius: BorderRadius.circular(6),
           onTap: () {
             PopupUtil.popup(
+              maximumSize: const Size(800, 600),
               context,
               UpbringingPopup(
                 primary: upbringingBuff,
-                secondary: secondUpbringingBuff,
+                visuals: visualUpbringingBuffs,
               ),
             );
           },
           child: _infoTile(
-            text:
-                '${textService.getText('uitext_upbringing')}${textService.getTextFromEntity(upbringingBuff)}'
-                '${secondUpbringingBuff != null ? ", ${textService.getTextFromEntity(secondUpbringingBuff)}" : ""}',
-          )),
+              text:
+                  '${textService.getText('uitext_upbringing')}${textService.getTextFromEntity(upbringingBuff)}')),
       InkWell(
           borderRadius: BorderRadius.circular(6),
           onTap: () {

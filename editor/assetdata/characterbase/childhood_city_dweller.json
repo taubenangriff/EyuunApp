@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "childhood_city_dweller",
+        "internalName": "Childhood City Dweller"
+    },
+    "text": {},
+    "buff": {
+        "textDescription": "childhood_city_dweller_effectdesc"
+    }
+}

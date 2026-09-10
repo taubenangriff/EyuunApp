@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_fighter_04_step_01",
+        "internalName": "Marksman Path | Step 1 | Spontaneous Target Change"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 1,
+        "isAdditional": false,
+        "pathType": "Fighter"
+    },
+    "buff": {
+        "textDescription": "path_fighter_04_step_01_effectdesc"
+    }
+}

@@ -4,7 +4,7 @@
         "internalName": "Human upbringing"
     },
     "text": {
-        "fluff": "upbringing_human_effectdesc"
+        "fluff": "upbringing_human_fluff"
     },
     "buff": { },
     "talentsUpgrade": {
@@ -12,7 +12,7 @@
     },
     "upbringing": {
         "possibleSizes": [
-            "VerySmall"
+            "Normal"
         ]
     }
 }

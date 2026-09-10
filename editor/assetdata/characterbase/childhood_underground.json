@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "childhood_underground",
+        "internalName": "Childhood Underground"
+    },
+    "text": {},
+    "buff": {
+        "textDescription": "childhood_underground_effectdesc"
+    }
+}

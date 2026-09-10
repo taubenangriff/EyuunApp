@@ -1,0 +1,18 @@
+{
+    "standard": {
+        "typeId": "path_fighter_04",
+        "internalName": "Marksman Path"
+    },
+    "text": {},
+    "path": {
+        "pathType": "Fighter",
+        "pickableSteps": [
+            { "id": "path_fighter_04_step_00" },
+            { "id": "path_fighter_04_step_01" },
+            { "id": "path_fighter_04_step_02" },
+            { "id": "path_fighter_04_step_03" },
+            { "id": "path_fighter_04_step_04" },
+            { "id": "path_fighter_04_step_05" }
+        ]
+    }
+}

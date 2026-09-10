@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_fighter_05_step_01",
+        "internalName": "Titan Path | Step 1 | Eye for an Eye"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 1,
+        "isAdditional": false,
+        "pathType": "Fighter"
+    },
+    "buff": {
+        "textDescription": "path_fighter_05_step_01_effectdesc"
+    }
+}

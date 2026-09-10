@@ -1,0 +1,17 @@
+{
+    "standard": {
+        "typeId": "upbringing_vampire",
+        "internalName": "Vampire upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_vampire_fluff"
+    },
+    "buff": {
+        "textDescription": "upbringing_vampire_effectdesc"
+    },
+    "upbringing": {
+        "possibleSizes": [
+            "Normal"
+        ]
+    }
+}

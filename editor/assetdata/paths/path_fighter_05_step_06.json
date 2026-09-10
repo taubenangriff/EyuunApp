@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_fighter_05_step_06",
+        "internalName": "Titan Path | Step 4 | Juggernaut"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 4,
+        "isAdditional": false,
+        "pathType": "Fighter"
+    },
+    "buff": {
+        "textDescription": "path_fighter_05_step_06_effectdesc"
+    }
+}

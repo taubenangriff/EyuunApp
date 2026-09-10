@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_fighter_04_step_03",
+        "internalName": "Marksman Path | Step 1 | Sniper Position"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 1,
+        "isAdditional": false,
+        "pathType": "Fighter"
+    },
+    "buff": {
+        "textDescription": "path_fighter_04_step_03_effectdesc"
+    }
+}

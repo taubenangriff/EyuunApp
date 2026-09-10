@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_fighter_05_step_04",
+        "internalName": "Titan Path | Step 2 | Learn from Pain"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 2,
+        "isAdditional": false,
+        "pathType": "Fighter"
+    },
+    "buff": {
+        "textDescription": "path_fighter_05_step_04_effectdesc"
+    }
+}

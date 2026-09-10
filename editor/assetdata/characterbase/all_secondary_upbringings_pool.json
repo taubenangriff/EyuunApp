@@ -1,0 +1,85 @@
+{
+    "standard": {
+        "typeId": "all_secondary_upbringings_pool"
+    },
+    "text": {},
+    "assetBundle": {
+        "assets": [
+            {
+                "id": "upbringing_undead"
+            },
+            {
+                "id": "upbringing_vampire"
+            },
+            {
+                "id": "upbringing_faagus"
+            },
+            {
+                "id": "upbringing_elemental"
+            },
+            {
+                "id": "upbringing_draconic"
+            },
+            {
+                "id": "upbringing_varkadon_extra_eyes"
+            },
+            {
+                "id": "upbringing_varkadon_third_arm"
+            },
+            {
+                "id": "upbringing_varkadon_mutated_stomach"
+            },
+            {
+                "id": "upbringing_human"
+            },
+            {
+                "id": "upbringing_elf"
+            },
+            {
+                "id": "upbringing_dwarf"
+            },
+            {
+                "id": "upbringing_ork"
+            },
+            {
+                "id": "upbringing_goblin"
+            },
+            {
+                "id": "upbringing_wildling"
+            },
+            {
+                "id": "upbringing_hobbit"
+            },
+            {
+                "id": "upbringing_fairy"
+            },
+            {
+                "id": "upbringing_angel_aeilar"
+            },
+            {
+                "id": "upbringing_demon_aeilar"
+            },
+            {
+                "id": "upbringing_automaton"
+            },
+            {
+                "id": "upbringing_arxas_water"
+            },
+            {
+                "id": "upbringing_arxas_arthropod"
+            },
+            {
+                "id": "upbringing_arxas_alternative_perception"
+            },
+            {
+                "id": "upbringing_arxas_wings"
+            },
+            {
+                "id": "upbringing_arxas_language"
+            },
+            {
+                "id": "upbringing_arxas_protected"
+            }
+        ]
+    }
+}

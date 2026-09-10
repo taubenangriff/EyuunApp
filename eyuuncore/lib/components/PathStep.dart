@@ -10,12 +10,14 @@ part 'PathStep.mapper.dart';
 @reflector
 class PathStepStatic with PathStepStaticMappable, ComponentReflectable {
   bool isAdditional;
+  bool isRepeatable;
   int tier;
   PathType pathType;
 
   PathStepStatic({
     this.isAdditional = false,
     this.tier = 0,
+    this.isRepeatable = false,
     this.pathType = PathType.Fighter,
   });
 }
@@ -24,6 +26,7 @@ class PathStepComponent extends EyuunComponent<int> {
   static const String propertyName = "pathStep";
 
   bool isAdditional = false;
+  bool isRepeatable = false;
   int tier = 0;
   PathType pathType = PathType.Fighter;
 
@@ -46,6 +49,7 @@ class PathStepComponent extends EyuunComponent<int> {
     isAdditional = stat.isAdditional;
     tier = stat.tier;
     pathType = stat.pathType;
+    isRepeatable = stat.isRepeatable;
   }
 
   @override

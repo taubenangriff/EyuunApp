@@ -1,0 +1,17 @@
+{
+    "standard": {
+        "typeId": "upbringing_arxas_water",
+        "internalName": "Arxas water creature upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_arxas_water_fluff"
+    },
+    "buff": {
+        "textDescription": "upbringing_arxas_water_effectdesc"
+    },
+    "upbringing": {
+        "possibleSizes": [
+            "Small"
+        ]
+    }
+}

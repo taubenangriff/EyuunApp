@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_fighter_04_step_04",
+        "internalName": "Marksman Path | Step 2 | Projectile Recycling"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 2,
+        "isAdditional": false,
+        "pathType": "Fighter"
+    },
+    "buff": {
+        "textDescription": "path_fighter_04_step_04_effectdesc"
+    }
+}

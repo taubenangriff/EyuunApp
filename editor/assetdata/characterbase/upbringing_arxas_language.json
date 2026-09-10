@@ -1,0 +1,17 @@
+{
+    "standard": {
+        "typeId": "upbringing_arxas_language",
+        "internalName": "Arxas language upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_arxas_language_fluff"
+    },
+    "buff": {
+        "textDescription": "upbringing_arxas_language_effectdesc"
+    },
+    "upbringing": {
+        "possibleSizes": [
+            "Small"
+        ]
+    }
+}

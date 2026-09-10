@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_acolyte_07_step_02",
+        "internalName": "Keeper of Knowledge Path | Step 1 | Knowledge-Thirsty"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 1,
+        "isAdditional": false,
+        "pathType": "Acolyte"
+    },
+    "buff": {
+        "textDescription": "path_acolyte_07_step_02_effectdesc"
+    }
+}

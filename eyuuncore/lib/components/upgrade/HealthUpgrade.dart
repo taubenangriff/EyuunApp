@@ -11,12 +11,14 @@ part 'HealthUpgrade.mapper.dart';
 class HealthUpgradeStatDyn
     with HealthUpgradeStatDynMappable, ComponentReflectable {
   int maxHitpointsUpgrade;
+  int naturalArmorUpgrade;
   int maxShieldUpgrade;
   int maxDeathThrowsUpgrade;
   HealthUpgradeStatDyn({
     this.maxHitpointsUpgrade = 0,
     this.maxShieldUpgrade = 0,
     this.maxDeathThrowsUpgrade = 0,
+    this.naturalArmorUpgrade = 0,
   });
 }
 
@@ -26,6 +28,7 @@ class HealthUpgradeComponent extends EyuunComponent<int> {
   int maxHitpointsUpgrade = 0;
   int maxShieldUpgrade = 0;
   int maxDeathThrowsUpgrade = 0;
+  int naturalArmorUpgrade = 0;
 
   @override
   String getName() => propertyName;
@@ -40,6 +43,7 @@ class HealthUpgradeComponent extends EyuunComponent<int> {
     maxHitpointsUpgrade = 0;
     maxShieldUpgrade = 0;
     maxDeathThrowsUpgrade = 0;
+    naturalArmorUpgrade = 0;
   }
 
   @override
@@ -52,6 +56,7 @@ class HealthUpgradeComponent extends EyuunComponent<int> {
     maxHitpointsUpgrade = stat.maxHitpointsUpgrade;
     maxShieldUpgrade = stat.maxShieldUpgrade;
     maxDeathThrowsUpgrade = stat.maxDeathThrowsUpgrade;
+    naturalArmorUpgrade = stat.naturalArmorUpgrade;
   }
 
   @override
@@ -59,5 +64,6 @@ class HealthUpgradeComponent extends EyuunComponent<int> {
     maxHitpointsUpgrade: maxHitpointsUpgrade,
     maxShieldUpgrade: maxShieldUpgrade,
     maxDeathThrowsUpgrade: maxDeathThrowsUpgrade,
+    naturalArmorUpgrade: naturalArmorUpgrade,
   ).toMap();
 }

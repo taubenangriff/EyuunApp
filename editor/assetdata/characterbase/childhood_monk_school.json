@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "childhood_monk_school",
+        "internalName": "Childhood Monk School"
+    },
+    "text": {},
+    "buff": {
+        "textDescription": "childhood_monk_school_effectdesc"
+    }
+}

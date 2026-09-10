@@ -4,9 +4,11 @@
         "internalName": "Wildling upbringing"
     },
     "text": {
-        "fluff": "upbringing_wildling_effectdesc"
+        "fluff": "upbringing_wildling_fluff"
     },
-    "buff": { },
+    "buff": {
+        "textDescription": "upbringing_wildling_effectdesc"
+    },
     "upbringing": {
         "possibleSizes": [
             "Small"

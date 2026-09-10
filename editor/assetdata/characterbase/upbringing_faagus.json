@@ -1,0 +1,17 @@
+{
+    "standard": {
+        "typeId": "upbringing_faagus",
+        "internalName": "Faagus upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_faagus_fluff"
+    },
+    "buff": {
+        "textDescription": "upbringing_faagus_effectdesc"
+    },
+    "upbringing": {
+        "possibleSizes": [
+            "Normal"
+        ]
+    }
+}

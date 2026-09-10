@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "childhood_wealthy_nobility",
+        "internalName": "Childhood Wealthy or Noble"
+    },
+    "text": {},
+    "buff": {
+        "textDescription": "childhood_wealthy_nobility_effectdesc"
+    }
+}

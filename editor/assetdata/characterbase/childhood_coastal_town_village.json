@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "childhood_coastal_town_village",
+        "internalName": "Childhood Coastal Town or Village"
+    },
+    "text": {},
+    "buff": {
+        "textDescription": "childhood_coastal_town_village_effectdesc"
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_acolyte_02_step_02",
+        "internalName": "Creator Path | Step 2 | Harmony of Your Relics"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 2,
+        "isAdditional": false,
+        "pathType": "Acolyte"
+    },
+    "buff": {
+        "textDescription": "path_acolyte_02_step_02_effectdesc"
+    }
+}

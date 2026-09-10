@@ -6,37 +6,82 @@ import 'package:oxygen/oxygen.dart';
 
 class UpbringingPopup extends StatelessWidget {
   final Entity? primary;
-  final Entity? secondary;
+  final List<Entity> visuals;
 
   const UpbringingPopup({
     required this.primary,
-    required this.secondary,
+    required this.visuals,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(30),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: _UpbringingColumn(
-              title: locator<TextService>().getText("uitext_primary_upbringing"),
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _UpbringingColumn(
+              title:
+                  locator<TextService>().getText("uitext_primary_upbringing"),
               entity: primary,
             ),
-          ),
-          if (secondary != null) const SizedBox(width: 24),
-          if (secondary != null)
-            Expanded(
-              child: _UpbringingColumn(
-                title: locator<TextService>().getText("uitext_secondary_upbringing"),
-                entity: secondary,
+            if (visuals.isNotEmpty) ...[
+              const SizedBox(height: 24),
+              _VisualFluffColumn(
+                title: locator<TextService>()
+                    .getText("uitext_secondary_upbringing"),
+                entities: visuals,
               ),
-            ),
-        ],
+            ],
+          ],
+        ),
       ),
+    );
+  }
+}
+
+class _VisualFluffColumn extends StatelessWidget {
+  final String title;
+  final List<Entity> entities;
+
+  const _VisualFluffColumn({
+    required this.title,
+    required this.entities,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final textService = locator<TextService>();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          title,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 16),
+        ),
+        const SizedBox(height: 12),
+        ...entities.map(
+          (entity) => Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: Column(
+              children: [
+                Text(
+                  textService.getTextFromEntity(entity),
+                  textAlign: TextAlign.justify,
+                ),
+                Text(
+                  textService.getFluffFromEntity(entity),
+                  textAlign: TextAlign.justify,
+                )
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -76,9 +121,7 @@ class _UpbringingColumn extends StatelessWidget {
         Text(
           title,
           textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 16
-          ),
+          style: const TextStyle(fontSize: 16),
         ),
 
         const SizedBox(height: 12),

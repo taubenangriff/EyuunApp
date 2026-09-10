@@ -4,11 +4,14 @@
         "internalName": "Fairy upbringing"
     },
     "text": {
-        "fluff": "upbringing_fairy_effectdesc"
+        "fluff": "upbringing_fairy_fluff"
     },
-    "buff": { },
+    "buff": {
+        "textDescription": "upbringing_fairy_effectdesc"
+    },
     "upbringing": {
         "possibleSizes": [
+            "Normal",
             "VerySmall"
         ]
     }

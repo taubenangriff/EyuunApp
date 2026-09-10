@@ -4,11 +4,14 @@
         "internalName": "Goblin upbringing"
     },
     "text": {
-        "fluff": "upbringing_goblin_effectdesc"
+        "fluff": "upbringing_goblin_fluff"
     },
-    "buff": { },
+    "buff": {
+        "textDescription": "upbringing_goblin_effectdesc"
+    },
     "upbringing": {
         "possibleSizes": [
+            "Normal",
             "Small"
         ]
     }

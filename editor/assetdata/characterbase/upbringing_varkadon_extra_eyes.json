@@ -1,0 +1,17 @@
+{
+    "standard": {
+        "typeId": "upbringing_varkadon_extra_eyes",
+        "internalName": "Varkadon extra eyes upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_varkadon_extra_eyes_fluff"
+    },
+    "buff": {
+        "textDescription": "upbringing_varkadon_extra_eyes_effectdesc"
+    },
+    "upbringing": {
+        "possibleSizes": [
+            "Normal"
+        ]
+    }
+}

@@ -208,8 +208,8 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
   Future<void> _createCharacter() async {
     _leaveSessionOnDispose = false;
 
-    await imageController.finalize();
-
+    await imageController.finalizeImage();
+    upbringingController.finalizeUpbringings();
     generateStatsController.finalizeStats();
     characterInitController.initCharacter();
 

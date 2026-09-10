@@ -46,11 +46,8 @@ class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
         ConstrainedBox(
           constraints: BoxConstraints(minHeight: cardHeight),
           child: SelectionCard(
-            title: textService.getText('uitext_upbringing') +
-                (upbringingController.hasUpbringing() != null
-                    ? textService.getTextFromEntity(
-                        upbringingController.selectedUpbringing)
-                    : ""),
+            title:
+                "${textService.getText('uitext_upbringing')} ${upbringingController.hasUpbringing() != null ? textService.getTextFromEntity(upbringingController.selectedUpbringing) : ""}",
             buff: upbringingController.selectedUpbringing,
             showBuff: !upbringingController.pickedBoth(),
             fallbackText: textService.getText('uitext_pick_upbringing'),
@@ -72,12 +69,8 @@ class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
             fit: StackFit.passthrough,
             children: [
               SelectionCard(
-                title: textService
-                        .getText('uitext_secondary_upbringing_select') +
-                    (upbringingController.hasAdditionalUpbringing()
-                        ? textService.getTextFromEntity(
-                            upbringingController.selectedAdditionalUpbringing)
-                        : ""),
+                title:
+                    "${textService.getText('uitext_secondary_upbringing_select')} ${upbringingController.hasAdditionalUpbringing() ? textService.getTextFromEntity(upbringingController.selectedAdditionalUpbringing) : ""}",
                 buff: upbringingController.selectedAdditionalUpbringing,
                 showBuff: !upbringingController.pickedBoth(),
                 fallbackText:
@@ -123,10 +116,8 @@ class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
         ConstrainedBox(
           constraints: BoxConstraints(minHeight: cardHeight),
           child: SelectionCard(
-            title: textService.getText('uitext_childhood') +
-                (childhood != null
-                    ? textService.getTextFromEntity(childhood)
-                    : ""),
+            title:
+                "${textService.getText('uitext_childhood')} ${childhood != null ? textService.getTextFromEntity(childhood) : ""}",
             buff: childhood,
             fallbackText: textService.getText('uitext_pick_childhood'),
             onTap: () => _openPicker(

@@ -9,19 +9,64 @@
         "id": "childhood_homeless"
       },
       {
-        "id": "childhood_homeless"
+        "id": "childhood_city_dweller"
       },
       {
-        "id": "childhood_homeless"
+        "id": "childhood_wealthy_nobility"
       },
       {
-        "id": "childhood_homeless"
+        "id": "childhood_tribe"
       },
       {
-        "id": "childhood_homeless"
+        "id": "childhood_in_nature"
       },
       {
-        "id": "childhood_homeless"
+        "id": "childhood_always_traveling"
+      },
+      {
+        "id": "childhood_group_or_clan"
+      },
+      {
+        "id": "childhood_creatively_raised"
+      },
+      {
+        "id": "childhood_hermit_alone"
+      },
+      {
+        "id": "childhood_coastal_town_village"
+      },
+      {
+        "id": "childhood_riverwise_raised"
+      },
+      {
+        "id": "childhood_seafarer"
+      },
+      {
+        "id": "childhood_underground"
+      },
+      {
+        "id": "childhood_criminal"
+      },
+      {
+        "id": "childhood_industrial"
+      },
+      {
+        "id": "childhood_military_boarding_school"
+      },
+      {
+        "id": "childhood_monk_school"
+      },
+      {
+        "id": "childhood_cultist_devout_temple_family"
+      },
+      {
+        "id": "childhood_educated_raised"
+      },
+      {
+        "id": "childhood_trading_city"
+      },
+      {
+        "id": "childhood_multicultural"
       }
     ]
   }

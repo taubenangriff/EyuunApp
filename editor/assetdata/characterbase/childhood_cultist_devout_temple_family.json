@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "childhood_cultist_devout_temple_family",
+        "internalName": "Childhood Cultist, Devout, or Temple Family"
+    },
+    "text": {},
+    "buff": {
+        "textDescription": "childhood_cultist_devout_temple_family_effectdesc"
+    }
+}

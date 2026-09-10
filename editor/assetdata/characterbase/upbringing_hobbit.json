@@ -4,11 +4,14 @@
         "internalName": "Hobbit upbringing"
     },
     "text": {
-        "fluff": "upbringing_hobbit_effectdesc"
+        "fluff": "upbringing_hobbit_fluff"
     },
-    "buff": { },
+    "buff": {
+        "textDescription": "upbringing_hobbit_effectdesc"
+    },
     "upbringing": {
         "possibleSizes": [
+            "Normal",
             "Small"
         ]
     }

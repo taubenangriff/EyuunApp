@@ -4,9 +4,11 @@
         "internalName": "Ork upbringing"
     },
     "text": {
-        "fluff": "upbringing_ork_effectdesc"
+        "fluff": "upbringing_ork_fluff"
     },
-    "buff": { },
+    "buff": {
+        "textDescription": "upbringing_ork_effectdesc"
+    },
     "upbringing": {
         "possibleSizes": [
             "Normal"

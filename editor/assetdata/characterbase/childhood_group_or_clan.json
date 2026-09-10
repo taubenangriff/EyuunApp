@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "childhood_group_or_clan",
+        "internalName": "Childhood Group or Clan"
+    },
+    "text": {},
+    "buff": {
+        "textDescription": "childhood_group_or_clan_effectdesc"
+    }
+}

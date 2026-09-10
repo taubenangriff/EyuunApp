@@ -1,0 +1,17 @@
+{
+    "standard": {
+        "typeId": "upbringing_arxas_arthropod",
+        "internalName": "Arxas arthropod upbringing"
+    },
+    "text": {
+        "fluff": "upbringing_arxas_arthropod_fluff"
+    },
+    "buff": {
+        "textDescription": "upbringing_arxas_arthropod_effectdesc"
+    },
+    "upbringing": {
+        "possibleSizes": [
+            "Small"
+        ]
+    }
+}

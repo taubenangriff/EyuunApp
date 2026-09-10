@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "childhood_creatively_raised",
+        "internalName": "Childhood Creatively Raised"
+    },
+    "text": {},
+    "buff": {
+        "textDescription": "childhood_creatively_raised_effectdesc"
+    }
+}

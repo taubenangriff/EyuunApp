@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "childhood_riverwise_raised",
+        "internalName": "Childhood Riverwise Raised"
+    },
+    "text": {},
+    "buff": {
+        "textDescription": "childhood_riverwise_raised_effectdesc"
+    }
+}

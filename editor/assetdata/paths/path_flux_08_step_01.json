@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_flux_08_step_01",
+        "internalName": "Manipulator Path | Step 1 | Read Thoughts"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 1,
+        "isAdditional": false,
+        "pathType": "Flux"
+    },
+    "buff": {
+        "textDescription": "path_flux_08_step_01_effectdesc"
+    }
+}

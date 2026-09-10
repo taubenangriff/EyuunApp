@@ -1,0 +1,15 @@
+{
+    "standard": {
+        "typeId": "path_flux_02_step_01",
+        "internalName": "Druid Path | Step 0 | Quick Help"
+    },
+    "text": {},
+    "pathStep": {
+        "tier": 0,
+        "isAdditional": false,
+        "pathType": "Flux"
+    },
+    "buff": {
+        "textDescription": "path_flux_02_step_01_effectdesc"
+    }
+}
