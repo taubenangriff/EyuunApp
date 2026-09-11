@@ -86,8 +86,6 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
   ) {
     return Column(
       children: [
-        _buildSearchBar(),
-        EyuunWidgets.spacerVertical(),
         Expanded(
           flex: 3,
           child: selectedPath == null
