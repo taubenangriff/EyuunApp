@@ -6,6 +6,7 @@
     "text": {},
     "path": {
         "pathType": "Fighter",
+        "complexity": 1,
         "pickableSteps": [
             {
                 "id": "path_fighter_01_step_00"

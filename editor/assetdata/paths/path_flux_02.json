@@ -6,6 +6,7 @@
     "text": {},
     "path": {
         "pathType": "Flux",
+        "complexity": 1,
         "pickableSteps": [
             { "id": "path_flux_02_step_00" },
             { "id": "path_flux_02_step_01" },

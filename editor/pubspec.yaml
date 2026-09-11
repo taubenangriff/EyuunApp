@@ -30,7 +30,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  file_tree_view: ^0.0.7
   eyuuncore:
     path: ./../eyuuncore
 
@@ -41,6 +40,7 @@ dependencies:
   get_it: ^8.2.0
   dart_mappable: ^4.6.1
   path: ^1.9.1
+  file_tree_view: ^0.0.7
 
 dev_dependencies:
   flutter_test:
@@ -51,7 +51,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
   build_runner: ^2.10.4
   reflectable_builder: any
   dart_mappable_builder: ^4.6.3
