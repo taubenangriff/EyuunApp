@@ -118,8 +118,10 @@ class _ArtDecoBoxDecorationPainter extends BoxPainter {
     ..strokeWidth = paintBrush.strokeWidth;
 
   late final AbstractCornerPainter cornerPainter = cornerBuilder(outerPaint);
-  late final AbstractLinePainter horizontalLinePainter = horizontalLineBuilder(outerPaint);
-  late final AbstractLinePainter verticalLinePainter = verticalLineBuilder(outerPaint);
+  late final AbstractLinePainter horizontalLinePainter =
+      horizontalLineBuilder(outerPaint);
+  late final AbstractLinePainter verticalLinePainter =
+      verticalLineBuilder(outerPaint);
 
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {

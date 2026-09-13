@@ -1,4 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:eyuuncore/components/Path.dart';
+import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/core/upgrading/UpgradableInt.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:eyuuncore/core/reflection/Reflecting.dart';
@@ -42,6 +44,25 @@ class CharacterPathComponent extends EyuunComponent<int> {
   UpgradableInt pathCapacity = 0.upgradable;
 
   UpgradableInt additionalPathCapacity = 0.upgradable;
+
+  bool hasPicked(Entity pathStep) {
+    return chosenPathSteps.any((x) => x.getTypeId() == pathStep.getTypeId());
+  }
+
+  int pickedStepsIn(Entity path) {
+    if (!path.has<PathComponent>()) {
+      return 0;
+    }
+
+    var steps = path.get<PathComponent>()!.pickableSteps;
+    int counter = 0;
+    for (var step in steps) {
+      if (hasPicked(step)) {
+        counter++;
+      }
+    }
+    return counter;
+  }
 
   @override
   String getName() => propertyName;

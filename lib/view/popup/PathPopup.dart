@@ -40,8 +40,7 @@ class _PathPopupState extends State<PathPopup> {
   @override
   Widget build(BuildContext context) {
     var pathAsset = locator<GameObjectService>().getStatic(widget.pathId);
-    var pathSteps =
-        pathAsset?.get<PathComponent>()?.pickableSteps ?? [];
+    var pathSteps = pathAsset?.get<PathComponent>()?.pickableSteps ?? [];
 
     return SingleChildScrollView(
       child: Padding(
@@ -55,15 +54,13 @@ class _PathPopupState extends State<PathPopup> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-
             const SizedBox(height: 16),
-
             for (final step in pathSteps) ...[
               PathStepTile(
                 pathStep: step,
                 pathController: widget.pathController,
                 onTap: widget.pathController.canPickNewPath() &&
-                    widget.pathController.canPickStep(step.getTypeId())
+                        widget.pathController.canPickStep(step)
                     ? _increasePath
                     : null,
               ),
@@ -74,5 +71,4 @@ class _PathPopupState extends State<PathPopup> {
       ),
     );
   }
-
 }

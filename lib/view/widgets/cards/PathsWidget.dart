@@ -158,11 +158,10 @@ class _PathsWidgetState extends State<PathsWidget> {
 
         // Progress bars
         ...pathController.getChosenPaths().map((path) {
-          var pathId = path.getTypeId();
           var pathComponent = path.get<PathComponent>() ?? PathComponent();
 
-          var progress = pathController.getPathProgress(pathId);
-          var progressMax = pathController.getPathMaximum(pathId);
+          var progress = pathController.getPathProgress(path);
+          var progressMax = pathController.getPathMaximum(path);
 
           if (progressMax < 1) {
             progressMax = 1;

@@ -1,4 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:eyuuncore/components/Path.dart';
+import 'package:eyuuncore/components/PathStep.dart';
+import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:eyuuncore/core/reflection/Reflecting.dart';
 import 'package:eyuuncore/core/reflection/reflector.dart';
@@ -54,6 +57,16 @@ class PathFeatureComponent extends EyuunComponent<int> {
 
   late List<Entity> paths;
   late List<PathAdditionalEntry> additionalPaths;
+
+  getPathOfStep(Entity pathStep) {
+    return paths.firstWhere(
+      (x) =>
+          x.get<PathComponent>()?.pickableSteps.any(
+            (y) => y.getTypeId() == pathStep.getTypeId(),
+          ) ??
+          false,
+    );
+  }
 
   @override
   String getName() => propertyName;

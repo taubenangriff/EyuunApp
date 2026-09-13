@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class Brushes {
-
   static Paint whiteSparkling({double stepping = 100}) {
     Rect bounds = Rect.fromLTWH(0, 0, 30, stepping);
     // Linear gradient for metallic gold effect
@@ -56,11 +55,11 @@ class Brushes {
       end: Alignment.bottomRight,
       tileMode: TileMode.mirror,
       colors: [
-        Color(0xFF0F1115), // near-black obsidian highlight
-        Color(0xFF161A1F), // deep charcoal with blue tint
-        Color(0xFF1D2228), // graphite obsidian
-        Color(0xFF242A31), // dark stone mid-tone
-        Color(0xFF2C333B), // softened dark accent
+        Color(0xFF2D323A), // dark slate grey highlight
+        Color(0xFF3A404A), // charcoal grey
+        Color(0xFF474E5A), // graphite mid-grey
+        Color(0xFF555D6A), // stone grey mid-tone
+        Color(0xFF626B7A), // softened slate grey accent
       ],
       stops: [0.0, 0.25, 0.5, 0.75, 1.0],
     );

@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
 import 'package:eyuunapp/view/decoration/cornerPainters/DoubleLineCornerPainter.dart';
 import 'package:eyuunapp/view/decoration/linePainters/DoubleLinePainter.dart';
@@ -63,7 +62,7 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.all(12),
         child: _buildContent(filteredPaths, selectedSteps),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -87,7 +86,7 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
     return Column(
       children: [
         Expanded(
-          flex: 3,
+          flex: 4,
           child: selectedPath == null
               ? Center(
                   child: Text(
@@ -95,16 +94,33 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
                     style: const TextStyle(fontStyle: FontStyle.italic),
                   ),
                 )
-              : ListView.separated(
-                  itemCount: selectedSteps.length,
-                  separatorBuilder: (_, __) => const SizedBox(height: 8),
-                  itemBuilder: (_, index) {
-                    return PathStepTile(
-                      pathStep: selectedSteps[index],
-                      pathController: widget.pathController,
-                      canPick: true,
-                    );
-                  },
+              : Padding(
+                  padding: const EdgeInsets.all(4),
+                  child: ListView.separated(
+                    itemCount: selectedSteps.length,
+                    separatorBuilder: (_, __) => const SizedBox(height: 8),
+                    itemBuilder: (_, index) {
+                      final pathStep = selectedSteps[index];
+                      return Padding(
+                        padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
+                        child: PathStepTile(
+                          pathStep: pathStep,
+                          pathController: widget.pathController,
+                          onTap: widget.pathController.canPickStep(pathStep)
+                              ? () {
+                                  setState(() {
+                                    widget.pathController.pickStep(pathStep);
+                                    widget.pathController
+                                        .pickNewPath(selectedPath!);
+
+                                    widget.onPathPicked?.call(selectedPath!);
+                                  });
+                                }
+                              : null,
+                        ),
+                      );
+                    },
+                  ),
                 ),
         ),
         EyuunWidgets.spacerVertical(),
