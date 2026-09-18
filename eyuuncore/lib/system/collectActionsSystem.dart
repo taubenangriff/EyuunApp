@@ -46,21 +46,21 @@ class CollectActionsSystem extends System {
       _addActionsFromWeaponsHeld(heldWeapon);
     }
 
-    for (var skillLearner in skillLearnerQuery.entities){
+    for (var skillLearner in skillLearnerQuery.entities) {
       _addActionsFromSkillLearner(skillLearner);
     }
   }
 
-  void _addActionsFromSkillLearner(Entity actionUser){
+  void _addActionsFromSkillLearner(Entity actionUser) {
     if (!actionUser.has<SkillLearnerComponent>()) {
       return;
     }
     var skillLearnerComponent = actionUser.get<SkillLearnerComponent>()!;
     var actionUserComponent = actionUser.get<ActionUserComponent>()!;
-    for(var trick in skillLearnerComponent.tricks.current){
+    for (var trick in skillLearnerComponent.tricks.current) {
       actionUserComponent.addAction(trick);
     }
-    for(var spell in skillLearnerComponent.spells.current){
+    for (var spell in skillLearnerComponent.spells.current) {
       actionUserComponent.addAction(spell);
     }
   }
@@ -72,21 +72,26 @@ class CollectActionsSystem extends System {
     var combatComponent = actionUser.get<CombatComponent>()!;
     var actionUserComponent = actionUser.get<ActionUserComponent>()!;
 
-    for (var heldItem in combatComponent.equippedItems) {
-      if (heldItem.has<WeaponComponent>()) {
-        actionUserComponent.addAction(heldItem);
+    for (var heldItem in combatComponent.equippedItems.values) {
+      final heldEntity = heldItem.object;
+      if (heldEntity.has<WeaponComponent>()) {
+        actionUserComponent.addAction(heldEntity);
       }
 
       //add in the actions that the item itself has.
-      _copyActionsFromItemToItemHolder(heldItem, actionUserComponent);
+      _copyActionsFromItemToItemHolder(heldEntity, actionUserComponent);
     }
   }
 
-  void _copyActionsFromItemToItemHolder(Entity heldItem, ActionUserComponent actionUserComponent) {
+  void _copyActionsFromItemToItemHolder(
+    Entity heldItem,
+    ActionUserComponent actionUserComponent,
+  ) {
     //add in the actions that the item itself has.
-    if(heldItem.has<ActionUserComponent>()){
-      var actionsFromItem = heldItem.get<ActionUserComponent>()?.getActions() ?? [];
-      for(var actionFromItem in actionsFromItem){
+    if (heldItem.has<ActionUserComponent>()) {
+      var actionsFromItem =
+          heldItem.get<ActionUserComponent>()?.getActions() ?? [];
+      for (var actionFromItem in actionsFromItem) {
         actionUserComponent.addAction(actionFromItem, source: heldItem);
       }
     }

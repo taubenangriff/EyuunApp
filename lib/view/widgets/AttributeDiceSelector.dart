@@ -8,12 +8,16 @@ import 'package:eyuuncore/enums/dice.dart';
 import 'package:flutter/material.dart';
 
 import 'package:eyuunapp/view/widgets/DiceIcon.dart'; // your custom widget
-import 'package:eyuunapp/view/widgets/StatItem.dart'; // your custom widget
+import 'package:eyuunapp/view/widgets/StatItem.dart';
+import 'package:oxygen/oxygen.dart'; // your custom widget
 
 class AttributeDiceSelector extends StatefulWidget {
-  final AttributesComponent attributes;
+  final Entity character;
+  late AttributesComponent _attributes;
 
-  const AttributeDiceSelector({super.key, required this.attributes});
+  AttributeDiceSelector({super.key, required this.character}) {
+    _attributes = character.get<AttributesComponent>()!;
+  }
 
   @override
   State<AttributeDiceSelector> createState() => _AttributeDiceSelectorState();
@@ -22,9 +26,9 @@ class AttributeDiceSelector extends StatefulWidget {
 class _AttributeDiceSelectorState extends State<AttributeDiceSelector> {
   final TextService textService = locator<TextService>();
   late final attributesController =
-      CreateAttributesController(widget.attributes);
+      CreateAttributesController(widget._attributes);
   late final characterGenerateStatsController =
-      CharacterGenerateStatsController(widget.attributes);
+      CharacterGenerateStatsController(widget.character);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +44,7 @@ class _AttributeDiceSelectorState extends State<AttributeDiceSelector> {
       const SizedBox(height: 16),
       Text(locator<TextService>().getText('uitext_initattributes_explainer')),
       const SizedBox(height: 16),
-      ...widget.attributes.statValues.map((entry) {
+      ...widget._attributes.statValues.map((entry) {
         var dices =
             attributesController.getPossibleDices(entry.stat.getTypeId());
 

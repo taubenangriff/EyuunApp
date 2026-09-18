@@ -77,10 +77,7 @@ class _InventoryPageState extends State<InventoryPage> {
     _inventoryController = InventoryController(_inventory!);
     _combatController = CombatController(_combatComponent!);
 
-    holdables = _combatComponent?.equippedItems
-            .map((item) => InventoryItem.fromEntity(item))
-            .toList() ??
-        [];
+    holdables = _combatComponent?.equippedItems.values.toList() ?? [];
 
     List<Entity> shopItems = locator<ItemShopFeatureComponent>().getShopItems();
 
@@ -101,7 +98,9 @@ class _InventoryPageState extends State<InventoryPage> {
               List<Widget> slotWidgets = [
                 for (var (index, _) in holdables.indexed)
                   _buildHoldableSlot(index, size),
-                if (_combatController.getFreeHands() > 0)
+                for (int i = 0;
+                    i < _combatController.getFreeHands() - holdables.length;
+                    i++)
                   _buildAddHoldableSlot(size),
                 _buildArmorSlot(size),
               ];
@@ -125,48 +124,43 @@ class _InventoryPageState extends State<InventoryPage> {
                         alignment: WrapAlignment.center,
                         children: slotWidgets,
                       )
-                    } else
+                    } else ...[
+                      EyuunWidgets.cardBox(
+                        child: Wrap(
+                          spacing: 12,
+                          runSpacing: 12,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          alignment: WrapAlignment.center,
+                          children: slotWidgets,
+                        ),
+                        theme: theme,
+                      ),
+                      EyuunWidgets.spacerWidget(),
                       Flexible(
-                        flex: 2,
+                        flex: 3,
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            // 🧾 Item display (left)
                             Expanded(
                               flex: 3,
-                              child: EyuunWidgets.cardBox(
-                                  child: ItemDisplayWidget(item: selectedItem),
-                                  theme: theme),
+                              child: InventoryWidget(
+                                inventory: _inventory!,
+                                slotSize: 100,
+                                onItemSelected: _onItemSelected,
+                              ),
                             ),
                             EyuunWidgets.spacerHorizontal(),
-                            // 🛡 Armor slots (right)
                             Expanded(
                               flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: Wrap(
-                                  spacing: 12,
-                                  runSpacing: 12,
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  alignment: WrapAlignment.center,
-                                  children: slotWidgets,
-                                ),
+                              child: EyuunWidgets.cardBox(
+                                child: ItemDisplayWidget(item: selectedItem),
+                                theme: theme,
                               ),
                             ),
                           ],
                         ),
                       ),
-                    EyuunWidgets.spacerWidget(),
-                    Flexible(
-                      flex: 3,
-                      child: EyuunWidgets.cardBox(
-                          child: InventoryWidget(
-                            inventory: _inventory!,
-                            slotSize: isTablet ? 100 : 80,
-                            onItemSelected: _onItemSelected,
-                          ),
-                          theme: theme),
-                    ),
+                    ],
                     Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

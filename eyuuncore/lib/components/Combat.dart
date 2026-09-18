@@ -1,5 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/components/Armor.dart';
+import 'package:eyuuncore/components/inventory.dart';
 import 'package:eyuuncore/core/assetLink.dart';
 import 'package:eyuuncore/core/upgrading/UpgradableInt.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
@@ -22,7 +23,7 @@ class CombatDynamic with CombatDynamicMappable {
   int remainingActions;
   int remainingReactions;
 
-  List<ObjectLink> equippedItems;
+  Map<int, InventoryItemDynamic> equippedItems;
   ObjectLink? armor;
 
   CombatDynamic({
@@ -35,9 +36,9 @@ class CombatDynamic with CombatDynamicMappable {
     this.remainingActions = 0,
     this.remainingReactions = 0,
     this.equipmentSlotCount = 0,
-    List<ObjectLink>? equippedItems,
+    Map<int, InventoryItemDynamic>? equippedItems,
     this.armor,
-  }) : equippedItems = equippedItems ?? [];
+  }) : equippedItems = equippedItems ?? <int, InventoryItemDynamic>{};
 }
 
 class CombatComponent extends EyuunComponent<int> {
@@ -70,8 +71,8 @@ class CombatComponent extends EyuunComponent<int> {
   /// how many reactions remain in this round
   late int remainingReactions;
 
-  /// The list of items held in your hands.
-  List<Entity> equippedItems = [];
+  /// Items held in each equipment slot.
+  Map<int, InventoryItem> equippedItems = {};
   Entity? armor;
 
   void equipArmor(Entity entity) {
@@ -88,8 +89,8 @@ class CombatComponent extends EyuunComponent<int> {
   /// gets the amount of equipment Slots that are used by items in equippedItems.
   int getOccupiedEquipmentSlotCount() {
     var total = 0;
-    for (var item in equippedItems) {
-      total += item.get<HoldableComponent>()?.equipmentSlotsNeeded ?? 0;
+    for (var item in equippedItems.values) {
+      total += item.object.get<HoldableComponent>()?.equipmentSlotsNeeded ?? 0;
     }
     return total;
   }
@@ -121,7 +122,11 @@ class CombatComponent extends EyuunComponent<int> {
     remainingActions = dyn.remainingActions;
     remainingReactions = dyn.remainingReactions;
     equipmentSlotCount = dyn.equipmentSlotCount;
-    equippedItems = dyn.equippedItems.getObjects();
+    equippedItems = {
+      for (var entry in dyn.equippedItems.entries)
+        if (InventoryItem.fromDynamic(entry.value) case final item?)
+          entry.key: item,
+    };
     armor = dyn.armor?.getEntity();
   }
 
@@ -142,7 +147,7 @@ class CombatComponent extends EyuunComponent<int> {
 
     remainingReactions = 0;
     remainingActions = 0;
-    equippedItems = [];
+    equippedItems = {};
     armor = null;
   }
 
@@ -157,7 +162,13 @@ class CombatComponent extends EyuunComponent<int> {
     remainingActions: remainingActions,
     remainingReactions: remainingReactions,
     equipmentSlotCount: equipmentSlotCount,
-    equippedItems: equippedItems.asObjectLinks(),
+    equippedItems: {
+      for (var entry in equippedItems.entries)
+        entry.key: InventoryItemDynamic(
+          objectId: entry.value.object.asObjectLink(),
+          count: entry.value.count,
+        ),
+    },
     armor: armor?.asObjectLink(),
   ).toMap();
 }

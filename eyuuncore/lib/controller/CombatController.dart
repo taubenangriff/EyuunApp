@@ -6,7 +6,7 @@ class CombatController {
 
   CombatController(this._combatComponent);
 
-  int getFreeHands() => 1;
+  int getFreeHands() => _combatComponent.equipmentSlotCount;
 
   bool canEquipHoldable(Entity entity) => true;
 

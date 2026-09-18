@@ -11,18 +11,17 @@ part 'inventory.mapper.dart';
 
 @MappableClass()
 class InventoryDynamic with InventoryDynamicMappable {
-  List<InventoryItemDynamic> items;
+  Map<int, InventoryItemDynamic> items;
   int money;
-  InventoryDynamic({List<InventoryItemDynamic>? items, this.money = 0})
-    : items = items ?? [];
+  InventoryDynamic({Map<int, InventoryItemDynamic>? items, this.money = 0})
+    : items = items ?? {};
 }
 
 @MappableClass()
 class InventoryItemDynamic with InventoryItemDynamicMappable {
   ObjectLink? objectId;
   int count;
-  int slot;
-  InventoryItemDynamic({this.objectId, this.count = 0, this.slot = 0});
+  InventoryItemDynamic({this.objectId, this.count = 0});
 }
 
 class InventoryItem {
@@ -63,6 +62,8 @@ class InventoryComponent extends EyuunComponent<int> {
 
   /// A map of index to inventory slot. Only indices which actually hold an item are in the map.
   Map<int, InventoryItem> items = {};
+
+  UpgradableInt carryingCapacity = 100.upgradable;
 
   void clearSlot(int index) {
     items.remove(index);
@@ -129,12 +130,12 @@ class InventoryComponent extends EyuunComponent<int> {
   @override
   void loadDynamicData(Map<String, dynamic> dynamicData) {
     var dyn = InventoryDynamicMapper.fromMap(dynamicData);
-    for (var item in dyn.items) {
-      var addItem = InventoryItem.fromDynamic(item);
+    for (var entry in dyn.items.entries) {
+      var addItem = InventoryItem.fromDynamic(entry.value);
       if (addItem == null) {
         continue;
       }
-      items[item.slot] = addItem;
+      items[entry.key] = addItem;
     }
     money = dyn.money;
   }
@@ -146,19 +147,15 @@ class InventoryComponent extends EyuunComponent<int> {
 
   @override
   Map<String, dynamic> saveDynamicData() => InventoryDynamic(
-    items: items
-        .map(
-          (index, item) => MapEntry(
-            index,
-            InventoryItemDynamic(
-              objectId: item.object.asObjectLink(),
-              count: item.count,
-              slot: index,
-            ),
-          ),
-        )
-        .values
-        .toList(),
+    items: items.map<int, InventoryItemDynamic>(
+      (index, item) => MapEntry(
+        index,
+        InventoryItemDynamic(
+          objectId: item.object.asObjectLink(),
+          count: item.count,
+        ),
+      ),
+    ),
     money: money,
   ).toMap();
 }

@@ -71,13 +71,8 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
       skillLearner: skillLearnerComponent!, allowDowngrades: true);
   late var imageController = CharacterImageController(characterBaseComponent);
 
-  late var generateStatsController = CharacterGenerateStatsController(
-      character.get<AttributesComponent>()!,
-      healthComponent: character.get<HealthComponent>(),
-      combatComponent: character.get<CombatComponent>(),
-      fluxComponent: character.get<FluxComponent>(),
-      inventoryComponent: character.get<InventoryComponent>(),
-      languageLearnerComponent: character.get<LanguageLearnerComponent>());
+  late var generateStatsController =
+      CharacterGenerateStatsController(character);
 
   late var characterInitController = CharacterInitController(
       characterBaseComponent: character.get<CharacterBaseComponent>()!,
@@ -94,8 +89,7 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
       upbringingController: upbringingController,
       imageController: imageController,
     )),
-    _wrapWithLayoutBuilder(AttributeDiceSelector(
-        attributes: character.get<AttributesComponent>()!)),
+    _wrapWithLayoutBuilder(AttributeDiceSelector(character: character)),
     _wrapWithSizedBox(
         Center(child: TalentPage(controller: skillLearnerController))),
     SummaryPage(onCharacterCreated: _createCharacter),

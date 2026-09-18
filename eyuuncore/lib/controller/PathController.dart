@@ -73,6 +73,13 @@ class PathController {
 
     _characterPathComponent!.chosenPathSteps.add(step);
     _characterUpgradableComponent!.applyUpgrade(step);
+
+    var path = _pathFeature.getPathOfStep(step);
+
+    if (getPathProgress(path) == 0) {
+      pickNewPath(path);
+    }
+
     locator<EventBus>().fire(
       EntityUpdatedEvent(_entity, _characterPathComponent!),
     );

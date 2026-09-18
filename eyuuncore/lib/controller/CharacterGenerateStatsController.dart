@@ -6,22 +6,30 @@ import 'package:eyuuncore/components/LanguageLearner.dart';
 import 'package:eyuuncore/components/health.dart';
 import 'package:eyuuncore/components/inventory.dart';
 import 'package:eyuuncore/core/upgrading/UpgradableInt.dart';
+import 'package:oxygen/oxygen.dart';
 
 class CharacterGenerateStatsController {
-  AttributesComponent attributesComponent;
+  late AttributesComponent attributesComponent;
   HealthComponent? healthComponent;
   CombatComponent? combatComponent;
   FluxComponent? fluxComponent;
   LanguageLearnerComponent? languageLearnerComponent;
   InventoryComponent? inventoryComponent;
-  CharacterGenerateStatsController(
-    this.attributesComponent, {
-    this.healthComponent,
-    this.combatComponent,
-    this.fluxComponent,
-    this.languageLearnerComponent,
-    this.inventoryComponent,
-  });
+
+  final Entity _entity;
+
+  CharacterGenerateStatsController(Entity entity) : _entity = entity {
+    if (!entity.has<AttributesComponent>()) {
+      throw Exception('Entity must have AttributesComponent');
+    }
+    attributesComponent = entity.get<AttributesComponent>()!;
+
+    healthComponent = _entity.get<HealthComponent>();
+    combatComponent = _entity.get<CombatComponent>();
+    fluxComponent = _entity.get<FluxComponent>();
+    languageLearnerComponent = _entity.get<LanguageLearnerComponent>();
+    inventoryComponent = _entity.get<InventoryComponent>();
+  }
 
   int getLanguagePotential() =>
       (attributesComponent.getDiceValue('baseSkill_Intelligence') / 2).round();
@@ -57,5 +65,12 @@ class CharacterGenerateStatsController {
         getLanguagePotential().upgradable;
     fluxComponent?.fluxMaximum = getFlux().upgradable;
     inventoryComponent?.maxCapacity = getInventoryCapacity().upgradable;
+
+    //give a character 2 equipment slots
+    combatComponent?.equipmentSlotCount = 2;
+
+    //give a character 1 action and 1 reaction per round
+    combatComponent?.actionsPerRound = 1.upgradable;
+    combatComponent?.reactionsPerRound = 1.upgradable;
   }
 }
