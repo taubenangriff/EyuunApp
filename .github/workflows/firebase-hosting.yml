@@ -52,7 +52,7 @@ jobs:
         uses: google-github-actions/auth@v3
         with:
           workload_identity_provider: 'projects/810324195553/locations/global/workloadIdentityPools/github-actions/providers/github'
-          service_account: 'firebase-adminsdk-fbsvc@eyuunapp.iam.gserviceaccount.com'
+          service_account: 'github-action-1075323102@eyuunapp.iam.gserviceaccount.com'
           create_credentials_file: true
 
       - name: Deploy to Firebase Hosting
