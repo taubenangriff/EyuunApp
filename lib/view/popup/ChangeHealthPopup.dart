@@ -42,10 +42,10 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
 
   void _computeDamage() {
     if (hpChange >= 0) {
-      widget.healthController.setDamageType(healTypes[selectedHealIndex]);
+      widget.healthController.setDamageTypes([healTypes[selectedHealIndex]]);
     } else {
-      widget.healthController
-          .setDamageType(damageTypes[selectedDamageIndexes.last]);
+      widget.healthController.setDamageTypes(
+          selectedDamageIndexes.map((i) => damageTypes[i]).toList());
     }
     widget.healthController.computeDamageSplit(hpChange);
   }
@@ -86,11 +86,13 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
               SizedBox(width: 200, height: 80, child: child),
             ],
           ),
-          IconButton(
-            tooltip: 'Remove',
-            onPressed: onRemove,
-            icon: const Icon(Icons.remove_circle_outline),
-          ),
+          if (onRemove != null) ...[
+            IconButton(
+              tooltip: 'Remove',
+              onPressed: onRemove,
+              icon: const Icon(Icons.remove_circle_outline),
+            ),
+          ],
         ],
       ),
     );
@@ -121,7 +123,7 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
             : const Icon(Icons.broken_image),
         horizontal: true,
       ),
-      onRemove: selectedDamageIndexes.length > 1
+      onRemove: entryIndex > 0
           ? () => setState(() {
                 selectedDamageIndexes.removeAt(entryIndex);
                 _computeDamage();
@@ -161,15 +163,12 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
   Widget _information() {
     final information = <String>[];
     if (widget.healthController.absorbedByArmor != 0) {
-      information
-          .add('${widget.healthController.absorbedByArmor.abs()} from armor');
+      information.add(
+          '${widget.healthController.absorbedByArmor.abs()} absorbed by armor');
     }
     if (widget.healthController.tempHealthChange != 0) {
-      information.add(
-          '${widget.healthController.tempHealthChange.abs()} from temporary health');
-    }
-    if (widget.healthController.damageTypeComponent.applyStatusEffect != null) {
-      information.add('+effect from status effect');
+      information
+          .add('${widget.healthController.tempHealthChange} temporary health');
     }
     if (information.isEmpty) {
       information.add('No additional effects');
@@ -193,95 +192,137 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.all(8),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              height: 150,
-              width: 400,
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    _summaryColumn('Current HP',
-                        '${widget.healthController.oldHitpoints}+${widget.healthController.oldShield}'),
-                    _summaryColumn('Armor Block',
-                        '${widget.healthController.absorbedByArmor}'),
-                    _summaryColumn('New Hitpoints',
-                        '${widget.healthController.newHitpoints}+${widget.healthController.newShield}'),
-                  ]),
-            ),
-            const SizedBox(height: 8),
-            _information(),
-            const SizedBox(height: 8),
-            SizedBox(
-              width: 260,
-              height: 80,
-              child: ItemWheel(
-                valueCallback: (i) => setState(() {
-                  hpChange = i;
-                  _computeDamage();
-                }),
-                maxValue: widget.healthController.maxGainable(),
-                minValue: -widget.healthController.maxLosable(),
-                horizontal: true,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 150,
+                width: 400,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _summaryColumn('Current HP',
+                          '${widget.healthController.oldHitpoints}+${widget.healthController.oldShield}'),
+                      _summaryColumn(
+                          widget.healthController.effectiveChange > 0
+                              ? 'Healing'
+                              : 'Damage',
+                          '${widget.healthController.effectiveChange.abs()}'),
+                      _summaryColumn('New Hitpoints',
+                          '${widget.healthController.newHitpoints}+${widget.healthController.newShield}'),
+                    ]),
               ),
-            ),
-            if (hpChange >= 0)
-              _selectorRow(
-                label: 'Healing / temporary health',
+              const SizedBox(height: 8),
+              SizedBox(height: 80, child: _information()),
+              const SizedBox(height: 8),
+              SizedBox(
+                width: 260,
+                height: 80,
                 child: ItemWheel(
-                  key: const ValueKey('healing'),
-                  startValue: selectedHealIndex,
-                  maxValue: healTypes.length - 1,
-                  valueIsIndex: true,
-                  customSize: 46,
-                  valueCallback: (index) => setState(() {
-                    selectedHealIndex = index;
+                  valueCallback: (i) => setState(() {
+                    hpChange = i;
                     _computeDamage();
                   }),
-                  childWidget: (index) => healTypes[index].has<IconComponent>()
-                      ? Image(
-                          image: AssetImage(healTypes[index]
-                              .get<IconComponent>()!
-                              .iconFilepath))
-                      : const Icon(Icons.favorite),
+                  maxValue: widget.healthController.maxGainable(),
+                  minValue: -widget.healthController.maxLosable(),
                   horizontal: true,
                 ),
-                onRemove: null,
               ),
-            if (hpChange < 0)
-              ...selectedDamageIndexes
-                  .asMap()
-                  .entries
-                  .map((entry) => _damageTypeWheel(entry.key)),
-            if (hpChange < 0 && selectedResistanceIndex != null)
-              _resistanceWheel(),
-            if (hpChange < 0)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  FloatingActionButton(
-                    heroTag: 'add-resistance',
-                    mini: true,
-                    tooltip: 'Add resistance',
-                    onPressed: selectedResistanceIndex == null
-                        ? () => setState(() => selectedResistanceIndex = 2)
-                        : null,
-                    child: const Icon(Icons.shield),
+              if (hpChange >= 0)
+                _selectorRow(
+                  label: locator<TextService>()
+                      .getText(healTypes[selectedHealIndex].getTypeId()),
+                  child: ItemWheel(
+                    key: const ValueKey('healing'),
+                    startValue: selectedHealIndex,
+                    maxValue: healTypes.length - 1,
+                    valueIsIndex: true,
+                    customSize: 46,
+                    valueCallback: (index) => setState(() {
+                      selectedHealIndex = index;
+                      _computeDamage();
+                    }),
+                    childWidget: (index) =>
+                        healTypes[index].has<IconComponent>()
+                            ? Image(
+                                image: AssetImage(healTypes[index]
+                                    .get<IconComponent>()!
+                                    .iconFilepath))
+                            : const Icon(Icons.favorite),
+                    horizontal: true,
                   ),
-                  const SizedBox(width: 24),
-                  FloatingActionButton(
-                    heroTag: 'add-damage-type',
-                    mini: true,
-                    tooltip: 'Add damage type',
-                    onPressed: () => setState(() => selectedDamageIndexes.add(
-                        locator<CombatFeatureComponent>()
-                            .damageTypesDefaultIndex)),
-                    child: const Icon(Icons.add),
-                  ),
-                ],
-              ),
-            EyuunWidgets.spacerVertical(),
+                  onRemove: null,
+                ),
+              if (hpChange < 0)
+                ...selectedDamageIndexes
+                    .asMap()
+                    .entries
+                    .map((entry) => _damageTypeWheel(entry.key)),
+              EyuunWidgets.spacerVertical(),
+              if (hpChange < 0)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (selectedResistanceIndex == null) ...[
+                      EyuunWidgets.circularFloatingActionButton(
+                        radius: 42,
+                        tooltip: 'Add resistance',
+                        addDeco: true,
+                        icon: Icons.shield,
+                        onPressed: () =>
+                            setState(() => selectedResistanceIndex = 2),
+                      ),
+                      const SizedBox(width: 24),
+                    ],
+                    EyuunWidgets.circularFloatingActionButton(
+                      radius: 42,
+                      tooltip: 'Add Damage Type',
+                      icon: Icons.add,
+                      addDeco: true,
+                      onPressed: () => setState(() => selectedDamageIndexes.add(
+                          locator<CombatFeatureComponent>()
+                              .damageTypesDefaultIndex)),
+                    ),
+                  ],
+                ),
+              EyuunWidgets.spacerVertical(),
+              if (hpChange < 0 && selectedResistanceIndex != null) ...[
+                _resistanceWheel(),
+                EyuunWidgets.spacerVertical(),
+              ],
+              SizedBox(
+                  width: 178,
+                  child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      child: DecoratedBox(
+                          position: DecorationPosition.foreground,
+                          decoration: ArtDecoBoxDecoration(
+                              cornerBuilder: (p) => DoubleLineCornerPainter(p),
+                              verticalLineBuilder: (p) => DoubleLinePainter(p),
+                              horizontalLineBuilder: (p) =>
+                                  DoubleLinePainter(p),
+                              paint: Brushes.goldSparkling()..strokeWidth = 1.5,
+                              cornerSize: 12),
+                          child: FloatingActionButton(
+                              onPressed: () {
+                                widget.healthController.apply();
+                                Navigator.of(context).pop();
+                                setState(() {
+                                  widget.onAccept?.call();
+                                });
+                              },
+                              child: Text('Apply',
+                                  style:
+                                      TextStyle(color: Color(0xccfdcc3a))))))),
+              const SizedBox(height: 12)
+            ],
+          ),
+        ));
+  }
+}
+
+/*
             SizedBox(
                 height: 100,
                 child: SingleChildScrollView(
@@ -322,30 +363,4 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
                     ],
                   ),
                 )),
-            SizedBox(
-                width: 178,
-                child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    child: DecoratedBox(
-                        position: DecorationPosition.foreground,
-                        decoration: ArtDecoBoxDecoration(
-                            cornerBuilder: (p) => DoubleLineCornerPainter(p),
-                            verticalLineBuilder: (p) => DoubleLinePainter(p),
-                            horizontalLineBuilder: (p) => DoubleLinePainter(p),
-                            paint: Brushes.goldSparkling()..strokeWidth = 1.5,
-                            cornerSize: 12),
-                        child: FloatingActionButton(
-                            onPressed: () {
-                              widget.healthController.apply();
-                              Navigator.of(context).pop();
-                              setState(() {
-                                widget.onAccept?.call();
-                              });
-                            },
-                            child: Text('Apply',
-                                style: TextStyle(color: Color(0xccfdcc3a))))))),
-            const SizedBox(height: 12)
-          ],
-        ));
-  }
-}
+*/
