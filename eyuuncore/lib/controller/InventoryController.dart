@@ -3,6 +3,7 @@ import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/components/Item.dart';
 import 'package:eyuuncore/components/inventory.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
+import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/events/EntityDeletedEvent.dart';
 import 'package:eyuuncore/events/EntityUpdatedEvent.dart';
 import 'package:oxygen/oxygen.dart';
@@ -114,7 +115,7 @@ class InventoryController {
 
     for (var item in itemsToDelete) {
       _inventory.items.remove(item.key);
-      locator<EventBus>().fire(EntityDeletedEvent(item.value.object));
+      locator<GameObjectService>().killEntity(item.value.object);
     }
 
     locator<EventBus>().fire(

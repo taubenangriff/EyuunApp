@@ -12,6 +12,8 @@ import 'package:oxygen/oxygen.dart';
 import 'package:eyuunapp/view/widgets/PathHeaderTile.dart';
 import 'package:eyuunapp/view/widgets/PathStepTile.dart';
 import 'package:eyuunapp/view/decoration/Brushes.dart';
+import 'package:eyuunapp/view/popup/ConfirmPathPopup.dart';
+import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 
 class PickNewPathWidget extends StatefulWidget {
@@ -107,7 +109,14 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
                           pathStep: pathStep,
                           pathController: widget.pathController,
                           onTap: widget.pathController.canPickStep(pathStep)
-                              ? () {
+                              ? () async {
+                                  final confirmed = await PopupUtil.popup<bool>(
+                                    maximumSize: Size(400, 700),
+                                    context,
+                                    ConfirmPathPopup(pathStep: pathStep),
+                                  );
+                                  if (!mounted || confirmed != true) return;
+
                                   setState(() {
                                     widget.pathController.pickStep(pathStep);
                                     widget.onPathPicked?.call(selectedPath!);

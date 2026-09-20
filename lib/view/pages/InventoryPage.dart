@@ -449,6 +449,9 @@ class _InventoryPageState extends State<InventoryPage> {
               builder: (context, candidateData, rejectedData) =>
                   InventoryItemWidget(
                 item: item,
+                isSelected: item != null &&
+                    (selectedItem == item ||
+                        selectedItem?.object == item.object),
                 onTap: () => setState(() {
                   selectedItem = item;
                 }),
