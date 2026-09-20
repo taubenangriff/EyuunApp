@@ -1,7 +1,4 @@
-import 'package:eyuunapp/view/controller/ChangeValueController.dart';
-import 'package:eyuunapp/view/popup/ChangeValuePopup.dart';
-import 'package:eyuunapp/view/popup/PopupUtil.dart';
-import 'package:eyuunapp/view/widgets/ItemDisplay.dart';
+import 'package:eyuunapp/view/widgets/cards/ItemDisplayWidget.dart';
 import 'package:eyuuncore/components/AssetBundle.dart';
 import 'package:eyuuncore/components/Icon.dart';
 import 'package:eyuuncore/components/inventory.dart';
@@ -28,8 +25,6 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
   final List<Entity> navigationStack = [];
   Entity? selectedItem;
 
-  int inInventoryCount = 11;
-
   final _textService = locator<TextService>();
   late final _shoppingController = ShoppingController(widget.inventory);
 
@@ -42,7 +37,7 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
   void navigateTo(Entity item) {
     if (item.has<AssetBundleComponent>()) {
       setState(() {
-        selectedItem == null;
+        selectedItem = null;
         navigationStack.add(item);
         currentItems = item.get<AssetBundleComponent>()!.getAssets();
       });
@@ -166,98 +161,36 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
               child: Container(
                 padding: const EdgeInsets.all(16),
                 color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                child: selectedItem == null
-                    ? const Center(child: Text("No item selected"))
-                    : Stack(
-                        children: [
-                          Center(
-                              child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const SizedBox(height: 30),
-                              selectedItem?.has<IconComponent>() ?? false
-                                  ? Image(
-                                      image: selectedItem!
-                                          .get<IconComponent>()!
-                                          .getImage(),
-                                      width: 128,
-                                      height: 128)
-                                  : Icon(Icons.add, size: 32),
-                              const SizedBox(height: 16),
-                              Text(
-                                _textService.getTextFromEntity(selectedItem),
-                                style:
-                                    Theme.of(context).textTheme.headlineSmall,
-                              ),
-                              const Divider(),
-                              if (selectedItem != null)
-                                Expanded(
-                                    child: SingleChildScrollView(
-                                        child: Column(children: [
-                                  ItemDisplay(item: selectedItem!),
-                                ]))),
-                              SizedBox(height: 110)
-                            ],
-                          )),
-                          Positioned(
-                            bottom: 6,
-                            left: 0,
-                            right: 0,
-                            child: Column(children: [
-                              Text('In Inventory: $inInventoryCount'),
-                              SizedBox(height: 16),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Expanded(
-                                      child: FloatingActionButton(
-                                          child: const Text("x1"),
-                                          onPressed: () {
-                                            setState(() {
-                                              if (selectedItem == null) {
-                                                return;
-                                              }
-                                              _shoppingController.buyItem(
-                                                  selectedItem!.getTypeId());
-                                              inInventoryCount += 1;
-                                            });
-                                          })),
-                                  SizedBox(width: 8),
-                                  Expanded(
-                                      child: FloatingActionButton(
-                                          child: const Text("x10"),
-                                          onPressed: () {
-                                            setState(() {
-                                              inInventoryCount += 10;
-                                            });
-                                          })),
-                                  SizedBox(width: 8),
-                                  Expanded(
-                                      child: FloatingActionButton(
-                                          child: const Text("xCustom"),
-                                          onPressed: () {
-                                            PopupUtil.popup(
-                                                context,
-                                                ChangeValuePopup(
-                                                    ChangeValueController(
-                                                        inInventoryCount,
-                                                        minLimit:
-                                                            inInventoryCount,
-                                                        maxLimit: 100 +
-                                                            inInventoryCount),
-                                                    valueChanged: (val) {
-                                                  setState(() {
-                                                    inInventoryCount += val;
-                                                  });
-                                                }));
-                                          })),
-                                ],
-                              )
-                            ]),
-                          )
-                        ],
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      bottom: 80,
+                      child: ItemDisplayWidget(
+                        item: selectedItem == null
+                            ? null
+                            : InventoryItem.fromEntity(selectedItem!),
                       ),
+                    ),
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      child: ElevatedButton.icon(
+                        onPressed: selectedItem == null ||
+                                !_shoppingController
+                                    .canBuyItem(selectedItem!.getTypeId())
+                            ? null
+                            : () {
+                                _shoppingController
+                                    .buyItem(selectedItem!.getTypeId());
+                                setState(() {});
+                              },
+                        icon: const Icon(Icons.shopping_cart),
+                        label: const Text('Buy'),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

@@ -142,7 +142,7 @@ class _InventoryPageState extends State<InventoryPage> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Expanded(
-                              flex: 3,
+                              flex: 5,
                               child: InventoryWidget(
                                 inventory: _inventory!,
                                 slotSize: 100,
@@ -151,7 +151,7 @@ class _InventoryPageState extends State<InventoryPage> {
                             ),
                             EyuunWidgets.spacerHorizontal(),
                             Expanded(
-                              flex: 1,
+                              flex: 2,
                               child: EyuunWidgets.cardBox(
                                 child: ItemDisplayWidget(item: selectedItem),
                                 theme: theme,
