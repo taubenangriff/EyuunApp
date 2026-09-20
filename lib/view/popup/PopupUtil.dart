@@ -28,7 +28,22 @@ class PopupUtil {
                         constraints: BoxConstraints(
                             maxHeight: maximumSize.height,
                             maxWidth: maximumSize.width), // max popup height
-                        child: content,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (header != null)
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(40, 12, 40, 4),
+                                child: Text(
+                                  header,
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                              ),
+                            Flexible(child: content),
+                          ],
+                        ),
                       ),
                       Positioned(
                         top: 6,

@@ -150,9 +150,9 @@ class HealthController {
   bool armorUsedAgainstTarget() =>
       absorbedByWornArmor + absorbedByNaturalArmor < 0;
 
-  int maxGainable() => 100;
+  int maxGainable() => 99;
 
-  int maxLosable() => 100;
+  int maxLosable() => 99;
 
   void setDamageTypes(List<Entity> entities) {
     var list = <DamageTypeComponent>[];

@@ -30,7 +30,7 @@ class _ChangeFluxPopupState extends State<ChangeFluxPopup> {
 
   Widget _valueColumn(String label, String value) {
     return SizedBox(
-      width: 80,
+      width: 60,
       height: 220,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -53,10 +53,11 @@ class _ChangeFluxPopupState extends State<ChangeFluxPopup> {
     required int minValue,
     required int maxValue,
     int? startValue,
+    bool showSignedValues = false,
     required void Function(int) onChanged,
   }) {
     return SizedBox(
-      width: 80,
+      width: 60,
       height: 300,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -72,6 +73,7 @@ class _ChangeFluxPopupState extends State<ChangeFluxPopup> {
               valueCallback: onChanged,
               minValue: minValue,
               maxValue: maxValue,
+              addLeadingPlus: showSignedValues,
               horizontal: widget.horizontal,
             ),
           ),
@@ -106,16 +108,22 @@ class _ChangeFluxPopupState extends State<ChangeFluxPopup> {
               children: [
                 _valueColumn(
                   'Old',
-                  '${widget.currentController.value} / ${widget.capacityController.value}',
+                  '${widget.currentController.value}',
                 ),
                 _changeColumn(
                   key: ValueKey('current-$newCapacity-$currentChange'),
-                  label: 'Current',
+                  label: '',
                   value: newCurrent,
                   minValue: -widget.currentController.maxLosable(),
                   maxValue: newCapacity - widget.currentController.value,
                   startValue: currentChange,
+                  showSignedValues: true,
                   onChanged: (value) => setState(() => currentChange = value),
+                ),
+                _valueColumn('New', '$newCurrent'),
+                const Padding(
+                  padding: EdgeInsets.only(top: 24),
+                  child: Text('of'),
                 ),
                 _changeColumn(
                   label: 'Capacity',

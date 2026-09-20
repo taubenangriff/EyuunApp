@@ -46,6 +46,7 @@ class _ChangeValuePopupState extends State<ChangeValuePopup> {
                         }),
                     maxValue: widget.changeVal.maxGainable(),
                     minValue: -widget.changeVal.maxLosable(),
+                    addLeadingPlus: true,
                     horizontal: widget.horizontal)),
             SizedBox(
               height: 50,
@@ -73,7 +74,8 @@ class _ChangeValuePopupState extends State<ChangeValuePopup> {
                           widget.valueChanged?.call(newVal);
                           Navigator.of(context).pop();
                         },
-                        child: Text('Apply', style: TextStyle(color: Color(0xccfdcc3a)))))))
+                        child: Text('Apply',
+                            style: TextStyle(color: Color(0xccfdcc3a)))))))
       ],
     );
   }

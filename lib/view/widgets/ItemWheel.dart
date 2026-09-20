@@ -12,10 +12,11 @@ class ItemWheel extends StatefulWidget {
     this.childWidget,
     this.horizontal = false,
     this.valueIsIndex = false,
-    this.customSize = 30.0,
+    this.customSize = 36.0,
     this.customMargin = 0,
     this.useMagnifier = true,
-    this.perspective = 0.005
+    this.perspective = 0.005,
+    this.addLeadingPlus = false,
   }) {
     childCount = maxValue - minValue + 1;
   }
@@ -29,6 +30,7 @@ class ItemWheel extends StatefulWidget {
   final double customMargin;
   final bool useMagnifier;
   final double perspective;
+  final bool addLeadingPlus;
 
   final int startValue;
 
@@ -40,7 +42,6 @@ class ItemWheel extends StatefulWidget {
 }
 
 class _ItemWheelState extends State<ItemWheel> {
-
   late int value;
 
   late final FixedExtentScrollController scrollController;
@@ -51,9 +52,7 @@ class _ItemWheelState extends State<ItemWheel> {
     value = widget.startValue;
 
     scrollController = FixedExtentScrollController(
-        initialItem: widget.valueIsIndex
-            ? value
-            : widget.maxValue - value);
+        initialItem: widget.valueIsIndex ? value : widget.maxValue - value);
   }
 
   @override
@@ -81,15 +80,11 @@ class _ItemWheelState extends State<ItemWheel> {
                       child: (widget.childWidget != null)
                           ? (widget.childWidget!.call(index))
                           : SelectableValue(
-                              value: widget.valueIsIndex
-                                  ? index
-                                  : widget.maxValue -
-                                      index,
+                              value: _displayValue(index),
                               isSelected: index ==
                                   (widget.valueIsIndex
                                       ? value
-                                      : widget.maxValue -
-                                          value),
+                                      : widget.maxValue - value),
                             )),
                 );
               }),
@@ -105,5 +100,13 @@ class _ItemWheelState extends State<ItemWheel> {
         ),
       ),
     );
+  }
+
+  dynamic _displayValue(int index) {
+    final numericValue = widget.valueIsIndex ? index : widget.maxValue - index;
+    if (widget.addLeadingPlus && numericValue > 0) {
+      return '+$numericValue';
+    }
+    return numericValue;
   }
 }

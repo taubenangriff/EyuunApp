@@ -18,6 +18,7 @@ import 'package:eyuuncore/controller/HealthController.dart';
 import 'package:eyuuncore/controller/SkilllearnerController.dart';
 import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
+import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';
 import 'package:flutter/material.dart';
 
@@ -126,6 +127,8 @@ class _CombatPageState extends State<CombatPage> {
                   ChangeHealthPopup(healthController, onAccept: () {
                     setState(() {});
                   }),
+                  header:
+                      locator<TextService>().getText('uitext_change_health'),
                   maximumSize: Size(350, 800));
             },
             segments: healthSegments,
@@ -144,7 +147,9 @@ class _CombatPageState extends State<CombatPage> {
                   ChangeFluxPopup(fluxController, fluxCapacityController,
                       onAccept: () {
                     setState(() {});
-                  }));
+                  }),
+                  header: locator<TextService>().getText('uitext_change_flux'),
+                  maximumSize: const Size(600, 600));
             },
             segments: fluxSegments,
             progressColor: Colors.blue.shade700,

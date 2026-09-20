@@ -16,6 +16,7 @@ import 'package:eyuuncore/components/LanguageLearner.dart';
 import 'package:eyuuncore/components/health.dart';
 import 'package:eyuuncore/controller/HealthController.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
+import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';
 import 'package:flutter/material.dart';
 
@@ -144,6 +145,8 @@ class _CharacterPageState extends State<CharacterPage> {
                   ChangeHealthPopup(healthController, onAccept: () {
                     setState(() {});
                   }),
+                  header:
+                      locator<TextService>().getText('uitext_change_health'),
                   maximumSize: Size(375, 800));
             },
             segments: healthSegments,
@@ -163,7 +166,9 @@ class _CharacterPageState extends State<CharacterPage> {
                   ChangeFluxPopup(fluxController, fluxCapacityController,
                       onAccept: () {
                     setState(() {});
-                  }));
+                  }),
+                  header: locator<TextService>().getText('uitext_change_flux'),
+                  maximumSize: const Size(400, 600));
             },
             segments: fluxSegments,
             progressColor: Colors.blue.shade700,

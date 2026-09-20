@@ -218,14 +218,16 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      _summaryColumn('Current HP',
+                      _summaryColumn(
+                          locator<TextService>().getText('uitext_before'),
                           '${widget.healthController.oldHitpoints}+${widget.healthController.oldShield}'),
                       _summaryColumn(
-                          widget.healthController.effectiveChange > 0
-                              ? 'Healing'
-                              : 'Damage',
+                          widget.healthController.effectiveChange >= 0
+                              ? locator<TextService>().getText('uitext_healing')
+                              : locator<TextService>().getText('uitext_damage'),
                           '${widget.healthController.effectiveChange.abs()}'),
-                      _summaryColumn('New Hitpoints',
+                      _summaryColumn(
+                          locator<TextService>().getText('uitext_after'),
                           '${widget.healthController.newHitpoints}+${widget.healthController.newShield}'),
                     ]),
               ),
@@ -242,6 +244,7 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
                   }),
                   maxValue: widget.healthController.maxGainable(),
                   minValue: -widget.healthController.maxLosable(),
+                  addLeadingPlus: true,
                   horizontal: true,
                 ),
               ),

@@ -76,7 +76,8 @@ class PathController {
 
     var path = _pathFeature.getPathOfStep(step);
 
-    if (getPathProgress(path) == 0) {
+    var picked = isPathPicked(path);
+    if (!picked) {
       pickNewPath(path);
     }
 
