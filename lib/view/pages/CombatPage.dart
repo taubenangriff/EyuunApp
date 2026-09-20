@@ -1,7 +1,7 @@
 import 'dart:math';
 
+import 'package:eyuunapp/view/popup/ChangeFluxPopup.dart';
 import 'package:eyuunapp/view/popup/ChangeHealthPopup.dart';
-import 'package:eyuunapp/view/popup/ChangeValuePopup.dart';
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuunapp/view/widgets/PickActionWidget.dart';
 import 'package:eyuunapp/view/widgets/cards/ActionsWidget.dart';
@@ -45,6 +45,13 @@ class _CombatPageState extends State<CombatPage> {
         maxLimit: flux.fluxCapacity.current,
         minLimit: 0,
         onValUpdated: (val) => flux.fluxSpent = val);
+    final fluxCapacityController = ChangeValueController(
+      flux.fluxCapacity.current,
+      maxLimit: flux.fluxMaximum.current,
+      minLimit: 0,
+      onValUpdated: (val) =>
+          flux.fluxCapacity.base = val - flux.fluxCapacity.upgrade,
+    );
 
     late double desiredSize = 1100;
 
@@ -134,10 +141,9 @@ class _CombatPageState extends State<CombatPage> {
             onPressed: () {
               PopupUtil.popup(
                   context,
-                  ChangeValuePopup(fluxController, valueChanged: (change) {
-                    setState(() {
-                      fluxController.change(change);
-                    });
+                  ChangeFluxPopup(fluxController, fluxCapacityController,
+                      onAccept: () {
+                    setState(() {});
                   }));
             },
             segments: fluxSegments,

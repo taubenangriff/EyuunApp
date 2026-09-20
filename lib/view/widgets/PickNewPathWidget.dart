@@ -110,9 +110,6 @@ class _PickNewPathWidgetState extends State<PickNewPathWidget> {
                               ? () {
                                   setState(() {
                                     widget.pathController.pickStep(pathStep);
-                                    widget.pathController
-                                        .pickNewPath(selectedPath!);
-
                                     widget.onPathPicked?.call(selectedPath!);
                                   });
                                 }

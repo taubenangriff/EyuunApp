@@ -78,7 +78,9 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const SizedBox(width: 60),
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -86,13 +88,27 @@ class _ChangeHealthPopupState extends State<ChangeHealthPopup> {
               SizedBox(width: 200, height: 80, child: child),
             ],
           ),
-          if (onRemove != null) ...[
-            IconButton(
-              tooltip: 'Remove',
-              onPressed: onRemove,
-              icon: const Icon(Icons.remove_circle_outline),
+          SizedBox(
+            width: 60,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 20),
+                SizedBox(
+                  height: 80,
+                  child: onRemove == null
+                      ? null
+                      : Center(
+                          child: IconButton(
+                            tooltip: 'Remove',
+                            onPressed: onRemove,
+                            icon: const Icon(Icons.remove_circle_outline),
+                          ),
+                        ),
+                ),
+              ],
             ),
-          ],
+          ),
         ],
       ),
     );
