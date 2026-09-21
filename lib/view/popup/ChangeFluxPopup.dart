@@ -111,7 +111,7 @@ class _ChangeFluxPopupState extends State<ChangeFluxPopup> {
                   '${widget.currentController.value}',
                 ),
                 _changeColumn(
-                  key: ValueKey('current-$newCapacity-$currentChange'),
+                  key: ValueKey('current-$newCapacity'),
                   label: '',
                   value: newCurrent,
                   minValue: -widget.currentController.maxLosable(),
