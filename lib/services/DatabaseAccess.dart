@@ -3,6 +3,7 @@ import 'package:eyuunapp/model/CharacterMetaInfo.dart';
 import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/io/AssetSerializer.dart';
 import 'package:eyuuncore/io/SessionData.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:oxygen/oxygen.dart';
 
 abstract class DatabaseAccess {
@@ -29,11 +30,22 @@ abstract class DatabaseAccess {
 }
 
 class FirebaseAccess implements DatabaseAccess {
+  // Sessions are scoped under the authenticated user; throws if signed out.
+  CollectionReference<Map<String, dynamic>> _userSessions() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      throw StateError('User is not authenticated.');
+    }
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .collection('sessions');
+  }
+
   @override
   Future<Map<String, dynamic>?> getGameObjectData(
       String sessionKey, String objectId) async {
-    final snapshot = await FirebaseFirestore.instance
-        .collection('sessions')
+    final snapshot = await _userSessions()
         .doc(sessionKey)
         .collection('gameObjects')
         .doc(objectId)
@@ -43,11 +55,8 @@ class FirebaseAccess implements DatabaseAccess {
 
   @override
   Future<List<Map<String, dynamic>>> getGameObjectIds(String sessionKey) async {
-    final snapshot = await FirebaseFirestore.instance
-        .collection('sessions')
-        .doc(sessionKey)
-        .collection('gameObjects')
-        .get();
+    final snapshot =
+        await _userSessions().doc(sessionKey).collection('gameObjects').get();
 
     return snapshot.docs.map((document) => document.data()).toList();
   }
@@ -57,8 +66,7 @@ class FirebaseAccess implements DatabaseAccess {
       String sessionKey, String objectId, Entity entity) {
     var map = locator<AssetSerializer>().serialize(entity);
 
-    return FirebaseFirestore.instance
-        .collection('sessions')
+    return _userSessions()
         .doc(sessionKey)
         .collection('gameObjects')
         .doc(objectId)
@@ -67,10 +75,7 @@ class FirebaseAccess implements DatabaseAccess {
 
   @override
   Future<SessionData?> getSessionData(String sessionKey) async {
-    final snapshot = await FirebaseFirestore.instance
-        .collection('sessions')
-        .doc(sessionKey)
-        .get();
+    final snapshot = await _userSessions().doc(sessionKey).get();
     if (!snapshot.exists) return null;
 
     return SessionDataMapper.fromMap(snapshot.data()!);
@@ -78,16 +83,12 @@ class FirebaseAccess implements DatabaseAccess {
 
   @override
   Future<void> postSessionData(String sessionKey, SessionData sessionData) {
-    return FirebaseFirestore.instance
-        .collection('sessions')
-        .doc(sessionKey)
-        .set(sessionData.toMap());
+    return _userSessions().doc(sessionKey).set(sessionData.toMap());
   }
 
   @override
   Future<CharacterMetaInfo?> getCharacterMetaInfo(String sessionKey) async {
-    final snapshot = await FirebaseFirestore.instance
-        .collection('sessions')
+    final snapshot = await _userSessions()
         .doc(sessionKey)
         .collection('meta')
         .doc('info')
@@ -100,8 +101,7 @@ class FirebaseAccess implements DatabaseAccess {
   @override
   Future<void> postCharacterMetaInfo(
       String sessionKey, CharacterMetaInfo characterMetaInfo) {
-    return FirebaseFirestore.instance
-        .collection('sessions')
+    return _userSessions()
         .doc(sessionKey)
         .collection('meta')
         .doc('info')
@@ -110,16 +110,14 @@ class FirebaseAccess implements DatabaseAccess {
 
   @override
   Future<List<String>> getSessionKeys() async {
-    final snapshot =
-        await FirebaseFirestore.instance.collection('sessions').get();
+    final snapshot = await _userSessions().get();
 
     return snapshot.docs.map((document) => document.id).toList();
   }
 
   @override
   Future<void> deleteSession(String sessionKey) async {
-    final sessionRef =
-        FirebaseFirestore.instance.collection('sessions').doc(sessionKey);
+    final sessionRef = _userSessions().doc(sessionKey);
 
     final gameObjectsSnapshot =
         await sessionRef.collection('gameObjects').get();
