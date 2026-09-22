@@ -44,6 +44,13 @@ class _InventoryWidgetState extends State<InventoryWidget> {
 
   @override
   Widget build(BuildContext context) {
+    // re-sync from the source of truth: items can be removed/added by code
+    // outside this widget (e.g. equipping/unequipping), which never goes
+    // through this widget's own onAcceptWithDetails handler.
+    for (int i = 0; i < inventory.maxCapacity.current; i++) {
+      inventorySlots[i] = inventory.getSlotItem(i);
+    }
+
     return ConstrainedBox(
       constraints: const BoxConstraints(minWidth: 300),
       child: GridView.builder(

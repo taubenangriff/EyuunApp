@@ -55,37 +55,44 @@ class _InventoryPageState extends State<InventoryPage> {
     });
   }
 
+  /// Removes [item] from wherever it currently resides (armor, a holdable
+  /// slot, or the inventory) so it can be placed somewhere else. Every move
+  /// picks up its source this way, regardless of where it came from.
+  void _pickUpItem(InventoryItem item) {
+    if (armor == item) {
+      _combatController.unequipArmor();
+      armor = null;
+      return;
+    }
+
+    for (final entry in holdables.entries) {
+      if (entry.value == item) {
+        _combatController.unequipHoldable(entry.key);
+        holdables.remove(entry.key);
+        return;
+      }
+    }
+
+    _inventoryController.dropItem(item);
+  }
+
   /// Places [item] into inventory slot [slotIndex]. If it was already in the
-  /// player's inventory, it is simply moved; if it was equipped, it is
-  /// unequipped from its equipment slot. Owns all item-socketing logic.
+  /// player's inventory, it is simply moved; otherwise it is picked up from
+  /// wherever it was equipped. Owns all item-socketing logic.
   void onInventoryItemAccepted(InventoryItem item, int slotIndex) {
     setState(() {
       final oldIndex = _inventoryController.getSlotIndexOfItem(item);
       if (oldIndex != null) {
+        if (oldIndex == slotIndex) return;
         _inventoryController.moveItem(oldIndex, slotIndex);
-        return;
-      }
-
-      _inventoryController.acceptItem(item, slotIndex);
-
-      if (armor == item) {
-        _combatController.unequipArmor();
-        armor = null;
         if (selectedItem == item) selectedItem = null;
         return;
       }
 
-      int? holdableSlot;
-      for (final entry in holdables.entries) {
-        if (entry.value == item) {
-          holdableSlot = entry.key;
-          break;
-        }
-      }
-      if (holdableSlot != null) {
-        _combatController.unequipHoldable(holdableSlot);
-        holdables.remove(holdableSlot);
-      }
+      if (!_inventoryController.isSlotFree(slotIndex)) return;
+
+      _pickUpItem(item);
+      _inventoryController.acceptItem(item, slotIndex);
       if (selectedItem == item) selectedItem = null;
     });
   }
@@ -466,8 +473,25 @@ class _InventoryPageState extends State<InventoryPage> {
         if (!acceptsEntity(entity)) return;
         if (!canEquip(entity)) return;
 
+        final displaced = getItem();
+        if (displaced == item) return; // dropped onto its own slot
+
+        int? freeSlot;
+        if (displaced != null) {
+          freeSlot = _inventoryController.getFirstFreeSlotIndex();
+          if (freeSlot == -1) return; // no room to displace the occupant
+        }
+
+        // pick the dragged item up from wherever it currently is (another
+        // equipment slot or the inventory) before placing it here.
+        _pickUpItem(item);
+
+        if (displaced != null) {
+          unequip();
+          _inventoryController.acceptItem(displaced, freeSlot!);
+        }
+
         equip(entity);
-        _inventoryController.dropItem(item);
         assignVisual(item);
       },
       onTap: onTap,
@@ -488,6 +512,7 @@ class _InventoryPageState extends State<InventoryPage> {
       required VoidCallback onTap,
       double size = 100}) {
     var item = getItem();
+    final freeSlot = _inventoryController.getFirstFreeSlotIndex();
     return SizedBox(
         height: size,
         width: size,
@@ -513,7 +538,9 @@ class _InventoryPageState extends State<InventoryPage> {
               },
             ),
             if (item == null) IgnorePointer(child: Center(child: Icon(icon))),
-            if (item != null)
+            // hide the unequip button when there's nowhere in the inventory
+            // to put the item; unequipping must never destroy it.
+            if (item != null && freeSlot != -1)
               // The info button in the top right corner
               Positioned(
                 top: 4,
@@ -524,8 +551,8 @@ class _InventoryPageState extends State<InventoryPage> {
                       'Unequip ${locator<TextService>().getTextFromEntity(item.object)}',
                   onPressed: () {
                     setState(() {
-                      if (selectedItem == item) selectedItem = null;
                       setItem(null);
+                      _inventoryController.acceptItem(item, freeSlot);
                     });
                   },
                 ),

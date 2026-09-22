@@ -180,7 +180,12 @@ class InventoryController {
       return;
     }
 
-    _inventory.items[oldIndex] = newItem!;
+    if (newItem == null) {
+      _inventory.items.remove(oldIndex);
+    } else {
+      _inventory.items[oldIndex] = newItem;
+    }
+
     _inventory.items[newIndex] = oldItem!;
 
     locator<EventBus>().fire(
