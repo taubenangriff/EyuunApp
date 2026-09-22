@@ -36,7 +36,7 @@ class _InventoryPageState extends State<InventoryPage> {
 
   InventoryItem? armor;
 
-  List<InventoryItem?> holdables = [];
+  Map<int, InventoryItem?> holdables = {};
 
   InventoryItem? weapon;
   InventoryItem? secondWeapon;
@@ -52,6 +52,41 @@ class _InventoryPageState extends State<InventoryPage> {
   void _onItemSelected(InventoryItem? item) {
     setState(() {
       selectedItem = item;
+    });
+  }
+
+  /// Places [item] into inventory slot [slotIndex]. If it was already in the
+  /// player's inventory, it is simply moved; if it was equipped, it is
+  /// unequipped from its equipment slot. Owns all item-socketing logic.
+  void onInventoryItemAccepted(InventoryItem item, int slotIndex) {
+    setState(() {
+      final oldIndex = _inventoryController.getSlotIndexOfItem(item);
+      if (oldIndex != null) {
+        _inventoryController.moveItem(oldIndex, slotIndex);
+        return;
+      }
+
+      _inventoryController.acceptItem(item, slotIndex);
+
+      if (armor == item) {
+        _combatController.unequipArmor();
+        armor = null;
+        if (selectedItem == item) selectedItem = null;
+        return;
+      }
+
+      int? holdableSlot;
+      for (final entry in holdables.entries) {
+        if (entry.value == item) {
+          holdableSlot = entry.key;
+          break;
+        }
+      }
+      if (holdableSlot != null) {
+        _combatController.unequipHoldable(holdableSlot);
+        holdables.remove(holdableSlot);
+      }
+      if (selectedItem == item) selectedItem = null;
     });
   }
 
@@ -77,7 +112,16 @@ class _InventoryPageState extends State<InventoryPage> {
     _inventoryController = InventoryController(_inventory!);
     _combatController = CombatController(_combatComponent!);
 
-    holdables = _combatComponent?.equippedItems.values.toList() ?? [];
+    holdables = _combatComponent?.equippedItems ?? {};
+
+    // keep the visual armor item in sync with the component, but avoid
+    // recreating the InventoryItem instance when it hasn't actually changed.
+    final armorEntity = _combatComponent?.armor;
+    if (armorEntity == null) {
+      armor = null;
+    } else if (armor?.object != armorEntity) {
+      armor = InventoryItem.fromEntity(armorEntity);
+    }
 
     List<Entity> shopItems = locator<ItemShopFeatureComponent>().getShopItems();
 
@@ -96,23 +140,21 @@ class _InventoryPageState extends State<InventoryPage> {
               double size = isTablet ? 100 : 80;
 
               List<Widget> slotWidgets = [
-                for (var (index, _) in holdables.indexed)
-                  _buildHoldableSlot(index, size),
                 for (int i = 0;
-                    i < _combatController.getFreeHands() - holdables.length;
+                    i < _combatController.getEquipmentSlotCount();
                     i++)
-                  _buildAddHoldableSlot(size),
+                  _buildHoldableSlot(i, size),
                 _buildArmorSlot(size),
               ];
 
               {
-                // 📱 PHONE LAYOUT (vertical)
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    if (!isTablet) ...{
+                    if (!isTablet) ...[
+                      // 📱 PHONE LAYOUT: item display, equipment slots, inventory slots stacked
                       Flexible(
-                        flex: 3,
+                        flex: 1,
                         child: EyuunWidgets.cardBox(
                             child: ItemDisplayWidget(item: selectedItem),
                             theme: theme),
@@ -123,30 +165,50 @@ class _InventoryPageState extends State<InventoryPage> {
                         runSpacing: 12,
                         alignment: WrapAlignment.center,
                         children: slotWidgets,
-                      )
-                    } else ...[
-                      EyuunWidgets.cardBox(
-                        child: Wrap(
-                          spacing: 12,
-                          runSpacing: 12,
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          alignment: WrapAlignment.center,
-                          children: slotWidgets,
-                        ),
-                        theme: theme,
                       ),
-                      EyuunWidgets.spacerWidget(),
+                      EyuunWidgets.spacerVertical(),
+                      Expanded(
+                        child: InventoryWidget(
+                          inventory: _inventory!,
+                          slotSize: 100,
+                          onItemSelected: _onItemSelected,
+                          onExternalItemAccepted: onInventoryItemAccepted,
+                        ),
+                      ),
+                    ] else ...[
+                      // 📱 TABLET LAYOUT: equipment+inventory column, item display column
                       Flexible(
                         flex: 3,
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Expanded(
-                              flex: 5,
-                              child: InventoryWidget(
-                                inventory: _inventory!,
-                                slotSize: 100,
-                                onItemSelected: _onItemSelected,
+                              flex: 3,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  EyuunWidgets.cardBox(
+                                    child: Wrap(
+                                      spacing: 12,
+                                      runSpacing: 12,
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.center,
+                                      alignment: WrapAlignment.center,
+                                      children: slotWidgets,
+                                    ),
+                                    theme: theme,
+                                  ),
+                                  EyuunWidgets.spacerVertical(),
+                                  Expanded(
+                                    child: InventoryWidget(
+                                      inventory: _inventory!,
+                                      slotSize: 100,
+                                      onItemSelected: _onItemSelected,
+                                      onExternalItemAccepted:
+                                          onInventoryItemAccepted,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                             EyuunWidgets.spacerHorizontal(),
@@ -363,31 +425,18 @@ class _InventoryPageState extends State<InventoryPage> {
 
   Widget _buildHoldableSlot(int index, double size) => _buildTypedEquipmentSlot(
         icon: Icons.back_hand,
-        getItem: () => holdables[index],
-        assignVisual: (x) => holdables[index] = x,
+        getItem: () => holdables.containsKey(index) ? holdables[index] : null,
+        assignVisual: (x) =>
+            holdables.containsKey(index) ? holdables[index] = x : null,
         acceptsEntity: (e) => e.has<HoldableComponent>(),
         canEquip: _combatController.canEquipHoldable,
-        equip: (e) => _combatController.equipHoldable(e),
+        equip: (e) => _combatController.equipHoldable(index, e),
         unequip: () => _combatController.unequipHoldable(index),
         onTap: () {
           if (holdables[index] != null) {
             setState(() => selectedItem = holdables[index]);
           }
         },
-        size: size,
-      );
-
-  Widget _buildAddHoldableSlot(double size) => _buildTypedEquipmentSlot(
-        icon: Icons.back_hand,
-        getItem: () => null,
-        assignVisual: (x) {
-          if (x != null) holdables.add(x);
-        },
-        acceptsEntity: (e) => e.has<HoldableComponent>(),
-        canEquip: _combatController.canEquipHoldable,
-        equip: (e) => _combatController.equipHoldable(e),
-        unequip: () {},
-        onTap: () => setState(() => selectedItem = null),
         size: size,
       );
 
@@ -418,7 +467,7 @@ class _InventoryPageState extends State<InventoryPage> {
         if (!canEquip(entity)) return;
 
         equip(entity);
-        _inventoryController.deleteItem(item);
+        _inventoryController.dropItem(item);
         assignVisual(item);
       },
       onTap: onTap,
@@ -475,7 +524,7 @@ class _InventoryPageState extends State<InventoryPage> {
                       'Unequip ${locator<TextService>().getTextFromEntity(item.object)}',
                   onPressed: () {
                     setState(() {
-                      if (selectedItem == armor) selectedItem = null;
+                      if (selectedItem == item) selectedItem = null;
                       setItem(null);
                     });
                   },

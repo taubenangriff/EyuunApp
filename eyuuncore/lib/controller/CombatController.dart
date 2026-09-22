@@ -6,23 +6,28 @@ class CombatController {
 
   CombatController(this._combatComponent);
 
-  int getFreeHands() => _combatComponent.equipmentSlotCount;
+  int getEquipmentSlotCount() => _combatComponent.equipmentSlotCount;
 
   bool canEquipHoldable(Entity entity) => true;
 
-  void equipHoldable(Entity entity) {
-    UnimplementedError();
-  }
+  Entity? getHoldable(int slotIndex) =>
+      _combatComponent.getHoldableEntity(slotIndex);
 
-  void unequipHoldable(int heldIndex) => UnimplementedError();
+  void equipHoldable(int slotIndex, Entity entity) =>
+      _combatComponent.equipHoldable(slotIndex, entity);
+
+  Entity? unequipHoldable(int heldIndex) =>
+      _combatComponent.unequipHoldable(heldIndex);
 
   bool canEquipArmor(Entity entity) => true;
 
-  void equipArmor(Entity entity) {
-    UnimplementedError();
-  }
+  Entity? getArmor() => _combatComponent.armor;
 
-  void unequipArmor() {
-    UnimplementedError();
+  void equipArmor(Entity entity) => _combatComponent.equipArmor(entity);
+
+  Entity? unequipArmor() {
+    final entity = _combatComponent.armor;
+    _combatComponent.unequipArmor();
+    return entity;
   }
 }

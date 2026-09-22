@@ -86,6 +86,17 @@ class CombatComponent extends EyuunComponent<int> {
 
   bool wearsArmor() => armor != null;
 
+  Entity? getHoldableEntity(int slotIndex) => equippedItems[slotIndex]?.object;
+
+  void equipHoldable(int slotIndex, Entity entity) {
+    if (slotIndex < 0 || slotIndex >= equipmentSlotCount) return;
+    if (equippedItems.containsKey(slotIndex)) return;
+    equippedItems[slotIndex] = InventoryItem.fromEntity(entity);
+  }
+
+  Entity? unequipHoldable(int slotIndex) =>
+      equippedItems.remove(slotIndex)?.object;
+
   /// gets the amount of equipment Slots that are used by items in equippedItems.
   int getOccupiedEquipmentSlotCount() {
     var total = 0;

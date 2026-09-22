@@ -13,12 +13,34 @@ class InventoryController {
 
   InventoryController(this._inventory);
 
+  void acceptItem(InventoryItem item, int slotIndex) {
+    if (!isSlotFree(slotIndex)) {
+      throw Exception('Slot $slotIndex is already taken.');
+    }
+    _inventory.items[slotIndex] = item;
+
+    locator<EventBus>().fire(
+      EntityUpdatedEvent(locator<CharacterService>().character, _inventory),
+    );
+  }
+
+  /// returns the slot index currently holding [item], or null if it isn't in this inventory.
+  int? getSlotIndexOfItem(InventoryItem item) {
+    for (final entry in _inventory.items.entries) {
+      if (entry.value == item) {
+        return entry.key;
+      }
+    }
+    return null;
+  }
+
   /// checks whether the slot at [slotIndex] is currently free.
   bool isSlotFree(int slotIndex) {
     if (slotIndex < 0 || slotIndex >= _inventory.maxCapacity.current) {
       return false;
     }
-    return _inventory.items[slotIndex] == null;
+    return !_inventory.items.containsKey(slotIndex) ||
+        _inventory.items[slotIndex] == null;
   }
 
   /// adds the entity to the slot at [slotIndex]. The entity must have [ItemComponent].
@@ -107,15 +129,27 @@ class InventoryController {
     return item.object;
   }
 
-  /// deletes the item described by [item] from an inventory. Returns the entity that was deleted for easy disposing.
   List<Entity> deleteItem(InventoryItem item) {
-    var itemsToDelete = _inventory.items.entries.where(
-      (entry) => entry.value == item,
-    );
+    return _removeItem(item, kill: true);
+  }
 
-    for (var item in itemsToDelete) {
-      _inventory.items.remove(item.key);
-      locator<GameObjectService>().killEntity(item.value.object);
+  List<Entity> dropItem(InventoryItem item) {
+    return _removeItem(item, kill: false);
+  }
+
+  /// deletes the item described by [item] from an inventory. Returns the entity that was deleted for easy disposing.
+  List<Entity> _removeItem(InventoryItem item, {bool kill = false}) {
+    // materialize first: mutating the map while a lazy where() view of its
+    // entries is being iterated causes a ConcurrentModificationError.
+    var itemsToDelete = _inventory.items.entries
+        .where((entry) => entry.value == item)
+        .toList();
+
+    for (var entry in itemsToDelete) {
+      _inventory.items.remove(entry.key);
+      if (kill) {
+        locator<GameObjectService>().killEntity(entry.value.object);
+      }
     }
 
     locator<EventBus>().fire(

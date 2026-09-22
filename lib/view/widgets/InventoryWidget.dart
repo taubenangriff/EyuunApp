@@ -1,5 +1,4 @@
 import 'package:eyuuncore/components/inventory.dart';
-import 'package:eyuuncore/controller/InventoryController.dart';
 import 'package:flutter/material.dart';
 
 import 'package:eyuunapp/view/widgets/InventoryItemWidget.dart';
@@ -7,12 +6,18 @@ import 'package:eyuunapp/view/widgets/InventoryItemWidget.dart';
 class InventoryWidget extends StatefulWidget {
   final InventoryComponent inventory;
   final ValueChanged<InventoryItem?>? onItemSelected;
+
+  /// Invoked to actually place an item dragged from outside the inventory
+  /// grid (e.g. an equipment slot) into [slotIndex]; owns all socketing logic.
+  final void Function(InventoryItem item, int slotIndex)?
+      onExternalItemAccepted;
   final double slotSize;
 
   const InventoryWidget(
       {super.key,
       required this.inventory,
       this.onItemSelected,
+      this.onExternalItemAccepted,
       this.slotSize = 100});
 
   @override
@@ -26,7 +31,6 @@ class _InventoryWidgetState extends State<InventoryWidget> {
   static const int minSlots = 100;
 
   late var inventory = widget.inventory;
-  late var inventoryController = InventoryController(inventory);
 
   @override
   void initState() {
@@ -58,14 +62,17 @@ class _InventoryWidgetState extends State<InventoryWidget> {
             onAcceptWithDetails: (details) {
               final dragged = details.data;
               final oldIndex = inventorySlots.indexOf(dragged);
-              setState(() {
-                // Swap positions visually
-                inventorySlots[oldIndex] = item;
-                inventorySlots[index] = dragged;
 
-                //call controller to swap in code.
-                inventoryController.moveItem(oldIndex, index);
+              setState(() {
+                // update the visual grid only; InventoryPage decides whether
+                // this is a move within the inventory or an equip/unequip.
+                if (oldIndex >= 0) {
+                  inventorySlots[oldIndex] = item;
+                }
+                inventorySlots[index] = dragged;
               });
+
+              widget.onExternalItemAccepted?.call(dragged, index);
             },
             builder: (context, candidateData, rejectedData) {
               return InventoryItemWidget(
