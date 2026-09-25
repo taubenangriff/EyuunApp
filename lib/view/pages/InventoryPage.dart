@@ -55,6 +55,10 @@ class _InventoryPageState extends State<InventoryPage> {
     });
   }
 
+  /// whether [item] currently sits in an equipment slot (armor or holdable).
+  bool _isEquippedItem(InventoryItem item) =>
+      armor == item || holdables.values.contains(item);
+
   /// Removes [item] from wherever it currently resides (armor, a holdable
   /// slot, or the inventory) so it can be placed somewhere else. Every move
   /// picks up its source this way, regardless of where it came from.
@@ -85,7 +89,6 @@ class _InventoryPageState extends State<InventoryPage> {
       if (oldIndex != null) {
         if (oldIndex == slotIndex) return;
         _inventoryController.moveItem(oldIndex, slotIndex);
-        if (selectedItem == item) selectedItem = null;
         return;
       }
 
@@ -93,7 +96,6 @@ class _InventoryPageState extends State<InventoryPage> {
 
       _pickUpItem(item);
       _inventoryController.acceptItem(item, slotIndex);
-      if (selectedItem == item) selectedItem = null;
     });
   }
 
@@ -210,6 +212,7 @@ class _InventoryPageState extends State<InventoryPage> {
                                     child: InventoryWidget(
                                       inventory: _inventory!,
                                       slotSize: 100,
+                                      selectedItem: selectedItem,
                                       onItemSelected: _onItemSelected,
                                       onExternalItemAccepted:
                                           onInventoryItemAccepted,
@@ -272,13 +275,15 @@ class _InventoryPageState extends State<InventoryPage> {
             ),
           EyuunWidgets.spacerHorizontal(),
           EyuunWidgets.circularFloatingActionButton(
-            onPressed: () {
-              PopupUtil.largePopup(
+            onPressed: () async {
+              await PopupUtil.largePopup(
                   context,
                   ItemGridNavigator(
-                      rootItems: shopItems, inventory: _inventory!),
+                      rootItems: shopItems,
+                      entity: locator<CharacterService>().character),
                   header: locator<TextService>().getText('uitext_shop'),
                   background: AssetImage('data/base/ui/bg/background.jpg'));
+              setState(() {});
             },
             text: 'Add Item',
             tooltip: 'Add an Item',
@@ -291,11 +296,12 @@ class _InventoryPageState extends State<InventoryPage> {
 
   DragTarget<InventoryItem> _buildRemoveDragTarget() {
     return DragTarget<InventoryItem>(
-      onWillAcceptWithDetails: (data) => true,
+      onWillAcceptWithDetails: (details) => !_isEquippedItem(details.data),
       onAcceptWithDetails: (details) {
         final draggedItem = details.data;
         setState(() {
           _inventoryController.deleteItem(draggedItem);
+          if (selectedItem == draggedItem) selectedItem = null;
         });
       },
       builder: (context, candidateData, rejectedData) {
@@ -348,7 +354,7 @@ class _InventoryPageState extends State<InventoryPage> {
 
   DragTarget<InventoryItem> _buildGroupDragTarget() {
     return DragTarget<InventoryItem>(
-      onWillAcceptWithDetails: (data) => true,
+      onWillAcceptWithDetails: (details) => !_isEquippedItem(details.data),
       onAcceptWithDetails: (details) {
         final draggedItem = details.data;
         setState(() {
@@ -497,9 +503,6 @@ class _InventoryPageState extends State<InventoryPage> {
       },
       onTap: onTap,
       onItemChanged: (newItem) => setState(() {
-        if (newItem == null && selectedItem == getItem()) {
-          selectedItem = null;
-        }
         assignVisual(newItem);
       }),
     );
@@ -540,6 +543,7 @@ class _InventoryPageState extends State<InventoryPage> {
                     isSelected: selectedItem == item ||
                         selectedItem?.object == item.object,
                     onTap: () => setState(() {
+                      selectedItem = null;
                       selectedItem = item;
                     }),
                   ),

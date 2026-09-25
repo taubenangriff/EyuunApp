@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "weapontype_reloadweapon",
+        "internalName": "Weapon Type: Reload"
+    },
+    "text": {},
+    "buff": { 
+        "textDescription": "weapontype_reloadweapon_effectdesc"
+    }
+}

@@ -13,6 +13,9 @@
         "categoryText": "item_category_weapon",
         "maxStackSize": 1
     },
+    "cost": {
+        "money": 500
+    },
     "holdable": {
         "equipmentSlotsNeeded": 2
     },
@@ -54,7 +57,7 @@
         ]
     },
     "upgradable": {
-        "defaultUpgrades": []
+        "defaultUpgrades": [ ]
     },
     "icon": {
         "iconFilepath": "data/base/icons/weapon/weapon_spear_fire_tier1.png"

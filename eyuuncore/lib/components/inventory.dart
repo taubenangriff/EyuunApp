@@ -2,6 +2,7 @@ import 'package:dart_mappable/dart_mappable.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:eyuuncore/core/components/standard.dart';
 import 'package:eyuuncore/core/upgrading/UpgradableInt.dart';
+import 'package:eyuuncore/io/IntKeyedInventoryItemMapMapper.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../core/assetLink.dart';
@@ -9,7 +10,7 @@ import '../core/objectLink.dart';
 
 part 'inventory.mapper.dart';
 
-@MappableClass()
+@MappableClass(includeCustomMappers: [IntKeyedInventoryItemMapMapper()])
 class InventoryDynamic with InventoryDynamicMappable {
   Map<int, InventoryItemDynamic> items;
   int money;

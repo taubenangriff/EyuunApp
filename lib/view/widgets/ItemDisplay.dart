@@ -1,4 +1,5 @@
 import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
+import 'package:eyuunapp/view/widgets/BuffDisplay.dart';
 import 'package:eyuunapp/view/widgets/SkillCheckWidget.dart';
 import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/components/Action.dart';
@@ -30,6 +31,8 @@ class ItemDisplay extends StatelessWidget {
     var actionUser = item.get<ActionUserComponent>();
     var armor = item.get<ArmorComponent>();
 
+    var actions = actionUser?.getActions() ?? [];
+
     return LayoutBuilder(builder: (context, constraints) {
       var theme = Theme.of(context);
 
@@ -44,7 +47,8 @@ class ItemDisplay extends StatelessWidget {
               textService.getTextFromEntity(weapon.fightingType)
             ])),
             TextSpan(text: textService.getText('uitext_weapon_explainer')),
-          ], style: theme.textTheme.bodyMedium))
+          ], style: theme.textTheme.bodyMedium)),
+          if (weapon.weaponType != null) BuffDisplay(buff: weapon.weaponType),
         },
         if (craftable != null) ...{
           EyuunWidgets.spacerVertical(),
@@ -77,14 +81,14 @@ class ItemDisplay extends StatelessWidget {
               TextSpan(text: textService.getTextFromEntity(upgrade)),
             ]))
         },
-        if (actionUser != null) ...{
+        if (actionUser != null && actions.isNotEmpty) ...{
           EyuunWidgets.spacerVertical(),
           RichText(
               text: TextSpan(children: [
             TextSpan(text: textService.getText('uitext_actions')),
             TextSpan(text: textService.getText('uitext_actions_explainer')),
           ], style: theme.textTheme.bodyMedium)),
-          for (var action in actionUser.getActions())
+          for (var action in actions)
             RichText(
                 text: TextSpan(children: [
               TextSpan(text: "- "),
@@ -116,48 +120,49 @@ class ItemDisplay extends StatelessWidget {
                 TextSpan(
                     text: textService.getText('uitext_armor_impact',
                         formatArgs: [
-                          armor.evasionImpactOnCraft.toString(),
-                          textService.getText('uitext_evasion')
-                        ])),
+                      armor.evasionImpactOnCraft.toString(),
+                      textService.getText('uitext_evasion')
+                    ])),
               if (armor.athleticImpactOnCraft > 0)
                 TextSpan(
                     text: textService.getText('uitext_armor_impact',
                         formatArgs: [
-                          armor.evasionImpactOnCraft.toString(),
-                          textService.getText('talent_athletic')
-                        ])),
+                      armor.evasionImpactOnCraft.toString(),
+                      textService.getText('talent_athletic')
+                    ])),
               if (armor.splittableImpactOnCraft > 0)
                 TextSpan(
-                    text: textService.getText('uitext_armor_impact_distributable',
+                    text: textService.getText(
+                        'uitext_armor_impact_distributable',
                         formatArgs: [
-                          armor.splittableImpactOnCraft.toString()
-                        ])),
+                      armor.splittableImpactOnCraft.toString()
+                    ])),
             ], style: theme.textTheme.bodyMedium)),
           if (!armor.isTemplate)
             RichText(
                 text: TextSpan(children: [
-                  TextSpan(text: textService.getText('uitext_armor_impactOnCraft')),
+              TextSpan(text: textService.getText('uitext_armor_impactOnCraft')),
               if (armor.stealthImpact > 0)
                 TextSpan(
                     text: textService.getText('uitext_armor_impact',
                         formatArgs: [
-                          armor.stealthImpact.toString(),
-                          textService.getText('talent_sneaky')
-                        ])),
+                      armor.stealthImpact.toString(),
+                      textService.getText('talent_sneaky')
+                    ])),
               if (armor.evasionImpact > 0)
                 TextSpan(
                     text: textService.getText('uitext_armor_impact',
                         formatArgs: [
-                          armor.evasionImpact.toString(),
-                          textService.getText('uitext_evasion')
-                        ])),
+                      armor.evasionImpact.toString(),
+                      textService.getText('uitext_evasion')
+                    ])),
               if (armor.athleticImpact > 0)
                 TextSpan(
                     text: textService.getText('uitext_armor_impact',
                         formatArgs: [
-                          armor.athleticImpact.toString(),
-                          textService.getText('talent_athletic')
-                        ])),
+                      armor.athleticImpact.toString(),
+                      textService.getText('talent_athletic')
+                    ])),
             ], style: theme.textTheme.bodyMedium)),
         }
       ]);

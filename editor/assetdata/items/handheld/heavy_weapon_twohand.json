@@ -1,35 +1,34 @@
 {
     "standard": {
-        "typeId": "spear_onehand"
+        "typeId": "heavy_weapon_twohand"
     },
     "text": {
-        "fluff": "spear_fluff"
+        "fluff": "heavy_weapon_fluff"
     },
     "action": {
         "actionDescription": "attack_actiondesc",
         "actionTime": "Attack"
     },
     "item": {
-        "categoryText": "item_category_weapon",
+        "categoryText": "item_category_ranged_weapon",
         "maxStackSize": 1
     },
     "cost": {
-        "money": 250
+        "money": 500
     },
     "holdable": {
-        "equipmentSlotsNeeded": 1
+        "equipmentSlotsNeeded": 2
     },
     "actionUser": {
         "defaultActions": [ ]
     },
     "craftable": {},
     "weapon": {
-        "skillMultiplier": 0.5,
         "fightingType": {
-            "id": "fightingstyle_melee"
+            "id": "fightingstyle_range"
         },
         "weaponType": {
-            "id": "weapontype_spear"
+            "id": "weapontype_heavyweapon"
         }
     },
     "skillcheck": {
@@ -37,7 +36,7 @@
             {
                 "options": [
                     {
-                        "id": "baseSkill_Courage"
+                        "id": "baseSkill_Dexterity"
                     }
                 ]
             },
@@ -51,16 +50,16 @@
             {
                 "options": [
                     {
-                        "id": "baseSkill_Constitution"
+                        "id": "baseSkill_Strength"
                     }
                 ]
             }
         ]
     },
     "upgradable": {
-        "defaultUpgrades": []
+        "defaultUpgrades": [ ]
     },
     "icon": {
-        "iconFilepath": "data/base/icons/weapon/weapon_whip_fire_tier1.png"
+        "iconFilepath": "data/base/icons/weapon/weapon_crossbow_ice_tier3.png"
     }
 }

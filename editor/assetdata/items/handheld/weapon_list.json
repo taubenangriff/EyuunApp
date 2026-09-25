@@ -16,6 +16,30 @@
             },
             {
                 "id": "spear_twohand"
+            },
+            {
+                "id": "smite_weapon_onehand"
+            },
+            {
+                "id": "smite_weapon_twohand"
+            },
+            {
+                "id": "throw_weapon_onehand"
+            },
+            {
+                "id": "direct_shot_weapon_onehand"
+            },
+            {
+                "id": "direct_shot_weapon_twohand"
+            },
+            {
+                "id": "reload_weapon_onehand"
+            },
+            {
+                "id": "reload_weapon_twohand"
+            },
+            {
+                "id": "heavy_weapon_twohand"
             }
         ]
     },

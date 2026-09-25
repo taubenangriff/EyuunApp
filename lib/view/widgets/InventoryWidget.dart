@@ -5,6 +5,7 @@ import 'package:eyuunapp/view/widgets/ItemWidget.dart';
 
 class InventoryWidget extends StatefulWidget {
   final InventoryComponent inventory;
+  InventoryItem? selectedItem;
   final ValueChanged<InventoryItem?>? onItemSelected;
 
   /// Invoked to actually place an item dragged from outside the inventory
@@ -13,10 +14,11 @@ class InventoryWidget extends StatefulWidget {
       onExternalItemAccepted;
   final double slotSize;
 
-  const InventoryWidget(
+  InventoryWidget(
       {super.key,
       required this.inventory,
       this.onItemSelected,
+      this.selectedItem,
       this.onExternalItemAccepted,
       this.slotSize = 100});
 
@@ -26,7 +28,6 @@ class InventoryWidget extends StatefulWidget {
 
 class _InventoryWidgetState extends State<InventoryWidget> {
   late List<InventoryItem?> inventorySlots;
-  InventoryItem? selectedItem;
 
   static const int minSlots = 100;
 
@@ -97,9 +98,8 @@ class _InventoryWidgetState extends State<InventoryWidget> {
                 child: InventoryItemWidget(
                   entity: item.object,
                   count: item.count,
-                  isSelected: selectedItem == item,
+                  isSelected: widget.selectedItem == item,
                   onTap: () {
-                    setState(() => selectedItem = item);
                     widget.onItemSelected?.call(item);
                   },
                 ),

@@ -17,9 +17,20 @@ import 'package:eyuunapp/view/popup/ChangeItemCountPopup.dart';
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 
+enum ItemDisplayAction { equipArmor, equipHoldable, craft, changeCount }
+
 class ItemDisplayWidget extends StatefulWidget {
   final InventoryItem? item;
-  const ItemDisplayWidget({super.key, required this.item});
+  final Set<ItemDisplayAction> allowedActions;
+  const ItemDisplayWidget(
+      {super.key,
+      required this.item,
+      this.allowedActions = const {
+        ItemDisplayAction.equipArmor,
+        ItemDisplayAction.equipHoldable,
+        ItemDisplayAction.craft,
+        ItemDisplayAction.changeCount,
+      }});
 
   @override
   State<ItemDisplayWidget> createState() => _ItemDisplayWidgetState();
@@ -54,6 +65,8 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
 
     final itemText = item.object.get<ItemComponent>()?.categoryText;
 
+    final actionButtons = _buildActionButtons(context, item);
+
     return Scaffold(
         backgroundColor: Colors.transparent,
         body: Stack(children: [
@@ -71,67 +84,66 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
                 _textService.getText(itemText ?? ""),
                 style: theme.textTheme.bodyMedium,
               ),
-              const Divider(height: 16),
+              EyuunWidgets.spacerVertical(),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: _withSpacers(actionButtons)),
+              EyuunWidgets.spacerVertical(),
+              const Divider(height: 4),
               Expanded(
                   child: SingleChildScrollView(
                       child:
                           Column(children: [ItemDisplay(item: item.object)]))),
             ],
           ),
-        ]),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
-        floatingActionButton: Row(mainAxisSize: MainAxisSize.min, children: [
-          if (widget.item?.object.has<ArmorComponent>() ?? false) ...{
-            EyuunWidgets.spacerHorizontal(),
-            EyuunWidgets.circularFloatingActionButton(
-                icon: Icons.shield,
-                radius: 42,
-                addDeco: true,
-                onPressed: () => setState(() {})),
-          },
-          if (widget.item?.object.has<HoldableComponent>() ?? false) ...{
-            EyuunWidgets.spacerHorizontal(),
-            EyuunWidgets.circularFloatingActionButton(
-                icon: Icons.back_hand_sharp,
-                radius: 42,
-                addDeco: true,
-                onPressed: () => setState(() {})),
-          },
-          if (widget.item?.object.has<CraftableComponent>() ?? false) ...{
-            EyuunWidgets.spacerHorizontal(),
-            EyuunWidgets.circularFloatingActionButton(
-                icon: Icons.handyman,
-                radius: 42,
-                addDeco: true,
-                onPressed: () => setState(() {
-                      PopupUtil.largePopup(context, WeaponCraftingScreen(),
-                          background:
-                              AssetImage('data/base/ui/bg/background.jpg'));
-                    })),
-          },
-          EyuunWidgets.spacerHorizontal(),
-          EyuunWidgets.spacerHorizontal(),
-          EyuunWidgets.circularFloatingActionButton(
-              radius: 42,
-              addDeco: true,
-              text: 'x${item.count}',
-              onPressed: () {
-                var amountController = ChangeValueController(item.count,
-                    name: "Item Count",
-                    maxLimit: 64,
-                    minLimit: 0,
-                    onValUpdated: (val) => item.count = val);
-                setState(() {
-                  PopupUtil.popup(
-                      context,
-                      ChangeItemCountPopup(amountController,
-                          valueChanged: (change, useMoney) {
-                        setState(() {
-                          amountController.change(change);
-                        });
-                      }));
-                });
-              })
         ]));
+  }
+
+  List<Widget> _withSpacers(List<Widget> buttons) {
+    final result = <Widget>[];
+    for (var button in buttons) {
+      if (result.isNotEmpty) {
+        result.add(EyuunWidgets.spacerHorizontal());
+      }
+      result.add(button);
+    }
+    return result;
+  }
+
+  List<Widget> _buildActionButtons(BuildContext context, InventoryItem item) {
+    return [
+      if (widget.allowedActions.contains(ItemDisplayAction.craft) &&
+          (widget.item?.object.has<CraftableComponent>() ?? false))
+        EyuunWidgets.circularFloatingActionButton(
+            icon: Icons.handyman,
+            radius: 42,
+            addDeco: true,
+            onPressed: () => setState(() {
+                  PopupUtil.largePopup(context, WeaponCraftingScreen(),
+                      background: AssetImage('data/base/ui/bg/background.jpg'));
+                })),
+      if (widget.allowedActions.contains(ItemDisplayAction.changeCount))
+        EyuunWidgets.circularFloatingActionButton(
+            radius: 42,
+            addDeco: true,
+            text: 'x${item.count}',
+            onPressed: () {
+              var amountController = ChangeValueController(item.count,
+                  name: "Item Count",
+                  maxLimit: 64,
+                  minLimit: 0,
+                  onValUpdated: (val) => item.count = val);
+              setState(() {
+                PopupUtil.popup(
+                    context,
+                    ChangeItemCountPopup(amountController,
+                        valueChanged: (change, useMoney) {
+                      setState(() {
+                        amountController.change(change);
+                      });
+                    }));
+              });
+            }),
+    ];
   }
 }

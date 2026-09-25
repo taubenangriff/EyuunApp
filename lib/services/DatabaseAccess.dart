@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eyuunapp/model/CharacterMetaInfo.dart';
 import 'package:eyuuncore/GetIt.dart';
+import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:eyuuncore/io/AssetSerializer.dart';
 import 'package:eyuuncore/io/SessionData.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,6 +12,9 @@ abstract class DatabaseAccess {
       String sessionKey, String objectId);
 
   Future<List<Map<String, dynamic>>> getGameObjectIds(String sessionKey);
+
+  Future<void> updateGameObjectComponent<T>(
+      String sessionKey, String objectId, EyuunComponent<T> component);
 
   Future<void> postGameObject(
       String sessionKey, String objectId, Entity gameObject);
@@ -59,6 +63,22 @@ class FirebaseAccess implements DatabaseAccess {
         await _userSessions().doc(sessionKey).collection('gameObjects').get();
 
     return snapshot.docs.map((document) => document.data()).toList();
+  }
+
+  @override
+  Future<void> updateGameObjectComponent<T>(
+      String sessionKey, String objectId, EyuunComponent<T> component) async {
+    var map = locator<AssetSerializer>().serializeComponent(component);
+    try {
+      await _userSessions()
+          .doc(sessionKey)
+          .collection('gameObjects')
+          .doc(objectId)
+          .update(map);
+    } catch (e) {
+      // let callers (e.g. EntityUpdatedListener) decide how to surface this.
+      rethrow;
+    }
   }
 
   @override

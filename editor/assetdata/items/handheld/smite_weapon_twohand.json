@@ -1,9 +1,9 @@
 {
     "standard": {
-        "typeId": "spear_onehand"
+        "typeId": "smite_weapon_twohand"
     },
     "text": {
-        "fluff": "spear_fluff"
+        "fluff": "smite_weapon_fluff"
     },
     "action": {
         "actionDescription": "attack_actiondesc",
@@ -14,22 +14,21 @@
         "maxStackSize": 1
     },
     "cost": {
-        "money": 250
+        "money": 500
     },
     "holdable": {
-        "equipmentSlotsNeeded": 1
+        "equipmentSlotsNeeded": 2
     },
     "actionUser": {
         "defaultActions": [ ]
     },
     "craftable": {},
     "weapon": {
-        "skillMultiplier": 0.5,
         "fightingType": {
             "id": "fightingstyle_melee"
         },
         "weaponType": {
-            "id": "weapontype_spear"
+            "id": "weapontype_smiteweapon"
         }
     },
     "skillcheck": {
@@ -51,16 +50,16 @@
             {
                 "options": [
                     {
-                        "id": "baseSkill_Constitution"
+                        "id": "baseSkill_Strength"
                     }
                 ]
             }
         ]
     },
     "upgradable": {
-        "defaultUpgrades": []
+        "defaultUpgrades": [ ]
     },
     "icon": {
-        "iconFilepath": "data/base/icons/weapon/weapon_whip_fire_tier1.png"
+        "iconFilepath": "data/base/icons/weapon/weapon_hammer_fire_tier1.png"
     }
 }

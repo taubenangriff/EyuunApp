@@ -8,6 +8,7 @@
         "actionTime": "Attack"
     },
     "weapon": {
+        "damageMultiplier": 0.5,
         "fightingType": {
             "id": "fightingstyle_range"
         }
@@ -31,7 +32,7 @@
             {
                 "options": [
                     {
-                        "id": "baseSkill_Strength"
+                        "id": "baseSkill_Agility"
                     }
                 ]
             }

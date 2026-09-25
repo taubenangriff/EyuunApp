@@ -1,3 +1,4 @@
+import 'package:eyuuncore/core/components/EyuunComponent.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../GetIt.dart';
@@ -5,6 +6,13 @@ import '../core/services/WorldManager.dart';
 
 class AssetSerializer {
   WorldManager worldManager = locator<WorldManager>();
+
+  Map<String, dynamic> serializeComponent(EyuunComponent<dynamic> component) {
+    var entityMap = <String, dynamic>{};
+    var submap = component.saveDynamicData();
+    entityMap[component.getName()] = submap;
+    return entityMap;
+  }
 
   Map<String, dynamic> serialize(Entity entity) {
     var entityMap = <String, dynamic>{};

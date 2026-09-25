@@ -36,7 +36,7 @@ class BuffDisplay extends StatelessWidget {
       if (key != "") {
         var desctext = locator<TextService>().getText(key);
         widgets.add(Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12),
+            padding: EdgeInsets.symmetric(horizontal: 0),
             child: Text(desctext)));
       }
     }
@@ -229,12 +229,12 @@ class BuffDisplay extends StatelessWidget {
         if (widgets.isNotEmpty) {
           _addDivider(widgets);
         }
-        widgets.add(SizedBox(height:6));
+        widgets.add(SizedBox(height: 6));
         widgets.add(Align(
             alignment: AlignmentGeometry.centerLeft,
-            child:
-                Text("${locator<TextService>().getText("uitext_actionUserUpgrade")}${locator<TextService>().getText(actionTime.getTextKey())}:")));
-        widgets.add(SizedBox(height:6));
+            child: Text(
+                "${locator<TextService>().getText("uitext_actionUserUpgrade")}${locator<TextService>().getText(actionTime.getTextKey())}:")));
+        widgets.add(SizedBox(height: 6));
         var actionDesc =
             locator<TextService>().getActionDescriptionFromEntity(actionEntity);
 

@@ -51,7 +51,7 @@ class InventoryItemWidget extends StatelessWidget {
               ..strokeWidth = 1.25,
             cornerSize: 16),
         child: ConstrainedBox(
-          constraints: const BoxConstraints(minWidth: 60, minHeight: 60),
+          constraints: const BoxConstraints(minWidth: 80, minHeight: 80),
           child: Center(
             child: Stack(
               fit: StackFit.passthrough,
@@ -62,8 +62,8 @@ class InventoryItemWidget extends StatelessWidget {
                       ? Padding(
                           padding: EdgeInsets.all(8),
                           child: Image(
-                              image: AssetImage(icon), width: 128, height: 128))
-                      : const Icon(Icons.inventory_2, size: 32),
+                              image: AssetImage(icon), width: 80, height: 80))
+                      : const Icon(Icons.inventory_2, size: 96),
                 ),
                 if (count > 1)
                   Align(

@@ -18,21 +18,24 @@ part 'Weapon.mapper.dart';
 class WeaponStatic with WeaponStaticMappable, ComponentReflectable {
   AssetLink fightingType;
   double skillMultiplier;
-  WeaponStatic({AssetLink? fightingType, this.skillMultiplier = 1})
-    : fightingType = fightingType ?? AssetLink.invalid();
+  AssetLink weaponType;
+  double damageMultiplier;
+  WeaponStatic({
+    AssetLink? fightingType,
+    AssetLink? weaponType,
+    this.skillMultiplier = 1,
+    this.damageMultiplier = 1,
+  }) : fightingType = fightingType ?? AssetLink.invalid(),
+       weaponType = weaponType ?? AssetLink.invalid();
 }
 
 @MappableClass()
 class WeaponDynamic with WeaponDynamicMappable {
   AssetLink fightingType;
-  AssetLink? weaponType;
   double skillMultiplier;
 
-  WeaponDynamic({
-    AssetLink? fightingType,
-    this.weaponType,
-    this.skillMultiplier = 1,
-  }) : fightingType = fightingType ?? AssetLink.invalid();
+  WeaponDynamic({AssetLink? fightingType, this.skillMultiplier = 1})
+    : fightingType = fightingType ?? AssetLink.invalid();
 }
 
 class WeaponComponent extends EyuunComponent<int> {
@@ -45,6 +48,8 @@ class WeaponComponent extends EyuunComponent<int> {
   late Entity? weaponType;
 
   double skillMultiplier = 1;
+
+  double damageMultiplier = 1;
 
   late AttackScope attackScope;
 
@@ -60,7 +65,6 @@ class WeaponComponent extends EyuunComponent<int> {
   void loadDynamicData(Map<String, dynamic> dynamicData) {
     var dyn = WeaponDynamicMapper.fromMap(dynamicData);
     fightingType = dyn.fightingType.getEntity();
-    weaponType = dyn.weaponType?.getEntity();
     skillMultiplier = dyn.skillMultiplier;
   }
 
@@ -69,19 +73,20 @@ class WeaponComponent extends EyuunComponent<int> {
     var stat = WeaponStaticMapper.fromMap(staticData);
     fightingType = stat.fightingType.getEntity();
     skillMultiplier = stat.skillMultiplier;
+    damageMultiplier = stat.damageMultiplier;
+    weaponType = stat.weaponType.getEntity();
   }
 
   @override
   void reset() {
     weaponType = null;
     attackScope = AttackScope.Melee;
-    skillMultiplier = 0;
+    skillMultiplier = 1;
+    damageMultiplier = 1;
     fightingType = null;
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => WeaponDynamic(
-    fightingType: fightingType?.asAssetLink(),
-    weaponType: weaponType?.asAssetLink(),
-  ).toMap();
+  Map<String, dynamic> saveDynamicData() =>
+      WeaponDynamic(fightingType: fightingType!.asAssetLink()).toMap();
 }

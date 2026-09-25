@@ -1,9 +1,12 @@
+import 'package:eyuunapp/services/EntityUpdatedListener.dart';
+import 'package:eyuunapp/services/EntityCreatedListener.dart';
 import 'package:eyuunapp/services/ImageService.dart';
 import 'package:eyuunapp/services/DatabaseAccess.dart';
 import 'package:eyuunapp/services/SessionPersistenceListener.dart';
 import 'package:eyuunapp/services/SessionService.dart';
 import 'package:eyuunapp/view/pages/LoginScreen.dart';
 import 'package:eyuunapp/view/pages/LoadingPage.dart';
+import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuunapp/services/EyuunUiImageProvider.dart';
 import 'package:eyuuncore/core/registerComponentsExtension.dart';
 import 'package:eyuuncore/core/registerFeatures.dart';
@@ -42,6 +45,8 @@ void main() async {
   locator.registerSingleton<DatabaseAccess>(FirebaseAccess());
   locator.registerSingleton(SessionService());
   locator.registerSingleton(SessionPersistenceListener());
+  locator.registerSingleton(EntityUpdatedListener());
+  locator.registerSingleton(EntityCreatedListener());
 
   var worldManager = locator<WorldManager>();
   worldManager.registerComponents();
@@ -59,6 +64,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: PopupUtil.navigatorKey,
       title: 'Flutter Demo',
       theme: ThemeData(
         fontFamily: GoogleFonts.federo().fontFamily,

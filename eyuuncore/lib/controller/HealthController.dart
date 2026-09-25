@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:event_bus/event_bus.dart';
 import 'package:eyuuncore/components/Armor.dart';
 import 'package:eyuuncore/components/Combat.dart';
 import 'package:eyuuncore/components/DamageType.dart';
@@ -7,6 +8,7 @@ import 'package:eyuuncore/components/feature/CombatFeature.dart';
 import 'package:eyuuncore/components/health.dart';
 import 'package:eyuuncore/components/upgradable.dart';
 import 'package:eyuuncore/enums/DamageCalculation.dart';
+import 'package:eyuuncore/events/EntityUpdatedEvent.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../GetIt.dart';
@@ -283,11 +285,13 @@ class HealthController {
       //degrade armor
     }
 
+    bool upgradableUpdated = false;
     for (var damageType in damageTypes) {
       if (damageType.applyStatusEffect != null) {
         damageTarget.get<UpgradableComponent>()?.applyUpgrade(
           damageType.applyStatusEffect!,
         );
+        upgradableUpdated = true;
       }
     }
 
@@ -297,8 +301,22 @@ class HealthController {
           damageTarget.get<UpgradableComponent>()?.applyUpgrade(
             damageType.applyStatusEffectOnHit!,
           );
+          upgradableUpdated = true;
         }
       }
     }
+
+    if (upgradableUpdated && damageTarget.has<UpgradableComponent>()) {
+      locator<EventBus>().fire(
+        EntityUpdatedEvent(
+          damageTarget,
+          damageTarget.get<UpgradableComponent>()!,
+        ),
+      );
+    }
+
+    locator<EventBus>().fire(
+      EntityUpdatedEvent(damageTarget, _targetHealthComponent),
+    );
   }
 }

@@ -1,16 +1,16 @@
 {
     "standard": {
-        "typeId": "spear_onehand"
+        "typeId": "direct_shot_weapon_onehand"
     },
     "text": {
-        "fluff": "spear_fluff"
+        "fluff": "direct_shot_weapon_fluff"
     },
     "action": {
         "actionDescription": "attack_actiondesc",
         "actionTime": "Attack"
     },
     "item": {
-        "categoryText": "item_category_weapon",
+        "categoryText": "item_category_ranged_weapon",
         "maxStackSize": 1
     },
     "cost": {
@@ -26,10 +26,10 @@
     "weapon": {
         "skillMultiplier": 0.5,
         "fightingType": {
-            "id": "fightingstyle_melee"
+            "id": "fightingstyle_range"
         },
         "weaponType": {
-            "id": "weapontype_spear"
+            "id": "weapontype_directshot"
         }
     },
     "skillcheck": {
@@ -37,7 +37,7 @@
             {
                 "options": [
                     {
-                        "id": "baseSkill_Courage"
+                        "id": "baseSkill_Dexterity"
                     }
                 ]
             },
@@ -51,16 +51,16 @@
             {
                 "options": [
                     {
-                        "id": "baseSkill_Constitution"
+                        "id": "baseSkill_Dexterity"
                     }
                 ]
             }
         ]
     },
     "upgradable": {
-        "defaultUpgrades": []
+        "defaultUpgrades": [ ]
     },
     "icon": {
-        "iconFilepath": "data/base/icons/weapon/weapon_whip_fire_tier1.png"
+        "iconFilepath": "data/base/icons/weapon/weapon_bow_fire_tier1.png"
     }
 }

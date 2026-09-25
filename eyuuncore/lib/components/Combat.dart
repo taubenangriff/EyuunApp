@@ -4,6 +4,7 @@ import 'package:eyuuncore/components/inventory.dart';
 import 'package:eyuuncore/core/assetLink.dart';
 import 'package:eyuuncore/core/upgrading/UpgradableInt.dart';
 import 'package:eyuuncore/core/components/EyuunComponent.dart';
+import 'package:eyuuncore/io/IntKeyedInventoryItemMapMapper.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../core/objectLink.dart';
@@ -11,7 +12,10 @@ import 'Holdable.dart';
 
 part 'Combat.mapper.dart';
 
-@MappableClass(ignoreNull: false)
+@MappableClass(
+  ignoreNull: false,
+  includeCustomMappers: [IntKeyedInventoryItemMapMapper()],
+)
 class CombatDynamic with CombatDynamicMappable {
   int speed;
   int evasion;

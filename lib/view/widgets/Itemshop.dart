@@ -1,20 +1,23 @@
 import 'package:eyuunapp/view/widgets/ItemWidget.dart';
+import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 import 'package:eyuunapp/view/widgets/cards/ItemDisplayWidget.dart';
 import 'package:eyuuncore/components/AssetBundle.dart';
+import 'package:eyuuncore/components/Cost.dart';
 import 'package:eyuuncore/components/inventory.dart';
 import 'package:eyuuncore/controller/ShoppingController.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
+import 'package:elegant_notification/elegant_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
 class ItemGridNavigator extends StatefulWidget {
   final List<Entity> rootItems;
-  final InventoryComponent inventory;
+  final Entity entity;
 
   const ItemGridNavigator(
-      {super.key, required this.rootItems, required this.inventory});
+      {super.key, required this.rootItems, required this.entity});
 
   @override
   State<ItemGridNavigator> createState() => _ItemGridNavigatorState();
@@ -26,7 +29,7 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
   Entity? selectedItem;
 
   final _textService = locator<TextService>();
-  late final _shoppingController = ShoppingController(widget.inventory);
+  late final _shoppingController = ShoppingController(widget.entity);
 
   @override
   void initState() {
@@ -66,6 +69,19 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
     if (navigationStack.isNotEmpty) {
       navigateBackTo(navigationStack.length - 2);
     }
+  }
+
+  void _buyItem() {
+    final item = selectedItem!;
+    _shoppingController.buyItem(item.getTypeId());
+    setState(() {});
+
+    ElegantNotification.success(
+      background: Theme.of(context).colorScheme.surface,
+      title: Text(_textService.getText('uitext_item_bought_title')),
+      description: Text(_textService.getText('uitext_item_bought_description',
+          formatArgs: [_textService.getTextFromEntity(item)])),
+    ).show(context);
   }
 
   @override
@@ -118,7 +134,7 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
                         maxCrossAxisExtent: 128, // 👈 desired item width
                         crossAxisSpacing: 12,
                         mainAxisSpacing: 12,
-                        childAspectRatio: 0.85, // tweak if needed
+                        childAspectRatio: 0.73, // tweak if needed
                       ),
                       itemCount: currentItems.length,
                       itemBuilder: (context, index) {
@@ -134,10 +150,14 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
                               ),
                             ),
                             const SizedBox(height: 4),
-                            Text(
-                              _textService.getTextFromEntity(item),
-                              textAlign: TextAlign.center,
-                              overflow: TextOverflow.ellipsis,
+                            SizedBox(
+                              height: 40,
+                              child: Text(
+                                _textService.getTextFromEntity(item),
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                           ],
                         );
@@ -150,38 +170,58 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
             // Right panel: selected item display
             Expanded(
               flex: 1,
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                child: Stack(
-                  children: [
-                    Positioned.fill(
-                      bottom: 80,
-                      child: ItemDisplayWidget(
-                        item: selectedItem == null
-                            ? null
-                            : InventoryItem.fromEntity(selectedItem!),
+              child: EyuunWidgets.cardBox(
+                theme: Theme.of(context),
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        bottom: 80,
+                        child: ItemDisplayWidget(
+                          item: selectedItem == null
+                              ? null
+                              : InventoryItem.fromEntity(selectedItem!),
+                          allowedActions: const {},
+                        ),
                       ),
-                    ),
-                    Positioned(
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      child: ElevatedButton.icon(
-                        onPressed: selectedItem == null ||
-                                !_shoppingController
-                                    .canBuyItem(selectedItem!.getTypeId())
-                            ? null
-                            : () {
-                                _shoppingController
-                                    .buyItem(selectedItem!.getTypeId());
-                                setState(() {});
-                              },
-                        icon: const Icon(Icons.shopping_cart),
-                        label: const Text('Buy'),
+                      if (selectedItem != null &&
+                          selectedItem!.has<CostComponent>())
+                        Positioned(
+                          left: 0,
+                          right: 0,
+                          bottom: 64,
+                          child: Center(
+                            child: Text(
+                              '${selectedItem!.get<CostComponent>()!.money} ¥',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: _shoppingController
+                                        .canBuyItem(selectedItem!.getTypeId())
+                                    ? null
+                                    : Theme.of(context).colorScheme.error,
+                              ),
+                            ),
+                          ),
+                        ),
+                      Positioned(
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        child: EyuunWidgets.floatingActionButton(
+                          icon: Icons.shopping_cart,
+                          text: _textService.getText('item_buy'),
+                          tooltip: _textService.getText('item_buy'),
+                          onPressed: selectedItem == null ||
+                                  !_shoppingController
+                                      .canBuyItem(selectedItem!.getTypeId())
+                              ? null
+                              : _buyItem,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

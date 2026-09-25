@@ -1,9 +1,9 @@
 {
     "standard": {
-        "typeId": "spear_onehand"
+        "typeId": "smite_weapon_onehand"
     },
     "text": {
-        "fluff": "spear_fluff"
+        "fluff": "smite_weapon_fluff"
     },
     "action": {
         "actionDescription": "attack_actiondesc",
@@ -29,7 +29,7 @@
             "id": "fightingstyle_melee"
         },
         "weaponType": {
-            "id": "weapontype_spear"
+            "id": "weapontype_smiteweapon"
         }
     },
     "skillcheck": {
@@ -51,16 +51,16 @@
             {
                 "options": [
                     {
-                        "id": "baseSkill_Constitution"
+                        "id": "baseSkill_Strength"
                     }
                 ]
             }
         ]
     },
     "upgradable": {
-        "defaultUpgrades": []
+        "defaultUpgrades": [ ]
     },
     "icon": {
-        "iconFilepath": "data/base/icons/weapon/weapon_whip_fire_tier1.png"
+        "iconFilepath": "data/base/icons/weapon/weapon_mace_fire_tier1.png"
     }
 }

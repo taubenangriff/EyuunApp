@@ -13,6 +13,9 @@
         "categoryText": "item_category_weapon",
         "maxStackSize": 1
     },
+    "cost": {
+        "money": 250
+    },
     "holdable": {
         "equipmentSlotsNeeded": 1
     },

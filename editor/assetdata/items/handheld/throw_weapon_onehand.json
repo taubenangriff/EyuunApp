@@ -1,16 +1,16 @@
 {
     "standard": {
-        "typeId": "spear_onehand"
+        "typeId": "throw_weapon_onehand"
     },
     "text": {
-        "fluff": "spear_fluff"
+        "fluff": "throw_weapon_fluff"
     },
     "action": {
         "actionDescription": "attack_actiondesc",
         "actionTime": "Attack"
     },
     "item": {
-        "categoryText": "item_category_weapon",
+        "categoryText": "item_category_throw_weapon",
         "maxStackSize": 1
     },
     "cost": {
@@ -20,7 +20,11 @@
         "equipmentSlotsNeeded": 1
     },
     "actionUser": {
-        "defaultActions": [ ]
+        "defaultActions": [
+            {
+                "id": "throw_weapon_onehand_throw"
+            }
+         ]
     },
     "craftable": {},
     "weapon": {
@@ -29,7 +33,7 @@
             "id": "fightingstyle_melee"
         },
         "weaponType": {
-            "id": "weapontype_spear"
+            "id": "weapontype_throwweapon"
         }
     },
     "skillcheck": {
@@ -51,16 +55,16 @@
             {
                 "options": [
                     {
-                        "id": "baseSkill_Constitution"
+                        "id": "baseSkill_Agility"
                     }
                 ]
             }
         ]
     },
     "upgradable": {
-        "defaultUpgrades": []
+        "defaultUpgrades": [ ]
     },
     "icon": {
-        "iconFilepath": "data/base/icons/weapon/weapon_whip_fire_tier1.png"
+        "iconFilepath": "data/base/icons/weapon/weapon_claw_fire_tier1.png"
     }
 }

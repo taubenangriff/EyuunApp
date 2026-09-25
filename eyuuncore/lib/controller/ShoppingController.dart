@@ -6,15 +6,22 @@ import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:eyuuncore/events/EntityCreatedEvent.dart';
 import 'package:eyuuncore/events/EntityUpdatedEvent.dart';
+import 'package:oxygen/oxygen.dart';
 
 import '../GetIt.dart';
 
 class ShoppingController {
-  final InventoryComponent _inventoryComponent;
+  final Entity buyingEntity;
+  late InventoryComponent _inventoryComponent;
   late InventoryController _inventoryController;
   late GameObjectService _gameObjectService;
 
-  ShoppingController(this._inventoryComponent) {
+  ShoppingController(this.buyingEntity) {
+    if (!buyingEntity.has<InventoryComponent>()) {
+      throw Exception("BuyingEntity does not have an InventoryComponent");
+    }
+
+    _inventoryComponent = buyingEntity.get<InventoryComponent>()!;
     _inventoryController = InventoryController(_inventoryComponent);
     _gameObjectService = locator<GameObjectService>();
   }

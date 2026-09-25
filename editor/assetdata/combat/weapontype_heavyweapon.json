@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "weapontype_heavyweapon",
+        "internalName": "Weapon Type: Heavy"
+    },
+    "text": {},
+    "buff": { 
+        "textDescription": "weapontype_heavyweapon_effectdesc"
+    }
+}

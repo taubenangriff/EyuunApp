@@ -1,0 +1,47 @@
+{
+  "standard": {
+    "typeId": "throw_weapon_onehand_throw"
+  },
+  "text": { },
+  "action": {
+    "actionDescription": "throw_weapon_throw_fluff",
+    "actionTime": "Attack"
+  },
+  "weapon": {
+      "skillMultiplier": 0.5,
+      "fightingType": {
+          "id": "fightingstyle_range"
+      },
+      "weaponType": {
+          "id": "weapontype_throwweapon"
+      }
+  },
+  "skillcheck": {
+    "checkedAttributes": [
+      {
+        "options": [
+          {
+            "id": "baseSkill_Dexterity"
+          }
+        ]
+      },
+      {
+        "options": [
+          {
+            "id": "baseSkill_Intuition"
+          }
+        ]
+      },
+      {
+        "options": [
+          {
+            "id": "baseSkill_Agility"
+          }
+        ]
+      }
+    ]
+  },
+  "icon": {
+      "iconFilepath": "data/base/icons/weapon/weapon_claw_fire_tier1.png"
+  }
+}

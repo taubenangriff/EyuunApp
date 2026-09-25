@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "weapontype_directshot",
+        "internalName": "Weapon Type: Direct Shot"
+    },
+    "text": {},
+    "buff": { 
+        "textDescription": "weapontype_directshot_effectdesc"
+    }
+}

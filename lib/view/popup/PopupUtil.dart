@@ -8,6 +8,10 @@ class PopupUtil {
   static const Size defaultSize = Size(300, 500);
   static const Size largeDefaultSize = Size(1100, 900);
 
+  // Lets code without a BuildContext (e.g. background services) show popups.
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
+
   static Future<E?> _sizedPopup<E>(BuildContext context, Widget content,
       Size maximumSize, String? header) async {
     return showDialog(
@@ -105,5 +109,23 @@ class PopupUtil {
   static Future<E?> popup<E>(BuildContext context, Widget content,
       {Size maximumSize = defaultSize, String? header}) async {
     return _sizedPopup(context, content, maximumSize, header);
+  }
+
+  static void showPopup(String message, {String? header}) {
+    final context = navigatorKey.currentContext;
+    if (context == null) return;
+
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text(header ?? 'Error'),
+              content: Text(message),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('OK'),
+                ),
+              ],
+            ));
   }
 }
