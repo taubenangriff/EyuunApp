@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:eyuunapp/view/controller/ChangeValueController.dart';
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuunapp/view/widgets/Itemshop.dart';
-import 'package:eyuunapp/view/widgets/InventoryItemWidget.dart';
+import 'package:eyuunapp/view/widgets/ItemWidget.dart';
 import 'package:eyuunapp/view/widgets/InventoryWidget.dart';
 import 'package:eyuunapp/view/widgets/cards/ItemDisplayWidget.dart';
 import 'package:eyuuncore/components/Armor.dart';

@@ -1,7 +1,7 @@
 import 'package:eyuuncore/components/inventory.dart';
 import 'package:flutter/material.dart';
 
-import 'package:eyuunapp/view/widgets/InventoryItemWidget.dart';
+import 'package:eyuunapp/view/widgets/ItemWidget.dart';
 
 class InventoryWidget extends StatefulWidget {
   final InventoryComponent inventory;

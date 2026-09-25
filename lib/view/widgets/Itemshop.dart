@@ -1,6 +1,6 @@
+import 'package:eyuunapp/view/widgets/InventoryItemWidget.dart';
 import 'package:eyuunapp/view/widgets/cards/ItemDisplayWidget.dart';
 import 'package:eyuuncore/components/AssetBundle.dart';
-import 'package:eyuuncore/components/Icon.dart';
 import 'package:eyuuncore/components/inventory.dart';
 import 'package:eyuuncore/controller/ShoppingController.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
@@ -118,36 +118,28 @@ class _ItemGridNavigatorState extends State<ItemGridNavigator> {
                         maxCrossAxisExtent: 128, // 👈 desired item width
                         crossAxisSpacing: 12,
                         mainAxisSpacing: 12,
-                        childAspectRatio: 1, // tweak if needed
+                        childAspectRatio: 0.85, // tweak if needed
                       ),
                       itemCount: currentItems.length,
                       itemBuilder: (context, index) {
                         final item = currentItems[index];
-                        return ElevatedButton(
-                          onPressed: () => navigateTo(item),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: item.has<AssetBundleComponent>()
-                                ? Theme.of(context).colorScheme.primaryContainer
-                                : Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              item.has<IconComponent>()
-                                  ? Image(
-                                      image:
-                                          item.get<IconComponent>()!.getImage())
-                                  : Icon(Icons.add, size: 32),
-                              const SizedBox(height: 8),
-                              Text(
-                                _textService.getTextFromEntity(item),
-                                textAlign: TextAlign.center,
-                                overflow: TextOverflow.ellipsis,
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Expanded(
+                              child: InventoryItemWidget(
+                                entity: item,
+                                isSelected: selectedItem == item,
+                                onTap: () => navigateTo(item),
                               ),
-                            ],
-                          ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              _textService.getTextFromEntity(item),
+                              textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
                         );
                       },
                     ),
