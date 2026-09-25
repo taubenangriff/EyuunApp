@@ -82,14 +82,27 @@ class _InventoryWidgetState extends State<InventoryWidget> {
               widget.onExternalItemAccepted?.call(dragged, index);
             },
             builder: (context, candidateData, rejectedData) {
-              return InventoryItemWidget(
-                item: item,
-                isSelected: selectedItem == item,
-                onTap: () {
-                  setState(() => selectedItem = item);
-                  if (item == null) return;
-                  widget.onItemSelected?.call(item);
-                },
+              if (item == null) {
+                return const InventoryItemWidget(entity: null, count: 0);
+              }
+
+              return LongPressDraggable<InventoryItem>(
+                hapticFeedbackOnStart: true,
+                delay: const Duration(milliseconds: 100),
+                data: item,
+                feedback:
+                    InventoryItemWidget(entity: item.object, count: item.count),
+                childWhenDragging:
+                    const InventoryItemWidget(entity: null, count: 0),
+                child: InventoryItemWidget(
+                  entity: item.object,
+                  count: item.count,
+                  isSelected: selectedItem == item,
+                  onTap: () {
+                    setState(() => selectedItem = item);
+                    widget.onItemSelected?.call(item);
+                  },
+                ),
               );
             },
           );

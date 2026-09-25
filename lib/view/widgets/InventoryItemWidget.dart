@@ -1,49 +1,39 @@
 import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
 import 'package:eyuunapp/view/decoration/cornerPainters/DoubleLineCornerPainter.dart';
 import 'package:eyuunapp/view/decoration/linePainters/DoubleLinePainter.dart';
+import 'package:eyuuncore/components/Armor.dart';
+import 'package:eyuuncore/components/Holdable.dart';
 import 'package:eyuuncore/components/Icon.dart';
-import 'package:eyuuncore/components/inventory.dart';
 import 'package:flutter/material.dart';
 import 'package:eyuunapp/view/decoration/Brushes.dart';
+import 'package:oxygen/oxygen.dart';
 
 class InventoryItemWidget extends StatelessWidget {
-  final InventoryItem? item;
+  final Entity? entity;
+  final int count;
   final bool isSelected;
-  final bool isDragging;
   final VoidCallback? onTap;
 
   const InventoryItemWidget(
       {super.key,
-      required this.item,
+      required this.entity,
+      this.count = 1,
       this.isSelected = false,
-      this.isDragging = false,
       this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    if (item == null) {
-      return _buildItemTile(context, isSelected: isSelected);
-    }
-    return LongPressDraggable<InventoryItem>(
-      hapticFeedbackOnStart: true,
-      delay: const Duration(milliseconds: 100),
-      data: item,
-      feedback: _buildItemTile(context, isDragging: true),
-      childWhenDragging: _buildEmptySlot(context),
-      child: GestureDetector(
-        onTap: onTap,
-        child: _buildItemTile(context, isSelected: isSelected),
-      ),
+    return GestureDetector(
+      onTap: onTap,
+      child: _buildItemTile(context, isSelected: isSelected),
     );
   }
 
-  Widget _buildItemTile(BuildContext context,
-      {bool isSelected = false, bool isDragging = false}) {
-    if (item == null) {
+  Widget _buildItemTile(BuildContext context, {bool isSelected = false}) {
+    if (entity == null) {
       return _buildEmptySlot(context);
     }
 
-    var entity = item?.object;
     var icon = entity?.get<IconComponent>()?.iconFilepath;
 
     final theme = Theme.of(context);
@@ -75,17 +65,32 @@ class InventoryItemWidget extends StatelessWidget {
                               image: AssetImage(icon), width: 64, height: 64))
                       : const Icon(Icons.inventory_2, size: 32),
                 ),
-                if (item!.count > 1)
+                if (count > 1)
                   Align(
                     alignment: Alignment.bottomRight,
                     child: Padding(
                       padding: const EdgeInsets.all(12),
                       child: Text(
-                        'x${item!.count}',
+                        'x$count',
                         style: const TextStyle(fontSize: 16),
                       ),
                     ),
                   ),
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (entity!.has<HoldableComponent>())
+                          const Icon(Icons.back_hand, size: 16),
+                        if (entity!.has<ArmorComponent>())
+                          const Icon(Icons.shield, size: 16),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

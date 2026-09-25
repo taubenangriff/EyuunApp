@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:eyuunapp/view/controller/ChangeValueController.dart';
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
-import 'package:eyuunapp/view/popup/SelectItemPopup.dart';
+import 'package:eyuunapp/view/widgets/Itemshop.dart';
 import 'package:eyuunapp/view/widgets/InventoryItemWidget.dart';
 import 'package:eyuunapp/view/widgets/InventoryWidget.dart';
 import 'package:eyuunapp/view/widgets/cards/ItemDisplayWidget.dart';
@@ -218,6 +218,7 @@ class _InventoryPageState extends State<InventoryPage> {
                                 ],
                               ),
                             ),
+                            EyuunWidgets.spacerHorizontal(),
                             EyuunWidgets.spacerHorizontal(),
                             Expanded(
                               flex: 2,
@@ -520,16 +521,30 @@ class _InventoryPageState extends State<InventoryPage> {
           children: [
             // The decorated box with your content
             DragTarget<InventoryItem>(
-              builder: (context, candidateData, rejectedData) =>
-                  InventoryItemWidget(
-                item: item,
-                isSelected: item != null &&
-                    (selectedItem == item ||
-                        selectedItem?.object == item.object),
-                onTap: () => setState(() {
-                  selectedItem = item;
-                }),
-              ),
+              builder: (context, candidateData, rejectedData) {
+                if (item == null) {
+                  return const InventoryItemWidget(entity: null, count: 0);
+                }
+
+                return LongPressDraggable<InventoryItem>(
+                  hapticFeedbackOnStart: true,
+                  delay: const Duration(milliseconds: 100),
+                  data: item,
+                  feedback: InventoryItemWidget(
+                      entity: item.object, count: item.count),
+                  childWhenDragging:
+                      const InventoryItemWidget(entity: null, count: 0),
+                  child: InventoryItemWidget(
+                    entity: item.object,
+                    count: item.count,
+                    isSelected: selectedItem == item ||
+                        selectedItem?.object == item.object,
+                    onTap: () => setState(() {
+                      selectedItem = item;
+                    }),
+                  ),
+                );
+              },
               onAcceptWithDetails: (details) {
                 final dragged = details.data;
                 setState(() {
