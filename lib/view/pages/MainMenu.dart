@@ -2,7 +2,9 @@ import 'package:eyuunapp/services/DatabaseAccess.dart';
 import 'package:eyuunapp/services/SessionService.dart';
 import 'package:eyuunapp/view/pages/CharacterSelectionPage.dart';
 import 'package:eyuunapp/view/pages/LoadingPage.dart';
+import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuuncore/GetIt.dart';
+import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/enums/CharacterState.dart';
 import 'package:flutter/material.dart';
 
@@ -32,17 +34,26 @@ class _MainMenuState extends State<MainMenu> {
 
   Future<List<SessionCharacter>> _loadCharacters() async {
     final databaseAccess = locator<DatabaseAccess>();
-    final sessionIds = await databaseAccess.getSessionKeys();
-    final characters = await Future.wait(
-      sessionIds.map((sessionId) async {
-        final metaInfo = await databaseAccess.getCharacterMetaInfo(sessionId);
-        return metaInfo == null ? null : SessionCharacter(sessionId, metaInfo);
-      }),
-    );
-    final validCharacters = characters.whereType<SessionCharacter>().toList();
-    validCharacters.sort(
-        (a, b) => b.metaInfo.lastModified.compareTo(a.metaInfo.lastModified));
-    return validCharacters;
+    try {
+      final sessionIds = await databaseAccess.getSessionKeys();
+      final characters = await Future.wait(
+        sessionIds.map((sessionId) async {
+          final metaInfo = await databaseAccess.getCharacterMetaInfo(sessionId);
+          return metaInfo == null
+              ? null
+              : SessionCharacter(sessionId, metaInfo);
+        }),
+      );
+      final validCharacters = characters.whereType<SessionCharacter>().toList();
+      validCharacters.sort(
+          (a, b) => b.metaInfo.lastModified.compareTo(a.metaInfo.lastModified));
+      return validCharacters;
+    } catch (e) {
+      PopupUtil.showPopup(
+          locator<TextService>().getText('uitext_load_characters_failed'),
+          header: locator<TextService>().getText('uitext_error_header'));
+      return [];
+    }
   }
 
   @override

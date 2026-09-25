@@ -1,0 +1,19 @@
+{
+    "standard": {
+        "typeId": "level_6",
+        "internalName": "Level 6"
+    },
+    "text": {},
+    "talentsUpgrade": {
+        "addSkillpoints": 3
+    },
+    "characterPathUpgrade": {
+        "additionalPathCapacityUpgrade": 1
+    },
+    "attributesUpgrade": {
+        "maxDiceIncreasesUpgrade": 2
+    },
+    "combatUpgrade": {
+        "evasionUpgrade": 1
+    }
+}

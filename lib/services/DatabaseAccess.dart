@@ -31,6 +31,8 @@ abstract class DatabaseAccess {
   Future<List<String>> getSessionKeys();
 
   Future<void> deleteSession(String sessionKey);
+
+  Future<void> deleteGameObject(String sessionKey, String objectId);
 }
 
 class FirebaseAccess implements DatabaseAccess {
@@ -151,5 +153,12 @@ class FirebaseAccess implements DatabaseAccess {
     }
 
     await sessionRef.delete();
+  }
+
+  @override
+  Future<void> deleteGameObject(String sessionKey, String objectId) async {
+    final gameObjectRef =
+        _userSessions().doc(sessionKey).collection('gameObjects').doc(objectId);
+    await gameObjectRef.delete();
   }
 }

@@ -9,6 +9,7 @@ import 'package:eyuunapp/view/popup/UpbringingPopup.dart';
 import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 import 'package:eyuuncore/components/CharacterBase.dart';
 import 'package:eyuuncore/components/feature/LevelFeature.dart';
+import 'package:eyuuncore/controller/LevelController.dart';
 import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
@@ -29,11 +30,13 @@ class CharacterInfoWidget extends StatefulWidget {
 
 class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
   late CharacterNameController _nameController;
+  late LevelController _levelController;
 
   @override
   void initState() {
     super.initState();
     _nameController = CharacterNameController(widget.character);
+    _levelController = LevelController(widget.character);
   }
 
   @override
@@ -46,7 +49,7 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
   Widget build(BuildContext context) {
     // Adapt sizes based on available width
     final screenWidth = MediaQuery.of(context).size.width;
-    final isCompact = screenWidth < 400;
+    final isCompact = screenWidth < 550;
 
     const double height = 150;
     const double padding = 6;
@@ -77,7 +80,7 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
             verticalLineBuilder: (p) => ThickThinThickLinePainter(p),
             horizontalLineBuilder: (p) => ThickThinThickLinePainter(p),
             paint: Brushes.goldSparkling()..strokeWidth = 1.25,
-            cornerSize: 5),
+            cornerSize: 4),
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: Text(
           text,
@@ -119,41 +122,129 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
             text:
                 '${textService.getText('uitext_childhood')}${textService.getTextFromEntity(childhoodBuff)}',
           )),
-      InkWell(
-        borderRadius: BorderRadius.circular(6),
-        onTap: () {
-          if (characterComponent == null) return;
-
-          if (levelFeature.isMaxLevel(characterComponent.level)) {
-            PopupUtil.popup(
-              context,
-              const Center(child: Text('You have reached the maximum level!')),
-              maximumSize: const Size(300, 200),
-            );
-            return;
-          }
-
-          final nextLevel =
-              levelFeature.getLevelAsset(characterComponent.level + 1);
-
-          PopupUtil.popup(
-            context,
-            LevelupPopup(buff: nextLevel),
-          );
-        },
-        child: _infoTile(
-          text: 'Level: ${characterComponent?.level}',
-          bold: true,
-        ),
-      ),
       _infoTile(
         text: 'Origin: ${characterComponent?.origin}',
         bold: true,
       )
     ];
 
+    Future<void> _onLevelTap() async {
+      if (characterComponent == null) return;
+
+      if (_levelController.isMaxLevel()) {
+        PopupUtil.popup(
+          context,
+          const Center(child: Text('You have reached the maximum level!')),
+          maximumSize: const Size(300, 200),
+        );
+        return;
+      }
+
+      await PopupUtil.popup(
+        context,
+        LevelupPopup(levelController: _levelController),
+      );
+
+      setState(() {});
+    }
+
     return LayoutBuilder(
       builder: (context, constraints) {
+        final profileImage = ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 180),
+            child: AspectRatio(
+              aspectRatio: 1, // 1:1
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Container(
+                    foregroundDecoration: ArtDecoBoxDecoration(
+                        cornerBuilder: (p) => ThickThinThickCornerPainter(p),
+                        verticalLineBuilder: (p) =>
+                            ThickThinThickLinePainter(p),
+                        horizontalLineBuilder: (p) =>
+                            ThickThinThickLinePainter(p),
+                        paint: Brushes.goldSparkling()..strokeWidth = 1.25,
+                        cornerSize: 5),
+                    child: Image(
+                      image: widget.profileImage,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Positioned(
+                    bottom: -6,
+                    right: -12,
+                    child: EyuunWidgets.circularFloatingActionButton(
+                      text: '${characterComponent?.level}',
+                      radius: 56,
+                      addDeco: true,
+                      tooltip: 'Level',
+                      onPressed: _onLevelTap,
+                    ),
+                  ),
+                ],
+              ),
+            ));
+
+        final tilesWidget = isCompact
+            ? Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  for (final tile in characterWidgets) ...[
+                    SizedBox(height: 60, child: tile),
+                    EyuunWidgets.spacerVertical(),
+                  ],
+                ],
+              )
+            : GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent:
+                        260, // controls when it becomes 1 vs 2 columns
+                    mainAxisSpacing: 24,
+                    crossAxisSpacing: 24,
+                    mainAxisExtent: 60),
+                itemCount: characterWidgets.length,
+                itemBuilder: (context, index) => characterWidgets[index]);
+
+        final infoColumn = Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                alignment: Alignment.center,
+                child: TextField(
+                  decoration: InputDecoration(
+                    labelText: textService.getText('uitext_name'),
+                    border: const OutlineInputBorder(),
+                  ),
+                  controller: _nameController.textController,
+                  onSubmitted: (e) => _nameController.submit(),
+                  readOnly: true,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              EyuunWidgets.spacerVertical(),
+              tilesWidget,
+            ]);
+
+        if (isCompact) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Center(child: profileImage),
+              EyuunWidgets.spacerVertical(),
+              infoColumn,
+            ],
+          );
+        }
+
         return Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -161,66 +252,11 @@ class _CharacterInfoWidgetState extends State<CharacterInfoWidget> {
             children: [
               EyuunWidgets.spacerHorizontal(),
               // 🖼️ Profile image
-              ConstrainedBox(
-                  constraints: BoxConstraints(maxWidth: 180),
-                  child: AspectRatio(
-                    aspectRatio: 1, // 1:1
-                    child: Container(
-                      foregroundDecoration: ArtDecoBoxDecoration(
-                          cornerBuilder: (p) => ThickThinThickCornerPainter(p),
-                          verticalLineBuilder: (p) =>
-                              ThickThinThickLinePainter(p),
-                          horizontalLineBuilder: (p) =>
-                              ThickThinThickLinePainter(p),
-                          paint: Brushes.goldSparkling()..strokeWidth = 1.25,
-                          cornerSize: 5),
-                      child: Image(
-                        image: widget.profileImage,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  )),
+              profileImage,
               EyuunWidgets.spacerHorizontal(),
               EyuunWidgets.spacerHorizontal(),
               // 📜 Right side info
-              Expanded(
-                  flex: 2,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Container(
-                          alignment: Alignment.center,
-                          child: TextField(
-                            controller: _nameController.textController,
-                            onSubmitted: (e) => _nameController.submit(),
-                            readOnly: true,
-                            textAlign: TextAlign.center,
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              isDense: true,
-                            ),
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        EyuunWidgets.spacerVertical(),
-                        GridView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            gridDelegate:
-                                const SliverGridDelegateWithMaxCrossAxisExtent(
-                                    maxCrossAxisExtent:
-                                        420, // controls when it becomes 1 vs 2 columns
-                                    mainAxisSpacing: 24,
-                                    crossAxisSpacing: 24,
-                                    mainAxisExtent: 60),
-                            itemCount: characterWidgets.length,
-                            itemBuilder: (context, index) =>
-                                characterWidgets[index])
-                      ])),
+              Expanded(flex: 2, child: infoColumn),
               EyuunWidgets.spacerHorizontal(),
             ]);
       },

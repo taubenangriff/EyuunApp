@@ -1,12 +1,13 @@
 import 'dart:math';
 
 import 'package:eyuuncore/components/Attributes.dart';
+import 'package:eyuuncore/components/Parry.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/components/Skillcheck.dart';
 import 'package:eyuuncore/components/Talent.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:oxygen/oxygen.dart';
-
+import 'package:eyuuncore/components/Parry.dart';
 import '../components/Weapon.dart';
 
 class SkillcheckController {
@@ -14,29 +15,41 @@ class SkillcheckController {
 
   SkillcheckController(this.skillLearner);
 
-  int getSkill(Entity entity){
-    if(entity.has<WeaponComponent>()) {
+  int getSkill(Entity entity) {
+    if (entity.has<WeaponComponent>()) {
       return getWeaponSkill(entity);
     }
-    if(entity.has<SkillcheckComponent>()){
+    if (entity.has<ParryComponent>()) {
+      return getParrySkill(entity);
+    }
+    if (entity.has<SkillcheckComponent>()) {
       return getActiveTalentSkill(entity);
     }
     return 0;
   }
 
-  int getWeaponSkill(Entity weapon){
+  int getWeaponSkill(Entity weapon) {
     var weaponComp = weapon.get<WeaponComponent>();
     var fightingTypeId = weaponComp?.fightingType?.getTypeId();
     var skillMultiplier = weaponComp?.skillMultiplier ?? 0;
 
-    num skillValue = fightingTypeId != null ? skillLearner.getSkillValue(fightingTypeId) : 0;
+    num skillValue = fightingTypeId != null
+        ? skillLearner.getSkillValue(fightingTypeId)
+        : 0;
     skillValue *= skillMultiplier;
     return skillValue.round();
   }
 
-  int getActiveTalentSkill(Entity talentEntity){
+  int getActiveTalentSkill(Entity talentEntity) {
     var skillcheck = talentEntity.get<SkillcheckComponent>();
-    var id = skillcheck?.overrideSkillcheck?.getTypeId() ?? talentEntity.getTypeId();
+    var id =
+        skillcheck?.overrideSkillcheck?.getTypeId() ?? talentEntity.getTypeId();
+    return skillLearner.getSkillValue(id);
+  }
+
+  int getParrySkill(Entity parryEntity) {
+    var parryComp = parryEntity.get<ParryComponent>();
+    var id = parryComp?.parryTalent?.getTypeId() ?? parryEntity.getTypeId();
     return skillLearner.getSkillValue(id);
   }
 }

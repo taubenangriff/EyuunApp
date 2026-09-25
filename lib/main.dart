@@ -1,4 +1,5 @@
 import 'package:eyuunapp/services/EntityUpdatedListener.dart';
+import 'package:eyuunapp/services/EntityDeletedListener.dart';
 import 'package:eyuunapp/services/EntityCreatedListener.dart';
 import 'package:eyuunapp/services/ImageService.dart';
 import 'package:eyuunapp/services/DatabaseAccess.dart';
@@ -46,6 +47,7 @@ void main() async {
   locator.registerSingleton(SessionService());
   locator.registerSingleton(SessionPersistenceListener());
   locator.registerSingleton(EntityUpdatedListener());
+  locator.registerSingleton(EntityDeletedListener());
   locator.registerSingleton(EntityCreatedListener());
 
   var worldManager = locator<WorldManager>();

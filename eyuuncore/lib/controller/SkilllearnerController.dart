@@ -1,22 +1,24 @@
 import 'dart:math';
 
+import 'package:event_bus/event_bus.dart';
 import 'package:eyuuncore/components/SkillLearner.dart';
 import 'package:eyuuncore/components/feature/CharacterTables.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';
+import 'package:eyuuncore/events/EntityUpdatedEvent.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../GetIt.dart';
 
 class SkillLearnerController {
-  final SkillLearnerComponent skillLearner;
+  final Entity entity;
+  late final SkillLearnerComponent skillLearner;
   final bool allowDowngrades;
   late final worldManager = locator<WorldManager>();
 
-  SkillLearnerController({
-    required this.skillLearner,
-    this.allowDowngrades = false,
-  });
+  SkillLearnerController({required this.entity, this.allowDowngrades = false}) {
+    skillLearner = entity.get<SkillLearnerComponent>()!;
+  }
 
   int getMax(Entity skillEntity) {
     var spent = skillLearner.getSpentSkillpoints();
@@ -54,12 +56,14 @@ class SkillLearnerController {
   void pickTrick(Entity trick) {
     skillLearner.tricks.add(trick);
     worldManager.execute();
+    locator<EventBus>().fire(EntityUpdatedEvent(entity, skillLearner));
   }
 
   // TODO protect against picking skills that aren't allowed to be picked
   void pickSpell(Entity spell) {
     skillLearner.spells.add(spell);
     worldManager.execute();
+    locator<EventBus>().fire(EntityUpdatedEvent(entity, skillLearner));
   }
 
   // TODO filter the list
@@ -75,5 +79,7 @@ class SkillLearnerController {
       return;
     }
     skillLearner.setSkillValue(skillEntity.getTypeId(), value);
+
+    locator<EventBus>().fire(EntityUpdatedEvent(entity, skillLearner));
   }
 }

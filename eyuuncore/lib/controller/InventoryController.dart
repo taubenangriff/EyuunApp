@@ -148,7 +148,7 @@ class InventoryController {
     for (var entry in itemsToDelete) {
       _inventory.items.remove(entry.key);
       if (kill) {
-        locator<GameObjectService>().killEntity(entry.value.object);
+        locator<GameObjectService>().deleteEntity(entry.value.object);
       }
     }
 

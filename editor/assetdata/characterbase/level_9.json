@@ -1,0 +1,17 @@
+{
+    "standard": {
+        "typeId": "level_9",
+        "internalName": "Level 9"
+    },
+    "text": {},
+    "talentsUpgrade": {
+        "skillCeilingUpgrade": 1,
+        "addSkillpoints": 3
+    },
+    "characterPathUpgrade": {
+        "pathCapacityUpgrade": 1
+    },
+    "combatUpgrade": {
+        "evasionUpgrade": 1
+    }
+}

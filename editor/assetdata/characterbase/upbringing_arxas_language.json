@@ -11,7 +11,8 @@
     },
     "upbringing": {
         "possibleSizes": [
-            "Small"
+            "Small",
+            "Normal"
         ]
     }
 }

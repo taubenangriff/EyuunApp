@@ -84,13 +84,12 @@ class SkillLearnerComponent extends EyuunComponent<int> {
 
   /// returns the talentEntry for the Talent listed in key. returns null, if the talent does not exist.
   SkillEntry? getSkill(String key) {
-    try{
+    try {
       return skills.firstWhere((e) => e.skill.getTypeId() == key);
     } on StateError {
       return null;
     }
   }
-
 
   /// If the talent is present in talents, this function sets it's value to newVal.
   void setSkillValue(String key, int newVal) => getSkill(key)?.value = newVal;
@@ -154,6 +153,6 @@ class SkillLearnerComponent extends EyuunComponent<int> {
     skillCeiling: skillCeiling.base,
     skills: skills.map((e) => SkillEntryDynamic.from(e)).toList(),
     spells: spells.baseList.asAssetLinks(),
-    tricks: tricks.baseList.asAssetLinks()
+    tricks: tricks.baseList.asAssetLinks(),
   ).toMap();
 }

@@ -45,7 +45,7 @@ class ActionDisplay extends StatelessWidget {
       var theme = Theme.of(context);
 
       return Column(children: [
-        if(actionComponent != null)... {
+        if (actionComponent != null) ...{
           Text(textService.getText(actionComponent.actionTime.getTextKey())),
         },
         SizedBox(height: 8),
@@ -84,7 +84,8 @@ class ActionDisplay extends StatelessWidget {
         },
         if (action.has<SpellComponent>()) ...{
           Text(textService.getText('uitext_action_spellschool', formatArgs: [
-            textService.getTextFromEntity(action.get<SpellComponent>()!.spellSchool)
+            textService
+                .getTextFromEntity(action.get<SpellComponent>()!.spellSchool)
           ]))
         },
         if (showCost &&
@@ -115,7 +116,9 @@ class ActionDisplay extends StatelessWidget {
                 skillcheck: action.get<SkillcheckComponent>()!,
                 attributes: attributes,
                 spacing: 2,
-                showText: false,
+                showText: true,
+                useLongText: false,
+                useBottomText: true,
                 iconSize: enaughWidth ? 46 : 38),
             Text(" + ${SkillcheckController(skillLearner).getSkill(action)}",
                 style: enaughWidth

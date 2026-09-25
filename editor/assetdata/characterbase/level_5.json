@@ -1,0 +1,17 @@
+{
+    "standard": {
+        "typeId": "level_5",
+        "internalName": "Level 5"
+    },
+    "text": {},
+    "talentsUpgrade": {
+        "skillCeilingUpgrade": 1,
+        "addSkillpoints": 3
+    },
+    "characterPathUpgrade": {
+        "pathCapacityUpgrade": 1
+    },
+    "combatUpgrade": {
+        "evasionUpgrade": 1
+    }
+}

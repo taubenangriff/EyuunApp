@@ -1,5 +1,6 @@
 import 'package:eyuunapp/model/CharacterMetaInfo.dart';
 import 'package:eyuunapp/services/DatabaseAccess.dart';
+import 'package:eyuunapp/services/ImageService.dart';
 import 'package:eyuunapp/services/SessionService.dart';
 import 'package:eyuunapp/view/pages/CreateCharacterPage.dart';
 import 'package:eyuunapp/view/popup/ConfirmDeletePopup.dart';
@@ -10,8 +11,10 @@ import 'package:eyuunapp/view/decoration/cornerPainters/DoubleLineCornerPainter.
 import 'package:eyuunapp/view/decoration/linePainters/DoubleLinePainter.dart';
 import 'package:eyuunapp/view/pages/LoadingPage.dart';
 import 'package:eyuuncore/GetIt.dart';
+import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/enums/CharacterState.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'MainPage.dart';
 
@@ -128,12 +131,32 @@ class _CharacterCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    late final ImageProvider<Object> portraitImage;
-    if (character.image == null) {
-      portraitImage = const AssetImage('data/base/ui/bg/background.jpg');
-    } else {
-      portraitImage = NetworkImage(character.image.toString());
+
+    Widget portraitWidget() {
+      if (character.image == null) {
+        return const Image(
+          image: AssetImage('data/base/ui/bg/background.jpg'),
+          fit: BoxFit.cover,
+        );
+      }
+
+      return FutureBuilder<ImageProvider>(
+        future: locator<ImageService>().getImage(character.image!),
+        builder: (context, snap) {
+          if (snap.connectionState != ConnectionState.done || snap.hasError) {
+            return const Image(
+              image: AssetImage('data/base/ui/bg/background.jpg'),
+              fit: BoxFit.cover,
+            );
+          }
+          final provider = snap.data!;
+          return Image(image: provider, fit: BoxFit.cover);
+        },
+      );
     }
+
+    final formatted =
+        DateFormat('yyyy.MM.dd HH:mm').format(character.lastModified);
 
     return Card(
         elevation: 8,
@@ -153,13 +176,7 @@ class _CharacterCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     // 🖼 Image (1x1)
-                    AspectRatio(
-                      aspectRatio: 1,
-                      child: Image(
-                        image: portraitImage,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                    AspectRatio(aspectRatio: 1, child: portraitWidget()),
 
                     // 📜 Info
                     Padding(
@@ -174,7 +191,8 @@ class _CharacterCard extends StatelessWidget {
                                 ?.copyWith(fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(height: 4),
-                          Text('Upbringing: ${character.upbringing}'),
+                          Text(locator<TextService>()
+                              .getText(character.upbringing)),
                           Text('Level ${character.level}'),
                           const SizedBox(height: 8),
                         ],
@@ -190,7 +208,7 @@ class _CharacterCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Modified: ${character.lastModified}',
+                            'Modified: $formatted',
                             style: theme.textTheme.bodySmall,
                           ),
                           Text(

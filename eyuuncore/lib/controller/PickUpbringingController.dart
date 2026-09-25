@@ -1,7 +1,10 @@
+import 'package:event_bus/event_bus.dart';
 import 'package:eyuuncore/components/CharacterBase.dart';
 import 'package:eyuuncore/components/Upbringing.dart';
 import 'package:eyuuncore/components/feature/CharacterTables.dart';
+import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/enums/PersonSize.dart';
+import 'package:eyuuncore/events/EntityUpdatedEvent.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../core/assetLink.dart';
@@ -68,6 +71,13 @@ class PickUpbringingController {
   bool hasAdditionalUpbringing() => selectedAdditionalUpbringing != null;
   bool hasAnyUpbringing() =>
       selectedUpbringing != null || selectedAdditionalUpbringing != null;
+
+  void setOrigin(String origin) {
+    characterBase.origin = origin;
+    locator<EventBus>().fire(
+      EntityUpdatedEvent(locator<CharacterService>().character, characterBase),
+    );
+  }
 
   List<Entity> getPossibleUpbringingBuffsFromPreselection() {
     var list = <Entity>[];

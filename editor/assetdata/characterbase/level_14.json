@@ -1,0 +1,19 @@
+{
+    "standard": {
+        "typeId": "level_14",
+        "internalName": "Level 14"
+    },
+    "text": {},
+    "talentsUpgrade": {
+        "addSkillpoints": 3
+    },
+    "characterPathUpgrade": {
+        "additionalPathCapacityUpgrade": 1
+    },
+    "attributesUpgrade": {
+        "maxDiceIncreasesUpgrade": 2
+    },
+    "combatUpgrade": {
+        "evasionUpgrade": 1
+    }
+}

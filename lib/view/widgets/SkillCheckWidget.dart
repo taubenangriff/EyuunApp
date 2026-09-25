@@ -1,5 +1,6 @@
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/Skillcheck.dart';
+import 'package:eyuuncore/core/assetLink.dart';
 import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class SkillCheckWidget extends StatefulWidget {
   final double spacing;
   final bool showText;
   final bool useLongText;
+  final bool useBottomText;
 
   const SkillCheckWidget(
       {super.key,
@@ -24,7 +26,8 @@ class SkillCheckWidget extends StatefulWidget {
       this.iconSize = 40,
       this.spacing = 46,
       this.showText = true,
-      this.useLongText = false});
+      this.useLongText = false,
+      this.useBottomText = false});
 
   @override
   State<SkillCheckWidget> createState() => _SkillCheckWidgetState();
@@ -51,6 +54,32 @@ class _SkillCheckWidgetState extends State<SkillCheckWidget> {
     );
   }
 
+  Widget _buildDiceWithText(AssetLink e) {
+    final dice = DiceIcon(
+        type: widget.attributes.getStatEntry(e.id)!.dice,
+        size: widget.iconSize);
+
+    if (!widget.showText) return dice;
+
+    final text = ConstrainedBox(
+        constraints: BoxConstraints(minWidth: widget.useLongText ? 90 : 20),
+        child: Text(widget.useLongText
+            ? _textService.getText(e.id)
+            : _textService.getShort(e.id)));
+
+    if (widget.useBottomText) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [dice, const SizedBox(height: 2), text],
+      );
+    }
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [dice, const SizedBox(width: 2), text],
+    );
+  }
+
   Widget _displayAttribute(BuildContext context, SkillcheckOption attribute) {
     var theme = Theme.of(context);
 
@@ -63,18 +92,7 @@ class _SkillCheckWidgetState extends State<SkillCheckWidget> {
         ...attribute.options
             .map((e) => [
                   Text(' / ', style: theme.textTheme.headlineSmall),
-                  DiceIcon(
-                      type: widget.attributes.getStatEntry(e.id)!.dice,
-                      size: widget.iconSize),
-                  if (widget.showText) ...{
-                    SizedBox(width: 4),
-                    ConstrainedBox(
-                        constraints: BoxConstraints(
-                            minWidth: widget.useLongText ? 90 : 20),
-                        child: Text(widget.useLongText
-                            ? _textService.getText(e.id)
-                            : _textService.getShort(e.id))),
-                  }
+                  _buildDiceWithText(e),
                 ])
             .expand((e) => e)
             .skip(1)

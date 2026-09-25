@@ -125,8 +125,10 @@ class _ActionsWidgetState extends State<ActionsWidget> {
               onTap: () async {
                 var result = await PopupUtil.popup(
                     context,
-                    AcceptActionPopup(buff: actionLink.action, source: actionLink.source));
-                if(result == null) return;
+                    AcceptActionPopup(
+                        buff: actionLink.action, source: actionLink.source),
+                    maximumSize: Size(400, 550));
+                if (result == null) return;
 
                 //TODO cast the action
               },

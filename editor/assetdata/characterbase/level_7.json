@@ -1,0 +1,17 @@
+{
+    "standard": {
+        "typeId": "level_7",
+        "internalName": "Level 7"
+    },
+    "text": {},
+    "talentsUpgrade": {
+        "skillCeilingUpgrade": 1,
+        "addSkillpoints": 3
+    },
+    "characterPathUpgrade": {
+        "pathCapacityUpgrade": 1
+    },
+    "combatUpgrade": {
+        "evasionUpgrade": 1
+    }
+}

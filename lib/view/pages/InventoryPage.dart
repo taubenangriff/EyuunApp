@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:event_bus/event_bus.dart';
 import 'package:eyuunapp/view/controller/ChangeValueController.dart';
+import 'package:eyuunapp/view/popup/ConfirmDeleteItemPopup.dart';
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuunapp/view/widgets/Itemshop.dart';
 import 'package:eyuunapp/view/widgets/ItemWidget.dart';
@@ -16,6 +18,7 @@ import 'package:eyuuncore/controller/InventoryController.dart';
 import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
+import 'package:eyuuncore/events/EntityUpdatedEvent.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
@@ -38,6 +41,7 @@ class _InventoryPageState extends State<InventoryPage> {
 
   Map<int, InventoryItem?> holdables = {};
 
+  late Entity _entity;
   InventoryItem? weapon;
   InventoryItem? secondWeapon;
 
@@ -103,6 +107,8 @@ class _InventoryPageState extends State<InventoryPage> {
   void initState() {
     super.initState();
 
+    _entity = locator<CharacterService>().character;
+
     _inventory =
         locator<CharacterService>().character.get<InventoryComponent>();
     _combatComponent =
@@ -119,7 +125,7 @@ class _InventoryPageState extends State<InventoryPage> {
       return Container();
     }
     _inventoryController = InventoryController(_inventory!);
-    _combatController = CombatController(_combatComponent!);
+    _combatController = CombatController(_entity);
 
     holdables = _combatComponent?.equippedItems ?? {};
 
@@ -169,11 +175,15 @@ class _InventoryPageState extends State<InventoryPage> {
                             theme: theme),
                       ),
                       EyuunWidgets.spacerVertical(),
-                      Wrap(
-                        spacing: 12,
-                        runSpacing: 12,
-                        alignment: WrapAlignment.center,
-                        children: slotWidgets,
+                      EyuunWidgets.cardBox(
+                        child: Wrap(
+                          spacing: 12,
+                          runSpacing: 12,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          alignment: WrapAlignment.center,
+                          children: slotWidgets,
+                        ),
+                        theme: theme,
                       ),
                       EyuunWidgets.spacerVertical(),
                       Expanded(
@@ -265,12 +275,15 @@ class _InventoryPageState extends State<InventoryPage> {
                     MoneyChangePopup(moneyController, valueChanged: (change) {
                       setState(() {
                         moneyController.change(change);
+                        locator<EventBus>().fire(EntityUpdatedEvent(
+                            locator<CharacterService>().character,
+                            _inventory!));
                       });
                     }),
                     maximumSize: Size(400, 800));
               },
               text: '${_inventory!.money} €',
-              tooltip: 'Yuun',
+              tooltip: locator<TextService>().getText('uitext_money'),
               icon: Icons.money,
             ),
           EyuunWidgets.spacerHorizontal(),
@@ -285,8 +298,8 @@ class _InventoryPageState extends State<InventoryPage> {
                   background: AssetImage('data/base/ui/bg/background.jpg'));
               setState(() {});
             },
-            text: 'Add Item',
-            tooltip: 'Add an Item',
+            text: locator<TextService>().getText('uitext_add_item'),
+            tooltip: locator<TextService>().getText('uitext_add_item_tooltip'),
             icon: Icons.add,
           ),
         ],
@@ -297,8 +310,14 @@ class _InventoryPageState extends State<InventoryPage> {
   DragTarget<InventoryItem> _buildRemoveDragTarget() {
     return DragTarget<InventoryItem>(
       onWillAcceptWithDetails: (details) => !_isEquippedItem(details.data),
-      onAcceptWithDetails: (details) {
+      onAcceptWithDetails: (details) async {
         final draggedItem = details.data;
+        final itemName =
+            locator<TextService>().getTextFromEntity(draggedItem.object);
+        final confirmed = await PopupUtil.popup<bool>(
+            context, ConfirmDeleteItemPopup(itemName: itemName));
+        if (confirmed != true) return;
+
         setState(() {
           _inventoryController.deleteItem(draggedItem);
           if (selectedItem == draggedItem) selectedItem = null;
@@ -331,14 +350,15 @@ class _InventoryPageState extends State<InventoryPage> {
             child: AnimatedOpacity(
               duration: const Duration(milliseconds: 200),
               opacity: hovering ? 1.0 : 0.8,
-              child: const Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.delete_forever, size: 48, color: Colors.white),
-                  SizedBox(height: 8),
+                  const Icon(Icons.delete_forever,
+                      size: 48, color: Colors.white),
+                  const SizedBox(height: 8),
                   Text(
-                    'Delete',
-                    style: TextStyle(
+                    locator<TextService>().getText('uitext_delete'),
+                    style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
@@ -352,7 +372,9 @@ class _InventoryPageState extends State<InventoryPage> {
     );
   }
 
-  DragTarget<InventoryItem> _buildGroupDragTarget() {
+  Widget _buildGroupDragTarget() {
+    return Expanded(child: Container());
+
     return DragTarget<InventoryItem>(
       onWillAcceptWithDetails: (details) => !_isEquippedItem(details.data),
       onAcceptWithDetails: (details) {
@@ -399,15 +421,15 @@ class _InventoryPageState extends State<InventoryPage> {
             child: AnimatedOpacity(
               duration: const Duration(milliseconds: 200),
               opacity: hovering ? 1.0 : 0.8,
-              child: const Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.transfer_within_a_station,
+                  const Icon(Icons.transfer_within_a_station,
                       size: 48, color: Colors.white),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
-                    'Group',
-                    style: TextStyle(
+                    locator<TextService>().getText('uitext_group'),
+                    style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
@@ -566,8 +588,10 @@ class _InventoryPageState extends State<InventoryPage> {
                 right: 4,
                 child: IconButton(
                   icon: const Icon(Icons.remove_circle),
-                  tooltip:
-                      'Unequip ${locator<TextService>().getTextFromEntity(item.object)}',
+                  tooltip: locator<TextService>().getText('uitext_unequip_item',
+                      formatArgs: [
+                        locator<TextService>().getTextFromEntity(item.object)
+                      ]),
                   onPressed: () {
                     setState(() {
                       setItem(null);

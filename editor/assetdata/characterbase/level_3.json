@@ -1,0 +1,17 @@
+{
+    "standard": {
+        "typeId": "level_3",
+        "internalName": "Level 3"
+    },
+    "text": {},
+    "talentsUpgrade": {
+        "skillCeilingUpgrade": 1,
+        "addSkillpoints": 3
+    },
+    "characterPathUpgrade": {
+        "pathCapacityUpgrade": 1
+    },
+    "combatUpgrade": {
+        "evasionUpgrade": 1
+    }
+}

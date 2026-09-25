@@ -103,6 +103,16 @@ class BuffDisplay extends StatelessWidget {
             "uitext_pathupgrade",
             characterPathUpgrade.pathCapacityUpgrade.toString()));
       }
+      if (characterPathUpgrade.additionalPathCapacityUpgrade > 0) {
+        if (widgets.isNotEmpty) {
+          _addDivider(widgets);
+        }
+        widgets.add(_buildValueUpgradeWidget(
+            context,
+            Icons.lunch_dining_outlined,
+            "uitext_additionalpathupgrade",
+            characterPathUpgrade.additionalPathCapacityUpgrade.toString()));
+      }
     }
 
     if (buff!.has<CombatUpgradeComponent>()) {

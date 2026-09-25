@@ -1,89 +1,76 @@
-import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
-import 'package:eyuunapp/view/decoration/cornerPainters/DoubleLineCornerPainter.dart';
-import 'package:eyuunapp/view/decoration/linePainters/DoubleLinePainter.dart';
 import 'package:eyuunapp/view/widgets/BuffDisplay.dart';
+import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 import 'package:eyuuncore/GetIt.dart';
+import 'package:eyuuncore/controller/LevelController.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
-import 'package:eyuunapp/view/decoration/Brushes.dart';
-
 class LevelupPopup extends StatelessWidget {
-  final Entity? buff;
+  late final Entity? buff;
+  final LevelController levelController;
 
-  const LevelupPopup({
-    required this.buff,
+  LevelupPopup({
+    required this.levelController,
     super.key,
-  });
+  }) {
+    buff = levelController.getNextLevel();
+  }
 
   @override
   Widget build(BuildContext context) {
     return buff != null
         ? Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 30,
-        horizontal: 30,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // 🔹 Intro text
-          Text(
-            locator<TextService>().getText("uitext_levelup_explainer"),
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: Colors.grey,
+            padding: const EdgeInsets.symmetric(
+              vertical: 30,
+              horizontal: 30,
             ),
-          ),
-
-          const SizedBox(height: 16),
-
-          // 🔹 Buff name
-          Text(
-            locator<TextService>().getTextFromEntity(buff!),
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-
-          const SizedBox(height: 16),
-
-          // 🔹 Buff effects
-          BuffDisplay(buff: buff),
-
-          const SizedBox(height: 24),
-
-          Center(
-              child: DecoratedBox(
-                position: DecorationPosition.foreground,
-                decoration: ArtDecoBoxDecoration(
-                    cornerBuilder: (p) => DoubleLineCornerPainter(p),
-                    verticalLineBuilder: (p) => DoubleLinePainter(p),
-                    horizontalLineBuilder: (p) => DoubleLinePainter(p),
-                    paint: Brushes.goldSparkling()..strokeWidth = 1.5,
-                    cornerSize: 12),
-                child: ElevatedButton(
-                  onPressed: null, //TODO add levelup
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24,
-                      vertical: 12,
-                    ),
-                    child: Text(
-                      locator<TextService>().getText("uitext_levelup"),
-                      style: const TextStyle(fontSize: 16),
-                    ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // 🔹 Intro text
+                Text(
+                  locator<TextService>().getText("uitext_levelup_explainer"),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey,
                   ),
                 ),
-              )),
-        ],
-      ),
-    )
+
+                const SizedBox(height: 16),
+
+                // 🔹 Buff name
+                Text(
+                  locator<TextService>().getTextFromEntity(buff!),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                // 🔹 Buff effects
+                BuffDisplay(buff: buff),
+
+                const SizedBox(height: 24),
+
+                Center(
+                    child: EyuunWidgets.floatingActionButton(
+                  text: locator<TextService>().getText("uitext_levelup"),
+                  onPressed: levelController.canUpgrade()
+                      ? () {
+                          levelController.levelup();
+                          Navigator.of(context).pop();
+                        }
+                      : null,
+                )),
+              ],
+            ),
+          )
         : const SizedBox(width: 300, height: 200);
   }
 }

@@ -1,6 +1,8 @@
 import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
 import 'package:eyuunapp/view/decoration/Brushes.dart';
+import 'package:eyuunapp/view/decoration/cornerPainters/DoubleLineCornerPainter.dart';
 import 'package:eyuunapp/view/decoration/cornerPainters/ThickThinThickCornerPainter.dart';
+import 'package:eyuunapp/view/decoration/linePainters/DoubleLinePainter.dart';
 import 'package:eyuunapp/view/decoration/linePainters/ThickThinThickLinePainter.dart';
 import 'package:eyuunapp/view/widgets/ActionDisplay.dart';
 import 'package:eyuunapp/view/widgets/SkillCheckWidget.dart';
@@ -58,12 +60,11 @@ class ActionCard extends StatelessWidget {
               ),
               child: DecoratedBox(
                   decoration: ArtDecoBoxDecoration(
-                      cornerBuilder: (p) => ThickThinThickCornerPainter(p),
-                      verticalLineBuilder: (p) => ThickThinThickLinePainter(p),
-                      horizontalLineBuilder: (p) =>
-                          ThickThinThickLinePainter(p),
+                      cornerBuilder: (p) => DoubleLineCornerPainter(p),
+                      verticalLineBuilder: (p) => DoubleLinePainter(p),
+                      horizontalLineBuilder: (p) => DoubleLinePainter(p),
                       paint: Brushes.goldSparkling()..strokeWidth = 1.25,
-                      cornerSize: 5),
+                      cornerSize: 16),
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: Stack(fit: StackFit.passthrough, children: [
@@ -81,17 +82,22 @@ class ActionCard extends StatelessWidget {
                               SizedBox(width: 6),
                               Text(textService.getText(
                                   switch (actionComponent.billingCycle) {
-                                    BillingCycle.Once => 'uitext_flux_once_short',
-                                    BillingCycle.PerRound => 'uitext_flux_per_round_short',
-                                    BillingCycle.PerHour => 'uitext_flux_per_hour_short',
+                                    BillingCycle.Once =>
+                                      'uitext_flux_once_short',
+                                    BillingCycle.PerRound =>
+                                      'uitext_flux_per_round_short',
+                                    BillingCycle.PerHour =>
+                                      'uitext_flux_per_hour_short',
                                   },
-                                  formatArgs: [actionComponent.fluxCost.toString()])),
+                                  formatArgs: [
+                                    actionComponent.fluxCost.toString()
+                                  ])),
                             ],
                           ),
                         ),
                       },
                       ActionDisplay(
-                        showCost: false,
+                          showCost: false,
                           action: actionEntity,
                           source: sourceEntity,
                           textBehavior: TextBehavior.fade)

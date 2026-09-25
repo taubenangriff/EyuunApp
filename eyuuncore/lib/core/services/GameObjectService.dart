@@ -100,15 +100,19 @@ class GameObjectService {
 
   void reset() {
     for (var entity in _gameObjectRepository.getEntities()) {
-      killEntity(entity);
+      unloadEntity(entity);
     }
   }
 
-  void killEntity(Entity entity) {
+  void deleteEntity(Entity entity) {
     var objectId = entity.getObjectId();
+    unloadEntity(entity);
+    locator<EventBus>().fire(EntityDeletedEvent(objectId));
+  }
+
+  void unloadEntity(Entity entity) {
     entity.dispose();
     _gameObjectRepository.removeEntity(entity);
-    locator<EventBus>().fire(EntityDeletedEvent(objectId));
     _worldManager.execute();
   }
 

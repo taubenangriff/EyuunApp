@@ -3,10 +3,11 @@ import 'package:eyuuncore/components/CharacterBase.dart';
 import 'package:eyuuncore/components/Nameable.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/enums/CharacterState.dart';
+import 'package:eyuuncore/io/UriMapper.dart';
 
 part 'CharacterMetaInfo.mapper.dart';
 
-@MappableClass()
+@MappableClass(includeCustomMappers: [UriMapper()])
 class CharacterMetaInfo with CharacterMetaInfoMappable {
   final String name;
   final String upbringing;

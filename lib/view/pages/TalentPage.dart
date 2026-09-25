@@ -23,8 +23,8 @@ class _TalentPageState extends State<TalentPage> {
   late var skillLearner =
       locator<CharacterService>().character.get<SkillLearnerComponent>();
 
-  late var controller =
-      widget.controller ?? SkillLearnerController(skillLearner: skillLearner!);
+  late var controller = widget.controller ??
+      SkillLearnerController(entity: locator<CharacterService>().character);
   late var textService = locator<TextService>();
 
   @override

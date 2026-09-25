@@ -122,7 +122,8 @@ class _ItemDisplayWidgetState extends State<ItemDisplayWidget> {
                   PopupUtil.largePopup(context, WeaponCraftingScreen(),
                       background: AssetImage('data/base/ui/bg/background.jpg'));
                 })),
-      if (widget.allowedActions.contains(ItemDisplayAction.changeCount))
+      if (widget.allowedActions.contains(ItemDisplayAction.changeCount) &&
+          (widget.item?.object.get<ItemComponent>()?.maxStackSize ?? 0) > 1)
         EyuunWidgets.circularFloatingActionButton(
             radius: 42,
             addDeco: true,

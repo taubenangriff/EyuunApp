@@ -1,0 +1,19 @@
+{
+    "standard": {
+        "typeId": "level_12",
+        "internalName": "Level 12"
+    },
+    "text": {},
+    "talentsUpgrade": {
+        "addSkillpoints": 3
+    },
+    "characterPathUpgrade": {
+        "additionalPathCapacityUpgrade": 1
+    },
+    "attributesUpgrade": {
+        "maxDiceIncreasesUpgrade": 2
+    },
+    "combatUpgrade": {
+        "evasionUpgrade": 1
+    }
+}

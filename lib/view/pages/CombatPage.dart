@@ -166,7 +166,7 @@ class _CombatPageState extends State<CombatPage> {
                 return;
               }
               final skillLearnerController =
-                  SkillLearnerController(skillLearner: skillLearner);
+                  SkillLearnerController(entity: character);
 
               PopupUtil.largePopup(
                 context,
@@ -203,7 +203,7 @@ class _CombatPageState extends State<CombatPage> {
     required bool isTrick,
   }) {
     final skillLearnerController =
-        SkillLearnerController(skillLearner: skillLearner);
+        SkillLearnerController(entity: locator<CharacterService>().character);
 
     setState(() {
       if (isTrick) {

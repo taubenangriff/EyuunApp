@@ -30,6 +30,14 @@ class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
   final TextService textService = locator<TextService>();
   late final PickUpbringingController upbringingController =
       widget.upbringingController;
+  late final TextEditingController _originController =
+      TextEditingController(text: widget.characterBaseComponent.origin);
+
+  @override
+  void dispose() {
+    _originController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,6 +138,19 @@ class _UpbringingSelectionWidgetState extends State<UpbringingSelectionWidget> {
               },
             ),
           ),
+        ),
+        EyuunWidgets.spacerWidget(),
+        TextField(
+          controller: _originController,
+          decoration: InputDecoration(
+            labelText: textService.getText('uitext_origin'),
+            border: const OutlineInputBorder(),
+          ),
+          onChanged: (value) {
+            setState(() {
+              upbringingController.setOrigin(value);
+            });
+          },
         ),
         EyuunWidgets.spacerWidget(),
         if (upbringingController.pickedBoth()) ...{
