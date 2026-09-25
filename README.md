@@ -64,4 +64,5 @@ dart pub global run dhttpd --path doc/api
 
 # Licensing
 
-dice icons from https://game-icons.net/tags/dice.html, Delapouite and Skoll under CC 3.0
+- weapon icons from https://wantosure.itch.io/rpg-weapon-icon-pack-free
+
