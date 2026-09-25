@@ -1,4 +1,4 @@
-import 'package:eyuunapp/view/widgets/InventoryItemWidget.dart';
+import 'package:eyuunapp/view/widgets/ItemWidget.dart';
 import 'package:eyuunapp/view/widgets/cards/ItemDisplayWidget.dart';
 import 'package:eyuuncore/components/AssetBundle.dart';
 import 'package:eyuuncore/components/inventory.dart';

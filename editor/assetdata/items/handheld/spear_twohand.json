@@ -1,0 +1,62 @@
+{
+    "standard": {
+        "typeId": "spear_twohand"
+    },
+    "text": {
+        "fluff": "spear_fluff"
+    },
+    "action": {
+        "actionDescription": "attack_actiondesc",
+        "actionTime": "Attack"
+    },
+    "item": {
+        "categoryText": "item_category_weapon",
+        "maxStackSize": 1
+    },
+    "holdable": {
+        "equipmentSlotsNeeded": 2
+    },
+    "actionUser": {
+        "defaultActions": [ ]
+    },
+    "craftable": {},
+    "weapon": {
+        "fightingType": {
+            "id": "fightingstyle_melee"
+        },
+        "weaponType": {
+            "id": "weapontype_spear"
+        }
+    },
+    "skillcheck": {
+        "checkedAttributes": [
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Courage"
+                    }
+                ]
+            },
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Intuition"
+                    }
+                ]
+            },
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Constitution"
+                    }
+                ]
+            }
+        ]
+    },
+    "upgradable": {
+        "defaultUpgrades": []
+    },
+    "icon": {
+        "iconFilepath": "data/base/icons/weapon/weapon_spear_fire_tier1.png"
+    }
+}

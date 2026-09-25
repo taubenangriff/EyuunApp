@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "weapontype_spear",
+        "internalName": "Weapon Type: Spear"
+    },
+    "text": {},
+    "buff": { 
+        "textDescription": "weapontype_spear_buff"
+    }
+}

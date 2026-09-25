@@ -1,6 +1,7 @@
 import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
 import 'package:eyuunapp/view/decoration/cornerPainters/DoubleLineCornerPainter.dart';
 import 'package:eyuunapp/view/decoration/linePainters/DoubleLinePainter.dart';
+import 'package:eyuuncore/components/AssetBundle.dart';
 import 'package:eyuuncore/components/Armor.dart';
 import 'package:eyuuncore/components/Holdable.dart';
 import 'package:eyuuncore/components/Icon.dart';
@@ -47,7 +48,9 @@ class InventoryItemWidget extends StatelessWidget {
             background: theme.canvasColor,
             paint: (isSelected
                 ? Brushes.goldSparkling()
-                : Brushes.silverSparkling())
+                : entity!.has<AssetBundleComponent>()
+                    ? Brushes.obsidianSparkling()
+                    : Brushes.silverSparkling())
               ..strokeWidth = 1.25,
             cornerSize: 16),
         child: ConstrainedBox(
@@ -60,9 +63,9 @@ class InventoryItemWidget extends StatelessWidget {
                   alignment: Alignment.center,
                   child: icon != null
                       ? Padding(
-                          padding: EdgeInsets.all(8),
+                          padding: EdgeInsets.all(12),
                           child: Image(
-                              image: AssetImage(icon), width: 128, height: 128))
+                              image: AssetImage(icon), width: 64, height: 64))
                       : const Icon(Icons.inventory_2, size: 32),
                 ),
                 if (count > 1)

@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "weapontype_parade",
+        "internalName": "Weapon Type: Parade"
+    },
+    "text": {},
+    "buff": { 
+        "textDescription": "weapontype_parade_buff"
+    }
+}

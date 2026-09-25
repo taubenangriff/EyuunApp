@@ -1,0 +1,63 @@
+{
+    "standard": {
+        "typeId": "spear_onehand"
+    },
+    "text": {
+        "fluff": "spear_fluff"
+    },
+    "action": {
+        "actionDescription": "attack_actiondesc",
+        "actionTime": "Attack"
+    },
+    "item": {
+        "categoryText": "item_category_weapon",
+        "maxStackSize": 1
+    },
+    "holdable": {
+        "equipmentSlotsNeeded": 1
+    },
+    "actionUser": {
+        "defaultActions": [ ]
+    },
+    "craftable": {},
+    "weapon": {
+        "skillMultiplier": 0.5,
+        "fightingType": {
+            "id": "fightingstyle_melee"
+        },
+        "weaponType": {
+            "id": "weapontype_spear"
+        }
+    },
+    "skillcheck": {
+        "checkedAttributes": [
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Courage"
+                    }
+                ]
+            },
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Intuition"
+                    }
+                ]
+            },
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Constitution"
+                    }
+                ]
+            }
+        ]
+    },
+    "upgradable": {
+        "defaultUpgrades": []
+    },
+    "icon": {
+        "iconFilepath": "data/base/icons/weapon/weapon_whip_fire_tier1.png"
+    }
+}

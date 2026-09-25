@@ -6,13 +6,7 @@
     "assetBundle": {
         "assets": [
             {
-                "id": "armor_01"
-            },
-            {
-                "id": "holdable_01"
-            },
-            {
-              "id": "itemshop_list"
+              "id": "weapon_list"
             }
         ]
     }

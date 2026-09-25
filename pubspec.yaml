@@ -90,6 +90,9 @@ flutter:
     - data/base/icons/dice/2.0x/
     - data/base/icons/damage_type/
     - data/base/icons/weapon/
+    - data/base/icons/skill/
+    - data/base/icons/item/
+    - data/base/icons/armor/
     - data/base/icons/
     - data/base/asset/items/
     - data/base/asset/actions/

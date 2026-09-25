@@ -1,0 +1,67 @@
+{
+    "standard": {
+        "typeId": "parade_weapon_onehand"
+    },
+    "text": {
+        "fluff": "parade_weapon_fluff"
+    },
+    "action": {
+        "actionDescription": "attack_actiondesc",
+        "actionTime": "Attack"
+    },
+    "item": {
+        "categoryText": "item_category_weapon",
+        "maxStackSize": 1
+    },
+    "holdable": {
+        "equipmentSlotsNeeded": 1
+    },
+    "actionUser": {
+        "defaultActions": [
+            {
+                "id": "parry_melee"
+            }
+        ]
+    },
+    "craftable": {},
+    "weapon": {
+        "skillMultiplier": 0.5,
+        "fightingType": {
+            "id": "fightingstyle_melee"
+        },
+        "weaponType": {
+            "id": "weapontype_parade"
+        }
+    },
+    "skillcheck": {
+        "checkedAttributes": [
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Courage"
+                    }
+                ]
+            },
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Intuition"
+                    }
+                ]
+            },
+            {
+                "options": [
+                    {
+                        "id": "baseSkill_Dexterity"
+                    }
+                ]
+            }
+        ]
+    },
+    "upgradable": {
+        "defaultUpgrades": []
+    },
+    "icon": {
+        "iconFilepath": "data/base/icons/weapon/weapon_sword_fire_tier1.png"
+    }
+}

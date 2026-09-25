@@ -1,0 +1,25 @@
+{
+    "standard": {
+        "typeId": "weapon_list"
+    },
+    "text": { },
+    "assetBundle": {
+        "assets": [
+            {
+                "id": "parade_weapon_onehand"
+            },
+            {
+                "id": "parade_weapon_twohand"
+            },
+            {
+                "id": "spear_onehand"
+            },
+            {
+                "id": "spear_twohand"
+            }
+        ]
+    },
+    "icon": {
+        "iconFilepath": "data/base/icons/item/item_treasure_chest_fire_tier1.png"
+    }
+}
