@@ -31,6 +31,7 @@ talent_animals = mit Tieren umgehen
 talent_perform = Musik/Kunst/Auftritt
 talent_religion = Religion & Okkultes
 talent_wildlife = Wildnisleben
+talent_crime = Kriminell
 spellschool_elements = Elemente
 spellschool_will = Wille
 spellschool_summoner = Beschwörung
