@@ -1,6 +1,8 @@
 import 'package:event_bus/event_bus.dart';
 import 'package:eyuuncore/GetIt.dart';
+import 'package:eyuuncore/components/Attribute.dart';
 import 'package:eyuuncore/components/Attributes.dart';
+import 'package:eyuuncore/components/upgradable.dart';
 import 'package:eyuuncore/controller/AttributesController.dart';
 import 'package:eyuuncore/controller/AttributesUpgradeController.dart';
 import 'package:eyuuncore/core/components/standard.dart';
@@ -136,6 +138,29 @@ void main() {
       expect(controller.canDecrease('strength'), isFalse);
       expect(controller.isEditing, isFalse);
       expect(events, hasLength(1));
+    });
+
+    test('applies the buffs once per upgrade step on accept', () {
+      world
+        ..registerComponent(() => UpgradableComponent())
+        ..registerComponent(() => AttributeComponent());
+      character.add<UpgradableComponent, int>();
+      final buff = world.createEntity();
+      final strength = attributes.statValues.first.stat
+        ..add<AttributeComponent, int>();
+      strength.get<AttributeComponent>()!.buffWhenUpgraded = buff;
+
+      controller.increase('strength');
+      controller.increase('strength');
+      controller.accept();
+
+      final applied = character.get<UpgradableComponent>()!.appliedUpgrades;
+      expect(applied, hasLength(2));
+      expect(applied, everyElement(same(buff)));
+      expect(events.map((e) => e.component), [
+        same(attributes),
+        same(character.get<UpgradableComponent>()),
+      ]);
     });
 
     test('enforces the d12 cap and discards cancelled edits', () {

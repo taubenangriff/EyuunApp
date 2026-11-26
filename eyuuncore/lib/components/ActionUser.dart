@@ -104,5 +104,6 @@ class ActionUserComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => ActionUserDynamic(preferredActionTimes: preferredActionTimes).toMap();
+  Map<String, dynamic> saveDynamicData() =>
+      ActionUserDynamic(preferredActionTimes: preferredActionTimes).toMap();
 }

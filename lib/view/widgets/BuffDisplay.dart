@@ -7,6 +7,7 @@ import 'package:eyuuncore/components/upgrade/CharacterPathUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/CombatUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/FluxUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/HealthUpgrade.dart';
+import 'package:eyuuncore/components/upgrade/InventoryUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/LanguageLearnerUpgrade.dart';
 import 'package:eyuuncore/components/upgrade/TalentsUpgrade.dart';
 import 'package:eyuuncore/GetIt.dart';
@@ -163,7 +164,8 @@ class BuffDisplay extends StatelessWidget {
       var healthUpgrade = buff!.get<HealthUpgradeComponent>()!;
 
       if (healthUpgrade.maxHitpointsUpgrade > 0 ||
-          healthUpgrade.maxDeathThrowsUpgrade > 0) {
+          healthUpgrade.maxDeathThrowsUpgrade > 0 ||
+          healthUpgrade.naturalArmorUpgrade > 0) {
         if (widgets.isNotEmpty) {
           _addDivider(widgets);
         }
@@ -182,6 +184,28 @@ class BuffDisplay extends StatelessWidget {
             Icons.health_and_safety,
             "uitext_maxdtupgrade",
             healthUpgrade.maxDeathThrowsUpgrade.toString()));
+      }
+      if (healthUpgrade.naturalArmorUpgrade > 0) {
+        widgets.add(_buildValueUpgradeWidget(
+            context,
+            Icons.shield,
+            "uitext_naturalarmorupgrade",
+            healthUpgrade.naturalArmorUpgrade.toString()));
+      }
+    }
+
+    if (buff!.has<InventoryUpgradeComponent>()) {
+      var inventoryUpgrade = buff!.get<InventoryUpgradeComponent>()!;
+
+      if (inventoryUpgrade.increaseSlotCount > 0) {
+        if (widgets.isNotEmpty) {
+          _addDivider(widgets);
+        }
+        widgets.add(_buildValueUpgradeWidget(
+            context,
+            Icons.inventory_2,
+            "uitext_inventoryslotupgrade",
+            inventoryUpgrade.increaseSlotCount.toString()));
       }
     }
 

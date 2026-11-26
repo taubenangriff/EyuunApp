@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "attribute_max_flux_buff",
+        "internalName": "Attribute: Max Flux Buff"
+    },
+    "text": {},
+    "fluxUpgrade": {
+        "fluxMaximumUpgrade": 1
+    }
+}

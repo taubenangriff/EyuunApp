@@ -6,6 +6,11 @@
     "text": {
         "short": "text_Intelligence_short"
     },
+    "attribute": {
+        "buffWhenUpgraded": {
+            "id": "attribute_intelligence_buff"
+        }
+    },
     "skillcheck": {
         "checkedAttributes": [
             {

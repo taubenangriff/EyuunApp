@@ -48,5 +48,6 @@ class AssetBundleComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => AssetBundleStatic(assets: assets.asAssetLinks()).toMap();
+  Map<String, dynamic> saveDynamicData() =>
+      AssetBundleStatic(assets: assets.asAssetLinks()).toMap();
 }

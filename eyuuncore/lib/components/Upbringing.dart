@@ -10,7 +10,8 @@ part 'Upbringing.mapper.dart';
 @reflector
 class UpbringingStatic with UpbringingStaticMappable, ComponentReflectable {
   List<PersonSize> possibleSizes;
-  UpbringingStatic(List<PersonSize>? possibleSizes) : possibleSizes = possibleSizes ?? [];
+  UpbringingStatic(List<PersonSize>? possibleSizes)
+    : possibleSizes = possibleSizes ?? [];
 }
 
 class UpbringingComponent extends EyuunComponent<int> {

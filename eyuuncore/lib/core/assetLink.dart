@@ -14,17 +14,23 @@ class AssetLink with AssetLinkMappable {
   AssetLink(this.id);
 
   Entity? getEntity() => locator<GameObjectService>().getStatic(id);
-  Entity? createNewInstance() => locator<GameObjectService>().createInstance(id);
+  Entity? createNewInstance() =>
+      locator<GameObjectService>().createInstance(id);
 
   static AssetLink fromEntity(Entity e) => AssetLink(e.getTypeId());
   static AssetLink invalid() => AssetLink(noType);
 
-  bool isValidLink() => id != noType ? locator<GameObjectService>().getStatic(id) != null : false;
+  bool isValidLink() =>
+      id != noType ? locator<GameObjectService>().getStatic(id) != null : false;
 }
 
 extension GetObjectLinkListObjects on Iterable<AssetLink> {
-  List<Entity> getAssets() => map((AssetLink e) => e.getEntity()).where((e) => e != null).map((e) => e!).toList();
-  List<Entity> createNewInstances() => map((AssetLink e) => e.createNewInstance()).where((e) => e != null).map((e) => e!).toList();
+  List<Entity> getAssets() => map(
+    (AssetLink e) => e.getEntity(),
+  ).where((e) => e != null).map((e) => e!).toList();
+  List<Entity> createNewInstances() => map(
+    (AssetLink e) => e.createNewInstance(),
+  ).where((e) => e != null).map((e) => e!).toList();
 }
 
 extension getLinkFromEntity on Entity {
@@ -32,5 +38,6 @@ extension getLinkFromEntity on Entity {
 }
 
 extension GetEntityListLinks on Iterable<Entity> {
-  List<AssetLink> asAssetLinks() => map((Entity e) => AssetLink.fromEntity(e)).toList();
+  List<AssetLink> asAssetLinks() =>
+      map((Entity e) => AssetLink.fromEntity(e)).toList();
 }

@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "attribute_agility_upgrade_buff",
+        "internalName": "Attribute: Agility Upgrade Buff"
+    },
+    "text": {},
+    "combatUpgrade": {
+        "evasionUpgrade": 1
+    }
+}

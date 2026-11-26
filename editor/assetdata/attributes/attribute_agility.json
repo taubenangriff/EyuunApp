@@ -6,6 +6,11 @@
     "text": {
         "short": "text_Agility_short"
     },
+    "attribute": {
+        "buffWhenUpgraded": {
+            "id": "attribute_agility_upgrade_buff"
+        }
+    },
     "skillcheck": {
         "checkedAttributes": [
             {

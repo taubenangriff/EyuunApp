@@ -5,9 +5,10 @@ class StaticAssetRepository {
   Map<String, Entity> staticAssets = {};
 
   void register(String typeId, Entity entity) {
-    if(entity.get<StandardComponent>()?.typeId != typeId)
-    {
-      Exception("typeId of this entity must match the typeId in it's Standard component!");
+    if (entity.get<StandardComponent>()?.typeId != typeId) {
+      Exception(
+        "typeId of this entity must match the typeId in it's Standard component!",
+      );
     }
 
     staticAssets[typeId] = entity;

@@ -15,7 +15,12 @@ class UpgradeDescriptor {
   UpgradableInt Function(EyuunComponent) getBase;
   int? Function(EyuunComponent) getUpgrade;
 
-  UpgradeDescriptor(this.typeIdBase, this.typeIdUpgrade, this.getBase, this.getUpgrade);
+  UpgradeDescriptor(
+    this.typeIdBase,
+    this.typeIdUpgrade,
+    this.getBase,
+    this.getUpgrade,
+  );
 }
 
 class ListUpgradeDescriptor<T> {
@@ -24,5 +29,10 @@ class ListUpgradeDescriptor<T> {
   UpgradableList<T> Function(EyuunComponent) getBase;
   List<T>? Function(EyuunComponent) getUpgrade;
 
-  ListUpgradeDescriptor(this.typeIdBase, this.typeIdUpgrade, this.getBase, this.getUpgrade);
+  ListUpgradeDescriptor(
+    this.typeIdBase,
+    this.typeIdUpgrade,
+    this.getBase,
+    this.getUpgrade,
+  );
 }

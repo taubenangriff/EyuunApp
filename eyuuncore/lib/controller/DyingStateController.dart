@@ -11,7 +11,8 @@ class DyingStateController {
   DyingStateController(this.dyingEntity);
 
   bool isStabilized() {
-    return dyingEntity.get<HealthComponent>()?.aliveState == AliveState.Stabilized;
+    return dyingEntity.get<HealthComponent>()?.aliveState ==
+        AliveState.Stabilized;
   }
 
   bool isDying() {

@@ -25,8 +25,7 @@ class ItemShopFeatureComponent extends EyuunComponent<int> {
   late Entity? topLevelBundle;
 
   List<Entity> getShopItems() =>
-      topLevelBundle?.get<AssetBundleComponent>()?.getAssets() ??
-      [];
+      topLevelBundle?.get<AssetBundleComponent>()?.getAssets() ?? [];
 
   @override
   String getName() => propertyName;

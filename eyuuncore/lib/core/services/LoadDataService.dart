@@ -26,7 +26,7 @@ class LoadDataService {
       _gameObjectService.preloadStatic(typeId);
     }
 
-    for(var typeId in _assetDataRepository.getTypeIds()){
+    for (var typeId in _assetDataRepository.getTypeIds()) {
       _gameObjectService.loadStaticData(typeId);
     }
   }

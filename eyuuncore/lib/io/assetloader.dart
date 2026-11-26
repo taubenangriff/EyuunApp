@@ -15,11 +15,12 @@ class AssetLoader {
     var asset = assetRepository.getAssetMap(typeId);
     if (asset == null) {
       throw ArgumentError(
-          "typeId is not valid and doesn't point to an asset definition. This should be checked beforehand!");
+        "typeId is not valid and doesn't point to an asset definition. This should be checked beforehand!",
+      );
     }
 
     var inherit = getInheritFromAssetMap(asset);
-    if(inherit != null && assetRepository.isValidDefinition(inherit)){
+    if (inherit != null && assetRepository.isValidDefinition(inherit)) {
       applyStaticData(entity, inherit);
     }
 
@@ -33,12 +34,15 @@ class AssetLoader {
   }
 
   void _addComponentDataToEntity(
-      Entity entity, String componentId, Map<String, dynamic> assetMap) {
+    Entity entity,
+    String componentId,
+    Map<String, dynamic> assetMap,
+  ) {
     var component = worldManager.getComponentFromEntity(componentId, entity);
     var componentMap = assetMap[componentId];
-    try{
+    try {
       component?.loadStaticData(componentMap);
-    } on MapperException catch (e){
+    } on MapperException catch (e) {
       print(e.message);
       print("component data:");
       print(componentMap);
@@ -46,12 +50,11 @@ class AssetLoader {
   }
 
   void applyDynamicData(Entity entity, Map<String, dynamic> entityMap) {
-    for(var key in entityMap.keys)
-    {
+    for (var key in entityMap.keys) {
       if (!worldManager.isValidComponentName(key)) {
         continue;
       }
-      if(!worldManager.entityHasComponent(key, entity)){
+      if (!worldManager.entityHasComponent(key, entity)) {
         continue;
       }
 
@@ -69,8 +72,7 @@ class AssetLoader {
     return assetMap['inherit']?['from'] as String?;
   }
 
-  String? getObjectIdFromObjectMap(Map<String, dynamic> entityMap){
+  String? getObjectIdFromObjectMap(Map<String, dynamic> entityMap) {
     return entityMap['standard']?['objectId'] as String;
   }
-
 }

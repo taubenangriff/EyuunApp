@@ -5,7 +5,11 @@ import '../repository/ComponentRepository.dart';
 
 class Reflector extends Reflectable {
   const Reflector()
-      : super(invokingCapability, typingCapability, reflectedTypeCapability); // Request the capability to invoke methods.
+    : super(
+        invokingCapability,
+        typingCapability,
+        reflectedTypeCapability,
+      ); // Request the capability to invoke methods.
 }
 
 const reflector = Reflector();

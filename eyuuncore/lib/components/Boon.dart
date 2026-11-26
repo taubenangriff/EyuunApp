@@ -21,7 +21,11 @@ class BoonDynamic with BoonDynamicMappable {
   int boonRegeneration;
   int boonSpentSinceLastRest;
 
-  BoonDynamic({this.currentBoon = 0, this.boonRegeneration = 0, this.boonSpentSinceLastRest = 0});
+  BoonDynamic({
+    this.currentBoon = 0,
+    this.boonRegeneration = 0,
+    this.boonSpentSinceLastRest = 0,
+  });
 }
 
 class BoonComponent extends EyuunComponent<int> {
@@ -34,14 +38,17 @@ class BoonComponent extends EyuunComponent<int> {
   @override
   String getName() => propertyName;
 
-
   @override
   void init([int? data]) {
     reset();
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => BoonDynamic(currentBoon: currentBoon, boonRegeneration: boonRegeneration.base, boonSpentSinceLastRest: boonSpentSinceLastRest).toMap();
+  Map<String, dynamic> saveDynamicData() => BoonDynamic(
+    currentBoon: currentBoon,
+    boonRegeneration: boonRegeneration.base,
+    boonSpentSinceLastRest: boonSpentSinceLastRest,
+  ).toMap();
 
   @override
   void loadDynamicData(Map<String, dynamic> dynamicData) {
@@ -62,6 +69,4 @@ class BoonComponent extends EyuunComponent<int> {
     currentBoon = 0;
     boonRegeneration = 0.upgradable;
   }
-
-
 }

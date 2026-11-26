@@ -6,9 +6,7 @@ import '../core/reflection/reflector.dart';
 
 part 'text.mapper.dart';
 
-@MappableClass(
-  ignoreNull: false
-)
+@MappableClass(ignoreNull: false)
 @reflector
 class TextStatic with TextStaticMappable, ComponentReflectable {
   String? textOverride;
@@ -26,12 +24,10 @@ class TextComponent extends EyuunComponent<String> {
   String? short;
 
   @override
-  void init([String? data]) {
-  }
+  void init([String? data]) {}
 
   @override
-  void reset() {
-  }
+  void reset() {}
 
   @override
   String getName() => propertyName;

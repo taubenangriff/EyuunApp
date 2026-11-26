@@ -13,6 +13,7 @@ uitext_attribute_increase = Increase attribute
 uitext_attribute_decrease = Decrease attribute
 uitext_attribute_accept = Accept attribute upgrades
 uitext_attribute_cancel = Cancel attribute upgrades
+uitext_attribute_bonus_per_upgrade = Bonus per upgrade:
 text_attributes = Attributes
 fluff_item_dummy1 = Lorem Ipsum description
 item_dummy1 = Item I

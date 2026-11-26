@@ -6,6 +6,11 @@
     "text": {
         "short": "text_Charisma_short"
     },
+    "attribute": {
+        "buffWhenUpgraded": {
+            "id": "attribute_max_flux_buff"
+        }
+    },
     "skillcheck": {
         "checkedAttributes": [
             {

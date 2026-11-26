@@ -13,7 +13,8 @@ part 'Spell.mapper.dart';
 class SpellStatic with SpellStaticMappable, ComponentReflectable {
   int tier;
   AssetLink spellSchool;
-  SpellStatic({this.tier = 0, AssetLink? spellSchool}) : spellSchool = spellSchool ?? AssetLink.invalid();
+  SpellStatic({this.tier = 0, AssetLink? spellSchool})
+    : spellSchool = spellSchool ?? AssetLink.invalid();
 }
 
 class SpellComponent extends EyuunComponent<int> {

@@ -1,0 +1,13 @@
+{
+    "standard": {
+        "typeId": "attribute_intelligence_buff",
+        "internalName": "Attribute: Intelligence Buff"
+    },
+    "text": {},
+    "fluxUpgrade": {
+        "fluxMaximumUpgrade": 1
+    },
+    "languageLearnerUpgrade": {
+        "languageMaxPotentialUpgrade": 1
+    }
+}

@@ -6,6 +6,11 @@
     "text": {
         "short": "text_Strength_short"
     },
+    "attribute": {
+        "buffWhenUpgraded": {
+            "id": "attribute_strength_buff"
+        }
+    },
     "skillcheck": {
         "checkedAttributes": [
             {

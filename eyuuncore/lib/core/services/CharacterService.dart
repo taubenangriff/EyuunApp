@@ -8,7 +8,7 @@ class CharacterService {
   late Entity _character;
   Entity get character => _character;
 
-  void changeCharacter(Entity character){
+  void changeCharacter(Entity character) {
     _character = character;
   }
 

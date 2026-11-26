@@ -1,10 +1,19 @@
+import 'dart:async';
+
+import 'package:event_bus/event_bus.dart';
+import 'package:eyuunapp/view/popup/BuffDisplayPopup.dart';
+import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuunapp/view/widgets/DiceIcon.dart';
 import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 import 'package:eyuuncore/GetIt.dart';
+import 'package:eyuuncore/components/Attribute.dart';
 import 'package:eyuuncore/components/Attributes.dart';
+import 'package:eyuuncore/components/upgradable.dart';
 import 'package:eyuuncore/controller/AttributesUpgradeController.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
+import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
+import 'package:eyuuncore/events/EntityUpdatedEvent.dart';
 import 'package:flutter/material.dart';
 
 class AttributesWidget extends StatefulWidget {
@@ -20,10 +29,32 @@ class AttributesWidget extends StatefulWidget {
 }
 
 class _AttributesWidgetState extends State<AttributesWidget> {
+  late final StreamSubscription<EntityUpdatedEvent> _updates;
+
+  @override
+  void initState() {
+    super.initState();
+    final character = locator<CharacterService>().character;
+    _updates = locator<EventBus>().on<EntityUpdatedEvent>().listen((event) {
+      if (event.entity == character &&
+          (event.component is AttributesComponent ||
+              event.component is UpgradableComponent)) {
+        setState(() {});
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _updates.cancel();
+    super.dispose();
+  }
+
   Widget _buildStat(AttributeEntry item, TextService textService) {
     final controller = widget.controller!;
     final statId = item.stat.getTypeId();
-    return Row(
+    final buff = item.stat.get<AttributeComponent>()?.buffWhenUpgraded;
+    final row = Row(
       children: [
         SizedBox(
           width: 48,
@@ -53,9 +84,28 @@ class _AttributesWidgetState extends State<AttributesWidget> {
               : null,
         ),
         EyuunWidgets.spacerHorizontal(),
-        Expanded(child: Text(textService.getTextFromEntity(item.stat))),
+        Expanded(
+          child: InkWell(
+            onTap: buff == null
+                ? null
+                : () => PopupUtil.popup(
+                      context,
+                      BuffDisplayPopup(
+                        buff: buff,
+                        title: textService.getTextFromEntity(item.stat),
+                        subtitle: textService
+                            .getText('uitext_attribute_bonus_per_upgrade'),
+                      ),
+                    ),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(textService.getTextFromEntity(item.stat)),
+            ),
+          ),
+        ),
       ],
     );
+    return row;
   }
 
   @override
@@ -103,7 +153,8 @@ class _AttributesWidgetState extends State<AttributesWidget> {
                 tooltip: textService.getText('uitext_attribute_accept'),
                 onPressed: () {
                   try {
-                    setState(controller!.accept);
+                    controller!.accept();
+                    setState(() {});
                   } on StateError catch (error) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text(error.message)),

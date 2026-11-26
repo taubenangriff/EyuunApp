@@ -1,0 +1,13 @@
+{
+    "standard": {
+        "typeId": "attribute_strength_buff",
+        "internalName": "Attribute: Strength Buff"
+    },
+    "text": {},
+    "healthUpgrade": {
+        "naturalArmorUpgrade": 1
+    },
+    "inventoryUpgrade": {
+        "increaseSlotCount": 1
+    }
+}

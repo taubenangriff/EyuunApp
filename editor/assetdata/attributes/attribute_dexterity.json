@@ -6,6 +6,7 @@
     "text": {
         "short": "text_Dexterity_short"
     },
+    "attribute": { },
     "skillcheck": {
         "checkedAttributes": [
             {

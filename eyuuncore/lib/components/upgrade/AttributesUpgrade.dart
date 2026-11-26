@@ -8,7 +8,8 @@ part 'AttributesUpgrade.mapper.dart';
 
 @MappableClass()
 @reflector
-class AttributesUpgradeStatDyn with AttributesUpgradeStatDynMappable, ComponentReflectable {
+class AttributesUpgradeStatDyn
+    with AttributesUpgradeStatDynMappable, ComponentReflectable {
   int maxDiceIncreasesUpgrade;
   AttributesUpgradeStatDyn({this.maxDiceIncreasesUpgrade = 0});
 }
@@ -32,7 +33,8 @@ class AttributesUpgradeComponent extends EyuunComponent<int> {
   }
 
   @override
-  void loadDynamicData(Map<String, dynamic> dynamicData) => loadStaticData(dynamicData);
+  void loadDynamicData(Map<String, dynamic> dynamicData) =>
+      loadStaticData(dynamicData);
 
   @override
   void loadStaticData(Map<String, dynamic> staticData) {
@@ -41,5 +43,7 @@ class AttributesUpgradeComponent extends EyuunComponent<int> {
   }
 
   @override
-  Map<String, dynamic> saveDynamicData() => AttributesUpgradeStatDyn(maxDiceIncreasesUpgrade: maxDiceIncreasesUpgrade).toMap();
+  Map<String, dynamic> saveDynamicData() => AttributesUpgradeStatDyn(
+    maxDiceIncreasesUpgrade: maxDiceIncreasesUpgrade,
+  ).toMap();
 }

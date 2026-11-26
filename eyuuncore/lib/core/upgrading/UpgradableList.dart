@@ -8,17 +8,17 @@ class UpgradableList<T> {
 
   void reset() => upgradeList = [];
 
-  static UpgradableList<T> from<T>(List<T> value){
+  static UpgradableList<T> from<T>(List<T> value) {
     var target = UpgradableList<T>();
     target.baseList = value;
     return target;
   }
 
-  void add(T value){
+  void add(T value) {
     baseList.add(value);
   }
 
-  void addUpgrade(T value){
+  void addUpgrade(T value) {
     upgradeList.add(value);
   }
 }

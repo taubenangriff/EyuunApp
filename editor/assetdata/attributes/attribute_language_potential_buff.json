@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "typeId": "attribute_language_potential_buff",
+        "internalName": "Attribute: Language Potential Buff"
+    },
+    "text": {},
+    "languageLearnerUpgrade": {
+        "languageMaxPotentialUpgrade": 1
+    }
+}

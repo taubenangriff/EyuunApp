@@ -16,10 +16,11 @@ class LanguagesController {
   List<Entity> learnableLanguages = [];
 
   List<Entity> _evaluateLearnableLanguages() {
-    return locator<CharacterTablesFeatureComponent>()
-        .languages
-        .where((e) =>
-            !targetLearner.languagesLearned.any((x) => x.id == e.getTypeId()))
+    return locator<CharacterTablesFeatureComponent>().languages
+        .where(
+          (e) =>
+              !targetLearner.languagesLearned.any((x) => x.id == e.getTypeId()),
+        )
         .toList();
   }
 
@@ -29,8 +30,9 @@ class LanguagesController {
     return targetLearner.canLearnNew()
         // and language isn't already learned.
         &&
-        !targetLearner.languagesLearned
-            .any((e) => e.id == language.getTypeId());
+        !targetLearner.languagesLearned.any(
+          (e) => e.id == language.getTypeId(),
+        );
   }
 
   void learnLanguage(Entity language, {bool throughProject = false}) {

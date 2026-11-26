@@ -13,16 +13,20 @@ class SkillcheckOption with SkillcheckOptionMappable {
   List<AssetLink> options;
   AssetLink selectedOption;
   int numberOfDices;
-  SkillcheckOption({List<AssetLink>? options, AssetLink? selectedOption, this.numberOfDices = 1})
-    : options = options ?? [],
-      selectedOption = selectedOption ?? AssetLink.invalid();
+  SkillcheckOption({
+    List<AssetLink>? options,
+    AssetLink? selectedOption,
+    this.numberOfDices = 1,
+  }) : options = options ?? [],
+       selectedOption = selectedOption ?? AssetLink.invalid();
 }
 
 @MappableClass()
 class SkillcheckStaticOption with SkillcheckStaticOptionMappable {
   List<AssetLink> options;
   int numberOfDices;
-  SkillcheckStaticOption({List<AssetLink>? options, this.numberOfDices = 1}) : options = options ?? [];
+  SkillcheckStaticOption({List<AssetLink>? options, this.numberOfDices = 1})
+    : options = options ?? [];
 }
 
 @MappableClass()
@@ -51,9 +55,7 @@ class SkillcheckComponent extends EyuunComponent<int> {
 
   List<SkillcheckOption> _checkedAttributes = [];
   List<SkillcheckOption> get checkedAttributes =>
-      overrideSkillcheck
-          ?.get<SkillcheckComponent>()
-          ?.checkedAttributes ??
+      overrideSkillcheck?.get<SkillcheckComponent>()?.checkedAttributes ??
       _checkedAttributes;
 
   static const String propertyName = "skillcheck";

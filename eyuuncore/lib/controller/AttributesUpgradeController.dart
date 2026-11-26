@@ -1,8 +1,11 @@
 import 'package:event_bus/event_bus.dart';
 import 'package:eyuuncore/GetIt.dart';
+import 'package:eyuuncore/components/Attribute.dart';
 import 'package:eyuuncore/components/Attributes.dart';
+import 'package:eyuuncore/components/upgradable.dart';
 import 'package:eyuuncore/controller/AttributesController.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
+import 'package:eyuuncore/core/services/WorldManager.dart';
 import 'package:eyuuncore/enums/dice.dart';
 import 'package:eyuuncore/events/EntityUpdatedEvent.dart';
 import 'package:oxygen/oxygen.dart';
@@ -113,11 +116,29 @@ class AttributesUpgradeController {
     }
 
     final eventBus = locator<EventBus>();
+    final upgradable = _character.get<UpgradableComponent>();
     for (var i = 0; i < originalEntries.length; i++) {
-      if (changed[i]) originalEntries[i].dice = draft.statValues[i].dice;
+      if (!changed[i]) continue;
+      final steps =
+          draft.statValues[i].dice.getUpgrades() -
+          originalDice[i].getUpgrades();
+      originalEntries[i].dice = draft.statValues[i].dice;
+      final buff = originalEntries[i].stat
+          .get<AttributeComponent>()
+          ?.buffWhenUpgraded;
+      if (upgradable == null || buff == null) continue;
+      for (var step = 0; step < steps; step++) {
+        upgradable.applyUpgrade(buff);
+      }
     }
     cancel();
     eventBus.fire(EntityUpdatedEvent(_character, _attributes));
+    if (upgradable != null) {
+      eventBus.fire(EntityUpdatedEvent(_character, upgradable));
+      if (locator.isRegistered<WorldManager>()) {
+        locator<WorldManager>().execute();
+      }
+    }
   }
 
   void cancel() {

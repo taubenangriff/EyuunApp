@@ -1,6 +1,7 @@
 import 'package:eyuuncore/components/ActionUser.dart';
 import 'package:eyuuncore/components/Armor.dart';
 import 'package:eyuuncore/components/AssetBundle.dart';
+import 'package:eyuuncore/components/Attribute.dart';
 import 'package:eyuuncore/components/Boon.dart';
 import 'package:eyuuncore/components/CharacterPath.dart';
 import 'package:eyuuncore/components/CombatShield.dart';
@@ -81,6 +82,11 @@ extension registerEditorComponentsExtension on ComponentRepository {
     registerComponent<AttributesStatic>(
       AttributesComponent.propertyName,
       (map) => AttributesStaticMapper.fromMap(map),
+      (comp) => comp.toMap(),
+    );
+    registerComponent<AttributeStatic>(
+      AttributeComponent.propertyName,
+      (map) => AttributeStaticMapper.fromMap(map),
       (comp) => comp.toMap(),
     );
     registerComponent<UpgradableStatic>(
@@ -368,6 +374,10 @@ extension RegisterComponentsExtension on WorldManager {
     registerComponent<AttributesComponent, int>(
       AttributesComponent.propertyName,
       () => AttributesComponent(),
+    );
+    registerComponent<AttributeComponent, int>(
+      AttributeComponent.propertyName,
+      () => AttributeComponent(),
     );
     registerComponent<UpgradableComponent, int>(
       UpgradableComponent.propertyName,

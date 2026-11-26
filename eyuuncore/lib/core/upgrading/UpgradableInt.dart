@@ -8,7 +8,7 @@ class UpgradableInt {
 
   void reset() => upgrade = 0;
 
-  static UpgradableInt from(int value){
+  static UpgradableInt from(int value) {
     var target = UpgradableInt();
     target.base = value;
     return target;

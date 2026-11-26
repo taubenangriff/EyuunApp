@@ -6,6 +6,7 @@
     "text": {
         "short": "text_Courage_short"
     },
+    "attribute": { },
     "skillcheck": {
         "checkedAttributes": [
             {

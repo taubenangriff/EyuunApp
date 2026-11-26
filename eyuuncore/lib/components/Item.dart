@@ -50,5 +50,4 @@ class ItemComponent extends EyuunComponent<int> {
   Map<String, dynamic> saveDynamicData() {
     return <String, dynamic>{};
   }
-
 }

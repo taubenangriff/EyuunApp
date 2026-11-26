@@ -3,7 +3,6 @@ import 'package:dart_mappable/dart_mappable.dart';
 part 'CastScope.mapper.dart';
 
 @MappableEnum(mode: ValuesMode.named)
-
 enum CastScope {
   Self,
   Sight,
@@ -13,13 +12,12 @@ enum CastScope {
   Rectangle,
   Cone,
   Cuboid,
-  Variant
+  Variant,
 }
 
 extension CastScopeText on CastScope {
   String getTextKey() {
-    return switch(this){
-
+    return switch (this) {
       // TODO: Handle this case.
       CastScope.Self => 'uitext_castscope_self',
       CastScope.Sight => 'uitext_castscope_sight',

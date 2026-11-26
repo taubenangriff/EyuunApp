@@ -21,36 +21,34 @@ class FeatureIds {
 extension EyuunFeaturesExtension on GetIt {
   void registerFeatures() {
     registerLazySingleton<CombatFeatureComponent>(
-          () => locator<GameObjectService>()
+      () => locator<GameObjectService>()
           .getStatic(FeatureIds.combatFeature)!
           .get<CombatFeatureComponent>()!,
     );
     registerLazySingleton<PathFeatureComponent>(
-          () => locator<GameObjectService>()
+      () => locator<GameObjectService>()
           .getStatic(FeatureIds.pathFeature)!
           .get<PathFeatureComponent>()!,
     );
     registerLazySingleton<LevelFeatureComponent>(
-          () => locator<GameObjectService>()
+      () => locator<GameObjectService>()
           .getStatic(FeatureIds.levelFeature)!
           .get<LevelFeatureComponent>()!,
     );
     registerLazySingleton<CharacterTablesFeatureComponent>(
-          () => locator<GameObjectService>()
+      () => locator<GameObjectService>()
           .getStatic(FeatureIds.characterTablesFeature)!
           .get<CharacterTablesFeatureComponent>()!,
     );
     registerLazySingleton<ItemShopFeatureComponent>(
-          () => locator<GameObjectService>()
+      () => locator<GameObjectService>()
           .getStatic(FeatureIds.itemShopFeature)!
           .get<ItemShopFeatureComponent>()!,
     );
     registerLazySingleton<DeathFeatureComponent>(
-          () => locator<GameObjectService>()
+      () => locator<GameObjectService>()
           .getStatic(FeatureIds.deathShopFeature)!
           .get<DeathFeatureComponent>()!,
     );
   }
 }
-
-

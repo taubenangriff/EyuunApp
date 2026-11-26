@@ -8,9 +8,13 @@ import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 
 class BuffDisplayPopup extends StatelessWidget {
   final Entity? buff;
+  final String? title;
+  final String? subtitle;
 
   const BuffDisplayPopup({
     required this.buff,
+    this.title,
+    this.subtitle,
     super.key,
   });
 
@@ -22,12 +26,13 @@ class BuffDisplayPopup extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(locator<TextService>().getTextFromEntity(buff!),
+                Text(title ?? locator<TextService>().getTextFromEntity(buff!),
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     )),
+                if (subtitle != null) Text(subtitle!),
                 EyuunWidgets.spacerVertical(),
                 BuffDisplay(buff: buff)
               ],

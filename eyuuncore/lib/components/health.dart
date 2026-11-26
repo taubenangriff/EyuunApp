@@ -23,7 +23,7 @@ class HealthDynamic with HealthDynamicMappable {
     this.temporaryHitpoints = 0,
     this.deathThrows = 0,
     this.naturalArmor = 0,
-    this.aliveState = AliveState.Healthy
+    this.aliveState = AliveState.Healthy,
   });
 }
 
@@ -108,6 +108,6 @@ class HealthComponent extends EyuunComponent<int> {
     temporaryHitpoints: temporaryHitpoints,
     deathThrows: deathThrows,
     naturalArmor: naturalArmor.base,
-    aliveState: aliveState
+    aliveState: aliveState,
   ).toMap();
 }
