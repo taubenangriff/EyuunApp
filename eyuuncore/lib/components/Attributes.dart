@@ -8,7 +8,6 @@ import '../core/upgrading/UpgradableInt.dart';
 import '../core/assetLink.dart';
 import '../core/reflection/Reflecting.dart';
 import '../enums/dice.dart';
-import 'package:collection/collection.dart';
 
 part 'Attributes.mapper.dart';
 
@@ -68,10 +67,10 @@ class AttributesComponent extends EyuunComponent<int> {
 
   /// Gets the AttributeEntry for the attribute which's typeId matches attributeKey.
   AttributeEntry? getStatEntry(String attributeKey) {
-    return statValues.firstWhere(
-      (e) => e.stat.getTypeId() == attributeKey,
-      orElse: null,
-    );
+    for (final entry in statValues) {
+      if (entry.stat.getTypeId() == attributeKey) return entry;
+    }
+    return null;
   }
 
   void setStatEntry(String attributeKey, Dice value) {
@@ -82,6 +81,10 @@ class AttributesComponent extends EyuunComponent<int> {
   int getDiceValue(String attributeKey) {
     return getStatEntry(attributeKey)?.dice.getValue() ?? 0;
   }
+
+  /// Returns the total number of dice upgrades spent across all attributes.
+  int getUsedDiceUpgrades() =>
+      statValues.fold(0, (total, entry) => total + entry.dice.getUpgrades());
 
   @override
   String getName() => propertyName;

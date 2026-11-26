@@ -11,10 +11,12 @@ import 'package:eyuunapp/view/widgets/cards/LanguagesWidget.dart';
 import 'package:eyuunapp/view/widgets/cards/PathsWidget.dart';
 import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/components/CharacterBase.dart';
+import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/Flux.dart';
 import 'package:eyuuncore/components/LanguageLearner.dart';
 import 'package:eyuuncore/components/health.dart';
 import 'package:eyuuncore/controller/HealthController.dart';
+import 'package:eyuuncore/controller/AttributesUpgradeController.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';
@@ -36,11 +38,16 @@ class _CharacterPageState extends State<CharacterPage> {
   );
 
   late final Future<ImageProvider> _profileImage;
+  late final AttributesUpgradeController? _attributesController;
 
   @override
   void initState() {
     super.initState();
     _profileImage = _loadProfileImage();
+    final character = locator<CharacterService>().character;
+    _attributesController = character.has<AttributesComponent>()
+        ? AttributesUpgradeController(character)
+        : null;
   }
 
   Future<ImageProvider> _loadProfileImage() async {
@@ -112,7 +119,10 @@ class _CharacterPageState extends State<CharacterPage> {
                     EyuunWidgets.spacerWidget(),
                     EyuunWidgets.informationBox(
                         child: EyuunWidgets.cardBox(
-                            child: AttributesWidget(), theme: theme),
+                            child: AttributesWidget(
+                              controller: _attributesController,
+                            ),
+                            theme: theme),
                         link:
                             'https://eyuun.de/proben-projekte#eigenschaftenwuerfe--proben'),
                     EyuunWidgets.spacerWidget(),
