@@ -1,3 +1,5 @@
+import 'package:eyuunapp/view/popup/ConfirmPathPopup.dart';
+import 'package:eyuunapp/view/popup/PopupUtil.dart';
 import 'package:eyuuncore/components/Path.dart';
 import 'package:eyuuncore/controller/PathController.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
@@ -61,7 +63,19 @@ class _PathPopupState extends State<PathPopup> {
                 pathController: widget.pathController,
                 onTap: widget.pathController.canPickNewPath() &&
                         widget.pathController.canPickStep(step)
-                    ? _increasePath
+                    ? () async {
+                        final confirmed = await PopupUtil.popup<bool>(
+                          maximumSize: Size(400, 700),
+                          context,
+                          ConfirmPathPopup(pathStep: step),
+                        );
+                        if (!mounted || confirmed != true) return;
+
+                        setState(() {
+                          widget.pathController.pickStep(step);
+                          widget.onSubmitted?.call(widget.pathId);
+                        });
+                      }
                     : null,
               ),
               const SizedBox(height: 12),

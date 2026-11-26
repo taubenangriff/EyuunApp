@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:event_bus/event_bus.dart';
 import 'package:eyuunapp/view/decoration/ArtDecoBoxDecoration.dart';
 import 'package:eyuunapp/view/decoration/cornerPainters/DoubleLineCornerPainter.dart';
 import 'package:eyuunapp/view/decoration/cornerPainters/ThickThinThickCornerPainter.dart';
@@ -9,11 +12,13 @@ import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 import 'package:eyuuncore/components/CharacterPath.dart';
 import 'package:eyuuncore/components/Path.dart';
 import 'package:eyuuncore/components/PathStep.dart';
+import 'package:eyuuncore/components/upgradable.dart';
 import 'package:eyuuncore/controller/PathController.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
 import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
+import 'package:eyuuncore/events/EntityUpdatedEvent.dart';
 import 'package:flutter/material.dart';
 import 'package:oxygen/oxygen.dart';
 
@@ -37,6 +42,25 @@ class _PathsWidgetState extends State<PathsWidget> {
 
   late var pathController = PathController(character);
   late var pathComponent = character.get<CharacterPathComponent>();
+  late final StreamSubscription<EntityUpdatedEvent> _updates;
+
+  @override
+  void initState() {
+    super.initState();
+    _updates = locator<EventBus>().on<EntityUpdatedEvent>().listen((event) {
+      if (event.entity == character &&
+          (event.component is CharacterPathComponent ||
+              event.component is UpgradableComponent)) {
+        setState(() {});
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _updates.cancel();
+    super.dispose();
+  }
 
   Widget _buildAddNewAdditionalPathButton(
       BuildContext context, VoidCallback onPressed) {
