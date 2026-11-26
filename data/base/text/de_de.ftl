@@ -545,3 +545,5 @@ weapon_list = Waffen
 item_buy = Kaufen
 throw_weapon_onehand_throw = Werfen
 throw_weapon_throw_fluff = Wirft diese Wurfwaffe in einem Fernkampfangriff und verursacht den Erfolgswert als Schaden.
+reload_weapon_reload_fluff = Lädt diese Waffe nach 
+reload_weapon_reload = Nachladen 

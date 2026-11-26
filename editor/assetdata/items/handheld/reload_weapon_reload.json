@@ -1,0 +1,13 @@
+{
+  "standard": {
+    "typeId": "reload_weapon_reload"
+  },
+  "text": {},
+  "action": {
+    "actionDescription": "reload_weapon_reload_fluff",
+    "actionTime": "Reaction"
+  },
+  "icon": {
+    "iconFilepath": "data/base/icons/weapon/weapon_crossbow_fire_tier1.png"
+  }
+}

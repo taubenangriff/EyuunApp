@@ -20,7 +20,11 @@
         "equipmentSlotsNeeded": 1
     },
     "actionUser": {
-        "defaultActions": [ ]
+        "defaultActions": [
+            {
+                "id": "reload_weapon_reload"
+            }
+         ]
     },
     "craftable": {},
     "weapon": {

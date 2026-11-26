@@ -7,7 +7,7 @@
     },
     "action": {
         "actionDescription": "attack_actiondesc",
-        "actionTime": "Attack"
+        "actionTime": "Action"
     },
     "item": {
         "categoryText": "item_category_ranged_weapon",
