@@ -23,13 +23,6 @@ import '../components/upgrade/HealthUpgrade.dart';
 
 extension RegisterUpgradesExtension on WorldManager {
   void registerUpgrades() {
-    registerUpgrade(
-      (e) => (e as HealthComponent).maxHitpoints,
-      (e) => (e as HealthUpgradeComponent).maxHitpointsUpgrade,
-      HealthComponent.propertyName,
-      HealthUpgradeComponent.propertyName,
-    );
-
     // ArmorUpgrade
     registerUpgrade(
       (e) => (e as ArmorComponent).armorToughness,
