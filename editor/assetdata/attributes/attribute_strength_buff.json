@@ -8,6 +8,6 @@
         "naturalArmorUpgrade": 1
     },
     "inventoryUpgrade": {
-        "increaseSlotCount": 1
+        "increaseSlotCount": 0
     }
 }

@@ -1,0 +1,9 @@
+{
+    "standard": {
+        "typeId": "levelup_health_upgrade",
+        "internalName": "Levelup Health Upgrade Internal"
+    },
+    "text": { },
+    "buff": { },
+    "healthUpgrade": { }
+}

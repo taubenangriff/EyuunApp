@@ -5,6 +5,7 @@ import 'package:eyuuncore/core/services/GameObjectService.dart';
 import 'package:oxygen/oxygen.dart';
 
 import '../core/assetLink.dart';
+import '../core/objectLink.dart';
 import '../core/reflection/Reflecting.dart';
 import '../core/reflection/reflector.dart';
 import '../GetIt.dart';
@@ -23,9 +24,13 @@ class UpgradableStatic with UpgradableStaticMappable, ComponentReflectable {
 @MappableClass()
 class UpgradableDynamic with UpgradableDynamicMappable {
   List<AssetLink> appliedUpgrades;
+  List<ObjectLink> appliedCreatedUpgrades;
 
-  UpgradableDynamic({List<AssetLink>? appliedUpgrades})
-    : appliedUpgrades = appliedUpgrades ?? [];
+  UpgradableDynamic({
+    List<AssetLink>? appliedUpgrades,
+    List<ObjectLink>? appliedCreatedUpgrades,
+  }) : appliedUpgrades = appliedUpgrades ?? [],
+       appliedCreatedUpgrades = appliedCreatedUpgrades ?? [];
 }
 
 class UpgradableComponent extends EyuunComponent<int> {
@@ -37,11 +42,17 @@ class UpgradableComponent extends EyuunComponent<int> {
   /// The list of upgrades which are dynamically applied to the entity.
   List<Entity> appliedUpgrades = [];
 
+  /// The list of upgrades which are dynamically applied and were created as instances at runtime.
+  List<Entity> appliedCreatedUpgrades = [];
+
   /// The list of upgrades which are temporarily applied to the entity via a game world system.
   List<Entity> transientUpgrades = [];
 
   List<Entity> get upgrades =>
-      defaultUpgrades + appliedUpgrades + transientUpgrades;
+      defaultUpgrades +
+      appliedUpgrades +
+      appliedCreatedUpgrades +
+      transientUpgrades;
 
   void addTransientUpgrade(Entity entity) => transientUpgrades.add(entity);
 
@@ -51,6 +62,8 @@ class UpgradableComponent extends EyuunComponent<int> {
   void clearTransientUpgrades() => transientUpgrades.clear();
 
   void applyUpgrade(Entity entity) => appliedUpgrades.add(entity);
+
+  void applyCreatedUpgrade(Entity entity) => appliedCreatedUpgrades.add(entity);
 
   void removeUpgrades(String upgradeTypeId) =>
       appliedUpgrades.removeWhere((x) => x.getTypeId() == upgradeTypeId);
@@ -71,18 +84,21 @@ class UpgradableComponent extends EyuunComponent<int> {
   void reset() {
     defaultUpgrades.clear();
     appliedUpgrades.clear();
+    appliedCreatedUpgrades.clear();
     transientUpgrades.clear();
   }
 
   @override
   Map<String, dynamic> saveDynamicData() => UpgradableDynamic(
     appliedUpgrades: appliedUpgrades.asAssetLinks(),
+    appliedCreatedUpgrades: appliedCreatedUpgrades.asObjectLinks(),
   ).toMap();
 
   @override
   void loadDynamicData(Map<String, dynamic> dynamicData) {
     var dyn = UpgradableDynamicMapper.fromMap(dynamicData);
     appliedUpgrades = dyn.appliedUpgrades.getAssets();
+    appliedCreatedUpgrades = dyn.appliedCreatedUpgrades.getObjects();
   }
 
   @override

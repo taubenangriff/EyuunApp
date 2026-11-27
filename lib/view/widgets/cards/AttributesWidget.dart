@@ -18,10 +18,14 @@ import 'package:flutter/material.dart';
 
 class AttributesWidget extends StatefulWidget {
   final AttributesUpgradeController? controller;
+  final bool showUpgradeButtons;
+  final VoidCallback? onChanged;
 
   const AttributesWidget({
     super.key,
     required this.controller,
+    this.showUpgradeButtons = false,
+    this.onChanged,
   });
 
   @override
@@ -58,13 +62,14 @@ class _AttributesWidgetState extends State<AttributesWidget> {
       children: [
         SizedBox(
           width: 48,
-          child: controller.canDecrease(statId)
+          child: widget.showUpgradeButtons && controller.canDecrease(statId)
               ? EyuunWidgets.circularFloatingActionButton(
                   icon: Icons.keyboard_arrow_left_rounded,
                   radius: 38.0,
                   tooltip: textService.getText('uitext_attribute_decrease'),
                   onPressed: () {
                     setState(() => controller.decrease(statId));
+                    widget.onChanged?.call();
                   },
                 )
               : null,
@@ -72,13 +77,14 @@ class _AttributesWidgetState extends State<AttributesWidget> {
         DiceIcon(type: item.dice, size: 52),
         SizedBox(
           width: 48,
-          child: controller.canIncrease(statId)
+          child: widget.showUpgradeButtons && controller.canIncrease(statId)
               ? EyuunWidgets.circularFloatingActionButton(
                   icon: Icons.keyboard_arrow_right_rounded,
                   radius: 38.0,
                   tooltip: textService.getText('uitext_attribute_increase'),
                   onPressed: () {
                     setState(() => controller.increase(statId));
+                    widget.onChanged?.call();
                   },
                 )
               : null,
@@ -132,39 +138,6 @@ class _AttributesWidgetState extends State<AttributesWidget> {
           itemBuilder: (context, index) =>
               _buildStat(attributes[index], textService),
         ),
-        if (controller?.hasPendingChanges == true) ...[
-          const SizedBox(height: 16),
-          Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 16,
-            runSpacing: 8,
-            children: [
-              EyuunWidgets.floatingActionButton(
-                icon: Icons.close,
-                width: 100.0,
-                height: 50.0,
-                tooltip: textService.getText('uitext_attribute_cancel'),
-                onPressed: () => setState(controller!.cancel),
-              ),
-              EyuunWidgets.floatingActionButton(
-                icon: Icons.check,
-                width: 100.0,
-                height: 50.0,
-                tooltip: textService.getText('uitext_attribute_accept'),
-                onPressed: () {
-                  try {
-                    controller!.accept();
-                    setState(() {});
-                  } on StateError catch (error) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(error.message)),
-                    );
-                  }
-                },
-              ),
-            ],
-          ),
-        ],
       ],
     );
   }

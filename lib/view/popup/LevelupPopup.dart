@@ -1,5 +1,6 @@
 import 'package:eyuunapp/view/widgets/BuffDisplay.dart';
 import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
+import 'package:eyuunapp/view/pages/LevelupPage.dart';
 import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/controller/LevelController.dart';
 import 'package:eyuuncore/core/services/TextService.dart';
@@ -65,6 +66,12 @@ class LevelupPopup extends StatelessWidget {
                       ? () {
                           levelController.levelup();
                           Navigator.of(context).pop();
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  LevelupPage(levelController: levelController),
+                            ),
+                          );
                         }
                       : null,
                 )),

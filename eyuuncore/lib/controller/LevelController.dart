@@ -47,6 +47,21 @@ class LevelController {
     _upgradable.applyUpgrade(nextLevel);
     _characterBase.level += 1;
 
+    _notifyChanged();
+  }
+
+  /// Reverts the last [levelup], removing the upgrade of the current level.
+  void leveldown() {
+    final currentLevel = _levelFeature.getLevelAsset(_characterBase.level);
+    if (currentLevel == null || !_upgradable.appliedUpgrades.remove(currentLevel)) {
+      throw Exception('Cannot level down, current level upgrade is not applied');
+    }
+    _characterBase.level -= 1;
+
+    _notifyChanged();
+  }
+
+  void _notifyChanged() {
     locator<EventBus>().fire(EntityUpdatedEvent(levelEntity, _characterBase));
     locator<EventBus>().fire(EntityUpdatedEvent(levelEntity, _upgradable));
     locator<WorldManager>().execute();
