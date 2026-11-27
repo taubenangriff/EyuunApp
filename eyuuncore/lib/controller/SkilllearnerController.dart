@@ -21,13 +21,11 @@ class SkillLearnerController {
   }
 
   int getMax(Entity skillEntity) {
-    var spent = skillLearner.getSpentSkillpoints();
+    var freePoints =
+        skillLearner.skillpoints.current - skillLearner.getSpentSkillpoints();
     var cap = skillLearner.skillCeiling.current;
     var currentlySkilled = skillLearner.getSkillValue(skillEntity.getTypeId());
-    return max(
-      min(cap, skillLearner.skillpoints.current - spent),
-      currentlySkilled,
-    );
+    return max(min(cap, currentlySkilled + freePoints), currentlySkilled);
   }
 
   int getMin(Entity? skillEntity) {
