@@ -22,7 +22,7 @@ import 'package:eyuuncore/core/services/TextService.dart';
 import 'package:eyuuncore/core/services/WorldManager.dart';
 import 'package:flutter/material.dart';
 
-import 'package:eyuunapp/view/controller/ChangeValueController.dart';
+import 'package:eyuunapp/view/controller/FluxController.dart';
 import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 import 'package:oxygen/oxygen.dart';
 
@@ -42,17 +42,7 @@ class _CombatPageState extends State<CombatPage> {
 
     var combat = character.get<CombatComponent>();
 
-    final fluxController = ChangeValueController(flux.fluxSpent,
-        maxLimit: flux.fluxCapacity.current,
-        minLimit: 0,
-        onValUpdated: (val) => flux.fluxSpent = val);
-    final fluxCapacityController = ChangeValueController(
-      flux.fluxCapacity.current,
-      maxLimit: flux.fluxMaximum.current,
-      minLimit: 0,
-      onValUpdated: (val) =>
-          flux.fluxCapacity.base = val - flux.fluxCapacity.upgrade,
-    );
+    final fluxController = FluxController(character);
 
     late double desiredSize = 1100;
 
@@ -144,8 +134,9 @@ class _CombatPageState extends State<CombatPage> {
             onPressed: () {
               PopupUtil.popup(
                   context,
-                  ChangeFluxPopup(fluxController, fluxCapacityController,
-                      onAccept: () {
+                  ChangeFluxPopup(fluxController.currentFluxController,
+                      fluxController.fluxCapacityController, onAccept: () {
+                    fluxController.accept();
                     setState(() {});
                   }),
                   header: locator<TextService>().getText('uitext_change_flux'),

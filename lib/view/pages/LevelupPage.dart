@@ -48,7 +48,7 @@ class _LevelupPageState extends State<LevelupPage> {
 
     _canUpgradeAttributes = _attributesController != null &&
         character.get<AttributesComponent>()!.statValues.any((entry) =>
-            AttributesController(character.get<AttributesComponent>()!)
+            AttributesController(character)
                 .upgradesPossible(entry.stat.getTypeId()));
 
     _currentStage =

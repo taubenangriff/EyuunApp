@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:eyuunapp/services/ImageService.dart';
-import 'package:eyuunapp/view/controller/ChangeValueController.dart';
+import 'package:eyuunapp/view/controller/FluxController.dart';
 import 'package:eyuunapp/view/popup/ChangeFluxPopup.dart';
 import 'package:eyuunapp/view/popup/ChangeHealthPopup.dart';
 import 'package:eyuunapp/view/popup/PopupUtil.dart';
@@ -72,17 +72,7 @@ class _CharacterPageState extends State<CharacterPage> {
     var flux = character.get<FluxComponent>()!;
     var languageLearner = character.get<LanguageLearnerComponent>();
 
-    final fluxController = ChangeValueController(flux.fluxSpent,
-        maxLimit: flux.fluxCapacity.current,
-        minLimit: 0,
-        onValUpdated: (val) => flux.fluxSpent = val);
-    final fluxCapacityController = ChangeValueController(
-      flux.fluxCapacity.current,
-      maxLimit: flux.fluxMaximum.current,
-      minLimit: 0,
-      onValUpdated: (val) =>
-          flux.fluxCapacity.base = val - flux.fluxCapacity.upgrade,
-    );
+    final fluxController = FluxController(character);
 
     var healthProgress = health.hitpoints / health.maxHitpoints.current;
     var fluxProgress = flux.fluxSpent / flux.fluxMaximum.current;
@@ -173,8 +163,9 @@ class _CharacterPageState extends State<CharacterPage> {
               locator<WorldManager>().world.execute(1);
               PopupUtil.popup(
                   context,
-                  ChangeFluxPopup(fluxController, fluxCapacityController,
-                      onAccept: () {
+                  ChangeFluxPopup(fluxController.currentFluxController,
+                      fluxController.fluxCapacityController, onAccept: () {
+                    fluxController.accept();
                     setState(() {});
                   }),
                   header: locator<TextService>().getText('uitext_change_flux'),

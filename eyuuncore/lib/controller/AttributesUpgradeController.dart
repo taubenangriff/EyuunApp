@@ -15,7 +15,7 @@ class AttributesUpgradeController {
   final Entity _character;
   final AttributesComponent _attributes;
   late final AttributesController _controller = AttributesController(
-    _attributes,
+    _character,
   );
   AttributesComponent? _draft;
   List<AttributeEntry>? _originalEntries;
@@ -44,7 +44,7 @@ class AttributesUpgradeController {
     final draft = _draft;
     if (draft == null) return _controller.upgradesPossible(statId);
     draft.maxDiceIncreases = _attributes.maxDiceIncreases;
-    return AttributesController(draft).upgradesPossible(statId);
+    return AttributesController.detached(draft).upgradesPossible(statId);
   }
 
   bool canDecrease(String statId) {
@@ -69,7 +69,7 @@ class AttributesUpgradeController {
             .toList()
         ..maxDiceIncreases = _attributes.maxDiceIncreases;
     }
-    AttributesController(_draft!).increaseOneStep(statId);
+    AttributesController.detached(_draft!).increaseOneStep(statId);
   }
 
   void decrease(String statId) {

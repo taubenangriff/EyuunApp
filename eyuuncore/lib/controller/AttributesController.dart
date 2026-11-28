@@ -1,18 +1,43 @@
+import 'package:event_bus/event_bus.dart';
+import 'package:eyuuncore/GetIt.dart';
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/enums/dice.dart';
+import 'package:eyuuncore/events/EntityUpdatedEvent.dart';
+import 'package:oxygen/oxygen.dart';
 
 class AttributesController {
-  late AttributesComponent _attributes;
+  final Entity? _entity;
+  final AttributesComponent _attributes;
 
-  AttributesController(AttributesComponent attributes) {
-    _attributes = attributes;
+  /// Throws an [ArgumentError] if [entity] has no [AttributesComponent].
+  AttributesController(Entity entity)
+    : _entity = entity,
+      _attributes =
+          entity.get<AttributesComponent>() ??
+          (throw ArgumentError.value(
+            entity,
+            'entity',
+            'Entity has no AttributesComponent',
+          ));
+
+  /// Operates on a detached [attributes] component (e.g. a draft). Fires no events.
+  AttributesController.detached(AttributesComponent attributes)
+    : _entity = null,
+      _attributes = attributes;
+
+  void _notifyChanged() {
+    final entity = _entity;
+    if (entity == null) return;
+    locator<EventBus>().fire(EntityUpdatedEvent(entity, _attributes));
   }
 
   /// Sets the dice for the Attribute with [statId] to [dice] while adhering to all rules.
   ///
   /// Throws an [Exception] if setting [statId] to this [dice] is against the rules.
-  void setDice(String statId, Dice dice) =>
-      _attributes.setStatEntry(statId, dice);
+  void setDice(String statId, Dice dice) {
+    _attributes.setStatEntry(statId, dice);
+    _notifyChanged();
+  }
 
   /// Sets the dice for the attribute with [statId] to [dice] while disregarding all rules.
   /// Throws an [ArgumentError] if the attribute does not exist.
@@ -22,6 +47,7 @@ class AttributesController {
       throw ArgumentError.value(statId, 'statId', 'Unknown attribute');
     }
     entry.dice = dice;
+    _notifyChanged();
   }
 
   /// Increases the dice of [statId]. Throws an [Exception] if that is against the rules.
@@ -34,6 +60,7 @@ class AttributesController {
       throw StateError('Cannot upgrade attribute $statId');
     }
     entry.dice = Dice.values[entry.dice.index + 1];
+    _notifyChanged();
   }
 
   /// Gets the list of dices that it is possible to set [statId] to while adhering to character creation rules.

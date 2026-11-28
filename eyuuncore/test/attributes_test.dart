@@ -33,17 +33,38 @@ void main() {
     late AttributesComponent attributes;
     late AttributesController controller;
     late AttributeEntry entry;
+    late EventBus eventBus;
+    late List<EntityUpdatedEvent> events;
 
     setUp(() {
-      final world = World()..registerComponent(() => StandardComponent());
+      final world = World()
+        ..registerComponent(() => StandardComponent())
+        ..registerComponent(() => AttributesComponent());
+      final character = world.createEntity()..add<AttributesComponent, int>();
       final stat = world.createEntity();
       stat.add<StandardComponent, String>();
       stat.get<StandardComponent>()!.typeId = 'strength';
       entry = AttributeEntry(stat, Dice.d4);
-      attributes = AttributesComponent()
+      attributes = character.get<AttributesComponent>()!
         ..statValues = [entry]
         ..maxDiceIncreases = 4.upgradable;
-      controller = AttributesController(attributes);
+      eventBus = EventBus(sync: true);
+      locator.registerSingleton<EventBus>(eventBus);
+      events = [];
+      eventBus.on<EntityUpdatedEvent>().listen(events.add);
+      controller = AttributesController(character);
+    });
+
+    tearDown(() {
+      eventBus.destroy();
+      locator.unregister<EventBus>();
+    });
+
+    test('fires an update event when changing dice', () {
+      controller.increaseOneStep('strength');
+      controller.setDiceGodmode('strength', Dice.d12);
+      expect(events.length, 2);
+      expect(events.every((e) => e.component == attributes), isTrue);
     });
 
     test('godmode sets any die regardless of the budget and limit', () {
