@@ -9,6 +9,9 @@
     "attribute": {
         "buffWhenUpgraded": {
             "id": "attribute_max_flux_buff"
+        },
+        "impactMultipliers": {
+            "Flux": 0.5
         }
     },
     "skillcheck": {

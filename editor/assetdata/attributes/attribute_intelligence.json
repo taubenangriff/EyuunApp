@@ -9,6 +9,10 @@
     "attribute": {
         "buffWhenUpgraded": {
             "id": "attribute_intelligence_buff"
+        },
+        "impactMultipliers": {
+            "LanguagePotential": 0.5,
+            "Flux": 0.5
         }
     },
     "skillcheck": {

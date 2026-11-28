@@ -1,4 +1,7 @@
 import 'package:eyuuncore/components/Armor.dart';
+import 'package:eyuuncore/GetIt.dart';
+import 'package:eyuuncore/components/Attribute.dart';
+import 'package:eyuuncore/components/feature/CharacterTables.dart';
 import 'package:eyuuncore/components/Attributes.dart';
 import 'package:eyuuncore/components/Combat.dart';
 import 'package:eyuuncore/components/Flux.dart';
@@ -6,6 +9,8 @@ import 'package:eyuuncore/components/LanguageLearner.dart';
 import 'package:eyuuncore/components/health.dart';
 import 'package:eyuuncore/components/inventory.dart';
 import 'package:eyuuncore/core/upgrading/UpgradableInt.dart';
+import 'package:eyuuncore/enums/AttributeImpactType.dart';
+import 'package:eyuuncore/enums/dice.dart';
 import 'package:oxygen/oxygen.dart';
 
 class CharacterGenerateStatsController {
@@ -31,31 +36,34 @@ class CharacterGenerateStatsController {
     inventoryComponent = _entity.get<InventoryComponent>();
   }
 
+  /// Sums dice value * impact multiplier of [type] over all attributes of the character.
+  int _aggregateImpact(AttributeImpactType type) {
+    int total = 0;
+    for (final entry in attributesComponent.statValues) {
+      final impact = entry.stat.get<AttributeComponent>()?.getImpact(type);
+      if (impact == null) continue;
+      var toAdd = entry.dice.getValue() * impact;
+      total += toAdd.round();
+    }
+    return total;
+  }
+
   int getLanguagePotential() =>
-      (attributesComponent.getDiceValue('baseSkill_Intelligence') / 2).round();
+      _aggregateImpact(AttributeImpactType.LanguagePotential);
 
-  int getEvasion() =>
-      (attributesComponent.getDiceValue('baseSkill_Agility') / 2).round();
+  int getEvasion() => _aggregateImpact(AttributeImpactType.Evasion);
 
-  int getNaturalArmor() =>
-      (attributesComponent.getDiceValue('baseSkill_Strength') / 2).round();
+  int getNaturalArmor() => _aggregateImpact(AttributeImpactType.NaturalArmor);
 
   int getMaxHealth() =>
-      15 +
-      2 *
-          (attributesComponent.getDiceValue('baseSkill_Courage') +
-              attributesComponent.getDiceValue('baseSkill_Constitution') +
-              attributesComponent.getDiceValue('baseSkill_Strength'));
+      locator<CharacterTablesFeatureComponent>().baseHealth +
+      _aggregateImpact(AttributeImpactType.Health);
 
-  int getFlux() =>
-      (0.5 *
-              (attributesComponent.getDiceValue('baseSkill_Intelligence') +
-                  attributesComponent.getDiceValue('baseSkill_Intuition') +
-                  attributesComponent.getDiceValue('baseSkill_Charisma')))
-          .round();
+  int getFlux() => _aggregateImpact(AttributeImpactType.Flux);
 
   int getInventoryCapacity() =>
-      2 + (attributesComponent.getDiceValue('baseSkill_Strength') / 2).round();
+      locator<CharacterTablesFeatureComponent>().baseInventoryCapacity +
+      _aggregateImpact(AttributeImpactType.Inventory);
 
   void finalizeStats() {
     healthComponent?.maxHitpoints = getMaxHealth().upgradable;

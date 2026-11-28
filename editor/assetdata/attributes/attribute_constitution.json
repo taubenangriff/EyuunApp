@@ -6,7 +6,11 @@
     "text": {
         "short": "text_Constitution_short"
     },
-    "attribute": { },
+    "attribute": { 
+        "impactMultipliers": {
+            "Health": 2
+        }
+    },
     "skillcheck": {
         "checkedAttributes": [
             {

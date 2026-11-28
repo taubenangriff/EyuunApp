@@ -9,6 +9,11 @@
     "attribute": {
         "buffWhenUpgraded": {
             "id": "attribute_strength_buff"
+        },
+        "impactMultipliers": {
+            "Health": 2,
+            "Inventory": 0.5,
+            "NaturalArmor": 0.5
         }
     },
     "skillcheck": {

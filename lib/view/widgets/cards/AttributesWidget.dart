@@ -33,6 +33,9 @@ class AttributesWidget extends StatefulWidget {
 }
 
 class _AttributesWidgetState extends State<AttributesWidget> {
+  static const double _leftPadding = 80;
+  static const double _paddingMinWidth = 300;
+
   late final StreamSubscription<EntityUpdatedEvent> _updates;
 
   @override
@@ -60,35 +63,37 @@ class _AttributesWidgetState extends State<AttributesWidget> {
     final buff = item.stat.get<AttributeComponent>()?.buffWhenUpgraded;
     final row = Row(
       children: [
-        SizedBox(
-          width: 48,
-          child: widget.showUpgradeButtons && controller.canDecrease(statId)
-              ? EyuunWidgets.circularFloatingActionButton(
-                  icon: Icons.keyboard_arrow_left_rounded,
-                  radius: 38.0,
-                  tooltip: textService.getText('uitext_attribute_decrease'),
-                  onPressed: () {
-                    setState(() => controller.decrease(statId));
-                    widget.onChanged?.call();
-                  },
-                )
-              : null,
-        ),
+        if (widget.showUpgradeButtons)
+          SizedBox(
+            width: 48,
+            child: controller.canDecrease(statId)
+                ? EyuunWidgets.circularFloatingActionButton(
+                    icon: Icons.keyboard_arrow_left_rounded,
+                    radius: 38.0,
+                    tooltip: textService.getText('uitext_attribute_decrease'),
+                    onPressed: () {
+                      setState(() => controller.decrease(statId));
+                      widget.onChanged?.call();
+                    },
+                  )
+                : null,
+          ),
         DiceIcon(type: item.dice, size: 52),
-        SizedBox(
-          width: 48,
-          child: widget.showUpgradeButtons && controller.canIncrease(statId)
-              ? EyuunWidgets.circularFloatingActionButton(
-                  icon: Icons.keyboard_arrow_right_rounded,
-                  radius: 38.0,
-                  tooltip: textService.getText('uitext_attribute_increase'),
-                  onPressed: () {
-                    setState(() => controller.increase(statId));
-                    widget.onChanged?.call();
-                  },
-                )
-              : null,
-        ),
+        if (widget.showUpgradeButtons)
+          SizedBox(
+            width: 48,
+            child: controller.canIncrease(statId)
+                ? EyuunWidgets.circularFloatingActionButton(
+                    icon: Icons.keyboard_arrow_right_rounded,
+                    radius: 38.0,
+                    tooltip: textService.getText('uitext_attribute_increase'),
+                    onPressed: () {
+                      setState(() => controller.increase(statId));
+                      widget.onChanged?.call();
+                    },
+                  )
+                : null,
+          ),
         EyuunWidgets.spacerHorizontal(),
         Expanded(
           child: InkWell(
@@ -111,7 +116,15 @@ class _AttributesWidgetState extends State<AttributesWidget> {
         ),
       ],
     );
-    return row;
+    if (widget.showUpgradeButtons) return row;
+    return LayoutBuilder(
+      builder: (context, constraints) => Padding(
+        padding: EdgeInsets.only(
+          left: constraints.maxWidth >= _paddingMinWidth ? _leftPadding : 0,
+        ),
+        child: row,
+      ),
+    );
   }
 
   @override

@@ -4,12 +4,12 @@ import 'package:eyuunapp/view/widgets/EyuunWidgets.dart';
 
 class StatItem extends StatelessWidget {
   final IconData icon;
-  final String label;
+  final String? label;
   final int value;
 
   const StatItem({
     required this.icon,
-    required this.label,
+    this.label,
     required this.value,
   });
 
@@ -24,14 +24,16 @@ class StatItem extends StatelessWidget {
           color: Theme.of(context).colorScheme.primary,
         ),
         EyuunWidgets.spacerHorizontal(),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.grey.shade400,
+        if (label != null) ...[
+          Text(
+            label!,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey.shade400,
+            ),
           ),
-        ),
-        EyuunWidgets.spacerHorizontal(),
+          EyuunWidgets.spacerHorizontal(),
+        ],
         Text(
           value.toString(),
           style: const TextStyle(

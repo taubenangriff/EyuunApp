@@ -9,6 +9,9 @@
     "attribute": {
         "buffWhenUpgraded": {
             "id": "attribute_agility_upgrade_buff"
+        },
+        "impactMultipliers": {
+            "Evasion": 0.5
         }
     },
     "skillcheck": {

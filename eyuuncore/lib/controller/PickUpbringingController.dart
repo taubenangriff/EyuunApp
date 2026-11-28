@@ -1,8 +1,10 @@
 import 'package:event_bus/event_bus.dart';
 import 'package:eyuuncore/components/CharacterBase.dart';
+import 'package:eyuuncore/components/Combat.dart';
 import 'package:eyuuncore/components/Upbringing.dart';
 import 'package:eyuuncore/components/feature/CharacterTables.dart';
 import 'package:eyuuncore/core/services/CharacterService.dart';
+import 'package:eyuuncore/core/upgrading/UpgradableInt.dart';
 import 'package:eyuuncore/enums/PersonSize.dart';
 import 'package:eyuuncore/events/EntityUpdatedEvent.dart';
 import 'package:oxygen/oxygen.dart';
@@ -17,10 +19,11 @@ class PickUpbringingController {
   Entity? get buffProvidingUpbringing => _buffProvidingUpbringing;
 
   CharacterBaseComponent characterBase;
+  CombatComponent combat;
 
   PersonSize? selectedSize;
 
-  PickUpbringingController(this.characterBase);
+  PickUpbringingController(this.characterBase, this.combat);
 
   List<PersonSize> getPossibleSizes() {
     var fromUpbringing =
@@ -106,6 +109,10 @@ class PickUpbringingController {
     if (selectedUpbringing == null) {
       throw StateError("The main Upbringing has not yet been picked!");
     }
+    if (selectedSize == null) {
+      throw StateError("The Character's size has not yet been selected!");
+    }
+
     characterBase.visualUpbringings.clear();
 
     characterBase.upbringing = buffProvidingUpbringing!;
@@ -115,5 +122,9 @@ class PickUpbringingController {
     if (visualUpbringing != null) {
       characterBase.visualUpbringings.add(visualUpbringing);
     }
+    var speed = locator<CharacterTablesFeatureComponent>().getSpeed(
+      selectedSize!,
+    );
+    combat.speed = speed.upgradable;
   }
 }

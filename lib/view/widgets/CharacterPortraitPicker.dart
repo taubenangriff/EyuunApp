@@ -54,6 +54,10 @@ class _CharacterPortraitPickerState extends State<CharacterPortraitPicker> {
     var sizes = widget.upbringingController.getPossibleSizes();
     var textService = locator<TextService>();
 
+    if (sizes.length == 1) {
+      widget.upbringingController.selectedSize = sizes.first;
+    }
+
     return Focus(
       autofocus: true,
       child: Center(

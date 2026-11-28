@@ -20,6 +20,13 @@
     },
     "spells": {
       "id": "all_spells_pool"
+    },
+    "baseHealth": 15,
+    "baseInventoryCapacity": 2,
+    "speedBySize": {
+      "Normal": 6,
+      "Small": 5,
+      "VerySmall": 4
     }
   }
 }

@@ -64,8 +64,9 @@ class _CreateCharacterPageState extends State<CreateCharacterPage> {
 
   late var pathController = PathController(character);
   late var characterBaseComponent = character.get<CharacterBaseComponent>()!;
+  late var combat = character.get<CombatComponent>()!;
   late var upbringingController =
-      PickUpbringingController(characterBaseComponent);
+      PickUpbringingController(characterBaseComponent, combat);
   late var skillLearnerComponent = character.get<SkillLearnerComponent>();
   late var skillLearnerController =
       SkillLearnerController(entity: character, allowDowngrades: true);

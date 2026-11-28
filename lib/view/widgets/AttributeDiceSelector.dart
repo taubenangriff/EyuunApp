@@ -1,4 +1,6 @@
+import 'package:eyuuncore/components/Attribute.dart';
 import 'package:eyuuncore/components/Attributes.dart';
+import 'package:eyuuncore/enums/AttributeImpactType.dart';
 import 'package:eyuuncore/controller/CreateAttributesController.dart';
 import 'package:eyuuncore/controller/CharacterGenerateStatsController.dart';
 import 'package:eyuuncore/core/components/EntityExtensions.dart';
@@ -10,6 +12,15 @@ import 'package:flutter/material.dart';
 import 'package:eyuunapp/view/widgets/DiceIcon.dart'; // your custom widget
 import 'package:eyuunapp/view/widgets/StatItem.dart';
 import 'package:oxygen/oxygen.dart'; // your custom widget
+
+const Map<AttributeImpactType, IconData> _impactIcons = {
+  AttributeImpactType.Health: Icons.favorite,
+  AttributeImpactType.Flux: Icons.water,
+  AttributeImpactType.NaturalArmor: Icons.shield,
+  AttributeImpactType.LanguagePotential: Icons.speaker_notes,
+  AttributeImpactType.Evasion: Icons.shield_outlined,
+  AttributeImpactType.Inventory: Icons.inventory_2,
+};
 
 class AttributeDiceSelector extends StatefulWidget {
   final Entity character;
@@ -29,6 +40,31 @@ class _AttributeDiceSelectorState extends State<AttributeDiceSelector> {
       CreateAttributesController(widget._attributes);
   late final characterGenerateStatsController =
       CharacterGenerateStatsController(widget.character);
+
+  String _formatNumber(double value) => value == value.roundToDouble()
+      ? value.round().toString()
+      : value.toString();
+
+  Widget _buildImpacts(AttributeEntry entry) {
+    final attribute = entry.stat.get<AttributeComponent>();
+    if (attribute == null) return const SizedBox.shrink();
+    return Wrap(
+      spacing: 8,
+      children: [
+        for (final type in AttributeImpactType.values)
+          if (attribute.hasImpact(type))
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(_impactIcons[type], size: 24),
+                const SizedBox(width: 2),
+                Text(
+                    "+${_formatNumber(entry.dice.getValue() * attribute.getImpact(type))}"),
+              ],
+            ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,12 +98,18 @@ class _AttributeDiceSelectorState extends State<AttributeDiceSelector> {
                     ConstrainedBox(
                         constraints:
                             BoxConstraints(maxWidth: aboveMinimal ? 200 : 90),
-                        child: Text(
-                          "${textService.getTextFromEntity(entry.stat)}",
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.copyWith(fontWeight: FontWeight.bold),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              textService.getTextFromEntity(entry.stat),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(fontWeight: FontWeight.bold),
+                            ),
+                            _buildImpacts(entry),
+                          ],
                         )),
                     Spacer(),
                     SegmentedButton<Dice>(
@@ -106,29 +148,36 @@ class _AttributeDiceSelectorState extends State<AttributeDiceSelector> {
         alignment: WrapAlignment.spaceEvenly,
         children: [
           StatItem(
-            icon: Icons.health_and_safety,
-            label: 'Health (15 + 2*MU + 2*KO + 2*KK):',
-            value: characterGenerateStatsController.getMaxHealth(),
-          ),
-          StatItem(
-            icon: Icons.water,
-            label: 'Flux (KL/2 + IN/2 + CH/2):',
-            value: characterGenerateStatsController.getFlux(),
-          ),
-          StatItem(
-            icon: Icons.shield,
-            label: 'Natural Armor (KK / 2):',
-            value: characterGenerateStatsController.getNaturalArmor(),
-          ),
-          StatItem(
             icon: Icons.speaker_notes,
-            label: 'Language Potential (KL / 2):',
+            label: textService
+                .getText('uitext_initattributes_stat_language_potential'),
             value: characterGenerateStatsController.getLanguagePotential(),
           ),
           StatItem(
             icon: Icons.shield_outlined,
-            label: 'Evasion (GE / 2):',
+            label: textService.getText('uitext_initattributes_stat_evasion'),
             value: characterGenerateStatsController.getEvasion(),
+          ),
+          StatItem(
+            icon: Icons.shield,
+            label:
+                textService.getText('uitext_initattributes_stat_natural_armor'),
+            value: characterGenerateStatsController.getNaturalArmor(),
+          ),
+          StatItem(
+            icon: Icons.favorite,
+            label: textService.getText('uitext_initattributes_stat_health'),
+            value: characterGenerateStatsController.getMaxHealth(),
+          ),
+          StatItem(
+            icon: Icons.water,
+            label: textService.getText('uitext_initattributes_stat_flux'),
+            value: characterGenerateStatsController.getFlux(),
+          ),
+          StatItem(
+            icon: Icons.inventory_2,
+            label: textService.getText('uitext_initattributes_stat_inventory'),
+            value: characterGenerateStatsController.getInventoryCapacity(),
           ),
         ],
       ),
